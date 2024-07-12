@@ -1,3 +1,5 @@
+<%@page import="member.model.AttendBean"%>
+<%@page import="member.model.MemberBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -7,16 +9,12 @@
 	float: center;
 }
 </style>
-
-    <div align="center">
-
-
 <script type="text/javascript">
     function getTime() {
         var d = new Date();
-        var hur = d.getHours();
-        var min = d.getMinutes();
-        var sec = d.getSeconds();
+        var hur = d.getHours().toString().padStart(2,'0');
+        var min = d.getMinutes().toString().padStart(2,'0');
+        var sec = d.getSeconds().toString().padStart(2,'0');
         var timeBoard = document.getElementById("Now_Time");
         var time = hur + ":" + min + ":" + sec;
         timeBoard.innerHTML = time;
@@ -105,7 +103,7 @@
     }
 </script>
 
-					<%
+<%
     String att_sdate = (String)session.getAttribute("att_sdate");
     if(att_sdate == null){
         att_sdate = "미등록";
@@ -116,48 +114,51 @@
     }
 %>
 
+<div align="center">
+	<body onload="getTime()">
+	<h2 id="Now_Time"></h2>
 
-					<body onload="getTime()">
-						<h2 id="Now_Time"></h2>
+	출석시간 :
+	<%=att_sdate %><br> 
+	퇴실시간 :
+	<%=att_fdate %><br>
 
-						출석시간 :
-						<%=att_sdate %><br> 
-						퇴실시간 :
-						<%=att_fdate %><br>
+<%
+	String check_flag = (String)session.getAttribute("check_flag");		//MemberBean.getMem_num()
 
-						<%
-    String check_flag = (String)session.getAttribute("check_flag");
     if(check_flag == null) {
-        check_flag = ""; // check_flag가 null인 경우 빈 문자열로 설정
+    	check_flag = ""; // check_flag가 null인 경우 빈 문자열로 설정
     }
 
     if(check_flag.equals("")) {    //아직 출석 안함
 %>
-						<!-- 출석하기 Button -->
-						<form name="checkInForm" id="checkInForm" method="post"
-							action="start.student?mem_num=${loginInfo.mem_num}&mem_ip=${loginInfo.mem_ip}&mem_latitude=${loginInfo.mem_latitude}&mem_longitude=${loginInfo.mem_longitude}">
-							<input type="hidden" name="ipAddress" id="ipAddress_in">
-							<input type="hidden" name="latitude" id="latitude_in"> <input
-								type="hidden" name="longitude" id="longitude_in">
-							<button type="button" onclick="getInformation_in()"
-								class="btn btn-gradient-primary btn-rounded btn-fw">출근하기</button>
-						</form>
+
+		<!-- 출석하기 Button -->
+		<form name="checkInForm" id="checkInForm" action="start.student?mem_num=${loginInfo.mem_num}&mem_ip=${loginInfo.mem_ip}&mem_latitude=${loginInfo.mem_latitude}&mem_longitude=${loginInfo.mem_longitude}" method="post">
+	
+			<input type="hidden" name="ipAddress" id="ipAddress_in">
+			<input type="hidden" name="latitude" id="latitude_in"> 
+			<input type="hidden" name="longitude" id="longitude_in">
+			<button type="button" onclick="getInformation_in()"class="btn btn-gradient-primary btn-rounded btn-fw">
+				출석하기
+			</button>
+		</form>
+		
 <%
-    } else if(check_flag.equals("success")) {    //출석 성공
+	} else if(check_flag.equals("success")) {    //출석 성공
 %>
-						<!-- 퇴실하기 Button -->
-						<form name="checkOutForm" id="checkOutForm"
-							action="fin.student?mem_num=${loginInfo.mem_num}&mem_ip=${loginInfo.mem_ip}&mem_latitude=${loginInfo.mem_latitude}&mem_longitude=${loginInfo.mem_longitude}"
-							method="post">
-							<input type="hidden" name="ipAddress" id="ipAddress_out">
-							<input type="hidden" name="latitude" id="latitude_out"> <input
-								type="hidden" name="longitude" id="longitude_out">
-							<button type="button" onclick="getInformation_out()" class="btn btn-gradient-dark btn-rounded btn-fw">퇴근하기</button>
-						</form>
-						<%        
+		<!-- 퇴실하기 Button -->
+		<form name="checkOutForm" id="checkOutForm" action="fin.student?mem_num=${loginInfo.mem_num}&mem_ip=${loginInfo.mem_ip}&mem_latitude=${loginInfo.mem_latitude}&mem_longitude=${loginInfo.mem_longitude}" method="post">
+
+			<input type="hidden" name="ipAddress" id="ipAddress_out">
+			<input type="hidden" name="latitude" id="latitude_out"> 
+			<input type="hidden" name="longitude" id="longitude_out">
+			<button type="button" onclick="getInformation_out()" class="btn btn-gradient-dark btn-rounded btn-fw">
+				퇴실하기
+			</button>
+		</form>
+<%        
     }
 %>
-					</body>
-
-				</div>
-				<hr>
+	</body>
+</div>

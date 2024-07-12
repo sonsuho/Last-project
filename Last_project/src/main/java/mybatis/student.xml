@@ -5,6 +5,7 @@
   
 <mapper namespace="student.model.Student">
 
+
 	<select id="getStudentByLec_Num" resultType="member.model.MemberBean">
 		
 		select * from member where lec_num = #{lec_num} and category = 'student'
@@ -17,12 +18,13 @@
 		
 	</select>
 	
+	  <!-- 근태관리 -->
 	<!-- select att_num / 조건 : mem_num, ip 내림차순 정렬(att_num) 최상단(가장 나중에 insert한 att_num 하나만 가져온다 -->
-	<select id="getAttendPrimaryKey" resultType="student.model.AttendBean">
+	<select id="getAttendPrimaryKey" resultType="member.model.AttendBean">
 		select att_num from attend where mem_num = #{mem_num} and ip = #{mem_ip} order by att_num desc FETCH FIRST 1 ROW ONLY
 	</select>
 	
-	<select id="getAttendListByAtt_num" resultType="student.model.AttendBean">
+	<select id="getAttendListByAtt_num" resultType="member.model.AttendBean">
 		select * from attend where att_num = #{att_num}
 	</select>
 
@@ -63,9 +65,18 @@
     </choose>
     where att_num = #{att_num}
   </update>
-  
+  <select id="getAttendListByMem_num" resultType="member.model.AttendBean">
+		select * from attend where mem_num = #{mem_num} order by att_sdate desc
+	</select>
+    <!-- 근태관리 -->
+    
   <insert id="studentReqInsert">
 		insert into request values(req_seq.nextval, #{mem_num}, #{category}, #{time1}, #{time2}, #{reason}, #{sign})
   </insert>
 	
+	 <!-- calendar -->
+    <select id="getAllSchedules" resultType="manager.model.mCalendarBean">
+		select * from calendar
+	</select>
+	<!-- calendar -->
 </mapper>

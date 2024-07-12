@@ -4,6 +4,18 @@
 
 	<!-- studentBarTop.jsp -->
 
+<script>
+	function checkAttend(situ){
+		if(situ == '수업중'){
+			alert(" '퇴근하기'를 완료하시고 로그아웃하셔야합니다.");
+			location.href = "home.teacher";
+		}
+		if(situ != '수업중'){
+			location.href = "logout.in";
+		}
+	}
+</script>
+
 	<!-- plugins:css -->
 	<link rel="stylesheet" href="resources/assets/vendors/mdi/css/materialdesignicons.min.css">
 	<link rel="stylesheet" href="resources/assets/vendors/ti-icons/css/themify-icons.css">
@@ -51,8 +63,13 @@
 		              <i class="mdi mdi-power"></i>
 		            </a>
 		       		</c:if>
-		          <c:if test="${loginInfo != null}">
-		            <a class="nav-link" href="logout.in">
+		           <c:if test="${loginInfo != null}">
+		           <%
+		          	//AttendController session
+		          	String situ = (String)session.getAttribute("situ");
+		           
+		        	%>
+		           <a class="nav-link" onclick="checkAttend('<%=situ%>')">
 		              <i class="mdi mdi-power"></i>
 		            </a>
 		       		</c:if>
@@ -94,7 +111,7 @@
 						</li>
 						
 						<!-- 사이드바 출석 정보 -->
-						<%@ include file="../all/attendanceCheck.jsp" %>
+						<%@ include file="teacherAttendanceCheck.jsp" %>
 						
 						<!-- 사이드바 메인 메뉴 -->
 						<li class="nav-item">
@@ -114,7 +131,7 @@
 							<div class="collapse" id="menu1">
 								<ul class="nav flex-column sub-menu">
 									<li class="nav-item">
-										<a class="nav-link" href="">내 근태 현황</a>
+										<a class="nav-link" href="attStatus.teacher?mem_num=${loginInfo.mem_num}">내 근태 현황</a>
 									</li>
 								</ul>
 							</div>
