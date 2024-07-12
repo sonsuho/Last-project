@@ -139,14 +139,20 @@
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" data-bs-toggle="collapse" href="#menu3" aria-expanded="false" aria-controls="menu3"> 
-								<span class="menu-title">강좌관리</span> 
+								<span class="menu-title">수업관리</span> 
 								<i class="menu-arrow"></i> 
 								<i class="mdi mdi-crosshairs-gps menu-icon"></i>
 							</a>
 							<div class="collapse" id="menu3">
 								<ul class="nav flex-column sub-menu">
 									<li class="nav-item">
-										<a class="nav-link" href="lectureEval.manager">강의평가</a>
+										<a class="nav-link" href="lectureList.manager">내 수업 정보</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="">테스트</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="">강의평가</a>
 									</li>
 								</ul>
 							</div>

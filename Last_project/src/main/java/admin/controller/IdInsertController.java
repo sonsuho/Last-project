@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,8 @@ public class IdInsertController {
                            @RequestParam("category") List<String> category,
                            @RequestParam("phone") List<String> phone,
                            @RequestParam("email") List<String> email) {
+		
+		
 		List<MemberBean> list = new ArrayList<MemberBean>();
         for (int i = 0; i < name.size(); i++) {
             MemberBean mb = new MemberBean();
@@ -51,7 +54,6 @@ public class IdInsertController {
             mb.setCategory(category.get(i));
             mb.setPhone(phone.get(i));
             mb.setEmail(email.get(i));
-            mb.setState("근무");
             list.add(mb);
         }
         printList(list);
@@ -62,6 +64,7 @@ public class IdInsertController {
 	@ResponseBody
 	@RequestMapping(value=command2, method=RequestMethod.POST)
 	public String excelInsert(MultipartHttpServletRequest request, MultipartFile mfile) {
+		System.out.println("excelInsert.admin POST 요청");
 		MultipartFile excelFile = request.getFile("excelInput");
 		if(excelFile==null||excelFile.isEmpty()){
 			System.out.println("엑셀파일을 선택해 주세요");
@@ -80,10 +83,7 @@ public class IdInsertController {
 		IdExcelReader excelReader = new IdExcelReader();
 		
 		String extention = StringUtils.getFilenameExtension(filePath);
-		if(extention.equals("xls")) {
-			List<MemberBean> list = excelReader.xlsToList(filePath);
-			printList(list);
-		} else if(extention.equals("xlsx")) {
+		if(extention.equals("xlsx")) {
 			List<MemberBean> list = excelReader.xlsxToList(filePath);
 			printList(list);
 		}
@@ -94,6 +94,7 @@ public class IdInsertController {
 
 	private void printList(List<MemberBean> list) {
 		for(MemberBean mb : list) {
+			mb.setLec_num(null);
 			mb.setState("근무");
 			String pw = mb.getPw();
 			String encryPassword = Sha256.encrypt(pw);

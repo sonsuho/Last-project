@@ -26,7 +26,11 @@ public class MemberDao {
 	} //getMemberByCate
 	
 	public void idInsert(MemberBean mb) {
-		sqlSessionTemplate.update(namespace+".idInsert", mb);
+		System.out.println("lec_num : " + mb.getLec_num());
+		if(mb.getLec_num() == null) {
+			mb.setLec_num("0");
+		}
+		sqlSessionTemplate.insert(namespace+".idInsert", mb);
 	} //idInsert
 	
 	public List<MemberBean> getEmplList(Paging pageInfo, Map<String,String> map){
@@ -99,6 +103,25 @@ public class MemberDao {
 		}
 		
 		return list;
+	}
+	
+	public List<MemberBean> getStudentByLecNum(int lec_num){
+		List<MemberBean> members = new ArrayList<MemberBean>();
+		members = sqlSessionTemplate.selectList(namespace+".getStudentByLecNum", lec_num);
+		return members;
+	}
+	
+	public int updateLecNum(Map<String,String> map) {
+		int cnt = -1;
+		cnt = sqlSessionTemplate.update(namespace+".updateLecNum", map);
+		return cnt;
+	}
+	
+	public int getStudent(int lec_num) {
+		int cnt = -1;
+		System.out.println("getStudent lec_num : " + lec_num);
+		cnt = sqlSessionTemplate.selectOne(namespace+".getStudent", lec_num);
+		return cnt;
 	}
 	
 }

@@ -30,31 +30,12 @@
 	.card-body {
 	  min-height: 70vh; /* viewport 높이의 50% */
 	}
+	
+	.modal-dialog {
+	  max-width: 35%; /* 모달의 최대 너비를 화면의 35%로 설정 */
+	  margin: 1.75rem auto;
+	}
 	</style>
-
-	<script type="text/javascript">
-    function allCheck(obj) {
-        var rc = document.getElementsByName("rowcheck");
-        for (var i = 0; i < rc.length; i++) {
-            rc[i].checked = obj.checked;
-        }
-    }
-
-    function selectDel() {
-        var rc = document.getElementsByName("rowcheck");
-        var flag = false;
-        for (var i = 0; i < rc.length; i++) {
-            if (rc[i].checked) {
-                flag = true;
-            }
-        }
-        if (flag) {
-            document.deleteForm.submit();
-        } else {
-            alert('선택된 항목이 없습니다');
-        }
-    }
-	</script>
 
   	<div class="page-header">
     	<h3 class="page-title">회원목록</h3>
@@ -100,30 +81,57 @@
 	                <th>카테고리</th>
 	                <th>전화번호</th>
 	                <th>이메일</th>
+	                <th>상태</th>
 		          </tr>
 	            </thead>
 	            <tbody>
 	              <c:forEach var="empl" items="${emplList}">
-	                <tr>
+	                <tr data-bs-target="#staticBackdrop" data-mem-num="${empl.mem_num}">
 	                  <td><input type="checkbox" name="rowcheck" value="${empl.mem_num}" class="form-check-input"></td>
 	                  <td>${empl.mem_num}</td>
-                      <td>${empl.name}</td>
-                      <td>${empl.id}</td>
-                      <td>
-                    	<c:if test="${empl.category eq 'manager'}">매니저</c:if>
-                    	<c:if test="${empl.category eq 'teacher'}">강사</c:if>
-                      </td>
-                      <td>${fn:substring(empl.phone,0,3)}-${fn:substring(empl.phone,3,7)}-${fn:substring(empl.phone,7,11)}</td>
-                      <td>${empl.email}</td>
+                    <td>${empl.name}</td>
+                    <td>${empl.id}</td>
+                    <td>
+	                   	<c:if test="${empl.category eq 'manager'}">매니저</c:if>
+	                   	<c:if test="${empl.category eq 'teacher'}">강사</c:if>
+                    </td>
+                    <td>${fn:substring(empl.phone,0,3)}-${fn:substring(empl.phone,3,7)}-${fn:substring(empl.phone,7,11)}</td>
+                    <td>${empl.email}</td>
+                    <td><label class="badge badge-<c:if test="${empl.state eq '근무'}">info</c:if>">${empl.state}</label></td>
 	                </tr>
 	              </c:forEach>
 	            </tbody>
 	          </table>
 	        </form>
          	<center>${pageInfo.pagingHtml}</center>
+					
 	      </div>
 	    </div>
 	  </div>
 	</div>
+	
+	<script type="text/javascript">
+    function allCheck(obj) {
+        var rc = document.getElementsByName("rowcheck");
+        for (var i = 0; i < rc.length; i++) {
+            rc[i].checked = obj.checked;
+        }
+    }
+
+    function selectDel() {
+        var rc = document.getElementsByName("rowcheck");
+        var flag = false;
+        for (var i = 0; i < rc.length; i++) {
+            if (rc[i].checked) {
+                flag = true;
+            }
+        }
+        if (flag) {
+            document.deleteForm.submit();
+        } else {
+            alert('선택된 항목이 없습니다');
+        }
+    }
+	</script>
 
 <%@ include file="adminBarBottom.jsp" %>

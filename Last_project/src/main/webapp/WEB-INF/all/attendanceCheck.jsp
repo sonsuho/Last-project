@@ -14,9 +14,9 @@
 <script type="text/javascript">
     function getTime() {
         var d = new Date();
-        var hur = d.getHours();
-        var min = d.getMinutes();
-        var sec = d.getSeconds();
+        var hur = d.getHours().toString().padStart(2,'0');
+        var min = d.getMinutes().toString().padStart(2,'0');
+        var sec = d.getSeconds().toString().padStart(2,'0');
         var timeBoard = document.getElementById("Now_Time");
         var time = hur + ":" + min + ":" + sec;
         timeBoard.innerHTML = time;

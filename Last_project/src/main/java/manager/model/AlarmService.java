@@ -8,6 +8,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import manager.model.AlarmDAO;
+import manager.model.AlarmVO;
+import manager.model.InterAlarmDAO;
+
 @Service
 public class AlarmService implements InterAlarmService {
 

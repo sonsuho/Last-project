@@ -5,10 +5,12 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import login.model.LoginBean;
@@ -31,7 +33,11 @@ public class LoginController {
 	}
 																	// login.in post 요청 받아서 
 	@RequestMapping(value = command, method = RequestMethod.POST)
-	public ModelAndView login(@ModelAttribute(value = "login") @Valid LoginBean lb, BindingResult result, HttpSession session) {
+	public ModelAndView login(@ModelAttribute(value = "login") @Valid LoginBean lb, BindingResult result, HttpSession session,
+							  @RequestParam(value="eye", required=false) String eye, Model model) {
+		
+		System.out.println("eye : " + eye);
+		model.addAttribute("eye",eye);
 		
 		ModelAndView mav = new ModelAndView();
 		

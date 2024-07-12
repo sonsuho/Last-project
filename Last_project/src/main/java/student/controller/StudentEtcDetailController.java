@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import manager.model.EtcBean;
+import manager.model.EtcDao;
 import member.model.MemberBean;
 import member.model.MemberDao;
 import student.model.SEtcBean;

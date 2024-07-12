@@ -15,21 +15,18 @@ public class MemberBean {
 	private int vacationNum;
 	private String mem_ip;
 	private double mem_latitude;
-	
 	public double getMem_latitude() {
 		return mem_latitude;
 	}
 	public void setMem_latitude(double mem_latitude) {
 		this.mem_latitude = mem_latitude;
 	}
-	
 	public double getMem_longitude() {
 		return mem_longitude;
 	}
 	public void setMem_longitude(double mem_longitude) {
 		this.mem_longitude = mem_longitude;
 	}
-	
 	private double mem_longitude;
 	
 	public String getMem_ip() {
@@ -38,7 +35,6 @@ public class MemberBean {
 	public void setMem_ip(String mem_ip) {
 		this.mem_ip = mem_ip;
 	}
-	
 	public int getMem_num() {
 		return mem_num;
 	}

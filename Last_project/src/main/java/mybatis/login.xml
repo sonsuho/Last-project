@@ -6,13 +6,11 @@
 <mapper namespace="login.model.Login">
 
 	<select id="getInfoById" resultType="member.model.MemberBean">
-		
 		select * from member where id = #{id}
-		
 	</select>
 	
 	<select id="getInfoListByCategory" resultType="member.model.MemberBean">
 		select * from member where category like #{category}
 	</select>
-	
+
 </mapper>

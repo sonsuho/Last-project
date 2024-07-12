@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import manager.model.EtcDao;
+import manager.model.RequestDao;
 import member.model.MemberBean;
 import student.model.SEtcDao;
 import student.model.SRequestDao;

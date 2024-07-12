@@ -4,21 +4,36 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="lecture.model.Lecture">
-	
-	<select id="getClassNameByLec" resultType="java.lang.String">
-		
-		select lec_name from lecture where lec_num = #{lec_num}
-		
-	</select>
-	
-	<update id="updateOngoingLecture">
-		
-		update going_class set link = #{link}, onoff = #{onoff} where lec_num = #{lec_num}
-		
-	</update>
-	
+    
 	<!-- lecture 강좌 테이블 -->
 	<select id="getLectureList" resultType="lecture.model.LectureBean">
+		SELECT 
+		    l.*, 
+		    m1.name AS manager, 
+		    m2.name AS teacher
+		FROM 
+		    lecture l
+		    LEFT JOIN member m1 ON l.manager = m1.mem_num
+		    LEFT JOIN member m2 ON l.teacher = m2.mem_num
+		<if test="whatColumn=='all'">
+		WHERE 
+		    lec_name LIKE #{keyword} or m1.name LIKE #{keyword} or m2.name LIKE #{keyword}
+		</if>
+		<if test="whatColumn=='lec_name'">
+		WHERE 
+		    lec_name LIKE #{keyword}
+		</if>
+		<if test="whatColumn=='manager'">
+		WHERE 
+		    m1.name LIKE #{keyword}
+		</if>
+		<if test="whatColumn=='teacher'">
+		WHERE 
+		    m2.name LIKE #{keyword}
+		</if>
+		ORDER BY 
+		    l.lec_num DESC
+		<!-- 
 		select * from lecture 
 		<if test="whatColumn=='all'">
 		where lec_name like #{keyword} or teacher like #{keyword} or manager like #{keyword}
@@ -33,8 +48,8 @@
 		where teacher like #{keyword}
 		</if>
 		order by lec_num desc
+		-->
 	</select>
-	
 	<select id="getTotalLecture" resultType="int">
 		select count(*) from lecture 
 		<if test="whatColumn=='all'">
@@ -50,19 +65,17 @@
 		where teacher like #{keyword}
 		</if>
 	</select>
-	
 	<select id="getLectureByNum" resultType="lecture.model.LectureBean">
 		select * from lecture where lec_num = #{lec_num}
 	</select>
-	
 	<insert id="insertLecture">
 		insert into lecture values(seq_lecture.nextval,#{lec_name},#{teacher},#{manager},#{lec_start},#{lec_end},#{stu_cnt},#{class_name})
 	</insert>
-	
-	<select id="getLectureByLec" resultType="lecture.model.On_going_lectureBean">
-		
-		select * from going_class where lec_num = #{lec_num}
-		
+	<delete id="deleteLecture">
+		delete from lecture where lec_num = #{lec_num}
+	</delete>
+	<select id="getLectureByMemNum" resultType="lecture.model.LectureBean">
+		select * from lecture where manager = #{mem_num}
 	</select>
-	
+
 </mapper>

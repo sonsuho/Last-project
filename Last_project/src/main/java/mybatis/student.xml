@@ -4,20 +4,17 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="student.model.Student">
+<!-- <insert id="studentReqInsert" parameterType="student.model.RequestBean">
+   MERGE INTO request tgt 
+    USING (SELECT #{app_num} AS app_num FROM dual) src
+    ON (tgt.app_num = src.app_num)
+    WHEN not MATCHED THEN
+        INSERT (req_num, mem_num, app_num, category, time1, time2, reason, sign) 
+        VALUES (seq_request.NEXTVAL, #{mem_num}, #{app_num}, #{category}, #{time1}, #{time2}, #{reason}, #{sign})
+</insert> -->
+<!--MERGE문을 사용하여 조건문이 있어도 insert를 사용할 수 있게한다  근데 app_num이 중복이면 더 안들어간다...실패-->
 
-	<select id="getStudentByLec_Num" resultType="member.model.MemberBean">
-		
-		select * from member where lec_num = #{lec_num} and category = 'student'
-		
-	</select>
-	
-	<select id="getStudentByMem_Num" resultType="member.model.MemberBean">
-		
-		select * from member where mem_num = #{stu_num}
-		
-	</select>
-	
-	<!-- select att_num / 조건 : mem_num, ip 내림차순 정렬(att_num) 최상단(가장 나중에 insert한 att_num 하나만 가져온다 -->
+  <!-- select att_num / 조건 : mem_num, ip 내림차순 정렬(att_num) 최상단(가장 나중에 insert한 att_num 하나만 가져온다 -->
 	<select id="getAttendPrimaryKey" resultType="student.model.AttendBean">
 		select att_num from attend where mem_num = #{mem_num} and ip = #{mem_ip} order by att_num desc FETCH FIRST 1 ROW ONLY
 	</select>
@@ -32,14 +29,14 @@
 	</insert>
 
 	<update id="updateFdate" parameterType="int">
-	    UPDATE attend 
-	    SET att_fdate = systimestamp 
-	    WHERE att_num = #{att_num}
-	</update>
+    UPDATE attend 
+    SET att_fdate = systimestamp 
+    WHERE att_num = #{att_num}
+  </update>
 
-	<select id="getRunningTime" resultType="int" parameterType="map">
-	  select round((#{att_fdate} - #{att_sdate}) * 24 * 60)from attend where att_num = #{att_num}
-	</select>
+  <select id="getRunningTime" resultType="int" parameterType="map">
+    select round((#{att_fdate} - #{att_sdate}) * 24 * 60)from attend where att_num = #{att_num}
+  </select>
      
   <select id="transFormSdate" parameterType="map" resultType="int">
     SELECT HOUR(#{new_sdate}) * 100 + MINUTE(#{new_sdate}) 
@@ -52,6 +49,18 @@
     FROM attend 
     WHERE att_num = #{att_num}
   </select>
+    
+<!--
+ 	<select id="transFormSdate" resultType="int">
+      select to_number(to_char(to_date(#{new_sdate}, 'YYYY-MM-DD HH24:MI:SS'), 'HH24MI'))
+      from attend where att_num = #{att_num}
+  </select>
+  
+  <select id="transFormFdate" resultType="int">
+      select to_number(to_char(to_date(#{new_fdate}, 'YYYY-MM-DD HH24:MI:SS'), 'HH24MI'))
+      from attend where att_num = #{att_num}
+  </select>
+ -->
  
   <update id="updateSitu">
     update attend set situ = 
@@ -66,6 +75,6 @@
   
   <insert id="studentReqInsert">
 		insert into request values(req_seq.nextval, #{mem_num}, #{category}, #{time1}, #{time2}, #{reason}, #{sign})
-  </insert>
-	
+	</insert>
+    
 </mapper>

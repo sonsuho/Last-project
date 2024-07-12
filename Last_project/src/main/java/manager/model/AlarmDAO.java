@@ -1,12 +1,13 @@
 package manager.model;
 
 import java.util.List;
-
+import java.util.Map;
 
 //import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.web.servlet.oauth2.resourceserver.OAuth2ResourceServerSecurityMarker;
 import org.springframework.stereotype.Repository;
 
 @Repository

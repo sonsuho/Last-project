@@ -25,9 +25,6 @@
 
 <%@ include file="../student/studentTop.jsp" %>
 <!-- ------------------------------------------------------------------------------------- -->
-        <!-- 페이지 메인 부분 : partial -->
-        <div class="main-panel" style="margin-left:260px; width:calc(100%-260px);">
-          <div class="content-wrapper">
           
 			<!-- header -->
 		    <div class="page-header">

@@ -2,7 +2,9 @@ package admin.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -103,10 +105,7 @@ public class LectureInsertController {
 		LectureExcelReader excelReader = new LectureExcelReader();
 		
 		String extention = StringUtils.getFilenameExtension(filePath);
-		if(extention.equals("xls")) {
-			List<LectureBean> list = excelReader.xlsToList(filePath);
-			printList(list);
-		} else if(extention.equals("xlsx")) {
+		if(extention.equals("xlsx")) {
 			List<LectureBean> list = excelReader.xlsxToList(filePath);
 			printList(list);
 		}
@@ -117,7 +116,13 @@ public class LectureInsertController {
 	
 	private void printList(List<LectureBean> list) {
 		for(LectureBean lb : list) {
-			ldao.insertLecture(lb);
+			int cnt = ldao.insertLecture(lb);
+			if(cnt!=-1) {
+				Map<String,String> map = new HashMap<String,String>();
+				map.put("manager", lb.getManager());
+				map.put("teacher", lb.getTeacher());
+				mdao.updateLecNum(map);  
+			}
 		}
 	}
 	

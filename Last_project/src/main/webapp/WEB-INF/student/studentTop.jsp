@@ -148,13 +148,10 @@
 							<div class="collapse" id="menu3">
 								<ul class="nav flex-column sub-menu">
 									<li class="nav-item">
-										<a class="nav-link" href="classNow.student">수업</a>
+										<a class="nav-link" href="">테스트</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="testList.student">테스트</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link" href="evalList.student">강의평가</a>
+										<a class="nav-link" href="">강의평가</a>
 									</li>
 								</ul>
 							</div>
@@ -178,11 +175,6 @@
 									</li>
 								</ul>
 							</div>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="main.chat"> 
-								<span class="menu-title">스터디그룹</span> 
-							</a>
 						</li>
 					</ul>
 				</nav>

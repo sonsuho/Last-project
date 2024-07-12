@@ -14,6 +14,6 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<context:component-scan base-package="member,manager,login" />
+	<context:component-scan base-package="member,manager,login,lecture" />
 
 </beans>

@@ -1,6 +1,8 @@
 package manager.controller;
 
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import manager.model.AlarmVO;
 import manager.model.InterAlarmService;
 import member.model.MemberBean;
+import member.model.MemberDao;
 
 @Controller
 public class AlarmController {

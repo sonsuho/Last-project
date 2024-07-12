@@ -3,6 +3,9 @@ package manager.model;
 import java.util.List;
 import java.util.Map;
 
+import manager.model.AlarmDAO;
+import manager.model.AlarmVO;
+
 public interface InterAlarmService {
 
 	// AOP 알람추가하기

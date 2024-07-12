@@ -37,7 +37,7 @@ public class EmplListController {
 		
 		String url = request.getContextPath()+"/"+command;
 		int totalCount = mdao.getTotalEmpl(map);
-		Paging pageInfo = new Paging(pageNumber,"10",totalCount,url,whatColumn,keyword);
+		Paging pageInfo = new Paging(pageNumber,"5",totalCount,url,whatColumn,keyword);
 		
 		List<MemberBean> emplList = mdao.getEmplList(pageInfo, map); 
 		model.addAttribute("emplList",emplList);
