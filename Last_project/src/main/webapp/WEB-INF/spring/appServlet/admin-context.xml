@@ -33,6 +33,6 @@
 			
 		</bean>
 	
-	<context:component-scan base-package="admin,member,lecture" />
+	<context:component-scan base-package="admin,member,lecture,alarm" />
 
 </beans>

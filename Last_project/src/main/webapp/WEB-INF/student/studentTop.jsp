@@ -43,7 +43,7 @@
 						<!-- 메신저알림 -->
 						<%@ include file="../all/message.jsp" %> 
 						<!-- 게시판알림 -->
-						<%@ include file="../all/board.jsp" %> 
+						<%@ include file="../all/alarmModal.jsp" %> 
 						<!-- 로그인/로그아웃 버튼 -->
 		        <li class="nav-item nav-logout d-none d-lg-block">
 		          <c:if test="${loginInfo == null}">
@@ -135,6 +135,9 @@
 								<ul class="nav flex-column sub-menu">
 									<li class="nav-item">
 										<a class="nav-link" href="etcList.student?mem_num=${loginInfo.mem_num }">결재함</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="etc.student">문서 작성하기</a>
 									</li>
 								</ul>
 							</div>

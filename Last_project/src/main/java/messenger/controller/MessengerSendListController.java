@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import messenger.model.MessengerBean;
 import messenger.model.MessengerDao;
 
 @Controller
+@ComponentScan({"messenger,alarm"})
 public class MessengerSendListController {
 	//보낸 메신저함 리스트
 	

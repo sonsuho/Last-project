@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,7 @@ import evaluation.model.EvaluationResultDao;
 import member.model.MemberBean;
 
 @Controller
+@ComponentScan({"manager,student"})
 public class EvaluationContentController {
 	
 	final String command = "/evalContent.student";

@@ -26,7 +26,7 @@ public class SRequestDao {
 	}
 	
 	public void studentReqInsert(SRequestBean req) {
-		sqlSessionTemplate.update(namespace + ".studentReqInsert", req);
+		sqlSessionTemplate.update(namespace + ".ReqInsert", req);
 	}
 
 	public RequestBean getRequestByNum(int req_num) {
@@ -34,10 +34,10 @@ public class SRequestDao {
 		return rb;
 	}
 
-	public int getTotalCountBySitu(Map<String, String> map) {
+	public int getTotalCountBySitu3(Map<String, String> map) {
 		int cnt = -1;
 
-		cnt = sqlSessionTemplate.selectOne(namespace+".getTotalCountBySitu",map);
+		cnt = sqlSessionTemplate.selectOne(namespace+".getTotalCountBySitu3",map);
 
 		return cnt;
 	}
@@ -51,10 +51,10 @@ public class SRequestDao {
 		return cnt;
 	}
 
-	public List<RequestJoinMemberBean> RequestPaging(Paging pageInfo, Map<String, String> map) {
+	public List<RequestBean> RequestPaging(Paging pageInfo, Map<String, String> map) {
 		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
 
-		List<RequestJoinMemberBean> list = new ArrayList<RequestJoinMemberBean>();
+		List<RequestBean> list = new ArrayList<RequestBean>();
 
 		list = sqlSessionTemplate.selectList(namespace+".RequestPaging",map,rowBounds);
 

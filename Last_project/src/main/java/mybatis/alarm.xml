@@ -13,14 +13,14 @@ END;
 / -->
 	
 	<!-- 소식 추가하기 -->
-	<insert id="insertAlarm" parameterType="String"  >
-		${sql}
+	<insert id="insertAlarm" parameterType="String">
+		${value} 
 	</insert>
 	
 	
 	<!-- 소식 조회 -->
-	<select id="selectAlarm" parameterType="int" resultType="manager.model.AlarmVO">
-		select PK_ALARMNO, FK_RECIPIENTNO, URL, URL2, ALARM_CONTENT, ALARM_TYPE, func_get_alarm_time(WRITEDATE ) as WRITEDATE2
+	<select id="selectAlarm" parameterType="int" resultType="alarm.model.AlarmBean">
+		select PK_ALARMNO, FK_RECIPIENTNO, URL, URL2, ALARM_CONTENT, ALARM_TYPE, func_get_alarm_time(WRITEDATE ) as WRITEDATE
 		from alarm
 		where FK_RECIPIENTNO = #{mem_num} and view_status = 0
 		order by WRITEDATE desc
@@ -28,8 +28,8 @@ END;
 	
 	
 	<!-- 지난 소식 조회 -->
-	<select id="selectPastAlarm" parameterType="String" resultType="manager.model.AlarmVO">
-		select PK_ALARMNO, FK_RECIPIENTNO, URL, URL2, ALARM_CONTENT, ALARM_TYPE, func_get_alarm_time(WRITEDATE ) as WRITEDATE2
+	<select id="selectPastAlarm" parameterType="String" resultType="alarm.model.AlarmBean">
+		select PK_ALARMNO, FK_RECIPIENTNO, URL, URL2, ALARM_CONTENT, ALARM_TYPE, func_get_alarm_time(WRITEDATE ) as WRITEDATE
 		from alarm
 		where FK_RECIPIENTNO = #{mem_num} and view_status = 1 and WRITEDATE > (sysdate -7)
 		order by WRITEDATE desc
@@ -57,6 +57,7 @@ END;
 		where FK_RECIPIENTNO = #{mem_num} and view_status = 0
 		order by WRITEDATE desc
 	</select>
+	
 	
 	
 	

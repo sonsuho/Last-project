@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ public class EmplListController {
 
 	private final String command = "emplList.admin";
 	private final String getPage = "emplList";
+	private final String gotoPage = "";
 	
 	@Autowired
 	MemberDao mdao;
@@ -37,7 +39,7 @@ public class EmplListController {
 		
 		String url = request.getContextPath()+"/"+command;
 		int totalCount = mdao.getTotalEmpl(map);
-		Paging pageInfo = new Paging(pageNumber,"10",totalCount,url,whatColumn,keyword);
+		Paging pageInfo = new Paging(pageNumber,"10",totalCount,url,whatColumn,keyword,"","");
 		
 		List<MemberBean> emplList = mdao.getEmplList(pageInfo, map); 
 		model.addAttribute("emplList",emplList);

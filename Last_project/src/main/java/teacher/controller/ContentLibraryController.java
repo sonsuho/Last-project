@@ -58,7 +58,7 @@ public class ContentLibraryController {
 		
 		String url = request.getContextPath() + this.command;
 		
-		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword);
+		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword,"","");
 		
 		List<LibraryBean> list = ldao.getLibraryList(pageInfo, map);
 		

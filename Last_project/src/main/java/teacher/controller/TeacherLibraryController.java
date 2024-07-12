@@ -54,7 +54,7 @@ public class TeacherLibraryController {							// library.jsp로 넘어간다
 		
 		String url = request.getContextPath() + this.command;
 		
-		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword);
+		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword,"","");
 		
 		List<LibraryBean> list = ldao.getLibraryList(pageInfo, map);
 		

@@ -14,11 +14,13 @@ import manager.model.RequestDao;
 public class ManagerSelectDeleteController {
 	private final String commnand="/selectDeleteReq.manager";//결재 문서함
 	private final String commnand1="/selectDeleteReq2.manager";//결재 문서함
-	private final String commnand2="/selectDeleteEtc.manager";//기타서류
+	private final String commnand2="/selectDeleteEtc.manager";//받은서류
+	private final String commnand3="/selectDeleteEtc2.manager";//쓴서류
 	
 	private final String getPage="redirect:/request.manager";//결재 문서함
 	private final String getPage1="redirect:/request2.manager";//결재 문서함
-	private final String getPage2="redirect:/etcList.manager";//기타서류
+	private final String getPage2="redirect:/etcList.manager";//받은서류
+	private final String getPage3="redirect:/etcSendList.manager";//내가쓴서류
 	
 	@Autowired
 	RequestDao rdao;
@@ -76,7 +78,8 @@ public class ManagerSelectDeleteController {
 	
 	
 	@RequestMapping(commnand2)
-	public ModelAndView selectDeleteEtc(@RequestParam String [] rowcheck,@RequestParam String etc_delete) {
+	public ModelAndView selectDeleteEtc(@RequestParam String [] rowcheck,@RequestParam String etc_delete
+		,@RequestParam int mem_num) {
 		ModelAndView mav = new ModelAndView();
 		
 		
@@ -90,8 +93,30 @@ public class ManagerSelectDeleteController {
 		if(etc_delCount == 0) {
 			edao.selectDelete(rowcheck);
 		}
-		
+		mav.addObject("mem_num",mem_num);
 		mav.setViewName(getPage2);
+		
+		return mav;
+	}
+	
+	@RequestMapping(commnand3)
+	public ModelAndView selectDeleteEtc2(@RequestParam String [] rowcheck,@RequestParam String etc_delete
+			,@RequestParam int sender_num) {
+		ModelAndView mav = new ModelAndView();
+		
+		
+		System.out.println("etc_delete:"+etc_delete);
+		
+		rdao.rowcheckEtc_delete(rowcheck);
+		
+		int etc_delCount = rdao.delEtcCheck(rowcheck);
+		System.out.println("etc_delCount:"+etc_delCount);
+		
+		if(etc_delCount == 0) {
+			edao.selectDelete(rowcheck);
+		}
+		mav.addObject("sender_num",sender_num);
+		mav.setViewName(getPage3);
 		
 		return mav;
 	}

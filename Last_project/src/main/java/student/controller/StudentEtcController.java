@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,12 +24,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import alarm.model.AlarmService;
+import manager.model.EtcBean;
+import manager.model.EtcDao;
 import member.model.MemberBean;
 import student.model.SEtcBean;
 import student.model.SEtcDao;
 
 @Controller
-//@ComponentScan({"manager", "member"})
+@ComponentScan({"student", "alarm"})
 public class StudentEtcController {
     private final String command = "/etc.student";
     private final String getPage = "etcForm";
@@ -36,9 +40,10 @@ public class StudentEtcController {
 
     @Autowired
     SEtcDao edao;
+    
+    @Autowired
+    AlarmService service;
 
-    
-    
     @RequestMapping(value = command, method = RequestMethod.GET)
     public ModelAndView Studentrequest(HttpSession session) {
         ModelAndView mav = new ModelAndView();
@@ -57,7 +62,7 @@ public class StudentEtcController {
     @RequestMapping(value = command, method = RequestMethod.POST)
     public ModelAndView Studentrequest(@ModelAttribute("etc") @Valid SEtcBean etc, BindingResult result,
     		@RequestParam String [] selected_mem_num,HttpServletResponse response, HttpSession session,HttpServletRequest request,
-                                @RequestParam("multiFile") List<MultipartFile> multiFileList) throws IOException {
+                                @RequestParam("multiFile") List<MultipartFile> multiFileList,Map<String, String> paramap) throws IOException {
         ModelAndView mav = new ModelAndView();
 
         for(String i : selected_mem_num) {
@@ -150,6 +155,20 @@ public class StudentEtcController {
         
         mav.setViewName(gotoPage);
 
+        String stdList = String.join(",", selected_mem_num );
+        
+        MemberBean mb = (MemberBean)session.getAttribute("loginInfo");
+
+        paramap.put("fk_recipientno", stdList); // 받는사람 (여러명일때는 ,,으로 구분된 str)
+        paramap.put("url", "/etcList.manager?mem_num=" );
+        paramap.put("url2", String.valueOf(stdList)); // 연결되는 pknum등...  (여러개일때는 ,,으로 구분된 str)(대신 받는 사람 수랑 같아야됨)
+        paramap.put("alarm_content", mb.getName() + "님이 문서를 보냈습니다. 확인해 주세요." );
+        paramap.put("alarm_type", "3" );
+        
+        System.out.println("stdList:"+stdList);
+        
+        service.addAlarm(paramap);
+        
         return mav;
     }
 }

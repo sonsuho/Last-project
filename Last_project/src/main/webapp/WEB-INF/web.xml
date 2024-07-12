@@ -149,16 +149,17 @@
 		<url-pattern>*.member</url-pattern>
 	</servlet-mapping>
 	
-	<!-- alram 관리를 위한 요청 관리 -->
+
+	<!-- alarm 관리를 위한 요청 관리 -->
 	<servlet>
 		<servlet-name>alarm</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/manager-context.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/alarm-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
-	</servlet>	
+	</servlet>
 		
 	<servlet-mapping>
 		<servlet-name>alarm</servlet-name>
@@ -179,6 +180,22 @@
 	<servlet-mapping>
 		<servlet-name>messenger</servlet-name>
 		<url-pattern>*.messenger</url-pattern>
+	</servlet-mapping>
+	
+	<!-- lecture 관리를 위한 요청 관리 -->
+	<servlet>
+		<servlet-name>lecture</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/lecture-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>lecture</servlet-name>
+		<url-pattern>*.lecture</url-pattern>
 	</servlet-mapping>
 	
 </web-app>

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,13 +16,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import manager.model.EtcBean;
 import manager.model.EtcDao;
+import manager.model.EtcJoinMemberBean;
+import member.model.MemberBean;
+import member.model.MemberDao;
 import utility.Paging;
 
 @Controller
-@ComponentScan({"student", "manager"})
+//@ComponentScan({"student", "manager","member"})
 public class StudentEtcListController {
-	private final String command1 = "/etcList.student";
-	private final String command2 = "/etcSendList.student";
+	private final String command1 = "/etcList.student"; //받은 문서함
+	private final String command2 = "/etcSendList.student"; //내가 쓴 문서함
 	private final String getPage1 = "etcList";
 	private final String getPage2 = "etcSendList";
 
@@ -50,9 +54,11 @@ public class StudentEtcListController {
 		String url = request.getContextPath()+command1;
 
 
-		Paging pageInfo = new Paging(pageNumber,null,totalCountEtc,url,whatColumn,keyword);
+		Paging pageInfo = new Paging(pageNumber,null,totalCountEtc,url,whatColumn,keyword,mem_num,"");
 
-		java.util.List<EtcBean> elist = edao.getEtcList(pageInfo, map);
+		java.util.List<EtcJoinMemberBean> elist = edao.getEtcWithMemberInfo(pageInfo, map);
+		
+
 
 		mav.addObject("elist",elist);
 
@@ -60,10 +66,7 @@ public class StudentEtcListController {
 
 		mav.addObject("totalCountEtc",totalCountEtc);
 
-		mav.addObject("sender_num", mem_num);
-
-		
-		
+		mav.addObject("mem_num", mem_num);
 
 		mav.setViewName(getPage1);
 
@@ -71,10 +74,11 @@ public class StudentEtcListController {
 	}
 
 	@RequestMapping(command2)
-	public ModelAndView List(@RequestParam String sender_num,@RequestParam(value = "whatColumn", required = false) String whatColumn,
-			@RequestParam(value = "keyword", required = false) String keyword,
-			@RequestParam(value = "pageNumber", required = false) String pageNumber,
-			HttpServletRequest request) {
+	public ModelAndView List(@RequestParam String sender_num,
+							@RequestParam(value = "whatColumn", required = false) String whatColumn,
+							@RequestParam(value = "keyword", required = false) String keyword,
+							@RequestParam(value = "pageNumber", required = false) String pageNumber,
+							HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 
 		System.out.println("sender_num:"+sender_num);
@@ -90,9 +94,9 @@ public class StudentEtcListController {
 		String url = request.getContextPath()+command2;
 
 
-		Paging pageInfo = new Paging(pageNumber,null,totalCountEtc,url,whatColumn,keyword);
+		Paging pageInfo = new Paging(pageNumber,null,totalCountEtc,url,whatColumn,keyword,"",sender_num);
 
-		java.util.List<EtcBean> elist = edao.getEtcSenderList(pageInfo, map);
+		java.util.List<EtcJoinMemberBean> elist = edao.getEtcStuSenderListWithMemberInfo(pageInfo, map);
 		
 		mav.addObject("sender_num", sender_num);
 

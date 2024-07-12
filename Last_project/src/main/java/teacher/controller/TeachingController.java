@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import alarm.model.AlarmDao;
 import lecture.model.On_going_lectureBean;
 import lecture.model.On_going_lectureDao;
 import member.model.MemberBean;
-import student.model.AlarmBean;
 import student.model.StudentDao;
 import teacher.model.TeacherDao;
 
@@ -32,6 +32,9 @@ public class TeachingController {
 	
 	@Autowired
 	StudentDao sdao;
+	
+	@Autowired
+	AlarmDao adao;
 	
 	@Autowired
 	On_going_lectureDao odao;
@@ -52,7 +55,7 @@ public class TeachingController {
 		
 		for(MemberBean student : slist) {
 			
-			AlarmBean news = new AlarmBean();
+			alarm.model.AlarmBean news = new alarm.model.AlarmBean();
 			
 			news.setFk_recipientno(student.getMem_num());
 			news.setUrl("");
@@ -61,7 +64,7 @@ public class TeachingController {
 			news.setAlarm_type("&#128161");
 			news.setView_status(0);
 			
-			sdao.insertNews(news);
+			//adao.addAlarm(news);
 		}
 		
 		On_going_lectureBean ob = new On_going_lectureBean();

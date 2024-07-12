@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import manager.model.EtcDao;
+import manager.model.RequestDao;
 import member.model.MemberBean;
 import student.model.SEtcDao;
 import student.model.SRequestDao;
@@ -31,7 +33,7 @@ public class StudentSelectDeleteController {
 	
 	
 	@RequestMapping(scommnand1)
-	public ModelAndView selectDeleteStuEtc(@RequestParam String [] rowcheck,@RequestParam String etc_delete) {
+	public ModelAndView selectDeleteStuEtc(@RequestParam String [] rowcheck,@RequestParam String etc_delete,@RequestParam String mem_num) {
 		ModelAndView mav = new ModelAndView();
 		
 		
@@ -46,6 +48,7 @@ public class StudentSelectDeleteController {
 			edao.selectDelete(rowcheck);
 		}
 		
+		mav.addObject("mem_num",mem_num);
 		mav.setViewName(sgetPage1);
 		
 		return mav;
@@ -53,7 +56,7 @@ public class StudentSelectDeleteController {
 	
 	
 	@RequestMapping(scommnand2)
-	public ModelAndView selectDeleteStuSend(@RequestParam String [] rowcheck,@RequestParam String etc_delete) {
+	public ModelAndView selectDeleteStuSend(@RequestParam String [] rowcheck,@RequestParam String etc_delete,@RequestParam String sender_num) {
 		ModelAndView mav = new ModelAndView();
 		
 		for(String i : rowcheck) {
@@ -72,6 +75,7 @@ public class StudentSelectDeleteController {
 			edao.selectDelete(rowcheck);
 		}
 		
+		mav.addObject("sender_num",sender_num);
 		mav.setViewName(sgetPage2);
 		
 		return mav;
@@ -80,6 +84,7 @@ public class StudentSelectDeleteController {
 	@RequestMapping(scommnand3)
 	public ModelAndView selectDeleteStuReq2(@RequestParam String [] rowcheck,
 											@RequestParam String ap_delete,
+											@RequestParam String mem_num,
 											HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -98,8 +103,6 @@ public class StudentSelectDeleteController {
 			rdao.selectDelete(rowcheck);
 		}
 		
-		MemberBean mb = (MemberBean)session.getAttribute("loginInfo");
-		int mem_num = mb.getMem_num();
 		
 		mav.addObject("mem_num",mem_num);
 		mav.setViewName(sgetPage3);

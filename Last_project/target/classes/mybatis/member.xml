@@ -9,12 +9,10 @@
 	<select id="getMemberByCate" resultType="member.model.MemberBean">
 		select * from member where category = #{category}
 	</select>
-	
 	<update id="idInsert" parameterType="member.model.MemberBean">
 	    insert into member(mem_num, name, id, pw, category, phone, email, state) 
 	    values(mem_seq.nextval,#{name},#{id},#{pw},#{category},#{phone},#{email},#{state})
 	</update>
-	
 	<select id="getEmplList" resultType="member.model.MemberBean">
 		select * from member where category in('manager','teacher')
 		<if test="whatColumn=='all'">
@@ -28,7 +26,6 @@
 		</if>
 		order by mem_num desc
 	</select>
-	
 	<select id="getTotalEmpl" resultType="int">
 		select count(*) from member where category in('manager','teacher')
 		<if test="whatColumn=='all'">
@@ -41,19 +38,15 @@
 		and id like #{keyword}
 		</if>
 	</select>
-	
 	<select id="getPwByNum" resultType="String">
 		select pw from member where mem_num = #{mem_num}
 	</select>
-	
 	<delete id="idDelete">
 		delete from member where mem_num = #{mem_num}
 	</delete>
-	
 	<select id="findPw" resultType="int">
 		select mem_num from member where id = #{id} and phone = #{phone}
 	</select>
-	
 	<update id="changePw">
 		update member set pw = #{pw} where mem_num = #{mem_num}
 	</update>
@@ -62,7 +55,6 @@
 	<select id="getNameByNum" resultType="member.model.MemberBean">
 		select * from member where mem_num = #{mem_num}
 	</select>
-	
 	<select id="getNameBySendNum" resultType="member.model.MemberBean">
 		select * from member where mem_num = #{sender_num}
 	</select>

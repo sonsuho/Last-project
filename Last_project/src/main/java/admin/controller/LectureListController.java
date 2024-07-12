@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +38,7 @@ public class LectureListController {
 		
 		String url = request.getContextPath()+"/"+command;
 		int totalCount = ldao.getTotalLecture(map);
-		Paging pageInfo = new Paging(pageNumber,"10",totalCount,url,whatColumn,keyword);
+		Paging pageInfo = new Paging(pageNumber,"10",totalCount,url,whatColumn,keyword,"","");
 		
 		List<LectureBean> lectureList = ldao.getLectureList(pageInfo, map);
 		model.addAttribute("lectureList",lectureList);

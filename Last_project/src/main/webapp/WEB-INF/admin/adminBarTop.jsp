@@ -45,7 +45,7 @@
 	        <!-- 메신저알림 -->
 					<%@ include file="../all/message.jsp" %> 
 					<!-- 게시판알림 -->
-					<%@ include file="../all/board.jsp" %> 
+					<%@ include file="../all/alarmModal.jsp" %> 
 	        <!-- 로그인/로그아웃 버튼 -->
 	        <li class="nav-item nav-logout d-none d-lg-block">
 	          <c:if test="${loginInfo == null}">
@@ -148,8 +148,8 @@
 	          </a>
 	          <div class="collapse" id="menu3">
 	            <ul class="nav flex-column sub-menu">
-	              <li class="nav-item">
-	                <a class="nav-link" href="">요청목록</a>
+	               <li class="nav-item">
+	                <a class="nav-link" href="request.admin?mem_num=${loginInfo.mem_num }">결재목록</a>
 	              </li>
 	            </ul>
 	          </div>

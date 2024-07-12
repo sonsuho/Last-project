@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ManagerMainController {
 	private final String command = "/home.manager";
-	private final String getPage = "home";
+	private final String getPage = "managerHome";
 	
 	
 	@RequestMapping(value = command , method = RequestMethod.GET)

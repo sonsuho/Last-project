@@ -27,16 +27,7 @@ public class StudentDao {
 		return slist;
 	}
 
-	public int insertNews(AlarmBean news) {									// 
-		
-		int cnt = -1;
-		
-		cnt = sqlSessionTemplate.insert("news.model.News.insertNews",news);
-		
-		System.out.println("insertNews cnt : " + cnt);
-		
-		return cnt;
-	}
+	
 
 	public MemberBean getStudentByMem_Num(int stu_num) {
 		

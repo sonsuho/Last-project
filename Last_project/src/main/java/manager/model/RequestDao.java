@@ -9,6 +9,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import member.model.MemberBean;
+import student.model.SRequestBean;
 import utility.Paging;
 
 @Service
@@ -47,6 +49,27 @@ public class RequestDao {
 
 		return list;
 	}
+	
+	public List<RequestJoinMemberBean> RequestAdminPaging(Paging pageInfo, Map<String, String> map) {
+		
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+		
+		List<RequestJoinMemberBean> list = new ArrayList<RequestJoinMemberBean>();
+		
+		list = sqlSessionTemplate.selectList(namespace+".RequestAdminPaging",map,rowBounds);
+		
+		return list;
+	}
+	public List<RequestJoinMemberBean> RequestAdminPaging2(Paging pageInfo, Map<String, String> map) {
+		
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+		
+		List<RequestJoinMemberBean> list = new ArrayList<RequestJoinMemberBean>();
+		
+		list = sqlSessionTemplate.selectList(namespace+".RequestAdminPaging2",map,rowBounds);
+		
+		return list;
+	}
 
 	public List<RequestJoinMemberBean> RequestPaging3(Paging pageInfo, Map<String, String> map) {
 
@@ -73,13 +96,28 @@ public class RequestDao {
 		return rb;
 	}
 
-	public int getTotalCountBySitu(Map<String, String> map) {
+	public int getTotalCountBySitu(Map<String, String> map) {//결재null , mem_num 값을 조건으로
 		int cnt = -1;
-
 		cnt = sqlSessionTemplate.selectOne(namespace+".getTotalCountBySitu",map);
 
 		return cnt;
 	}
+	
+	public int getTotalCountBySitu2(Map<String, String> map) {//결재null , mem_num 값을 조건으로
+		int cnt = -1;
+		cnt = sqlSessionTemplate.selectOne(namespace+".getTotalCountBySitu2",map);
+		
+		return cnt;
+	}
+	
+	public int getTotalCountBySitu3(Map<String, String> map) {//결재null , mem_num 값을 조건으로
+		int cnt = -1;
+		cnt = sqlSessionTemplate.selectOne(namespace+".getTotalCountBySitu3",map);
+		
+		return cnt;
+	}
+	
+
 	
 	public int getTotalCountByApproval(Map<String, String> map) {
 		int cnt = -1;
@@ -93,6 +131,14 @@ public class RequestDao {
 		int cnt = -1;
 		
 		cnt = sqlSessionTemplate.selectOne(namespace+".getTotalCountByApprovalByMem_Num",map);
+		
+		return cnt;
+	}
+	
+	public int getTotalCountByApprovalByApp_Num(Map<String, String> map) {
+		int cnt = -1;
+		
+		cnt = sqlSessionTemplate.selectOne(namespace+".getTotalCountByApprovalByApp_Num",map);
 		
 		return cnt;
 	}
@@ -113,32 +159,48 @@ public class RequestDao {
 
 		return list;
 	}
-	public int rowcheckAp_delete(String[] rowcheck) {
+	public int rowcheckAp_delete(String[] rowcheck) {//매니저 결재승인 삭제
 		int cnt = -1;
 		
 		cnt = sqlSessionTemplate.update(namespace+".ap_delete",rowcheck);
 		return cnt;
 	}
-	public int delReqCheck(String[] rowcheck) {
+	public int SReq_delete(String[] rowcheck) {//학생 결재승인 삭제
+		int cnt = -1;
+		
+		cnt = sqlSessionTemplate.update(namespace+".SReq_delete",rowcheck);
+		return cnt;
+	}
+	public int AReq_delete(String[] rowcheck) {//관리자 결재승인 삭제
+		int cnt = -1;
+		
+		cnt = sqlSessionTemplate.update(namespace+".AReq_delete",rowcheck);
+		return cnt;
+	}
+	public int delReqCheck(String[] rowcheck) {//결재승인  삭제
 		int cnt =-1;
 		
 		cnt = sqlSessionTemplate.selectOne(namespace+".delReqCheck",rowcheck);
 		
 		return cnt;
 	}
-	
-	public void rowcheckEtc_delete(String[] rowcheck) {
+	public void rowcheckEtc_delete(String[] rowcheck) {//학생 삭제
 		
 		sqlSessionTemplate.update(namespace+".etc_delete",rowcheck);
-
+		
 		
 	}
-	public int delEtcCheck(String[] rowcheck) {
+	
+	public int delEtcCheck(String[] rowcheck) {//기타 삭제
 		int cnt =-1;
 		
 		cnt = sqlSessionTemplate.selectOne(namespace+".delEtcCheck",rowcheck);
 		
 		return cnt;
+	}
+	public void managerReqInsert(RequestBean req) {
+		sqlSessionTemplate.insert(namespace + ".ReqInsert", req);
+
 	}
 
 

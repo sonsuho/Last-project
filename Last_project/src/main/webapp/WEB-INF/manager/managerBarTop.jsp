@@ -43,7 +43,7 @@
 						<!-- 메신저알림 -->
 						<%@ include file="../all/message.jsp" %> 
 						<!-- 게시판알림 -->
-						<%@ include file="../all/board.jsp" %> 
+						<%@ include file="../all/alarmModal.jsp" %> 
 						<!-- 로그인/로그아웃 버튼 -->
 		        <li class="nav-item nav-logout d-none d-lg-block">
 		          <c:if test="${loginInfo == null}">
@@ -116,7 +116,7 @@
 										<a class="nav-link" href="">내 근태 현황</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="request.manager">휴가 신청</a>
+										<a class="nav-link" href="requestForm.manager">휴가 신청</a>
 									</li>
 									<li class="nav-item">
 										<a class="nav-link" href="">휴가 내역</a>
@@ -132,7 +132,10 @@
 							<div class="collapse" id="menu2">
 								<ul class="nav flex-column sub-menu">
 									<li class="nav-item">
-										<a class="nav-link" href="request.manager">결재함</a>
+										<a class="nav-link" href="request.manager?mem_num=${loginInfo.mem_num }">결재함</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="etc.manager">문서보내기</a>
 									</li>
 								</ul>
 							</div>

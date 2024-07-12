@@ -1,5 +1,8 @@
 package login.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -43,7 +46,7 @@ public class LoginController {
 		}
 		
 		MemberBean mb = ldao.getInfoById(lb.getId());				// 누락이 없다면 id를 가져와 해당하는 회원 정보가 있는지 체크
-		//System.out.println(mb.getPw());
+		System.out.println(mb.getPw());
 		
 		/* 패스워드 hash 추가 - 20240703 */
 		String encryPassword = Sha256.encrypt(lb.getPw());
@@ -62,14 +65,22 @@ public class LoginController {
 		
 		session.setAttribute("loginInfo", mb);						// 모든 문제가 없는 경우 세션으로 회원 정보를 지정한다음 result.jsp로 넘어간다!!!
 		
-//		List<MemberBean> mlist = new ArrayList<MemberBean>();
-//		if(mb.getCategory().equals("student")) {
-//			mlist  = ldao.getInfoListByCategory("manager");
-//		}else if(mb.getCategory().equals("manager")) {
-//			mlist  = ldao.getInfoListByCategory("student");
-//		}
-//		session.setAttribute("mlist", mlist);
-//		System.out.println("세션설정:"+mlist.get(0).getLec_num());
+		List<MemberBean> mlist = new ArrayList<MemberBean>();
+		List<MemberBean> alist = new ArrayList<MemberBean>();
+		if(mb.getCategory().equals("student")) {
+			
+			mlist  = ldao.getInfoListByCategory("manager");
+			
+		}else if(mb.getCategory().equals("manager")) {
+			
+			mlist  = ldao.getInfoListByCategory("student");
+			alist  = ldao.getInfoListByCategory("admin");
+		}
+		
+		session.setAttribute("alist", alist);
+		session.setAttribute("mlist", mlist);
+		
+		//System.out.println("세션설정:"+mlist.get(0).getLec_num());
 		
 		mav.setViewName("result");
 		
