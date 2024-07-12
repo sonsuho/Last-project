@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="lecture.model.Lecture">
+	
+	<select id="getClassNameByLec" resultType="java.lang.String">
+		
+		select lec_name from lecture where lec_num = #{lec_num}
+		
+	</select>
+	
+	<update id="updateOngoingLecture">
+		
+		update going_class set link = #{link}, onoff = #{onoff} where lec_num = #{lec_num}
+		
+	</update>
+	
+	<!-- lecture 강좌 테이블 -->
+	<select id="getLectureList" resultType="lecture.model.LectureBean">
+		select * from lecture 
+		<if test="whatColumn=='all'">
+		where lec_name like #{keyword} or teacher like #{keyword} or manager like #{keyword}
+		</if>
+		<if test="whatColumn=='lec_name'">
+		where lec_name like #{keyword}
+		</if>
+		<if test="whatColumn=='manager'">
+		where manager like #{keyword}
+		</if>
+		<if test="whatColumn=='teacher'">
+		where teacher like #{keyword}
+		</if>
+		order by lec_num desc
+	</select>
+	
+	<select id="getTotalLecture" resultType="int">
+		select count(*) from lecture 
+		<if test="whatColumn=='all'">
+		where lec_name like #{keyword} or teacher like #{keyword} or manager like #{keyword}
+		</if>
+		<if test="whatColumn=='lec_name'">
+		where lec_name like #{keyword}
+		</if>
+		<if test="whatColumn=='manager'">
+		where manager like #{keyword}
+		</if>
+		<if test="whatColumn=='teacher'">
+		where teacher like #{keyword}
+		</if>
+	</select>
+	
+	<select id="getLectureByNum" resultType="lecture.model.LectureBean">
+		select * from lecture where lec_num = #{lec_num}
+	</select>
+	
+	<insert id="insertLecture">
+		insert into lecture values(seq_lecture.nextval,#{lec_name},#{teacher},#{manager},#{lec_start},#{lec_end},#{stu_cnt},#{class_name})
+	</insert>
+	
+	<select id="getLectureByLec" resultType="lecture.model.On_going_lectureBean">
+		
+		select * from going_class where lec_num = #{lec_num}
+		
+	</select>
+	
+</mapper>

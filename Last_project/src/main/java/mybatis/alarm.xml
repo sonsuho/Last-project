@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ==== mapper 기본설정 ==== -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mingon">
+<!-- 함수 생성 -->
+<!-- CREATE OR REPLACE FUNCTION func_get_alarm_time (p_date DATE) 
+RETURN VARCHAR2 IS
+BEGIN
+    RETURN TO_CHAR(p_date, 'YYYY-MM-DD HH24:MI:SS');
+END;
+/ -->
+	
+	<!-- 소식 추가하기 -->
+	<insert id="insertAlarm" parameterType="String"  >
+		${sql}
+	</insert>
+	
+	
+	<!-- 소식 조회 -->
+	<select id="selectAlarm" parameterType="int" resultType="manager.model.AlarmVO">
+		select PK_ALARMNO, FK_RECIPIENTNO, URL, URL2, ALARM_CONTENT, ALARM_TYPE, func_get_alarm_time(WRITEDATE ) as WRITEDATE2
+		from alarm
+		where FK_RECIPIENTNO = #{mem_num} and view_status = 0
+		order by WRITEDATE desc
+	</select>
+	
+	
+	<!-- 지난 소식 조회 -->
+	<select id="selectPastAlarm" parameterType="String" resultType="manager.model.AlarmVO">
+		select PK_ALARMNO, FK_RECIPIENTNO, URL, URL2, ALARM_CONTENT, ALARM_TYPE, func_get_alarm_time(WRITEDATE ) as WRITEDATE2
+		from alarm
+		where FK_RECIPIENTNO = #{mem_num} and view_status = 1 and WRITEDATE > (sysdate -7)
+		order by WRITEDATE desc
+	</select>
+	
+	
+	<!-- 소식 읽기 -->
+	<update id="updateAlarm" parameterType="int">
+		update alarm set view_status = 1
+		where pk_alarmno = #{alarmno}
+	</update>
+	
+	
+	<!-- 모든 안읽은 소식 읽기 -->
+	<update id="updateAllAlarm" parameterType="int">
+		update alarm set view_status = 1
+		where FK_RECIPIENTNO = #{mem_num} and view_status = 0
+	</update>
+	
+	
+	<!-- 안 읽은 소식 개수 알아오기 -->
+	<select id="getUnreadAlarmCnt" parameterType="int" resultType="int">
+		select count(PK_ALARMNO)
+		from alarm
+		where FK_RECIPIENTNO = #{mem_num} and view_status = 0
+		order by WRITEDATE desc
+	</select>
+	
+	
+	
+
+	
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="testResult.model.TestResult">
+	
+	<select id="getAllTestResult" resultType="test.model.TestResultBean">
+		
+		select * from test_result where stu_num = #{stu_num}
+		
+	</select>
+	
+	<select id="getAllTestResultByLec" resultType="test.model.TestResultBean">
+		
+		select * from test_result where lec_num = #{lec_num}
+		
+	</select>
+	
+	<select id="getAllTestResultByTest" resultType="test.model.TestResultBean">
+		
+		select * from test_result where test_num = #{test_num}
+		
+	</select>
+	
+	<insert id="insertTestResult">
+		
+		insert into test_result values(#{test_num}, #{lec_num}, #{stu_num}, #{correct}, #{point})
+		
+	</insert>
+	
+</mapper>

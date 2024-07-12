@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="messenger.model.Messenger">
+	<select id="getMsgRecvList" resultType="messenger.model.MessengerBean">
+		select * from messenger where recv_num = #{mem_num} 
+		
+		<if test="whatColumn == 'send_name'">
+			and send_name like #{keyword}
+		</if>
+		
+		order by send_time desc
+	</select>
+	
+	<select id="getMsgSendList" resultType="messenger.model.MessengerBean">
+		select * from messenger where mem_num = #{mem_num} order by send_time desc
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+		select count(*) from messenger
+		
+		<if test="whatColumn == 'send_name'">
+		where send_name like #{keyword}
+		</if>
+		
+	</select>
+	
+	<insert id="insertAllMsg">
+		insert into messenger(msg_num, mem_num, recv_num, title, content, msg_upload, send_time, send_name, recv_name)
+		values(msg_seq.nextval, #{mem_num}, #{recv_num}, #{title}, #{content}, #{msg_upload}, sysdate, #{send_name}, #{recv_name})
+	</insert>
+	
+	<select id="getRecentlyMsg" resultType="messenger.model.MessengerBean">
+		<![CDATA[
+	    select msg_num, send_name, send_time 
+	    from (
+	        select msg_num, send_name, send_time 
+	        from messenger 
+	        where recv_num = #{mem_num} 
+	        order by send_time desc
+	    ) 
+	    where rownum <= 3
+	    ]]>
+	</select>
+	
+	<select id="getMsgDetailByNum" resultType="messenger.model.MessengerBean">
+		select * from messenger where msg_num = #{msg_num}
+	</select>
+	
+</mapper>

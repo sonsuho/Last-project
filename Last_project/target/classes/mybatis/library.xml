@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="library.model.Library">
+	
+	<select id="getTotalCount" resultType="int">
+		
+		select count(*) from library where lec_num = #{lec_num}
+		
+		<if test="whatColumn == 'title'">
+			and title like #{keyword}
+		</if>
+		
+		<if test="whatColumn == 'content'">
+			and content like #{keyword}
+		</if>
+		
+		<if test="whatColumn == 'all'">
+			and (title like #{keyword} or content like #{keyword})
+		</if>
+		
+	</select>
+	
+	<select id="getLibraryList" resultType="library.model.LibraryBean" parameterType="hashmap">
+		
+		select * from library where lec_num = #{lec_num}
+		
+		<if test="whatColumn == 'title'">
+			and title like #{keyword}
+		</if>
+		
+		<if test="whatColumn == 'content'">
+			and content like #{keyword}
+		</if>
+		
+		<if test="whatColumn == 'all'">
+			and (title like #{keyword} or content like #{keyword})
+		</if>
+		
+		order by li_num desc
+		
+	</select>
+	
+	<select id="getLibraryByNum" resultType="library.model.LibraryBean">
+		
+		select * from library where li_num = #{li_num}
+		
+	</select>
+	
+	<insert id="insertLibrary">
+		
+		insert into library values(seq_library.nextval, #{lec_num}, #{title}, #{mem_num}, #{writer}, sysdate, #{content}, #{upload})
+		
+	</insert>
+	
+	<delete id="deleteByNum">
+		
+		delete from library where li_num = #{li_num}
+		
+	</delete>
+	
+	<update id="updateLibrary">
+		
+		update library set title = #{title}, content = #{content}, day = sysdate, upload = #{upload} where li_num = #{li_num} 
+		
+	</update>
+	
+</mapper>
