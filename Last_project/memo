@@ -1,20 +1,23 @@
-===================================
-==== íšŒì› í…Œì´ë¸”
-===================================
-
+-------------------------------------------------------------------------------------
+-- È¸¿ø Å×ÀÌºí
+-------------------------------------------------------------------------------------
 drop sequence mem_seq;
-create sequence mem_seq
-	start with 1
-	increment by 1
-	nocache ;
 
-DROP TABLE member CASCADE CONSTRAINTS;
+create sequence mem_seq
+increment by 1
+start with 1
+minvalue 1
+maxvalue 10000
+nocache;
+
+DROP TABLE member;
+
 CREATE TABLE member (
 	mem_num number primary key,
 	name varchar2(20) NULL,
 	id varchar2(20) NULL,
-	pw varchar2(100) NULL,
-	category varchar2(20) NULL,
+	pw varchar2(70) NULL,
+	category varchar2(10) NULL,
 	lec_num varchar2(10) NULL,
 	addr varchar2(20) NULL,
 	phone varchar2(15) NULL,
@@ -24,16 +27,16 @@ CREATE TABLE member (
 	mem_ip varchar2(20)
 );
 
-INSERT INTO member  VALUES (mem_seq.nextval, 'ê´€ë¦¬ì', 'admin', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'admin', 'X', 'ì„œìš¸ì‹œ ê°•ë‚¨êµ¬', '01012345678', 'chulsoo@example.com', 'ê´€ë¦¬ì', 0,'192.168.0.1');
-INSERT INTO member  VALUES (mem_seq.nextval, 'ì´ì˜í¬', 'manager1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '1/2', 'ì„œìš¸ì‹œ ì„œì´ˆêµ¬', '01023456789', 'younghee@example.com', 'ê·¼ë¬´', 2,'192.168.0.5');
-INSERT INTO member  VALUES (mem_seq.nextval, 'ë°•ë¯¼ìˆ˜', 'manager2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '2', 'ì„œìš¸ì‹œ ì†¡íŒŒêµ¬', '01034567890', 'minsoo@example.com', 'ê·¼ë¬´', 4,'192.165.0.1');
-INSERT INTO member  VALUES (mem_seq.nextval, 'ìµœì§€ì˜', 'teacher1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '1', 'ì„œìš¸ì‹œ ê°•ë™êµ¬', '01045678901', 'jiyoung@example.com', 'ê·¼ë¬´', 0,'192.143.0.1');
-INSERT INTO member  VALUES (mem_seq.nextval, 'í•œê°€ì˜', 'teacher2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '2', 'ì„œìš¸ì‹œ ë§ˆí¬êµ¬', '01056789012', 'gayoung@example.com', 'ê·¼ë¬´', 0,'192.154.0.1');
-INSERT INTO member  VALUES (mem_seq.nextval, 'ì •ìš°ì„±', 'student1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', 'ì„œìš¸ì‹œ ì€í‰êµ¬', '01067890123', 'woosung@example.com', 'ì§„í–‰', 4,'192.112.0.1');
-INSERT INTO member  VALUES (mem_seq.nextval, 'ê¹€í˜œìˆ˜', 'student2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '2', 'ì„œìš¸ì‹œ ë…¸ì›êµ¬', '01078901234', 'hyesoo@example.com', 'ì§„í–‰', 2,'192.156.0.1');
-INSERT INTO member  VALUES (mem_seq.nextval, 'ì´ë™ìš±', 'student3', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', 'ì„œìš¸ì‹œ ì„±ë¶êµ¬', '01089012345', 'dongwook@example.com', 'ì¤‘ë„í‡´ì‹¤', 5,'193.168.0.1');
-INSERT INTO member  VALUES (mem_seq.nextval, 'ê¹€í•˜ëŠ˜', 'student4', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '2', 'ì„œìš¸ì‹œ ê°•ë¶êµ¬', '01090123456', 'haneul@example.com', 'ê°•ì œí‡´ì‹¤', 1,'192.165.0.1');
-INSERT INTO member  VALUES (mem_seq.nextval, 'ë°•ì§€í›ˆ', 'student5', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', 'ì„œìš¸ì‹œ ê°•ì„œêµ¬', '01001234567', 'jihoon@example.com', 'ì§„í–‰', 3,'192.138.0.1');
+INSERT INTO member  VALUES (mem_seq.nextval, '°ü¸®ÀÚ', 'admin', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'admin', 'X', '¼­¿ï½Ã °­³²±¸', '010-1234-5678', 'chulsoo@google.com', '°ü¸®ÀÚ', 0,'106.241.247.83');
+INSERT INTO member  VALUES (mem_seq.nextval, 'ÀÌ¿µÈñ', 'manager1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '1/2', '¼­¿ï½Ã ¼­ÃÊ±¸', '010-2345-6789', 'younghee@google.com', '±Ù¹«', 2,'106.241.247.83');
+INSERT INTO member  VALUES (mem_seq.nextval, '¹Ú¹Î¼ö', 'manager2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '3', '¼­¿ï½Ã ¼ÛÆÄ±¸', '010-3456-7890', 'minsoo@google.com', '±Ù¹«', 4,'106.241.247.83');
+INSERT INTO member  VALUES (mem_seq.nextval, 'ÃÖÁö¿µ', 'teacher1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '1', '¼­¿ï½Ã °­µ¿±¸', '010-4567-8901', 'jiyoung@google.com', '±Ù¹«', 0,'106.241.247.83');
+INSERT INTO member  VALUES (mem_seq.nextval, 'ÇÑ°¡¿µ', 'teacher2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '2', '¼­¿ï½Ã ¸¶Æ÷±¸', '010-5678-9012', 'gayoung@google.com', '±Ù¹«', 0,'106.241.247.83');
+INSERT INTO member  VALUES (mem_seq.nextval, 'Á¤¿ì¼º', 'student1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '¼­¿ï½Ã ÀºÆò±¸', '010-6789-0123', 'woosung@google.com', 'ÁøÇà', 4,'106.241.247.83');
+INSERT INTO member  VALUES (mem_seq.nextval, '±èÇı¼ö', 'student2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '2', '¼­¿ï½Ã ³ë¿ø±¸', '010-7890-1234', 'hyesoo@google.com', 'ÁøÇà', 2,'106.241.247.83');
+INSERT INTO member  VALUES (mem_seq.nextval, 'ÀÌµ¿¿í', 'student3', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '¼­¿ï½Ã ¼ººÏ±¸', '010-8901-2345', 'dongwook@google.com', 'ÁßµµÅğ½Ç', 5,'106.241.247.83');
+INSERT INTO member  VALUES (mem_seq.nextval, '±èÇÏ´Ã', 'student4', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '2', '¼­¿ï½Ã °­ºÏ±¸', '010-9012-3456', 'haneul@google.com', '°­Á¦Åğ½Ç', 1,'106.241.247.83');
+INSERT INTO member  VALUES (mem_seq.nextval, '¹ÚÁöÈÆ', 'student5', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '¼­¿ï½Ã °­¼­±¸', '010-0123-4567', 'jihoon@google.com', 'ÁøÇà', 3,'106.241.247.83');
 
 commit;
 
@@ -44,10 +47,9 @@ col pw for a10
 col category for a10
 select mem_num, name, id, pw, category from member;
 
-===================================
-==== ê°•ì˜ í…Œì´ë¸”
-===================================
-
+-------------------------------------------------------------------------------------
+-- °­ÁÂ Å×ÀÌºí
+-------------------------------------------------------------------------------------
 drop sequence seq_lecture;
 create sequence seq_lecture
 	start with 1
@@ -66,13 +68,10 @@ CREATE TABLE lecture (
 	class_name varchar2(10) NULL
 );
 
-insert into lecture values(seq_lecture.nextval, 'AWSë¥¼ ì‚¬ìš©í•œ í’€ìŠ¤íƒ ê°œë°œ êµìœ¡', 'ìµœì§€ì˜', 'ì´ì˜í¬', '2024-01-16', '2024-08-16', 24, 'A');
-insert into lecture values(seq_lecture.nextval, 'Chat-gpt APIë¥¼ ì‚¬ìš©í•œ ì• í”Œë¦¬ì¼€ì´ì…˜ ê°œë°œ êµìœ¡', 'í•œê°€ì˜', 'ë°•ë¯¼ìˆ˜', '2024-04-16', '2024-12-16', 21, 'B');
-
-===================================
-==== ì¼ì • í…Œì´ë¸”
-===================================
-
+commit;
+-------------------------------------------------------------------------------------
+-- Ä¶¸°´õ Å×ÀÌºí
+-------------------------------------------------------------------------------------
 drop sequence seq_calender;
 create sequence seq_calender
 	start with 1
@@ -92,10 +91,10 @@ CREATE TABLE calender (
 	date2 varchar2(20) NULL
 );
 
-===================================
-==== ê°•ì˜í‰ê°€ í…Œì´ë¸”
-===================================
-
+commit;
+-------------------------------------------------------------------------------------
+-- °­ÀÇ Æò°¡ Å×ÀÌºí
+-------------------------------------------------------------------------------------
 drop sequence seq_evaluation;
 create sequence seq_evaluation
 	start with 1
@@ -109,9 +108,10 @@ CREATE TABLE evaluation (
 	eval_content varchar(200) NULL
 );
 
-===================================
-==== ê³µì§€ì‚¬í•­ í…Œì´ë¸”
-===================================
+commit;
+-------------------------------------------------------------------------------------
+-- °øÁö»çÇ× Å×ÀÌºí
+-------------------------------------------------------------------------------------
 
 drop sequence seq_notice;
 create sequence seq_notice
@@ -131,10 +131,11 @@ CREATE TABLE notice (
 	upload varchar2(200) NULL
 );
 
-===================================
-==== ì¶œì„ í…Œì´ë¸”
-===================================
 
+commit;
+-------------------------------------------------------------------------------------
+-- Ãâ¼® Å×ÀÌºí
+-------------------------------------------------------------------------------------
 drop sequence seq_attend;
 create sequence seq_attend
 	start with 1
@@ -155,10 +156,10 @@ CREATE TABLE attend (
 	longitude NUMBER(8, 5) NULL
 );
 
-===================================
-==== ê°•ì˜í‰ê°€ê²°ê³¼ í…Œì´ë¸”
-===================================
-
+commit;
+-------------------------------------------------------------------------------------
+-- °­ÀÇ Æò°¡ °á°ú Å×ÀÌºí
+-------------------------------------------------------------------------------------
 DROP TABLE eval_result CASCADE CONSTRAINTS;
 CREATE TABLE eval_result (
 	eval_num number NULL,
@@ -167,10 +168,10 @@ CREATE TABLE eval_result (
 	eval_result varchar(100) NULL
 );
 
-===================================
-==== ì‹œí—˜ í…Œì´ë¸”
-===================================
-
+commit;
+-------------------------------------------------------------------------------------
+-- ½ÃÇè Å×ÀÌºí
+-------------------------------------------------------------------------------------
 drop sequence seq_test;
 create sequence seq_test
 	start with 1
@@ -183,16 +184,14 @@ CREATE TABLE test (
 	lec_num number NULL,
 	test_name varchar(40) NULL,
 	test_questions varchar(500) NULL,
-	test_answer varchar(200) NULL,
-	test_img varchar(500) NULL,
-	test_opt varchar(500) NULL,
-	questions_point varchar(100) NULL				--- ì ìˆ˜ëŠ” ëŠëƒ¥ 100 % ì „ì²´ë¡œ í•˜ë©´ ë˜ëŠ”ê±° ì•„ë‹Œê°€???
+	test_answer varchar(100) NULL,
+	questions_point varchar(100) NULL
 );
 
-===================================
-==== ìë£Œì‹¤ í…Œì´ë¸”
-===================================
-
+commit;
+-------------------------------------------------------------------------------------
+-- ÀÚ·á½Ç Å×ÀÌºí
+-------------------------------------------------------------------------------------
 drop sequence seq_library;
 create sequence seq_library
 	start with 1
@@ -202,8 +201,8 @@ create sequence seq_library
 DROP TABLE library CASCADE CONSTRAINTS;
 CREATE TABLE library (
 	li_num number primary key,
-	lec_num number NULL,
 	title varchar2(20) NULL,
+	lec_num number NULL,
 	mem_num number NULL,
 	writer varchar2(20) NULL,
 	day varchar2(20) NULL,
@@ -211,10 +210,10 @@ CREATE TABLE library (
 	upload varchar2(200) NULL
 );
 
-===================================
-==== ì‹œí—˜ê²°ê³¼ í…Œì´ë¸”
-===================================
-
+commit;
+-------------------------------------------------------------------------------------
+-- ½ÃÇè °á°ú Å×ÀÌºí
+-------------------------------------------------------------------------------------
 DROP TABLE test_result CASCADE CONSTRAINTS;
 CREATE TABLE test_result (
 	test_num number NULL,
@@ -224,10 +223,10 @@ CREATE TABLE test_result (
 	point number NULL
 );
 
-===================================
-==== ê²°ì œ-ìŠ¹ì¸ í…Œì´ë¸”
-===================================
-
+commit;
+-------------------------------------------------------------------------------------
+--- °áÀç-½ÂÀÎ Å×ÀÌºí
+-------------------------------------------------------------------------------------
 drop sequence seq_request;
 create sequence seq_request
 	start with 1
@@ -238,50 +237,39 @@ DROP TABLE request CASCADE CONSTRAINTS;
 CREATE TABLE request (
 	req_num number primary key,
 	mem_num number NULL,
-	app_num number NULL,
-	title varchar2(60) NULL,
+	app_num varchar2(20) NULL,
 	category varchar2(20) NULL,
 	time1 varchar2(20) NULL,
 	time2 varchar2(20) NULL,
-	reason varchar2(80) NULL,
-	sign varchar2(200) NULL,
+	reason varchar2(30) NULL,
+	sign varchar2(100) NULL,
 	ap_situ varchar2(20) NULL,
-	ap_date varchar2(20) NULL,
-	ap_delete varchar2(10)
+	ap_date varchar2(20) NULL
 );
 
-col title for a10;
-col category for a10;
-col time1 for a10;
-col time2 for a10;
-col reason for a10;
-col sign for a10;
-col ap_situ for a10;
-col ap_date for a10;
 
--- ë°ì´í„° ì‚½ì…
-INSERT INTO request (req_num, mem_num, app_num, title,category, time1, time2, reason, sign, ap_situ, ap_date)
-VALUES (seq_request.NEXTVAL, 6, '2', 'íœ´ê°€ê²°ì˜ì„œì…ë‹ˆë‹¤.','íœ´ê°€', '2024-06-25 08:00', '2024-06-25 10:00', 'í•˜í•³ã…í—£', 'sign1.pdf', 'ì™„ë£Œ', '2024-06-25');
+-- µ¥ÀÌÅÍ »ğÀÔ
+INSERT INTO request (req_num, mem_num, app_num, category, time1, time2, reason, sign, ap_situ, ap_date)
+VALUES (seq_request.NEXTVAL, 6, 'APP001', 'ÈŞ°¡', '2024-06-25 08:00', '2024-06-25 10:00', 'ÇÏÁK¤¾ÂS', 'sign1.pdf', 'approved', '2024-06-25');
 
-INSERT INTO request (req_num, mem_num, app_num, title,category, time1, time2, reason, sign, ap_situ, ap_date)
-VALUES (seq_request.NEXTVAL, 7, '2', 'ì¡°í‡´ì‹ ì²­ì…ë‹ˆë‹¤.', 'ì¡°í‡´', '2024-06-26 09:00', '2024-06-26 11:00', 'ì¹œêµ¬ ìƒì¼', 'sign2.pdf', '', '2024-06-26');
+INSERT INTO request (req_num, mem_num, app_num, category, time1, time2, reason, sign, ap_situ, ap_date)
+VALUES (seq_request.NEXTVAL, 7, 'APP002', 'Á¶Åğ', '2024-06-26 09:00', '2024-06-26 11:00', 'Ä£±¸ »ıÀÏ', 'sign2.pdf', 'pending', '2024-06-26');
 
-INSERT INTO request (req_num, mem_num, app_num, title,category, time1, time2, reason, sign, ap_situ, ap_date)
-VALUES (seq_request.NEXTVAL, 8, '2', 'ì œì¶œí•©ë‹ˆë‹¤','ê²°ì„', '2024-06-27 10:00', '2024-06-27 12:00', 'ì¼ì •ì´ ìˆìŠµë‹ˆë‹¤', 'sign3.pdf', 'ì§„í–‰ì¤‘', '2024-06-27');
+INSERT INTO request (req_num, mem_num, app_num, category, time1, time2, reason, sign, ap_situ, ap_date)
+VALUES (seq_request.NEXTVAL, 8, 'APP003', '°á¼®', '2024-06-27 10:00', '2024-06-27 12:00', 'ÀÏÁ¤ÀÌ ÀÖ½À´Ï´Ù', 'sign3.pdf', 'rejected', '2024-06-27');
 
-INSERT INTO request (req_num, mem_num, app_num, title,category, time1, time2, reason, sign, ap_situ, ap_date)
-VALUES (seq_request.NEXTVAL, 9, '2', 'ì•ˆë…•í•˜ì„¸ì—¬','ì¡°í‡´', '2024-06-28 13:00', '2024-06-28 15:00', 'ë¯¸íŒ…ì´ ìˆìŠµë‹ˆë‹¤', 'sign4.pdf', '', '2024-06-28');
+INSERT INTO request (req_num, mem_num, app_num, category, time1, time2, reason, sign, ap_situ, ap_date)
+VALUES (seq_request.NEXTVAL, 9, 'APP004', 'Á¶Åğ', '2024-06-28 13:00', '2024-06-28 15:00', '¹ÌÆÃÀÌ ÀÖ½À´Ï´Ù', 'sign4.pdf', 'approved', '2024-06-28');
 
-INSERT INTO request (req_num, mem_num, app_num, title, category, time1, time2, reason, sign, ap_situ, ap_date)
-VALUES (seq_request.NEXTVAL, 10, '2', 'ê²°ì˜ì„œ','ê²°ì„', '2024-06-29 14:00', '2024-06-29 16:00', 'ì•„íŒŒìš”', 'sign5.pdf', 'ì§„í–‰ì¤‘', 'ì§„í–‰ì¤‘-06-29');
+INSERT INTO request (req_num, mem_num, app_num, category, time1, time2, reason, sign, ap_situ, ap_date)
+VALUES (seq_request.NEXTVAL, 10, 'APP005', '°á¼®', '2024-06-29 14:00', '2024-06-29 16:00', '¾ÆÆÄ¿ä', 'sign5.pdf', 'pending', '2024-06-29');
 
 
 
 commit;
-
-===================================
-==== ì„œë¥˜ ì œì¶œ í…Œì´ë¸”
-===================================
+-------------------------------------------------------------------------------------
+-- ¼­·ù Á¦Ãâ Å×ÀÌºí
+-------------------------------------------------------------------------------------
 
 drop sequence seq_document;
 create sequence seq_document
@@ -298,10 +286,10 @@ CREATE TABLE document (
 	doc_situ varchar2(20) NULL
 );
 
-===================================
-==== ê¸°íƒ€ ì„œë¥˜ í…Œì´ë¸”
-===================================
-
+commit;
+-------------------------------------------------------------------------------------
+-- ±âÅ¸ ¼­·ù ¿äÃ» Å×ÀÌºí
+-------------------------------------------------------------------------------------
 drop sequence etc_seq;
 
 create sequence etc_seq
@@ -315,26 +303,17 @@ DROP TABLE etc;
 
 CREATE TABLE etc (
 	etc_num		number		primary key,
-	mem_num		number		NULL, --ë°›ëŠ”ì‚¬ëŒ
-	sender_num		number		NULL, --ë³´ë‚´ëŠ”ì‚¬ëŒ
+	mem_num		number		NULL,
 	etc_title		varchar2(50)	NULL,
 	etc_content		varchar2(100)	NULL,
 	etc_sdate		date			NULL,
 	etc_fdate		date			NULL,
-	etc_file		varchar2(300)	NULL,
-	etc_delete varchar2(10)
+	etc_file_path		varchar2(300)	NULL
 );
 
-col etc_title for a10;
-col etc_content for a10;
-col etc_file for a10;
-col etc_delete for a10;
-
-
 commit;
-
 ===================================
-==== ì§ˆë¬¸ ê²Œì‹œíŒ í…Œì´ë¸”
+==== Áú¹® °Ô½ÃÆÇ Å×ÀÌºí
 ===================================
 
 drop sequence seq_faq;
@@ -353,11 +332,10 @@ CREATE TABLE faq (
 	content varchar2(100) NULL,
 	regdate varchar2(20) NULL
 );
-
-===================================
-==== ì»¤ë®¤ë‹ˆí‹° í…Œì´ë¸”
-===================================
-
+commit;
+-------------------------------------------------------------------------------------
+-- Ä¿¹Â´ÏÆ¼ Å×ÀÌºí
+-------------------------------------------------------------------------------------
 drop sequence seq_community;
 create sequence seq_community
 	start with 1
@@ -377,10 +355,10 @@ CREATE TABLE community (
 	read number NULL
 );
 
-===================================
-==== ì»¤ë®¤ë‹ˆí‹° ë‹µê¸€ í…Œì´ë¸”
-===================================
-
+commit;
+-------------------------------------------------------------------------------------
+-- Ä¿¹Â´ÏÆ¼ ´ä±Û Å×ÀÌºí
+-------------------------------------------------------------------------------------
 DROP TABLE community_reply CASCADE CONSTRAINTS;
 CREATE TABLE community_reply (
 	comm_num number NULL,
@@ -389,9 +367,10 @@ CREATE TABLE community_reply (
 	day date NULL,
 	content varchar2(30) NULL
 );
+commit;
 
 ===================================
-==== ì§ˆë¬¸ ê²Œì‹œíŒ ë‹µê¸€ í…Œì´ë¸”
+==== Áú¹® °Ô½ÃÆÇ ´ä±Û Å×ÀÌºí
 ===================================
 
 DROP TABLE faq_reply CASCADE CONSTRAINTS;
@@ -403,77 +382,56 @@ CREATE TABLE faq_reply (
 	regdate varchar2(20) NULL
 );
 
-===================================
-==== ì†Œì‹ í…Œì´ë¸” ... ë‚´êº¼ ìˆ˜ì •í•˜ì í…Œì´ë¸” ì´ë¦„ë¶€í„° ì™„ì „ ë°”ë€œ
-===================================	
+commit;
 
-drop sequence alarm_news;
-create sequence alarm_news
+-------------------------------------------------------------------------------------
+-- ¼Ò½Ä(¾Ë¸²) Å×ÀÌºí
+-------------------------------------------------------------------------------------
+drop sequence seq_news;
+create sequence seq_news
 	start with 1
 	increment by 1
 	nocache ;
 
-DROP TABLE alarm CASCADE CONSTRAINTS;
-CREATE TABLE alarm (
-	pk_alarmno number primary key,
-	fk_recipientno number,
-	url varchar2(100) NULL,
-	url2 varchar2(100) NULL,
-	alarm_content varchar2(200) NULL,
-	alarm_type varchar2(50) NULL,
-	view_status number NULL,
-	writedate date NULL
+DROP TABLE news CASCADE CONSTRAINTS;
+CREATE TABLE news (
+	news_num number primary key,
+	bd_name varchar2(20) NULL,
+	bd_num number NULL,
+	sender_num number NULL,
+	receiver_num number NULL,
+	state varchar2(10) NULL,
+	day date NULL
 );
 
-INSERT INTO alarm (pk_alarmno, fk_recipientno, url, url2, alarm_content, alarm_type, view_status, writedate) 
-VALUES (alarm_news.NEXTVAL, 2, '\\etcList2', '.manager?mem_num=2' , 'ë¬¸ì„œ~.', '&#9989', 0, SYSDATE);
+commit;
+-------------------------------------------------------------------------------------
+-- ¸Ş½ÅÀú Å×ÀÌºí
+-------------------------------------------------------------------------------------
+drop sequence seq_Messenger;
+create sequence seq_Messenger
+	start with 1
+	increment by 1
+	nocache ;
 
-INSERT INTO alarm (pk_alarmno, fk_recipientno, url, url2, alarm_content, alarm_type, view_status, writedate) 
-VALUES (alarm_news.NEXTVAL, 2, '\\request2', '.manager', 'ë¬¸ì„œë°˜ë ¤.', '&#128161', 0, SYSDATE);
-
-===================================
-==== ë©”ì‹ ì € í…Œì´ë¸”
-===================================
-
-drop sequence msg_seq;
-
-create sequence msg_seq
-increment by 1
-start with 1
-minvalue 1
-maxvalue 10000
-nocache;
-
-DROP TABLE messenger;
-CREATE TABLE messenger (
-   msg_num number primary key,
-   mem_num number,
-   group_num number,
-   recv_num number references member(mem_num) on delete cascade,
-   ogmsg_num number,
-   title varchar2(100),
-   content varchar2(500),
-   msg_upload varchar2(200),
-   send_time date,
-   read_time date,
-   read_chk number,
-   send_name varchar2(30),
-   recv_name varchar2(30),
-   del_chk number
+DROP TABLE Messenger CASCADE CONSTRAINTS;
+CREATE TABLE Messenger (
+	msg_num number primary key,
+	group_num number NULL,
+	send_num number NULL,
+	receive_num number NULL,
+	ogmsg_num number NULL,
+	title varchar2(50) NULL,
+	content varchar2(50) NULL,
+	msg_whether varchar2(20) NULL,
+	msg_upload varchar2(200) NULL,
+	regdate date NULL
 );
 
-insert into messenger(msg_num, mem_num, recv_num, title, content, recv_name, send_time, del_chk) values(msg_seq.nextval, 4, 10, 'ê³¼ì¥ë‹˜ ì˜ ì§€ë‚´ì‹œë‚˜ìš”?', 'ì €ëŠ” ì˜ ì§€ë‚´ê³  ìˆìŠµë‹ˆë‹¤. ì¡°ë§Œê°„ ì ì‹¬ ê°™ì´ ë¨¹ì–´ìš”~', 'ë°•ì§€í›ˆ', '2024-06-28', 3);
-insert into messenger(msg_num, mem_num, recv_num, title, content, recv_name, send_time, del_chk) values(msg_seq.nextval, 3, 10, 'ì ì‹¬ ã„±?', 'ì ì‹¬ã„±?', 'ë°•ì§€í›ˆ', '2024-05-02' , 3);
-insert into messenger(msg_num, mem_num, recv_num, title, content, recv_name, send_time, del_chk) values(msg_seq.nextval, 3, 9, 'ì•ˆë…•í•˜ì„¸ìš”??', 'ëŒ€ë‹µì¢€..', 'ê¹€í•˜ëŠ˜', '2024-04-25' , 3);
-insert into messenger(msg_num, mem_num, recv_num, title, content, recv_name, send_time, del_chk) values(msg_seq.nextval, 5, 10, 'ê¹€ë°¥, ë–¡ë³¶ì´, íŠ€ê¹€', 'ê³¨ë¼ë³´ì‡¼', 'ë°•ì§€í›ˆ', '2024-06-27', 3);
-insert into messenger(msg_num, mem_num, recv_num, title, content, recv_name, send_time, del_chk) values(msg_seq.nextval, 6, 8, '6ë²ˆì´ 8ë²ˆì—ê²Œ', 'ìª½ì§€ë¥¼ ë³´ë‚¸ë‹¤', 'ì´ë™ìš±', '2024-06-26', 3);
-insert into messenger(msg_num, mem_num, recv_num, title, content, recv_name, send_time, del_chk) values(msg_seq.nextval, 6, 10, '6ë²ˆì´ 10ë²ˆì—ê²Œ', 'ìª½ì§€ë¥¼ ë³´ë‚¸ë‹¤', 'ë°•ì§€í›ˆ', '2024-06-26', 3);
-insert into messenger(msg_num, mem_num, recv_num, title, content, recv_name, send_time, del_chk) values(msg_seq.nextval, 9, 10, '9ë²ˆì´ 10ë²ˆì—ê²Œ', 'ìª½ì§€ë¥¼ ë³´ë‚¸ë‹¤. ì•ˆë…• ë‚˜ëŠ” ê¹€í•˜ëŠ˜', 'ë°•ì§€í›ˆ', '2024-05-10', 3);
-insert into messenger(msg_num, mem_num, recv_num, title, content, recv_name, send_time, del_chk) values(msg_seq.nextval, 10, 4, '10ë²ˆì´ 4ë²ˆì—ê²Œ', 'ìª½ì§€ë¥¼ ë³´ë‚¸ë‹¤. ì•ˆë…• ë‚˜ëŠ” ì°¨ë…¸ì„', 'ìµœì§€ì˜', '2024-05-10', 3);
-insert into messenger(msg_num, mem_num, recv_num, title, content, recv_name, send_time, del_chk) values(msg_seq.nextval, 10, 4, '10ë²ˆì´ 4ë²ˆì—ê²Œ', 'ìª½ì§€ë¥¼ ë³´ë‚¸ë‹¤. ì•ˆë…• ë‚˜ëŠ” ì°¨ë…¸ì„', 'ìµœì§€ì˜', '2024-05-10', 3);
+commit;
 
 ===================================
-==== ìŠ¤í„°ë””ê·¸ë£¹ í…Œì´ë¸”
+==== ½ºÅÍµğ±×·ì Å×ÀÌºí
 ===================================
 
 drop sequence seq_study_group;
@@ -484,27 +442,12 @@ create sequence seq_study_group
 
 DROP TABLE study_group CASCADE CONSTRAINTS;
 CREATE TABLE study_group (
-	chat_num number primary key,
-	lec_num number,
-	chat_name varchar2(100),
-	mem_num number,
-	mem_name varchar2(20)
+	sg_num number primary key,
+	title varchar2(20) NULL,
+	reader VARCHAR(255) NULL,
+	participant VARCHAR(255) NULL,
+	participant_num number NULL,
+	Status varchar2(30) NULL
 );
-
-===================================
-==== ì§„í–‰ì¤‘ì¸ ìˆ˜ì—… í…Œì´ë¸”
-===================================
-
-DROP TABLE going_class CASCADE CONSTRAINTS;
-CREATE TABLE going_class (
-	lec_num number primary key,
-	link varchar2(100) null,
-	onoff varchar2(10) null
-);
-
-
-insert into going_class values(1, 'null', 'off');
-insert into going_class values(2, 'null', 'off');
 
 commit;
-
