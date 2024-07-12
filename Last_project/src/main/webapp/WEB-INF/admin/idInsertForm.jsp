@@ -199,8 +199,7 @@
          	success:function(data){
              console.log("data: ",data);
              alert('엑셀파일이 업로드 되었습니다.');
-             w2ui['statisticInfoGrid'].reload();
-             $("#excelInput").val("");
+						 location.href = "emplList.admin";
           },
 					error: function(xhr, status, error) {
 				    // 오류 처리 로직
@@ -210,7 +209,6 @@
           type:"POST"
         };
         $("#excelUploadForm").ajaxSubmit(options);
-				location.href = "emplList.admin";
       }   
     }
 		

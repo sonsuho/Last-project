@@ -13,7 +13,7 @@
 	    insert into member(mem_num, lec_num, name, id, pw, category, phone, email, state, mem_ip) 
 	    values(mem_seq.nextval,#{lec_num},#{name},#{id},#{pw},#{category},#{phone},
 	    CASE 
-		    WHEN #{email} LIKE '%@google.com' THEN #{email}
+		    WHEN #{email} LIKE '%@%' THEN #{email}
 		    ELSE CONCAT(#{email}, '@google.com')
 		  END,
 	    #{state},'106.241.247.83')

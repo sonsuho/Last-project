@@ -228,31 +228,30 @@
       }
    	}
 		
-		/*엑셀 업로드처리*/
-    function check() {
-      var file = document.getElementById('excelInput').value;
-      if(file == "" || file == null ){
-        alert('파일을 선택해주세요.');
-        return false;
-      }else if(!checkFileType(file)){
-        alert('엑셀 파일만 업로드 가능합니다.');
-        $("#excelUploadForm")[0].reset();
-        return false;
-      }
-      if(confirm("업로드 하시겠습니까?")){
-        var options = {
-	        success:function(data){
-	          console.log("data: ",data);
-	          alert('엑셀파일이 업로드 되었습니다.');
-	          w2ui['statisticInfoGrid'].reload();
-	          $("#excelInput").val("");
-	        },
-        	type:"POST"
-      	};
-	      $("#excelUploadForm").ajaxSubmit(options);
-				location.href = "lectureList.admin";
-      }   
-    }
+		/*엑셀 업로드처리*/
+		function check() {
+		  var file = document.getElementById('excelInput').value;
+		  if (file == "" || file == null) {
+		    alert('파일을 선택해주세요.');
+		    return false;
+		  } else if (!checkFileType(file)) {
+		    alert('엑셀 파일만 업로드 가능합니다.');
+		    $("#excelUploadForm")[0].reset();
+		    return false;
+		  }
+		
+		  if (confirm("업로드 하시겠습니까?")) {
+		    var options = {
+		      success: function(data) {
+		        console.log("data: ", data);
+		        alert('엑셀파일이 업로드 되었습니다.');
+		        window.location.href = "lectureList.admin"; // 페이지 이동
+		      },
+		      type: "POST"
+		    };
+		    $("#excelUploadForm").ajaxSubmit(options);
+		  }
+		}
 
 		function submitForm(formName) {
 			var form = document.forms[formName];

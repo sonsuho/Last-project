@@ -98,6 +98,7 @@
 	                <th>학생수</th>
 	                <th>반이름</th>
 	                <th>상태</th>
+	                <th>수정</th>
 	              </tr>
 	            </thead>
 	            <tbody>
@@ -117,7 +118,7 @@
 	                  <td>${lecture.student} / ${lecture.stu_cnt}</td>
 	                  <td>${lecture.class_name}</td>
 	                  <td>
-	                  	<c:choose>
+	                    <c:choose>
 										    <c:when test="${start.time > currentDate.time}">
 										      <label class="badge badge-success">예정</label>
 										    </c:when>
@@ -128,6 +129,9 @@
 										      <label class="badge badge-danger">종료</label>
 										    </c:otherwise>
 										  </c:choose>
+	                  </td>
+	                  <td>
+	                  	<input type="button" value="수정" onclick="location.href='lectureUpdate.admin?lec_num=${lecture.lec_num}'" class="form-updateBtn btn btn-sm btn-gradient-light">
 	                  </td>
 	                </tr>
 	              </c:forEach>
@@ -180,6 +184,9 @@
 	$(document).ready(function() {
 	  // 체크박스 클릭 시 이벤트 전파 중지 및 빈 모달 열리지 않게 설정
 	  $('table').on('click', '.form-check-input', function(event) {
+	    event.stopPropagation(); // 이벤트 전파 중지
+	  });
+	  $('table').on('click', '.form-updateBtn', function(event) {
 	    event.stopPropagation(); // 이벤트 전파 중지
 	  });
 

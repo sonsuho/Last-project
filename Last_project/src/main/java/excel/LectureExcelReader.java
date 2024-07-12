@@ -92,10 +92,10 @@ public class LectureExcelReader {
 	                                lb.setLec_name(value);
 	                                break;
 	                            case 1: // 매니저
-	                                lb.setManager(value);
+	                                lb.setManager(String.valueOf((int)Double.parseDouble(value)));
 	                                break;
 	                            case 2: // 강사
-	                                lb.setTeacher(value);
+	                                lb.setTeacher(String.valueOf((int)Double.parseDouble(value)));
 	                                break;
 	                            case 3: // 시작일
 	                                lb.setLec_start(value);

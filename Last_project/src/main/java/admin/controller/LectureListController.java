@@ -63,6 +63,7 @@ public class LectureListController {
 		    int stu_cnt = mdao.getStudent(lb.getLec_num());
 		    lb.setStudent(stu_cnt);
 		    System.out.println("학생수 : " + stu_cnt);
+		    System.out.println("기간 : " + lb.getLec_start() + " ~ " + lb.getLec_end());
 		}
 
 		Date currentDate = new Date();

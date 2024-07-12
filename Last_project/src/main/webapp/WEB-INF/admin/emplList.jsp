@@ -95,7 +95,7 @@
 	                   	<c:if test="${empl.category eq 'manager'}">매니저</c:if>
 	                   	<c:if test="${empl.category eq 'teacher'}">강사</c:if>
                     </td>
-                    <td>${fn:substring(empl.phone,0,3)}-${fn:substring(empl.phone,3,7)}-${fn:substring(empl.phone,7,11)}</td>
+                    <td>${empl.phone}</td>
                     <td>${empl.email}</td>
                     <td><label class="badge badge-<c:if test="${empl.state eq '근무'}">info</c:if>">${empl.state}</label></td>
 	                </tr>

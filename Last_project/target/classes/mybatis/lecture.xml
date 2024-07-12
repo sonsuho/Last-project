@@ -33,22 +33,6 @@
 		</if>
 		ORDER BY 
 		    l.lec_num DESC
-		<!-- 
-		select * from lecture 
-		<if test="whatColumn=='all'">
-		where lec_name like #{keyword} or teacher like #{keyword} or manager like #{keyword}
-		</if>
-		<if test="whatColumn=='lec_name'">
-		where lec_name like #{keyword}
-		</if>
-		<if test="whatColumn=='manager'">
-		where manager like #{keyword}
-		</if>
-		<if test="whatColumn=='teacher'">
-		where teacher like #{keyword}
-		</if>
-		order by lec_num desc
-		-->
 	</select>
 	<select id="getTotalLecture" resultType="int">
 		select count(*) from lecture 

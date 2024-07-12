@@ -82,8 +82,8 @@ public class LectureInsertController {
 		return gotoPage;
 	}
 	
-	@ResponseBody
 	@RequestMapping(value=command2, method=RequestMethod.POST)
+	@ResponseBody
 	public String excelInsert(MultipartHttpServletRequest request, MultipartFile mfile) {
 		System.out.println("lectureExcelInsert.admin POST 요청");
 		
@@ -107,6 +107,7 @@ public class LectureInsertController {
 		String extention = StringUtils.getFilenameExtension(filePath);
 		if(extention.equals("xlsx")) {
 			List<LectureBean> list = excelReader.xlsxToList(filePath);
+			System.out.println("엑셀 업로드 준비중...");
 			printList(list);
 		}
 		
@@ -118,10 +119,7 @@ public class LectureInsertController {
 		for(LectureBean lb : list) {
 			int cnt = ldao.insertLecture(lb);
 			if(cnt!=-1) {
-				Map<String,String> map = new HashMap<String,String>();
-				map.put("manager", lb.getManager());
-				map.put("teacher", lb.getTeacher());
-				mdao.updateLecNum(map);  
+				System.out.println("강좌 개설 성공");
 			}
 		}
 	}
