@@ -14,7 +14,11 @@ public class MessengerBean {
 	private int read_chk;		// 열람 여부
 	private String send_name;	// 보낸 사람 이름
 	private String recv_name;	// 받는 사람 이름
+	private int del_chk;
 	
+	// 첨부 파일 경로를 배열로 저장
+	private String[] uploadList;
+ 	
 	public MessengerBean() {
 		
 	}
@@ -36,6 +40,7 @@ public class MessengerBean {
 		this.read_chk = read_chk;
 		this.send_name = send_name;
 		this.recv_name = recv_name;
+		this.del_chk = del_chk;
 	}
 	public int getMsg_num() {
 		return msg_num;
@@ -114,6 +119,23 @@ public class MessengerBean {
 	}
 	public void setRecv_name(String recv_name) {
 		this.recv_name = recv_name;
+	}
+
+	// 첨부 파일 경로를 배열로 저장
+	public String[] getUploadList() {
+		return uploadList;
+	}
+
+	public void setUploadList(String[] uploadList) {
+		this.uploadList = uploadList;
+	}
+
+	public int getDel_chk() {
+		return del_chk;
+	}
+
+	public void setDel_chk(int del_chk) {
+		this.del_chk = del_chk;
 	}
 	
 	

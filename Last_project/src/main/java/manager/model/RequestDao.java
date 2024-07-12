@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import utility.Paging;
 
-@Service
+@Service("managerRequestDao")
 public class RequestDao {
 
 	@Autowired

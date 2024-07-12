@@ -1,5 +1,6 @@
 package messenger.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,12 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import member.model.MemberBean;
+import member.model.MemberDao;
 import messenger.model.MessengerBean;
 import messenger.model.MessengerDao;
 import utility.Paging;
@@ -28,6 +31,9 @@ public class MessengerReceiveListController {
 	@Autowired
 	MessengerDao messengerDao;
 	
+	@Autowired
+	MemberDao memberDao;
+	
 	@RequestMapping(command)
 	public String rlist(@RequestParam(value = "pageNumber", required = false) String pageNumber,
 						@RequestParam(value = "whatColumn", required = false) String whatColumn,
@@ -35,12 +41,20 @@ public class MessengerReceiveListController {
 						HttpServletRequest request,
 						Model model, HttpSession session) {
 		
+		List<MemberBean> managerlist = memberDao.getMemberByCate("manager");
+		List<MemberBean> teacherlist = memberDao.getMemberByCate("teacher");
+		List<MemberBean> studentlist = memberDao.getMemberByCate("student");
+		model.addAttribute("managerlist", managerlist);
+		model.addAttribute("teacherlist", teacherlist);
+		model.addAttribute("studentlist", studentlist);
+		
 		MemberBean info = (MemberBean) session.getAttribute("loginInfo");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("keyword", "%"+keyword+"%");
 		map.put("whatColumn", whatColumn);
 		map.put("mem_num", info.getMem_num());
+		
 		System.out.println("info.getMem_num: " + info.getMem_num());
 		System.out.println("whatcolumn: " + whatColumn);
 		System.out.println("keyword: " + keyword);
