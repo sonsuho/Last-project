@@ -86,8 +86,8 @@
                 <c:set var="day" value="${formattedDate}" />
                 <tr>
                     <td>${day}</td>
-                    <td><fmt:formatDate value="${attend.att_sdate}" pattern="hh:mm:ss"/></td>
-                    <td><fmt:formatDate value="${attend.att_fdate}" pattern="hh:mm:ss"/></td>
+                    <td><fmt:formatDate value="${attend.att_sdate}" pattern="kk:mm:ss"/></td>
+                    <td><fmt:formatDate value="${attend.att_fdate}" pattern="kk:mm:ss"/></td>
                     <td>${attend.situ}</td>
                     <td></td>
                 </tr>

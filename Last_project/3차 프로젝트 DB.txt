@@ -36,6 +36,13 @@ INSERT INTO member  VALUES (mem_seq.nextval, '김혜수', 'student2', '03ac67421
 INSERT INTO member  VALUES (mem_seq.nextval, '이동욱', 'student3', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 성북구', '010-8901-2345', 'dongwook@google.com', '중도퇴실', 5,'106.241.247.83', 37.55655207589364, 126.91945616764994);
 INSERT INTO member  VALUES (mem_seq.nextval, '김하늘', 'student4', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '2', '서울시 강북구', '010-9012-3456', 'haneul@google.com', '강제퇴실', 1,'106.241.247.83', 37.55655207589364, 126.91945616764994);
 INSERT INTO member  VALUES (mem_seq.nextval, '박지훈', 'student5', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '진행', 3,'106.241.247.83', 37.55655207589364, 126.91945616764994);
+
+--틀린 IP(student)
+INSERT INTO member  VALUES (mem_seq.nextval, 'stu_test', 'stu_test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '진행', 3,'105.241.247.83', 37.55655207589364, 126.91945616764994);
+--틀린 위도(manager)
+INSERT INTO member  VALUES (mem_seq.nextval, 'man_test', 'man_test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '근무', 3,'106.241.247.83', 31.55655207589364, 126.91945616764994);
+--틀린 경도(teacher)
+INSERT INTO member  VALUES (mem_seq.nextval, 'tea_test', 'tea_test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '근무', 3,'106.241.247.83', 37.55655207589364, 124.91945616764994);
 commit;
 
 col mem_num for 99
@@ -159,7 +166,43 @@ CREATE TABLE attend (
 col day for a10
 col situ for a10
 col ip for a15
-select * from attend;
+
+--학생 예시
+--정상출석
+INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
+VALUES (seq_attend.nextval, 11, TO_DATE('2024/07/15','YYYY/MM/DD'), TO_DATE('2024/07/15 08:30:15','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/15 18:30:15','YYYY/MM/DD HH24:MI:SS'), '출석');
+--지각
+INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
+VALUES (seq_attend.nextval, 11, TO_DATE('2024/07/14','YYYY/MM/DD'), TO_DATE('2024/07/14 10:13:22','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/14 17:50:15','YYYY/MM/DD HH24:MI:SS'), '지각');
+--조퇴
+INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
+VALUES (seq_attend.nextval, 11, TO_DATE('2024/07/13','YYYY/MM/DD'), TO_DATE('2024/07/13 09:01:05','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/13 13:30:15','YYYY/MM/DD HH24:MI:SS'), '조퇴');
+
+--매니저 예시
+--정상출석
+INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
+VALUES (seq_attend.nextval, 12, TO_DATE('2024/07/15','YYYY/MM/DD'), TO_DATE('2024/07/15 08:30:15','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/15 18:30:15','YYYY/MM/DD HH24:MI:SS'), '출근');
+--지각
+INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
+VALUES (seq_attend.nextval, 12, TO_DATE('2024/07/14','YYYY/MM/DD'), TO_DATE('2024/07/14 10:13:22','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/14 17:50:15','YYYY/MM/DD HH24:MI:SS'), '지각');
+--조퇴
+INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
+VALUES (seq_attend.nextval, 12, TO_DATE('2024/07/13','YYYY/MM/DD'), TO_DATE('2024/07/13 09:01:05','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/13 13:30:15','YYYY/MM/DD HH24:MI:SS'), '조퇴');
+
+--강사 예시
+--정상출석
+INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
+VALUES (seq_attend.nextval, 13, TO_DATE('2024/07/15','YYYY/MM/DD'), TO_DATE('2024/07/15 08:30:15','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/15 18:30:15','YYYY/MM/DD HH24:MI:SS'), '출근');
+--지각
+INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
+VALUES (seq_attend.nextval, 13, TO_DATE('2024/07/14','YYYY/MM/DD'), TO_DATE('2024/07/14 10:13:22','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/14 17:50:15','YYYY/MM/DD HH24:MI:SS'), '지각');
+--조퇴
+INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
+VALUES (seq_attend.nextval, 13, TO_DATE('2024/07/13','YYYY/MM/DD'), TO_DATE('2024/07/13 09:01:05','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/13 13:30:15','YYYY/MM/DD HH24:MI:SS'), '조퇴');
+
+commit;
+----------------------------------------------------------------------------------------------------------------
+
 
 ===================================
 ==== 강의평가결과 테이블

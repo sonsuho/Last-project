@@ -67,7 +67,6 @@
 		           <%
 		          	//AttendController session
 		          	String situ = (String)session.getAttribute("situ");
-		           
 		        	%>
 		           <a class="nav-link" onclick="checkAttend('<%=situ%>')">
 		              <i class="mdi mdi-power"></i>

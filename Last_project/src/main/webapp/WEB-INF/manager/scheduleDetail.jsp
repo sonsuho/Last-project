@@ -140,7 +140,13 @@
     StringBuffer month = dateBuffer.delete(7, 11);
 %>
 
-<a href="calendar.manager" class="button">뒤로 돌아가기(calendarForm)</a>
+<c:if test="${loginInfo.category == 'manager'}">
+	<a href="home.manager" class="button">뒤로 돌아가기</a>
+</c:if>
+
+<c:if test="${loginInfo.category == 'student'}">
+	<a href="home.student" class="button">뒤로 돌아가기</a>
+</c:if>
 
 <br><br>
 

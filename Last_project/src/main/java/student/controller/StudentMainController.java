@@ -7,8 +7,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import manager.model.RequestDao;
@@ -33,8 +35,16 @@ public class StudentMainController {
 	@Autowired
 	MemberDao memberDao;
 	
+	/* calendar추가코드 */
+	@Autowired 
+	student.model.sCalendarDao sCalendarDao;
+	
 	@RequestMapping(value = command , method = RequestMethod.GET)
-	public ModelAndView approval(HttpSession session) {
+	public ModelAndView approval(
+			HttpSession session,
+			@RequestParam(value = "month", required = false) String month,
+			Model model
+			) {
 		
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		
@@ -51,7 +61,8 @@ public class StudentMainController {
 		}
 		
 		ModelAndView mav = new ModelAndView();
-		
+		List<student.model.sCalendarBean> lists = sCalendarDao.getAllSchedules();
+	    model.addAttribute("allSchedules", lists);
 		mav.setViewName(getPage);
 		
 		return mav;
