@@ -100,5 +100,23 @@ public class MemberDao {
 		
 		return list;
 	}
+
+	public List<MemberBean> getStudentByLecNum(int lec_num){
+		List<MemberBean> members = new ArrayList<MemberBean>();
+		members = sqlSessionTemplate.selectList(namespace+".getStudentByLecNum", lec_num);
+		return members;
+	}
 	
+	public int updateLecNum(Map<String,String> map) {
+		int cnt = -1;
+		cnt = sqlSessionTemplate.update(namespace+".updateLecNum", map);
+		return cnt;
+	}
+	
+	public int getStudent(int lec_num) {
+		int cnt = -1;
+		System.out.println("getStudent lec_num : " + lec_num);
+		cnt = sqlSessionTemplate.selectOne(namespace+".getStudent", lec_num);
+		return cnt;
+	}
 }

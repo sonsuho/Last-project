@@ -16,8 +16,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import member.model.MemberBean;
 
-public class IdExcelReader {
-	
+public class StuExcelReader {
+
 	// xlsx 파일을 분석하여 List<MemberBean> 객체로 반환
     public List<MemberBean> xlsxToList(String filePath) {
         
@@ -92,13 +92,10 @@ public class IdExcelReader {
                                 case 2: // 비밀번호
                                     mb.setPw(value);
                                     break;
-                                case 3: // 카테고리
-                                    mb.setCategory(value);
-                                    break;
-                                case 4: // 전화번호
+                                case 3: // 전화번호
                                 	mb.setPhone(value);
                                 	break;
-                                case 5: // 이메일
+                                case 4: // 이메일
                                 	mb.setEmail(value);
                                 	break;
                                 default:

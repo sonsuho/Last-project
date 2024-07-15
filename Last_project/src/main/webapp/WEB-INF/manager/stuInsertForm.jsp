@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="adminBarTop.jsp" %>
-
-	<style>
+<%@ include file="managerBarTop.jsp" %>
+    
+  <style>
 	.form-group {
 	  display: flex;
 	  align-items: center;
@@ -37,16 +37,16 @@
 	</style>
 	
 	<div class="page-header">
-    	<h3 class="page-title">직원 아이디 생성</h3>
-    </div>
+  	<h3 class="page-title">${param.lec_num}번 강좌 학생 정보 등록</h3>
+  </div>
     
-    <div class="row">
+  <div class="row">
 	  <div class="col-lg-12 grid-margin stretch-card">
 	    <div class="card">
 	      <div class="card-body">
 	      
 	        <!-- 엑셀 업로드 -->
-					<form id="excelUploadForm" name="excelUploadForm" enctype="multipart/form-data" method="post" action="excelInsert.admin">
+					<form id="excelUploadForm" name="excelUploadForm" enctype="multipart/form-data" method="post" action="excelInsert.manager?lec_num=${param.lec_num}">
 					  <div class="row">
 					    <div class="col-md-5 ">
 					      <div class="input-group">
@@ -58,7 +58,7 @@
 					            	업로드
 					            	<i class="mdi mdi-upload btn-icon-prepend"></i>
 					            </button>
-					          	<input type="button" onclick="location.href='emplExcelDownload.admin'" value="양식다운" class="file-upload-browse btn btn-gradient-dark py-3">
+					          	<input type="button" onclick="location.href='emplExcelDownload.manager'" value="양식다운" class="file-upload-browse btn btn-gradient-dark py-3">
 					          </span>
 					        </span>
 					      </div>
@@ -66,23 +66,23 @@
 					    <div class="col-md-7 d-flex justify-content-end">
 							  <div class="form-group d-flex align-items-center">
 							    <i class="fa fa-plus-square" onclick="addId()"></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							    <input type="button" value="생성" class="btn btn-gradient-success py-3" onclick="submitForm('insertForm')">
+							    <input type="button" value="생성" class="btn btn-gradient-success py-3" onclick="submitForm('insertForm')"> &nbsp;&nbsp;
+							  	<input type="button" value="뒤로" class="btn btn-inverse-dark py-3" onclick="location.href='lectureList.manager'">
 							  </div>
 							</div>
 					  </div>
 					</form>
 					
 					<!-- 직접 기입해서 업로드 -->
-					<form name="insertForm" action="idInsert.admin" method="post">
+					<form name="insertForm" action="stuInsert.manager?lec_num=${param.lec_num}" method="post">
 					  <table class="table table-hover">
 					    <thead>
 					      <tr>
 					        <th width=14%>이름</th>
 					    		<th width=16%>아이디</th>
 					    		<th width=16%>비밀번호</th>
-					    		<th width=10%>카테고리</th>
-					    		<th width=20%>전화번호</th>
-					    		<th width=20%>이메일</th>
+					    		<th width=25%>전화번호</th>
+					    		<th width=25%>이메일</th>
 					    		<th>제거</th>
 					      </tr>
 					    </thead>
@@ -91,13 +91,6 @@
 					        <td><input type="text" name="name" placeholder="이름" size="4" class="form-control mr-2" required></td>
 					        <td><input type="text" name="id" placeholder="아이디" size="10" class="form-control mr-2" required></td>
 					        <td><input type="password" name="pw" placeholder="비밀번호" size="5" class="form-control mr-2" required></td>
-					        <td>
-					          <select name="category" class="form-select mr-2" required>
-					            <option value="">카테고리
-					            <option value="manager">매니저
-				                <option value="teacher">강사
-					          </select>
-					        </td>
 					        <td><input type="text" name="phone" id="phone-number" placeholder="전화번호를 입력하세요" size="15" class="form-control mr-2" required></td>
 					        <td>
 					          <span class="input-group">
@@ -118,37 +111,15 @@
 	  </div>
 	</div>
 
-	<script>
-		// 모든 select 요소 선택
-		var selectOptions = document.querySelectorAll('select');
-	
-		// 각 select 요소에 change 이벤트 리스너 등록
-		selectOptions.forEach(function(selectOption) {
-		  selectOption.addEventListener('change', function() {
-		    // 선택된 옵션의 색상 변경
-		    if (this.selectedIndex == 0) {
-		      this.style.color = '#b4b4b4';
-		    } else {
-		      this.style.color = 'black';
-		    }
-		  });
-		});
-	
+	<script>	
 		function addId() {
 		  var container = document.querySelector('tbody');
 		  var newId = document.createElement('tr');
 		  newId.innerHTML = `
-			  <tr>
-			  		<td><input type="text" name="name" placeholder="이름" size="4" class="form-control mr-2" required></td>
+			  	<tr>
+		        <td><input type="text" name="name" placeholder="이름" size="4" class="form-control mr-2" required></td>
 		        <td><input type="text" name="id" placeholder="아이디" size="10" class="form-control mr-2" required></td>
 		        <td><input type="password" name="pw" placeholder="비밀번호" size="5" class="form-control mr-2" required></td>
-		        <td>
-		          <select name="category" class="form-select mr-2" required>
-		            <option value="">카테고리
-		            <option value="manager">매니저
-	                <option value="teacher">강사
-		          </select>
-		        </td>
 		        <td><input type="text" name="phone" id="phone-number" placeholder="전화번호를 입력하세요" size="15" class="form-control mr-2" required></td>
 		        <td>
 		          <span class="input-group">
@@ -161,11 +132,10 @@
 		        </td>
 		      </tr>
 		  `;		  
-		  
 		  // 새로 추가된 전화번호 입력 필드에 이벤트 리스너 등록
 		  var newPhoneInput = newId.querySelector('#phone-number');
 		  newPhoneInput.addEventListener('input', formatPhoneNumber);
-  
+		  
 		  container.appendChild(newId);
 		}
 		function removeId(button) {
@@ -199,16 +169,19 @@
          	success:function(data){
              console.log("data: ",data);
              alert('엑셀파일이 업로드 되었습니다.');
-						 location.href = "emplList.admin";
+             w2ui['statisticInfoGrid'].reload();
+             $("#excelInput").val("");
           },
 					error: function(xhr, status, error) {
 				    // 오류 처리 로직
 				    console.error("Error:", error);
 				    alert("파일 업로드에 실패했습니다.");
 				  },
-          type:"POST"
+          type:"POST",
+					data: {lec_num : ${param.lec_num}}
         };
         $("#excelUploadForm").ajaxSubmit(options);
+				location.href = "lectureList.manager";
       }   
     }
 		
@@ -260,7 +233,6 @@
 			  }
 		}
 	</script>
-
-<%@ include file="adminBarBottom.jsp" %>
-<script src="resources/jquery.form.js"></script>
     
+<%@ include file="managerBarBottom.jsp" %>
+<script src="resources/js/jquery.form.js"></script>

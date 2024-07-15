@@ -129,9 +129,6 @@
 	          <div class="collapse" id="menu2">
 	            <ul class="nav flex-column sub-menu">
 	              <li class="nav-item">
-	                <a class="nav-link" href="stuList.admin">학생목록</a>
-	              </li>
-	              <li class="nav-item">
 	                <a class="nav-link" href="emplList.admin">직원목록</a>
 	              </li>
 	              <li class="nav-item">
