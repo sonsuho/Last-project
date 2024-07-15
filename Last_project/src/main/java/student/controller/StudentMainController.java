@@ -22,7 +22,7 @@ import messenger.model.MessengerDao;
 @ComponentScan({"member,messenger,student"})
 public class StudentMainController {
 	private final String command = "/home.student";
-	private final String getPage = "studentHome";
+	private final String getPage = "home";
 	
 	@Autowired
 	RequestDao requestDao;

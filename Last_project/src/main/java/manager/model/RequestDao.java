@@ -13,7 +13,7 @@ import member.model.MemberBean;
 import student.model.SRequestBean;
 import utility.Paging;
 
-@Service
+@Service("managerRequestDao")
 public class RequestDao {
 
 	@Autowired

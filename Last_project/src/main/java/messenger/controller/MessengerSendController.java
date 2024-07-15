@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,11 +24,10 @@ import messenger.model.MessengerBean;
 import messenger.model.MessengerDao;
 
 @Controller
-@ComponentScan({"messenger,alarm"})
 public class MessengerSendController {
 	// 메신저 보내기 
 	
-	private final String command = "/send.messenger";
+	private final String command = "send.messenger";
 	private final String getPage = "messengerForm";
 	private final String gotoPage = "redirect:/rlist.messenger";
 	
@@ -61,6 +59,7 @@ public class MessengerSendController {
 							@RequestParam("title") String title,
 							@RequestParam("content") String content,
 							@RequestParam("rowcheck") int[] num_arr,
+							@RequestParam(value = "ogmsg_num", required = false) String ogmsg_num,
 						    HttpServletRequest request,
 						    HttpSession session){
 		System.out.println("content : " + content);
@@ -111,6 +110,15 @@ public class MessengerSendController {
 		mb.setContent(content);
 		mb.setMem_num(((MemberBean)session.getAttribute("loginInfo")).getMem_num());
 		mb.setSend_name(((MemberBean)session.getAttribute("loginInfo")).getName() );
+		mb.setDel_chk(3);
+		
+		// 원글 번호 값 넣어주기 
+		if(ogmsg_num != null) {
+			mb.setOgmsg_num(Integer.parseInt(ogmsg_num));
+		} else {
+			mb.setOgmsg_num(0);
+		}
+		
 		
 		List<MemberBean> list = memberDao.getMemberByNum(num_arr);
 		for(MemberBean i : list) {
@@ -118,21 +126,40 @@ public class MessengerSendController {
 			mb.setRecv_name(i.getName());
 			mb.setRecv_num(i.getMem_num());
 			messengerDao.insertAllMsg(mb);
+			System.out.println("ㅇㅕ기로올까? : " + mb.getOgmsg_num());
 		}
 					
 		
 		//파일 업로드
 		try {
 			for(int i=0; i<multiFileList.size(); i++) {
+				
 				File uploadFile = new File(root + "\\" + fileList.get(i).get("originFile"));
 				multiFileList.get(i).transferTo(uploadFile);
+				
 			}
+			
 			System.out.println("다중 파일 업로드 성공");
+			
 		} catch (IllegalStateException e) {
-			System.out.println("다중 업로드 실패");
+			
+			System.out.println("다중 파일 업로드 실패");
+			// 만약 업로드 실패하면 파일 삭제
+			for(int i = 0; i < multiFileList.size(); i++) {
+				new File(root + "\\" + fileList.get(i).get("originFile")).delete();
+			}
+			
 			e.printStackTrace();
+			
 		} catch (IOException e) {
+			System.out.println("다중 파일 업로드 실패");
+			// 만약 업로드 실패하면 파일 삭제
+			for(int i = 0; i < multiFileList.size(); i++) {
+				new File(root + "\\" + fileList.get(i).get("originFile")).delete();
+			}
+			
 			e.printStackTrace();
+			
 		}
 		
 		mav.setViewName(gotoPage);
