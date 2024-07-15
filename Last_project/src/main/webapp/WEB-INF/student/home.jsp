@@ -62,7 +62,8 @@
 	    <br>
 	    
 	    <a href="request.student">요청 페이지</a> <br>
-	    <a href="rlist.messenger">메신저 페이지</a>
+	    <a href="rlist.messenger">메신저 페이지</a> <br>
+	    <a href="calendar.student">달력보기</a>
 	</div>
 
 <%@ include file="studentBottom.jsp" %>

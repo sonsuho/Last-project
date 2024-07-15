@@ -94,7 +94,7 @@
 						</li>
 						
 						<!-- 사이드바 출석 정보 -->
-						<%@ include file="../all/attendanceCheck.jsp" %>
+						<%@ include file="../student/studentAttendanceCheck.jsp" %>
 						
 						<!-- 사이드바 메인 메뉴 -->
 						<li class="nav-item">

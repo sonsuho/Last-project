@@ -591,6 +591,86 @@
 		</if>
   	</select>
 	<!-- request -->
-	<!--민곤  -->
+
+	<!-- 일정 Calendar -->
+	<insert id="insertSchedule">
+		insert into calendar (cal_num, lec_num, mem_num, lesson_class, name, title, content, start_date, fin_date)
+		values(seq_calendar.nextval, #{lec_num}, #{mem_num}, #{lesson_class}, #{name}, #{title}, #{content}, #{start_date}, #{fin_date})
+	</insert>
+	
+	<select id="getScheduleByStart_date" resultType="manager.model.mCalendarBean">
+		select * from calendar where start_date = #{start_date} order by cal_num desc
+	</select>
+	
+	<select id="getCalendarListByCal_num" resultType="manager.model.mCalendarBean">
+		select * from calendar where cal_num = #{cal_num}
+	</select>
+	
+	<update id="updateSchedule">
+		update calendar set lesson_class = #{lesson_class}, title = #{title}, content = #{content}, fin_date = #{fin_date}
+		where cal_num = #{cal_num}
+	</update>
+	
+	<delete id="deleteSchedule">
+		delete from calendar where cal_num = #{cal_num}
+	</delete>
+	
+	<select id="getAllSchedules" resultType="manager.model.mCalendarBean">
+		select * from calendar
+	</select>
+	<!-- 일정 Calendar -->
+	
+	<!-- 근태관리 -->
+	<select id="getAttendPrimaryKey" resultType="member.model.AttendBean">
+		select att_num from attend where mem_num = #{mem_num} and ip = #{mem_ip} order by att_num desc FETCH FIRST 1 ROW ONLY
+	</select>
+	
+	<select id="getAttendListByAtt_num" resultType="member.model.AttendBean">
+		select * from attend where att_num = #{att_num}
+	</select>
+
+	<insert id="insertCheck" parameterType="map">
+		INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, study_time, situ, ip)
+		VALUES (seq_attend.nextval, #{mem_num}, trunc(sysdate), systimestamp, null ,0, '수업중', #{mem_ip})
+	</insert>
+
+	<update id="updateFdate" parameterType="int">
+    UPDATE attend 
+    SET att_fdate = systimestamp 
+    WHERE att_num = #{att_num}
+  </update>
+
+  <select id="getRunningTime" resultType="int" parameterType="map">
+    select round((#{att_fdate} - #{att_sdate}) * 24 * 60)from attend where att_num = #{att_num}
+  </select>
+     
+  <select id="transFormSdate" parameterType="map" resultType="int">
+    SELECT HOUR(#{new_sdate}) * 100 + MINUTE(#{new_sdate}) 
+    FROM attend 
+    WHERE att_num = #{att_num}
+  </select>
+
+  <select id="transFormFdate" parameterType="map" resultType="int">
+    SELECT HOUR(#{new_fdate}) * 100 + MINUTE(#{new_fdate}) 
+    FROM attend 
+    WHERE att_num = #{att_num}
+  </select>
+
+
+   <update id="updateAttendSitu">
+    update attend set situ = 
+    <choose>
+        <when test="condition == 'attend'"> '출근' </when>
+        <when test="condition == 'late'"> '지각' </when>
+        <when test="condition == 'leave'"> '조퇴' </when>
+        <when test="condition == 'absence'"> '결근' </when>
+    </choose>
+    where att_num = #{att_num}
+  </update>
+
+  <select id="getAttendListByMem_num" resultType="member.model.AttendBean">
+		select * from attend where mem_num = #{mem_num} order by att_sdate desc
+  </select>
+  <!-- 근태관리 -->
 
 </mapper>

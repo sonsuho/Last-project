@@ -1,3 +1,5 @@
+--Last_project
+
 ===================================
 ==== 회원 테이블
 ===================================
@@ -34,6 +36,10 @@ INSERT INTO member  VALUES (mem_seq.nextval, '김혜수', 'student2', '03ac67421
 INSERT INTO member  VALUES (mem_seq.nextval, '이동욱', 'student3', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 성북구', '01089012345', 'dongwook@example.com', '중도퇴실', 5,'193.168.0.1');
 INSERT INTO member  VALUES (mem_seq.nextval, '김하늘', 'student4', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '2', '서울시 강북구', '01090123456', 'haneul@example.com', '강제퇴실', 1,'192.165.0.1');
 INSERT INTO member  VALUES (mem_seq.nextval, '박지훈', 'student5', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 강서구', '01001234567', 'jihoon@example.com', '진행', 3,'192.138.0.1');
+
+INSERT INTO member  VALUES (mem_seq.nextval, 'stu_test', 'stu_test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '진행', 3,'118.33.92.243', 37.5792607, 126.9364946);
+INSERT INTO member  VALUES (mem_seq.nextval, 'man_test', 'man_test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '진행', 3,'118.33.92.243', 37.5792607, 126.9364946);
+INSERT INTO member  VALUES (mem_seq.nextval, 'tea_test', 'tea_test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '진행', 3,'118.33.92.243', 37.5792607, 126.9364946);
 
 commit;
 
