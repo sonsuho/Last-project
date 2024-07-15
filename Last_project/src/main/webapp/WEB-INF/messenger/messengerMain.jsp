@@ -67,14 +67,6 @@
                  <div class="card-body">
                    
                    <div class="row">
-                    <div class="col-lg-8">
-			          <div class="form-group">
-	                     <div class="form-check">
-	                       <label class="form-check-label">
-	                       <input type="checkbox" class="form-check-input"> 안 읽은 메시지만 보기 </label>
-	                     </div>
-	                  </div>
-			        </div>
 			        <div class="col-lg-4">
                      	<form action="rlist.messenger" style="display:flex;">
                      		<input type="hidden" name="whatColumn" value="all">

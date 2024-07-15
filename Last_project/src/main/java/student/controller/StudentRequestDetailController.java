@@ -37,6 +37,7 @@ public class StudentRequestDetailController {
     								@RequestParam String title,
     								@RequestParam String reason,
     								@RequestParam String memberName,
+    								@RequestParam String time1,
     								@RequestParam String time2,
     								@RequestParam String ap_situ,
     								@RequestParam (value="sign", required = false)String sign,
@@ -57,6 +58,7 @@ public class StudentRequestDetailController {
         mav.addObject("title",title);
         mav.addObject("reason",reason);
         mav.addObject("memberName",memberName);
+        mav.addObject("time1",time1);
         mav.addObject("time2",time2);
         mav.addObject("ap_situ",ap_situ);
         if(sign != null) {

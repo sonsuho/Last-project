@@ -4,12 +4,14 @@
     .container {
         display: flex;
         transition: all 0.5s ease;
+        
     }
     .left-panel, .right-panel {
         padding: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         background: #fff;
         transition: all 1s ease;
+        width : 100%;
     }
     .left-panel {
         flex: 1;
@@ -28,9 +30,12 @@
         display: block;
         flex: 1;
         max-width: 100%;
-        
-        
     }
+    .sub-next-title { color: #9a9a9a;  cursor: pointer;}
+	.sub-next-title:hover {color: #b66dff; transition: 0.2s; }
+	span{
+	margin-right: 5;
+	}
 </style>
 
 <script>
@@ -84,26 +89,45 @@
 	function reply(etc_num,mem_num,sender_num){//받았던 사람이 이제 보내는사람이 되니까 반대로
 		location.href="replyEtc.student?etc_num="+etc_num+"&mem_num="+mem_num+"&sender_num="+sender_num;
 	}
+	function etcForm(){
+		location.href="etc.student";
+	}
 
 </script>
 
+
 <div class="container" id="container">
     <div class="left-panel" id="leftPanel">
-        <div class="page-header">
-            <h3 class="page-title">내(학생) 문서함</h3>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item active" aria-current="page"></li>
-                </ol>
-            </nav>
-        </div>
-        <div class="col-lg-10 grid-margin stretch-card">
+<div class="page-header">
+	<h3 class="page-title" style="font-weight:700;">
+		<span>받은 문서함</span> 
+		<span class="sub-next-title" onclick="etcSendList('${loginInfo.mem_num}')">보낸 문서함</span>
+		<span class="sub-next-title" onclick="requestList2('${loginInfo.mem_num}')">결재 문서함</span>
+	</h3>
+		<nav aria-label="breadcrumb">
+        	<div class="input-group-append">
+            <button class="btn btn-sm btn-gradient-primary py-3" type="button" data-bs-toggle="modal" data-bs-target="#firstModal" id="openFirstModal" onclick="etcForm()"><i class="mdi mdi-email"></i> &nbsp;&nbsp; 문서 보내기</button>
+            </div>
+        </nav>
+</div>
+<hr>
+        
+        <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <input class="btn btn-sm btn-gradient-success py-3" type="button" value="받은 문서" onclick="etcList('${loginInfo.mem_num}')"> 
-                    <input class="btn btn-sm btn-gradient-success py-3" type="button" value="내가 쓴 문서" onclick="etcSendList('${loginInfo.mem_num}')">
-                    <input class="btn btn-sm btn-gradient-success py-3" type="button" value="결재 문서" onclick="requestList2('${loginInfo.mem_num}')">
-                    <p class="card-description"></p>
+                    
+                    <div class="row">
+				        <div class="col-lg-4">
+	                     	<form action="etcList.student" style="display:flex;">
+	                     		<input type="hidden" name="whatColumn" value="all">
+	                     		<input type="hidden" name="mem_num" value="${loginInfo.mem_num}">
+		                        <input type="text" name="keyword" class="form-control" placeholder="이름 또는 제목을 입력하세요." aria-label="Recipient's username" aria-describedby="basic-addon2" style="width: 400px;">
+	                   			
+		                        <button type="submit" class="btn btn-sm btn-success py-3" type="button" style="width: 70px;">검색</button>
+	                        </form>
+				        </div>
+	                </div>
+	                
                     <form method="post" name="myform" action="selectDeleteEtc.student">
                         <input type="hidden" name="mem_num" value="${loginInfo.mem_num}">
                         <input type="button" value="일괄삭제" onclick="selectDelete()" class="btn btn-sm btn-gradient-danger py-3">
@@ -112,14 +136,14 @@
                             <input type="hidden" name="sender_num" value="${loginInfo.mem_num}">
                             <thead>
                                 <tr>
-                                    <th colspan="6"><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></th>
+                                    <th colspan="5"><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <c:choose>
                                     <c:when test="${elist == null || elist.isEmpty()}">
                                         <tr>
-                                            <td colspan="6" style="text-align: center;">문서가 없습니다</td>
+                                            <td colspan="5" style="text-align: center;">문서가 없습니다</td>
                                         </tr>
                                     </c:when>
                                     <c:otherwise>
@@ -145,24 +169,7 @@
                             </tbody>
                         </table>
                     </form>
-                    <form action="etcList.student" method="post" align="center">
-                        <div class="input-group input-group-sm mb-3">
-                            <div class="input-group-prepend">
-                            <input type="hidden" name="mem_num" value="${loginInfo.mem_num}">
-                                <select name="whatColumn" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuSizeButton3">
-                                    <option value="all" <c:if test="${param.whatColumn eq 'all'}">selected</c:if>>전체검색</option>
-                                    <option value="etc_title" <c:if test="${param.whatColumn eq 'etc_title'}">selected</c:if>>제목</option>
-                                    <option value="etc_content" <c:if test="${param.whatColumn eq 'etc_content'}">selected</c:if>>내용</option>
-                                </select>
-                            </div>
-                            <input type="text" class="form-control form-control-sm" placeholder="Search" name="keyword"> 
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-outline-secondary btn-sm">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    
                     <center>${pageInfo.getPagingHtml() }</center>
                 </div>
             </div>

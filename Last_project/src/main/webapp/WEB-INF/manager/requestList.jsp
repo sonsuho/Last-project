@@ -75,13 +75,14 @@
         }
 
         // 화면 분할
-        function openDetail(req_num, mem_num, title, reason, memberName, time2, sign, app_num, ap_situ) {
+        function openDetail(req_num, mem_num, title, reason, memberName, time1 ,time2, sign, app_num, ap_situ) {
             var xhr = new XMLHttpRequest();
             xhr.open('GET', 'requestDetail.manager?req_num=' + encodeURIComponent(req_num) +
                 '&mem_num=' + encodeURIComponent(mem_num) +
                 '&title=' + encodeURIComponent(title) +
                 '&reason=' + encodeURIComponent(reason) +
                 '&memberName=' + encodeURIComponent(memberName) +
+                '&time1=' + encodeURIComponent(time1) +
                 '&time2=' + encodeURIComponent(time2) +
                 '&sign=' + encodeURIComponent(sign) +
                 '&app_num=' + encodeURIComponent(app_num) +
@@ -149,7 +150,7 @@
                                     <tr>
                                         <td rowspan="2"><input type="checkbox" value="${r.req_num}" name="rowcheck" class="form-check-input"></td>
                                         <td>
-                                            <a href="javascript:void(0);" onclick="openDetail('${r.req_num}', '${loginInfo.mem_num}', '${r.title}', '${r.reason}', '${r.memberName}', '${r.time2}', '${r.sign}', '${loginInfo.mem_num}', '${r.ap_situ}')">
+                                            <a href="javascript:void(0);" onclick="openDetail('${r.req_num}', '${loginInfo.mem_num}', '${r.title}', '${r.reason}', '${r.memberName}', '${r.time1}','${r.time2}', '${r.sign}', '${loginInfo.mem_num}', '${r.ap_situ}')">
                                                 ${r.memberName}
                                             </a>
                                         </td>

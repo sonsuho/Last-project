@@ -37,6 +37,7 @@ public class MangerRequestDetailController {
     								@RequestParam String title,
     								@RequestParam String reason,
     								@RequestParam String memberName,
+    								@RequestParam String time1,
     								@RequestParam String time2,
     								@RequestParam String ap_situ,
     								@RequestParam (value="sign", required = false)String sign,
@@ -48,6 +49,7 @@ public class MangerRequestDetailController {
         System.out.println("mem_num:"+mem_num);
         System.out.println("title:"+title);
         System.out.println("memberName:"+memberName);
+        System.out.println("time1:"+time1);
         System.out.println("time2:"+time2);
         System.out.println("sign:"+sign);
         System.out.println("ap_situ:"+ap_situ);
@@ -58,6 +60,7 @@ public class MangerRequestDetailController {
         mav.addObject("title",title);
         mav.addObject("reason",reason);
         mav.addObject("memberName",memberName);
+        mav.addObject("time1",time1);
         mav.addObject("time2",time2);
         mav.addObject("ap_situ",ap_situ);
         if(sign != null) {

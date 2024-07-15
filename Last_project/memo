@@ -242,7 +242,7 @@ CREATE TABLE request (
 	title varchar2(60) NULL,
 	category varchar2(20) NULL,
 	time1 varchar2(20) NULL,
-	time2 varchar2(20) NULL,
+	time2 varchar2(20) default sysdate,
 	reason varchar2(80) NULL,
 	sign varchar2(200) NULL,
 	ap_situ varchar2(20) NULL,
