@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="evaluation.model.Evaluation">
+
+	<select id="getEvalNumByLec" resultType="int">
+		
+		select count(*) from evaluation where lec_num = #{lec_num}
+		
+	</select>
+	
+	<select id="getAllEvalByLec" resultType="evaluation.model.EvaluationBean">
+		
+		select * from evaluation where lec_num = #{lec_num}
+		
+	</select>
+	
+	<select id="getEvalByEval" resultType="evaluation.model.EvaluationBean">
+		
+		select * from evaluation where eval_num = #{eval_num}
+		
+	</select>
+	
+	<select id="getAllEvalResult" resultType="evaluation.model.EvaluationResultBean">
+		
+		select * from eval_result where stu_num = #{stu_num}
+		
+	</select>
+	
+	<select id="getAllEvalResultByLec" resultType="evaluation.model.EvaluationResultBean">
+		
+		select * from eval_result where lec_num = #{lec_num}
+		
+	</select>
+	
+	<select id="getAllEvalResultByEval" resultType="evaluation.model.EvaluationResultBean">
+		
+		select * from eval_result where eval_num = #{eval_num}
+		
+	</select>
+	
+	<insert id="insertEvaluation">
+		
+		insert into evaluation values(seq_evaluation.nextval, #{lec_num}, #{eval_content})
+		
+	</insert>
+	
+	<insert id="insertEvalResult">
+		
+		insert into eval_result values(#{eval_num}, #{lec_num}, #{stu_num}, #{eval_result})
+		
+	</insert>
+	
+</mapper>

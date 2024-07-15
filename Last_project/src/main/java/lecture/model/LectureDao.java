@@ -7,21 +7,30 @@ import java.util.Map;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
 import utility.Paging;
 
-@Controller
+@Component
 public class LectureDao {
-
+	
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 	
 	public LectureDao() {
 		System.out.println("LectureDao 생성자 생성");
 	}
-	
+
 	private String namespace = "lecture.model.Lecture";
+	
+	public String getClassNameByLec(String lec_num) {
+		
+		String className = sqlSessionTemplate.selectOne("lecture.model.Lecture.getClassNameByLec", lec_num);
+		
+		System.out.println("getClassNameByLec name : " + className);
+		
+		return className;
+	}
 	
 	public List<LectureBean> getLectureList(Paging pageInfo, Map<String,String> map){
 		RowBounds rowbounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
@@ -48,15 +57,6 @@ public class LectureDao {
 		return lecture;
 	} //getLectureByNum
 	
-	public String getClassNameByLec(String lec_num) {
-		
-		String className = sqlSessionTemplate.selectOne("lecture.model.Lecture.getClassNameByLec", lec_num);
-		
-		System.out.println("getClassNameByLec name : " + className);
-		
-		return className;
-	}
-
 	public int deleteLecture(int lec_num) {
 		int cnt = -1;
 		cnt = sqlSessionTemplate.delete(namespace+".deleteLecture", lec_num);
@@ -69,4 +69,5 @@ public class LectureDao {
 		System.out.println(mem_num + "번 회원의 lectures.size() : " + lectures.size());
 		return lectures;
 	}
+	
 }

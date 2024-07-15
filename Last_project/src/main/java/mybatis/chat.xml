@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="chat.model.Chat">
+	
+	<select id="getAllChat" resultType="com.spring.model.ChatBean">
+		
+		select * from study_group where lec_num = #{lec_num}
+		
+	</select>
+	
+	<select id="getChatByMy" resultType="com.spring.model.ChatBean">
+		
+		select * from study_group where mem_num = #{mem_num}
+		
+	</select>
+	
+	<insert id="insertChat">
+		
+		insert into study_group values(seq_study_group.nextval, #{lec_num}, #{chat_name}, #{mem_num}, #{mem_name})
+		
+	</insert>
+	
+	<delete id="deleteChat">
+		
+		delete from study_group where chat_num = #{chat_num}
+		
+	</delete>
+	
+</mapper>
