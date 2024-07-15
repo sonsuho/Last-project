@@ -62,6 +62,8 @@ public class DeleteChatController {
                 
                 out.flush();
                 out.close();
+                
+                return null;
 				
 			} catch (IOException e) {
 				e.printStackTrace();

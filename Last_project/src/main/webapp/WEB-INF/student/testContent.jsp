@@ -8,6 +8,20 @@
 	
 	<script type="text/javascript">
 	    function submitForm() {
+	    	
+	        // 새 창의 크기 설정
+	        var width = 1350;  // 창의 너비
+	        var height = 900; // 창의 높이
+	        // 화면의 가로와 세로 크기를 가져오기
+	        var screenWidth = window.screen.width;
+	        var screenHeight = window.screen.height;
+	        // 화면 중앙에 배치하기 위해 계산
+	        var left = (screenWidth - width) / 2;
+	        var top = (screenHeight - height) / 2;
+
+	        // 새 창 열기
+	        var newWindow = window.open('', 'formWindow', 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left);
+	    	
 	        // test_num 값을 읽어와 넘겨준다
 	        var testNum = '<%= request.getAttribute("test_num") %>';
 	        
@@ -15,7 +29,7 @@
 	        var form = document.createElement('form');
 	        form.setAttribute('method', 'post');
 	        form.setAttribute('action', 'testContent2.student');
-	        form.setAttribute('target', '_blank'); // 새 창으로 열기
+	        form.setAttribute('target', 'formWindow'); // 새 창으로 열기
 	        
 	        // hidden 필드 추가
 	        var hiddenField = document.createElement('input');

@@ -70,10 +70,12 @@ public class TestWriteController {
         	choice = "";
         	opt = "";
         }else {
-        	opt = opt1 + "-" + opt2 + "-" + opt2 + "-" + opt3 + "-" + opt4 + "-" + opt5;        	
+        	opt = opt1 + "-" + opt2 + "-" + opt3 + "-" + opt4 + "-" + opt5;
+        	
+        	choice += opt + "/";
         }
         
-        choice += (choice != null ? opt + "/" : "");
+
         
         String path = request.getSession().getServletContext().getRealPath("resources");
         String root = path + File.separator + "testFiles";
@@ -138,7 +140,7 @@ public class TestWriteController {
 		String test_questions = problems + problem;
 		String test_answer = answers + answer;
 		
-		String test_opt = choice + opt1 + "-" + opt2 + "-" + opt2 + "-" + opt3 + "-" + opt4 + "-" + opt5;
+		String test_opt = choice + opt1 + "-" + opt2 + "-" + opt3 + "-" + opt4 + "-" + opt5;
 		
 		String path = request.getSession().getServletContext().getRealPath("resources");
         String root = path + File.separator + "testFiles";
