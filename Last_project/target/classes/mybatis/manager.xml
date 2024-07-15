@@ -672,5 +672,11 @@
 		select * from attend where mem_num = #{mem_num} order by att_sdate desc
   </select>
   <!-- 근태관리 -->
+  
+  <!-- 내 휴가내역 -->
+	 <select id="getVacationDetailListsByCategory" resultType="manager.model.RequestBean">
+		select * from request where mem_num = #{mem_num} and ap_situ = '승인' and category = '휴가' order by req_num desc
+	</select>
+	<!-- 내 휴가내역 -->
 
 </mapper>

@@ -14,6 +14,7 @@
 			<a href="lectureList.manager">내 수업 정보</a><br>
 	    	<a href="stuList.manager">내 학생 정보</a><br>
 	    	<a href="IdInsert.manager">학생 아이디 생성</a><br>
+	    	<a href="calendar.manager">일정보기</a><br>
     </h3>
   </div>
 

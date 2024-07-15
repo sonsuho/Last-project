@@ -139,7 +139,7 @@
 										<a class="nav-link" href="requestForm.manager">휴가 신청</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="">휴가 내역</a>
+										<a class="nav-link" href="vacationDetail.manager?mem_num=${loginInfo.mem_num}">휴가 내역</a>
 									</li>
 								</ul>
 							</div></li>
