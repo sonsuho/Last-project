@@ -35,7 +35,7 @@ import member.model.MemberDao;
 public class StudentEtcReplyController {
 	private final String command="/replyEtc.student";
 	private final String getPage="replyEtcForm";
-	private final String gotoPage="studentHome";
+	private final String gotoPage="home";
 
 	@Autowired
 	EtcDao edao;
@@ -145,7 +145,7 @@ public class StudentEtcReplyController {
 			PrintWriter pw = response.getWriter();
 			response.setContentType("text/html;charset=UTF-8");
 			pw.println("<script> alert('회신 완료');");
-			pw.println("location.href='home.manager';");
+			pw.println("location.href='home.student';");
 			pw.println("</script>");
 			pw.flush();
 		} else {

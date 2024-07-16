@@ -431,12 +431,6 @@ CREATE TABLE alarm (
 	writedate date NULL
 );
 
-INSERT INTO alarm (pk_alarmno, fk_recipientno, url, url2, alarm_content, alarm_type, view_status, writedate) 
-VALUES (alarm_news.NEXTVAL, 2, '\\etcList2', '.manager?mem_num=2' , '문서~.', '&#9989', 0, SYSDATE);
-
-INSERT INTO alarm (pk_alarmno, fk_recipientno, url, url2, alarm_content, alarm_type, view_status, writedate) 
-VALUES (alarm_news.NEXTVAL, 2, '\\request2', '.manager', '문서반려.', '&#128161', 0, SYSDATE);
-
 ===================================
 ==== 메신저 테이블
 ===================================

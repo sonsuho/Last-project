@@ -40,13 +40,13 @@ public class ManagerLectureListController {
 		    if (isNumeric(managerStr)) {
 		        int managerNum = Integer.parseInt(managerStr);
 		        MemberBean m = mdao.getNameByNum(managerNum);
-		        lb.setManager(m.getName());
+		        lb.setManager(managerNum);
 		    }
 		    String teacherStr = lb.getTeacher();
 		    if (isNumeric(teacherStr)) {
 		        int teacherNum = Integer.parseInt(teacherStr);
 		        MemberBean m = mdao.getNameByNum(teacherNum);
-		        lb.setTeacher(m.getName());
+		        lb.setTeacher(teacherNum);
 		    }
 		    int stu_cnt = mdao.getStudent(lb.getLec_num());
 		    lb.setStudent(stu_cnt);
