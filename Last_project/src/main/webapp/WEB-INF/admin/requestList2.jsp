@@ -32,6 +32,12 @@
             flex: 1;
             max-width: 100%;
         }
+        .sub-next-title { color: #9a9a9a;  cursor: pointer;}
+		.sub-next-title:hover {color: #b66dff; transition: 0.2s; }
+	
+		span{
+			margin-right: 5;
+		}
     </style>
     <script>
         function allDelete(obj) {
@@ -66,13 +72,14 @@
         }
         
         // 화면 분할
-        function openDetail(req_num, mem_num, title, reason, memberName, time2, sign, app_num, pageNumber ,ap_situ) {
+        function openDetail(req_num, mem_num, title, reason, memberName, time1,time2, sign, app_num, pageNumber ,ap_situ) {
             var xhr = new XMLHttpRequest();
             xhr.open('GET', 'requestDetail.admin?req_num=' + encodeURIComponent(req_num) +
                 '&mem_num=' + encodeURIComponent(mem_num) +
                 '&title=' + encodeURIComponent(title) +
                 '&reason=' + encodeURIComponent(reason) +
                 '&memberName=' + encodeURIComponent(memberName) +
+                '&time1=' + encodeURIComponent(time1) +
                 '&time2=' + encodeURIComponent(time2) +
                 '&sign=' + encodeURIComponent(sign) +
                 '&app_num=' + encodeURIComponent(app_num) +
@@ -99,20 +106,32 @@
 <body>
 <div class="container" id="container">
     <div class="left-panel" id="leftPanel">
-        <div class="page-header">
-            <h3 class="page-title">관리자 문서함</h3>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item active" aria-current="page"></li>
-                </ol>
-            </nav>
-        </div>
-        <div class="col-lg-10 grid-margin stretch-card">
+       <div class="page-header">
+	<h3 class="page-title" style="font-weight:700;">
+		<span class="sub-next-title" onclick="requestList()">받은 결재함</span> 
+		<span>결재 문서함</span>
+	</h3>
+		<nav aria-label="breadcrumb">
+        	<div class="input-group-append">
+            </div>
+        </nav>
+		</div>
+       <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <input type="button" value="승인 대기 문서" onclick="requestList()" class="btn btn-sm btn-gradient-success py-3">
-                    <input type="button" value="완료" onclick="requestList2()" class="btn btn-sm btn-gradient-success py-3">
-                    <p class="card-description"></p>
+
+					<div class="row">
+	                    
+				        <div class="col-lg-4">
+	                     	<form action="request2.admin" style="display:flex;">
+	                     		<input type="hidden" name="whatColumn" value="all">
+                        		<input type="hidden" name="mem_num" value="${loginInfo.mem_num}">
+		                        <input type="text" name="keyword" class="form-control" placeholder="이름 또는 제목을 입력하세요." aria-label="Recipient's username" aria-describedby="basic-addon2" style="width: 400px;">
+	                   			
+		                        <button type="submit" class="btn btn-sm btn-success py-3" type="button" style="width: 70px;">검색</button>
+	                        </form>
+				        </div>
+	                </div>
     
                     <!-- Pending Documents -->
                     <form name="myform" action="selectDeleteReq2.admin" method="post">
@@ -137,7 +156,7 @@
                                                 <tr>
                                                     <td rowspan="2"><input type="checkbox" value="${r.req_num}" name="rowcheck" class="form-check-input"></td>
                                                     <td>
-                                                        <a href="javascript:void(0);" onclick="openDetail('${r.req_num}', '${loginInfo.mem_num}', '${r.title}', '${r.reason}', '${r.memberName}', '${r.time2}', '${r.sign}', '${loginInfo.mem_num}','${pageInfo.pageNumber }' ,'${r.ap_situ}')">
+                                                        <a href="javascript:void(0);" onclick="openDetail('${r.req_num}', '${loginInfo.mem_num}', '${r.title}', '${r.reason}', '${r.memberName}','${r.time1}', '${r.time2}', '${r.sign}', '${loginInfo.mem_num}','${pageInfo.pageNumber }' ,'${r.ap_situ}')">
                                                             ${r.memberName}
                                                         </a>
                                                     </td>
@@ -161,25 +180,7 @@
                             </tbody>
                         </table>
                     </form>
-                    <form action="request2.admin" method="post" align="center">
-                        <input type="hidden" name="mem_num" value="${loginInfo.mem_num}">
-                        <div class="input-group input-group-sm mb-3">
-                            <div class="input-group-prepend">
-                                <select name="whatColumn" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuSizeButton3">
-                                    <option value="all" <c:if test="${param.whatColumn eq 'all'}">selected</c:if>>전체검색</option>
-                                    <option value="title" <c:if test="${param.whatColumn eq 'title'}">selected</c:if>>제목</option>
-                                    <option value="reason" <c:if test="${param.whatColumn eq 'reason'}">selected</c:if>>내용</option>
-                                    <option value="ap_situ" <c:if test="${param.whatColumn eq 'ap_situ'}">selected</c:if>>상태</option>
-                                </select>
-                            </div>
-                            <input type="text" class="form-control form-control-sm" placeholder="Search" name="keyword"> 
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-outline-secondary btn-sm">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    
                     <center>${pageInfo.pagingHtml}</center>
                 </div>
             </div>

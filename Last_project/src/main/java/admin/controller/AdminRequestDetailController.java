@@ -33,6 +33,7 @@ public class AdminRequestDetailController {
     								@RequestParam String title,
     								@RequestParam String reason,
     								@RequestParam String memberName,
+    								@RequestParam String time1,
     								@RequestParam String time2,
     								@RequestParam (value="sign", required = false)String sign,
     								@RequestParam String pageNumber,
@@ -56,6 +57,7 @@ public class AdminRequestDetailController {
         mav.addObject("title",title);
         mav.addObject("reason",reason);
         mav.addObject("memberName",memberName);
+        mav.addObject("time1",time1);
         mav.addObject("time2",time2);
         mav.addObject("pageNumber",pageNumber);
         mav.addObject("ap_situ",ap_situ);

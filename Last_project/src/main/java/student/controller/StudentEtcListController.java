@@ -22,7 +22,7 @@ import member.model.MemberDao;
 import utility.Paging;
 
 @Controller
-//@ComponentScan({"student", "manager","member"})
+//@ComponentScan({"student","member"})
 public class StudentEtcListController {
 	private final String command1 = "/etcList.student"; //받은 문서함
 	private final String command2 = "/etcSendList.student"; //내가 쓴 문서함
@@ -31,6 +31,7 @@ public class StudentEtcListController {
 
 	@Autowired
 	EtcDao edao;
+
 
 	@RequestMapping(command1)
 	public ModelAndView sendList(@RequestParam(value = "mem_num", required = false) String mem_num,
@@ -58,8 +59,8 @@ public class StudentEtcListController {
 
 		java.util.List<EtcJoinMemberBean> elist = edao.getEtcWithMemberInfo(pageInfo, map);
 		
-
-
+		
+		
 		mav.addObject("elist",elist);
 
 		mav.addObject("pageInfo",pageInfo);

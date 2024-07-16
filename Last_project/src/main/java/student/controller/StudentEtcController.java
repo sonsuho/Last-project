@@ -36,7 +36,7 @@ import student.model.SEtcDao;
 public class StudentEtcController {
     private final String command = "/etc.student";
     private final String getPage = "etcForm";
-    private final String gotoPage = "studentHome";
+    private final String gotoPage = "home";
 
     @Autowired
     SEtcDao edao;
@@ -65,6 +65,8 @@ public class StudentEtcController {
                                 @RequestParam("multiFile") List<MultipartFile> multiFileList,Map<String, String> paramap) throws IOException {
         ModelAndView mav = new ModelAndView();
 
+        List<MemberBean> mlist = (List<MemberBean>) session.getAttribute("mlist");
+
         for(String i : selected_mem_num) {
         	System.out.println("학생넘버:"+i);
         }
@@ -73,6 +75,7 @@ public class StudentEtcController {
         
         if (result.hasErrors()) {
             System.out.println("오류");
+            mav.addObject("mlist",mlist);
             mav.addObject("sender_num",etc.getSender_num());
             mav.setViewName(getPage);
             return mav;

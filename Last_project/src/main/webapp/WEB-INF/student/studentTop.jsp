@@ -117,9 +117,6 @@
 										<a class="nav-link" href="">내 근태 현황</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link"	href="request.student">휴가 신청</a>
-									</li>
-									<li class="nav-item">
 										<a class="nav-link" href="">휴가 내역</a>
 									</li>
 								</ul>

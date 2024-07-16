@@ -35,7 +35,7 @@ import member.model.MemberDao;
 public class StudentEtcReplyController {
 	private final String command="/replyEtc.student";
 	private final String getPage="replyEtcForm";
-	private final String gotoPage="studentHome";
+	private final String gotoPage="home";
 
 	@Autowired
 	EtcDao edao;
@@ -50,11 +50,13 @@ public class StudentEtcReplyController {
 	public ModelAndView rply(@RequestParam int etc_num,@RequestParam int mem_num,@RequestParam int sender_num) {
 		ModelAndView mav = new ModelAndView();
 
-
+		System.out.println("mem_num:"+mem_num);
+		System.out.println("etc_num:"+etc_num);
 		MemberBean mb = mdao.getNameByNum(mem_num);//받는사람정보 가져오기
 		
 		EtcBean eb = edao.getEtcByNum(etc_num);
 
+		
 		mav.addObject("eb",eb);
 		mav.addObject("mb",mb);
 		mav.addObject("sender_num",sender_num);
@@ -145,7 +147,7 @@ public class StudentEtcReplyController {
 			PrintWriter pw = response.getWriter();
 			response.setContentType("text/html;charset=UTF-8");
 			pw.println("<script> alert('회신 완료');");
-			pw.println("location.href='home.manager';");
+			pw.println("location.href='home.student';");
 			pw.println("</script>");
 			pw.flush();
 		} else {

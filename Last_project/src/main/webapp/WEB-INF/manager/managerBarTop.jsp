@@ -116,9 +116,6 @@
 										<a class="nav-link" href="">내 근태 현황</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="requestForm.manager">휴가 신청</a>
-									</li>
-									<li class="nav-item">
 										<a class="nav-link" href="">휴가 내역</a>
 									</li>
 								</ul>
@@ -133,9 +130,6 @@
 								<ul class="nav flex-column sub-menu">
 									<li class="nav-item">
 										<a class="nav-link" href="request.manager?mem_num=${loginInfo.mem_num }">결재함</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link" href="etc.manager">문서보내기</a>
 									</li>
 								</ul>
 							</div>
