@@ -17,6 +17,12 @@
 		
 	</select>
 	
+	<select id="getChatNameByChatNum" resultType="java.lang.String">
+		
+		select chat_name from study_group where chat_num = #{chat_num}
+		
+	</select>
+	
 	<insert id="insertChat">
 		
 		insert into study_group values(seq_study_group.nextval, #{lec_num}, #{chat_name}, #{mem_num}, #{mem_name})

@@ -24,6 +24,10 @@
 		.input_wrap {display: flex;align-items: center; width: 100%;}
 		.code_wrap {position: relative;}
 		.code_wrap .time {position: absolute;top:50%;right: 15px;font-size: 13px; transform: translate(0,-50%);}
+		.see_wrap {position: relative;}
+		.see_wrap .see {position: absolute;top:50%;right: 20px;font-size: 20px; transform: translate(0,-50%);}
+		.fa-eye-slash:hover, .fa-eye:hover {color:#8c8c8c;}
+		.fa-eye-slash, .fa-eye {color:#b4b4b4;}
 		</style>
 
     <div class="container-scroller">
@@ -42,7 +46,21 @@
 	                <input type="text" name="id" value="${login.id}" placeholder="아이디" class="form-control form-control-lg">
 	              </div>
 	              <div class="form-group">
-	                <input type="password" name="pw" value="${login.pw}" placeholder="비밀번호" class="form-control form-control-lg">
+									<div class="see_wrap">
+									
+										<c:if test="${eye eq 'O'}">
+											<input type="text" id="password-input" name="pw" value="${login.pw}" placeholder="비밀번호" class="form-control form-control-lg">
+										</c:if>
+										<c:if test="${eye ne 'O'}">
+											<input type="password" id="password-input" name="pw" value="${login.pw}" placeholder="비밀번호" class="form-control form-control-lg">
+										</c:if>
+		                <span class="see text-primary" id="see">
+		                	<a href="#" onclick="togglePasswordVisibility()">
+		                		<input type="hidden" name="eye" value="${eye}">
+		                		<i class="fa fa-eye<c:if test="${eye ne 'O'}">-slash</c:if>"></i>
+		                	</a>
+		                </span>
+                	</div>
 	              </div>
 	              
 	              <c:if test="${login.id == ''}">															<!-- 아이디 누락시 -->
@@ -200,9 +218,29 @@
     <script src="resources/assets/js/settings.js"></script>
     <script src="resources/assets/js/todolist.js"></script>
     <script src="resources/assets/js/jquery.cookie.js"></script>
-    <script src="resources/jquery.js"></script>
+    <script src="resources/js/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
+    <script>    
+    	var passwordVisible = "X";
+    	function togglePasswordVisibility() {
+   		  var passwordInput = document.getElementById("password-input");
+   		  var passwordIcon = document.getElementById("see").querySelector("i");
+   			var eyeInput = document.querySelector("input[name='eye']");
+
+   		  if (passwordIcon.classList.contains("fa-eye-slash")) {
+   		    passwordInput.type = "text";
+   		    passwordIcon.classList.remove("fa-eye-slash");
+   		    passwordIcon.classList.add("fa-eye");
+   		    passwordVisible = "O";
+   		  } else {
+   		    passwordInput.type = "password";
+   		    passwordIcon.classList.remove("fa-eye");
+   		    passwordIcon.classList.add("fa-eye-slash");
+   		    passwordVisible = "X";
+   		  }
+   			eyeInput.value = passwordVisible;
+   		}
+   
 			/* 비밀번호 찾기 모달 시작 */    
     	var code; // 인증번호 담을 변수
     	var mem_num; // 회원번호 담을 변수

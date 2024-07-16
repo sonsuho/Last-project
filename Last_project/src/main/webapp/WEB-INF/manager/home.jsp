@@ -49,134 +49,147 @@
 %>
 
 <style>
-        body {
-        /* 
-            font-family: Comic Sans MS, serif;
-         */    
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-        }
+/* calendar */
+th {
+	text-align: center;
+	background: #28a745;
+	color: #fff;
+	padding: 10px;
+}
 
-        th {
-            text-align: center;
-            background: #28a745;
+td {
+	text-align: center;
+	background: #fff;
+	padding: 0px 1px 15px;
+	border: 1px solid #dee2e6;
+	
+}
+
+td a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px;
+	color: #000;
+	text-decoration: none;
+}
+
+td.today {
+	position: relative;
+}
+
+td.today a {
+	position: relative;
+	z-index: 1;
+}
+
+td.today::before {
+	content: '';
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	width: 42px;
+	height: 42px;
+	background: #FFFFFF;
+	border: 1px solid #0000C9;
+	border-radius: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 0;
+}
+
+.date-wrap {
+	font-family: Comic Sans MS, serif;
+	width: 480px;
+	height: 565px;
+	margin: 20px auto;
+	padding: 20px;
+	background: #fff;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	float: left;
+}
+
+.date-month {
+	margin-bottom: 20px;
+}
+
+.date-month h2 {
+	margin: 0;
+	font-size: 24px;
+	color: #343a40;
+}
+
+.button_wrap {
+	text-align: center;
+	margin-top: 10px;
+}
+
+.button_wrap button {
+            padding: 10px 20px;
+            margin: 0 5px;
+            font-size: 16px;
+            background: #007bff;
             color: #fff;
-            padding: 10px;
-        }
-
-        td {
-            text-align: center;
-            background: #fff;
-            padding: 10px;
-            border: 1px solid #dee2e6;
-        }
-
-        td a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            color: #000;
-            text-decoration: none;
-        }
-
-        td.today {
-            position: relative;
-        }
-
-        td.today a {
-            position: relative;
-            z-index: 1;
-        }
-
-        td.today::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 45px;
-            height: 40px;
-            background: #FFFFFF;
-            border: 1px solid #0000C9;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 0;
-        }
-
-        .date-wrap {
-         	font-family: Comic Sans MS, serif;
-            width: 480px;
-            height: 540px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            float: left;
-        }
-
-        .date-month {
-            margin-bottom: 20px;
-        }
-
-        .date-month h2 {
-            margin: 0;
-            font-size: 24px;
-            color: #343a40;
-        }
-
-        .button_wrap {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .button_wrap button {
+            border-radius: 4px;
             border: none;
             cursor: pointer;
         }
+.button_wrap button:hover {
+            background: #0056b3;
+}
 
-        table.date-month {
-            width: 100%;
-            border-collapse: collapse;
-        }
+table.date-month {
+	width: 100%;
+	border-collapse: collapse;
+}
 
-        table.date-month th, table.date-month td {
-            width: 14.28%;
-        }
+.event {
+	background-image: linear-gradient(to top, #90ee90 23%, white 23%);
+}
 
-        .event {
-            background-color: #90ee90;
-        }
+.saturday a {
+	color: blue;
+}
 
-        .event-start img {
-            width: 20px;
-            height: 20px;
-            margin-left: 5px;
-        }
+.sunday a {
+	color: red;
+}
 
-        .saturday a {
-            color: blue;
-        }
+/* CSS styles for different event colors */
+.cal_num1 {
+	background-image: linear-gradient(to top, #FFBA85 23%, white 23%);
+}
 
-        .sunday a {
-            color: red;
-        }
-
-        /* CSS styles for different event colors */
-        .cal_num1 { background-color: #FFBA85; }
-        .cal_num2 { background-color: #9BFF94; } /* Green */
-        .cal_num3 { background-color: #368AFF; } /* Blue */
-        .cal_num4 { background-color: #FF85CA; } /* Pink */
-        .cal_num5 { background-color: #FFB85A; } /* Orange */
-        .cal_num6 { background-color: #A2FFFF; } /* Aqua */
-        .cal_num7 { background-color: #FF90FF; } /* Magenta */
-        .cal_num8 { background-color: #FFFF90; } /* Yellow */
-        .cal_num9 { background-color: #FFA2FF; } /* Sky Blue */
-        .cal_num10 { background-color: #FFD2FF; } /* Purple */
+.cal_num2 {
+	background-image: linear-gradient(to top, #9BFF94 23%, white 23%);
+}
+.cal_num3 {
+	background-image: linear-gradient(to top, #368AFF 23%, white 23%);
+}
+.cal_num4 {
+	background-image: linear-gradient(to top, #FF85CA 23%, white 23%);
+}
+.cal_num5 {
+	background-image: linear-gradient(to top, #FFB85A 23%, white 23%);
+}
+.cal_num6 {
+	background-image: linear-gradient(to top, #A2FFFF 23%, white 23%);
+}
+.cal_num7 {
+	background-image: linear-gradient(to top, #FF90FF 23%, white 23%);
+}
+.cal_num8 {
+	background-image: linear-gradient(to top, #FFFF90 23%, white 23%);
+}
+.cal_num9 {
+	background-image: linear-gradient(to top, #FFA2FF 23%, white 23%);
+}
+.cal_num10 {
+	background-image: linear-gradient(to top, #FFD2FF 23%, white 23%);
+}
+/* calendar */
     </style>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
         var allSchedules = <%= new com.google.gson.Gson().toJson(allSchedules) %>;
@@ -328,8 +341,8 @@
                 <span id="month-this" style="font-family: Comic Sans MS, serif;"><%=request.getParameter("month") %></span>
             </h2>
             <div class="button_wrap">
-                <button type="button" id="month-prev" class="month-move" data-ym="<%=prev_month %>+'-01'"> <img src="resources/images/left.jpg" style="width:45px; height:30px" /> </button>
-                <button type="button" id="month-next" class="month-move" data-ym="<%=next_month %>+'-01'"> <img src="resources/images/right.jpg" style="width:45px; height:30px" /> </button>
+                <button type="button" id="month-prev" class="month-move" data-ym="<%=prev_month %>+'-01'"><</button>
+                <button type="button" id="month-next" class="month-move" data-ym="<%=next_month %>+'-01'">></button>
             </div>
         </div>
         <table class="date-month" border="1">

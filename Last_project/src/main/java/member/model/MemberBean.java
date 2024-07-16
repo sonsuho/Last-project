@@ -3,7 +3,6 @@ package member.model;
 public class MemberBean {
 	
 	private int mem_num;
-	private int lec_num2;
 	private String name;
 	private String id;
 	private String pw;
@@ -12,7 +11,7 @@ public class MemberBean {
 	private String addr;
 	private String phone;
 	private String email;
-	private String state;	
+	private String state;
 	private int vacationNum;
 	private String mem_ip;
 	private double mem_latitude;
@@ -27,7 +26,6 @@ public class MemberBean {
 			double mem_longitude) {
 		super();
 		this.mem_num = mem_num;
-		this.lec_num2 = lec_num2;
 		this.name = name;
 		this.id = id;
 		this.pw = pw;
@@ -49,14 +47,6 @@ public class MemberBean {
 
 	public void setMem_num(int mem_num) {
 		this.mem_num = mem_num;
-	}
-
-	public int getLec_num2() {
-		return lec_num2;
-	}
-
-	public void setLec_num2(int lec_num2) {
-		this.lec_num2 = lec_num2;
 	}
 
 	public String getName() {
@@ -162,6 +152,5 @@ public class MemberBean {
 	public void setMem_longitude(double mem_longitude) {
 		this.mem_longitude = mem_longitude;
 	}
-	
 	
 }

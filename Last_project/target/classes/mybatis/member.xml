@@ -9,10 +9,15 @@
 	<select id="getMemberByCate" resultType="member.model.MemberBean">
 		select * from member where category = #{category}
 	</select>
-	<update id="idInsert" parameterType="member.model.MemberBean">
-	    insert into member(mem_num, name, id, pw, category, phone, email, state) 
-	    values(mem_seq.nextval,#{name},#{id},#{pw},#{category},#{phone},#{email},#{state})
-	</update>
+	<insert id="idInsert" parameterType="member.model.MemberBean">
+	    insert into member(mem_num, lec_num, name, id, pw, category, phone, email, state, mem_ip) 
+	    values(mem_seq.nextval,#{lec_num},#{name},#{id},#{pw},#{category},#{phone},
+	    CASE 
+		    WHEN #{email} LIKE '%@%' THEN #{email}
+		    ELSE CONCAT(#{email}, '@google.com')
+		  END,
+	    #{state},'106.241.247.83')
+	</insert>
 	<select id="getEmplList" resultType="member.model.MemberBean">
 		select * from member where category in('manager','teacher')
 		<if test="whatColumn=='all'">
@@ -62,5 +67,17 @@
 	<!-- 수진 -->
 	<select id="getMemberByNum" resultType="member.model.MemberBean">
 		select * from member where mem_num = #{mem_num}
+	</select>
+	
+	<select id="getStudentByLecNum" resultType="member.model.MemberBean">
+		select * from member where lec_num = #{lec_num} and category = 'student'
+	</select>
+	
+	<update id="updateLecNum">
+		update member set lec_num = (select max(lec_num) from lecture) where mem_num in (#{manager}, #{teacher})
+	</update>
+	
+	<select id="getStudent" resultType="int">
+		select count(*) from member where category = 'student' and lec_num = #{lec_num}
 	</select>
 </mapper>

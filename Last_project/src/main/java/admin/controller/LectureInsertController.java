@@ -2,10 +2,11 @@ package admin.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -61,7 +62,7 @@ public class LectureInsertController {
 		/* 매니저, 강사 목록 가져오기 */
 		List<MemberBean> managerList = mdao.getMemberByCate("manager");
 		List<MemberBean> teacherList = mdao.getMemberByCate("teacher");
-		model.addAttribute("managerList",managerList);
+		model.addAttribute("managerList",managerList);	
 		model.addAttribute("teacherList",teacherList);
 		
 		List<LectureBean> list = new ArrayList<LectureBean>();
@@ -81,8 +82,8 @@ public class LectureInsertController {
 		return gotoPage;
 	}
 	
-	@ResponseBody
 	@RequestMapping(value=command2, method=RequestMethod.POST)
+	@ResponseBody
 	public String excelInsert(MultipartHttpServletRequest request, MultipartFile mfile) {
 		System.out.println("lectureExcelInsert.admin POST 요청");
 		
@@ -104,11 +105,9 @@ public class LectureInsertController {
 		LectureExcelReader excelReader = new LectureExcelReader();
 		
 		String extention = StringUtils.getFilenameExtension(filePath);
-		if(extention.equals("xls")) {
-			List<LectureBean> list = excelReader.xlsToList(filePath);
-			printList(list);
-		} else if(extention.equals("xlsx")) {
+		if(extention.equals("xlsx")) {
 			List<LectureBean> list = excelReader.xlsxToList(filePath);
+			System.out.println("엑셀 업로드 준비중...");
 			printList(list);
 		}
 		
@@ -118,7 +117,10 @@ public class LectureInsertController {
 	
 	private void printList(List<LectureBean> list) {
 		for(LectureBean lb : list) {
-			ldao.insertLecture(lb);
+			int cnt = ldao.insertLecture(lb);
+			if(cnt!=-1) {
+				System.out.println("강좌 개설 성공");
+			}
 		}
 	}
 	

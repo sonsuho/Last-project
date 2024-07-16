@@ -143,6 +143,45 @@
     
     <style type="text/css">
     	
+	    .form-group {
+		  display: flex;
+		  align-items: center;
+		  margin-right: 1rem;
+		}
+		
+		.form-group .btn,
+		.form-group .form-control,
+		.form-group .form-select {
+		  margin-right: 0.3rem;
+		}
+		
+		.form-select{
+		  width: 100px;
+		}
+		
+		.datepicker .disabled, .datepicker .disabled:hover {
+		    color: #ccc !important;
+		    cursor: not-allowed;
+		}
+		
+		.fa-minus-square {
+		  color: #36E0C6;
+		  font-size: 20px;
+		}
+		
+		.fa-plus-square{
+		  color: #36E0C6;
+		  font-size: 30px;
+		}
+		
+		.fa-minus-square:hover, .fa-plus-square:hover {
+		  color: #F15F5F; /* 마우스 오버 시 색상 변경 */
+		}
+		
+		.card-body {
+		  min-height: 70vh; /* viewport 높이의 50% */
+		}
+    	
     	#chart {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -174,52 +213,61 @@
     </nav>
   </div>
     
-    
-    <div>
-    
-	    <a href="testList.teacher">시험 목록</a> <br><br>
-    
-        <h1>${test_name }</h1>
-        
-        <p>
-            평균 : ${mean}
-        </p>
-        
-        <p>
-            분산 : ${variance }
-        </p>
-        
-        <p>
-            표준편차 : ${standard_deviation}
-        </p>
-        
-        <div id="chart">
-	        <div>
-	            막대 차트 <br>
-	            <canvas id="stickChart" style="width: 300px; height: 300px;"></canvas>
+  <div class="row">
+	<div class="col-lg-12 grid-margin stretch-card">
+	  <div class="card">
+	   <div class="card-body">
+    	<div>
+	    
+		    <a href="testList.teacher">시험 목록</a> <br><br>
+	    
+	        <h1>${test_name }</h1>
+	        
+	        <p>
+	            평균 : ${mean}
+	        </p>
+	        
+	        <p>
+	            분산 : ${variance }
+	        </p>
+	        
+	        <p>
+	            표준편차 : ${standard_deviation}
+	        </p>
+	        
+	        <div id="chart">
+		        <div>
+		            막대 차트 <br>
+		            <canvas id="stickChart" style="width: 300px; height: 300px;"></canvas>
+		        </div>
+		        
+		        <div>
+		            파이 차트 <br>
+		            <canvas id="piChart" style="width: 300px; height: 300px;"></canvas>
+		        </div>
+		        
+		        <div>
+		            정규분포 <br>
+		            <canvas id="normalDistChart" style="width: 300px; height: 300px;"></canvas>
+		        </div>
 	        </div>
 	        
-	        <div>
-	            파이 차트 <br>
-	            <canvas id="piChart" style="width: 300px; height: 300px;"></canvas>
-	        </div>
+	        <br>
 	        
-	        <div>
-	            정규분포 <br>
-	            <canvas id="normalDistChart" style="width: 300px; height: 300px;"></canvas>
-	        </div>
-        </div>
-        
-        <p>
-            불합격자 : 
-            
-            <c:forEach var="student" items="${fail}">
-                ${student}
-            </c:forEach>
-            
-        </p>
-        
-    </div>
+	        <p>
+	            <font size="5">불합격자 : </font>
+	            <font size="5" color="red"> 
+		            <c:forEach var="student" items="${fail}">
+		                ${student}
+		            </c:forEach>
+	            </font>
+	        </p>
+	        
+	    </div>
+	   </div>
+	  </div>
+	 </div>
+	</div>
     
 <%@ include file = "teacherBottom.jsp"%>
 

@@ -48,6 +48,19 @@ public class LectureDao {
 		return lecture;
 	} //getLectureByNum
 	
+	public int deleteLecture(int lec_num) {
+		int cnt = -1;
+		cnt = sqlSessionTemplate.delete(namespace+".deleteLecture", lec_num);
+		return cnt;
+	}
+	
+	public List<LectureBean> getLectureByMemNum(int mem_num) {
+		List<LectureBean> lectures = new ArrayList<LectureBean>();
+		lectures = sqlSessionTemplate.selectList(namespace+".getLectureByMemNum", mem_num);
+		System.out.println(mem_num + "번 회원의 lectures.size() : " + lectures.size());
+		return lectures;
+	}
+	
 	public String getClassNameByLec(String lec_num) {
 		
 		String className = sqlSessionTemplate.selectOne("lecture.model.Lecture.getClassNameByLec", lec_num);

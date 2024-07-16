@@ -58,24 +58,25 @@ select mem_num, name, id, pw, category from member;
 
 drop sequence seq_lecture;
 create sequence seq_lecture
-	start with 1
-	increment by 1
-	nocache ;
+   start with 1
+   increment by 1
+   nocache ;
 
 DROP TABLE lecture CASCADE CONSTRAINTS;
 CREATE TABLE lecture (
-	lec_num number primary key,
-	lec_name varchar2(100) NULL,
-	teacher varchar2(15) NULL,
-	manager varchar2(15) NULL,
-	lec_start date NULL,
-	lec_end date NULL,
-	stu_cnt number NULL,
-	class_name varchar2(10) NULL
+   lec_num number primary key,
+   lec_name varchar2(100) NULL,
+   teacher number NULL,
+   manager number NULL,
+   lec_start date NULL,
+   lec_end date NULL,
+   stu_cnt number NULL,
+   class_name varchar2(10) NULL
 );
 
-insert into lecture values(seq_lecture.nextval, 'AWS를 사용한 풀스택 개발 교육', '최지영', '이영희', '2024-01-16', '2024-08-16', 24, 'A');
-insert into lecture values(seq_lecture.nextval, 'Chat-gpt API를 사용한 애플리케이션 개발 교육', '한가영', '박민수', '2024-04-16', '2024-12-16', 21, 'B');
+
+insert into lecture values(seq_lecture.nextval, 'AWS를 사용한 풀스택 개발 교육', 4, 2, '2024-01-16', '2024-08-16', 24, 'A');
+insert into lecture values(seq_lecture.nextval, 'Chat-gpt API를 사용한 애플리케이션 개발 교육', 5, 3, '2024-04-16', '2024-12-16', 21, 'B');
 
 ===================================
 ==== 일정 테이블
@@ -167,7 +168,8 @@ col day for a10
 col situ for a10
 col ip for a15
 
---학생 예시
+--데이터 삽입
+--학생
 --정상출석
 INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
 VALUES (seq_attend.nextval, 11, TO_DATE('2024/07/15','YYYY/MM/DD'), TO_DATE('2024/07/15 08:30:15','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/15 18:30:15','YYYY/MM/DD HH24:MI:SS'), '출석');
@@ -178,7 +180,7 @@ VALUES (seq_attend.nextval, 11, TO_DATE('2024/07/14','YYYY/MM/DD'), TO_DATE('202
 INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
 VALUES (seq_attend.nextval, 11, TO_DATE('2024/07/13','YYYY/MM/DD'), TO_DATE('2024/07/13 09:01:05','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/13 13:30:15','YYYY/MM/DD HH24:MI:SS'), '조퇴');
 
---매니저 예시
+--매니저
 --정상출석
 INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
 VALUES (seq_attend.nextval, 12, TO_DATE('2024/07/15','YYYY/MM/DD'), TO_DATE('2024/07/15 08:30:15','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/15 18:30:15','YYYY/MM/DD HH24:MI:SS'), '출근');
@@ -189,7 +191,7 @@ VALUES (seq_attend.nextval, 12, TO_DATE('2024/07/14','YYYY/MM/DD'), TO_DATE('202
 INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
 VALUES (seq_attend.nextval, 12, TO_DATE('2024/07/13','YYYY/MM/DD'), TO_DATE('2024/07/13 09:01:05','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/13 13:30:15','YYYY/MM/DD HH24:MI:SS'), '조퇴');
 
---강사 예시
+--강사
 --정상출석
 INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
 VALUES (seq_attend.nextval, 13, TO_DATE('2024/07/15','YYYY/MM/DD'), TO_DATE('2024/07/15 08:30:15','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/15 18:30:15','YYYY/MM/DD HH24:MI:SS'), '출근');
@@ -544,13 +546,14 @@ CREATE TABLE study_group (
 DROP TABLE going_class CASCADE CONSTRAINTS;
 CREATE TABLE going_class (
 	lec_num number primary key,
+	lec_name varchar2(100) null,		-- student, teacher 로그인이 안되서 임의로 추가한 칼럼
 	link varchar2(100) null,
 	onoff varchar2(10) null
 );
 
 
-insert into going_class values(1, 'null', 'off');
-insert into going_class values(2, 'null', 'off');
+insert into going_class (lec_num, link, onoff) values(1, 'null', 'off');
+insert into going_class (lec_num, link, onoff) values(2, 'null', 'off');
 
 commit;
 

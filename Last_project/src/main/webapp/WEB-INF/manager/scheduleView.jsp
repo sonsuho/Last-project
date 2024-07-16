@@ -34,13 +34,13 @@
     }
 
     th {
-        background-color: #FFD1FF;
+        background-color: #9C57FF;
         color: #333;
         font-weight: bold;
     }
 
     td {
-        background-color: #FFBFFF;
+        background-color: #D689FF;
         color: #333;
     }
 
@@ -58,7 +58,7 @@
         display: inline-block;
         padding: 10px 20px;
         margin: 20px auto;
-        background-color: #FFD1FF;
+        background-color: #9C57FF;
         color: #333;
         text-decoration: none;
         border-radius: 4px;
@@ -75,37 +75,53 @@
     }
 </style>
 
-<table>
-    <tr>
-        <th>번호</th>
-        <td>${calendar.cal_num}</td>
-        <th>소속반</th>
-        <td>${calendar.lesson_class}</td>
-    </tr>
-    <tr>
-        <th>신청자</th>
-        <td>${calendar.name}</td>
-        <th>일정제목</th>
-        <td>${calendar.title}</td>
-    </tr>
-    <tr>
-        <th>시작날짜</th>
-        <td>${calendar.start_date}</td>
-        <th>종료날짜</th>
-        <td>${calendar.fin_date}</td>
-    </tr>
-    <tr>
-        <th>내용</th>
-        <td colspan="3">
-            <textarea cols="80" rows="15" disabled>${calendar.content}</textarea>
-        </td>
-    </tr>
-    <tr>
-        <th colspan="4">
-            <a href="schedule.manager?start_date=<%= request.getParameter("start_date")%>" class="back-button">이전으로 돌아가기</a>
-        </th>
-    </tr>
-</table>
+<!-- header -->
+<div class="page-header">
+	<h3 class="page-title" style="font-weight: 700;">일정 확인</h3>
+	<nav style="float: right;">
+		<a href="schedule.manager?start_date=<%=request.getParameter("start_date")%>" class="back-button" style="color:white;">이전으로 돌아가기</a>
+	</nav>
+</div>
+
+<div class="row">
+	<div class="col-lg-12 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+
+				<table>
+					<tr>
+						<th>번호</th>
+						<td>${calendar.cal_num}</td>
+						<th>소속반</th>
+						<td>${calendar.lesson_class}</td>
+					</tr>
+					<tr>
+						<th>신청자</th>
+						<td>${calendar.name}</td>
+						<th>일정제목</th>
+						<td>${calendar.title}</td>
+					</tr>
+					<tr>
+						<th>시작날짜</th>
+						<td>${calendar.start_date}</td>
+						<th>종료날짜</th>
+						<td>${calendar.fin_date}</td>
+					</tr>
+					<tr>
+						<th>내용</th>
+						<td colspan="3"><textarea cols="80" rows="15" disabled>${calendar.content}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<th colspan="4"></th>
+					</tr>
+				</table>
+
+			</div>
+		</div>
+	</div>
+</div>
+
 
 
 <c:if test="${loginInfo.category == 'manager'}">

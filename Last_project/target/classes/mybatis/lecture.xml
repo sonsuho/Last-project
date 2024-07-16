@@ -19,20 +19,32 @@
 	
 	<!-- lecture 강좌 테이블 -->
 	<select id="getLectureList" resultType="lecture.model.LectureBean">
-		select * from lecture 
+		SELECT 
+		    l.*, 
+		    m1.name AS manager, 
+		    m2.name AS teacher
+		FROM 
+		    lecture l
+		    LEFT JOIN member m1 ON l.manager = m1.mem_num
+		    LEFT JOIN member m2 ON l.teacher = m2.mem_num
 		<if test="whatColumn=='all'">
-		where lec_name like #{keyword} or teacher like #{keyword} or manager like #{keyword}
+		WHERE 
+		    lec_name LIKE #{keyword} or m1.name LIKE #{keyword} or m2.name LIKE #{keyword}
 		</if>
 		<if test="whatColumn=='lec_name'">
-		where lec_name like #{keyword}
+		WHERE 
+		    lec_name LIKE #{keyword}
 		</if>
 		<if test="whatColumn=='manager'">
-		where manager like #{keyword}
+		WHERE 
+		    m1.name LIKE #{keyword}
 		</if>
 		<if test="whatColumn=='teacher'">
-		where teacher like #{keyword}
+		WHERE 
+		    m2.name LIKE #{keyword}
 		</if>
-		order by lec_num desc
+		ORDER BY 
+		    l.lec_num DESC
 	</select>
 	
 	<select id="getTotalLecture" resultType="int">
@@ -58,6 +70,14 @@
 	<insert id="insertLecture">
 		insert into lecture values(seq_lecture.nextval,#{lec_name},#{teacher},#{manager},#{lec_start},#{lec_end},#{stu_cnt},#{class_name})
 	</insert>
+	
+	<delete id="deleteLecture">
+		delete from lecture where lec_num = #{lec_num}
+	</delete>
+	
+	<select id="getLectureByMemNum" resultType="lecture.model.LectureBean">
+		select * from lecture where manager = #{mem_num}
+	</select>
 	
 	<select id="getLectureByLec" resultType="lecture.model.On_going_lectureBean">
 		
