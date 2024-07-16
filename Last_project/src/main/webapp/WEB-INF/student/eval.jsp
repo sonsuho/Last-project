@@ -5,6 +5,13 @@
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 
 <style type="text/css">
+
+	body {
+	    font-family: Arial, sans-serif;
+	    background-color: #F2EDF3;
+	    padding: 20px;
+	}
+	
     .table {
         width: 100%;
         margin-bottom: 1rem;

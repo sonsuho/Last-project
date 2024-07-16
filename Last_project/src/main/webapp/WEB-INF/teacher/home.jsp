@@ -140,8 +140,7 @@
 	                            <div class="progress-bar" style="width: 90%; margin-left: 60px;" align="center">
 	                                <div class="progress" style="width: ${(1 - remainingDays/totalDays) * 100}%;"></div>
 	                            </div>
-	                            <p style="padding-left: 80px;" align="left">남은 강의 시간: 최소 62h 10m</p>
-	                            <p style="padding-left: 80px;" align="left">앞으로 매일 평균: 최소 7h 10m</p>
+	                            <p style="padding-left: 80px;" align="left">남은 강의 시간: ${remainingDays * 8} 시간</p>
 	                        </div>
 	                    </div>
 						
