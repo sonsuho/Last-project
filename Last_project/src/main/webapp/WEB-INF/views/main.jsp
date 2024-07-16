@@ -8,7 +8,7 @@
         #content {
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Align items to the start to maintain the top alignment */
             flex-wrap: wrap; /* Allow items to wrap */
         }
         
@@ -20,6 +20,10 @@
             border-radius: 10px;
             width: 300px;
             background-color: #f8f9fa;
+            min-height: 400px; /* Fixed height */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Align items to the top within the section */
         }
         
         .chat-section h1 {
@@ -73,8 +77,6 @@
 		    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		    	<button type="button" class="btn btn-gradient-success py-3" onclick="location.href='make.chat'">CREATE</button>&nbsp;&nbsp;&nbsp;</h2>
 				
@@ -88,13 +90,13 @@
                     
                         <div class="chat-section">
                             
-                            <h1>채팅방</h1>
+                            <h1>채팅방</h1> <br><br>
                             
                             <c:if test="${fn:length(clist) != 0}">
         
                                 <c:forEach var="room" items="${clist}">
                                     
-                                    <div class="chat-room">
+                                    <div class="chat-room" align="left" style="padding-left: 50px;">
                                         <input type="radio" name="chat_num" value="${room.chat_num}">
                                         <label>${room.chat_name}</label>
                                     </div>
@@ -113,13 +115,13 @@
                         
                         <div class="chat-section">
                             
-                            <h1>내 채팅방</h1>
+                            <h1>내 채팅방</h1> <br><br>
                             
                             <c:if test="${fn:length(mylist) != 0}">
                             
                                 <c:forEach var="room" items="${mylist}">
                                     
-                                    <div class="chat-room">
+                                    <div class="chat-room" align="left" style="padding-left: 50px;">
                                         <input type="radio" name="chat_num" value="${room.chat_num}">
                                         <label>${room.chat_name}</label>
                                     </div>

@@ -37,13 +37,13 @@ public class LectureDetailController {
 		LectureBean lb = ldao.getLectureByNum(lec_num);
 		List<MemberBean> members = mdao.getStudentByLecNum(lec_num); 
 		
-		MemberBean manager = mdao.getNameByNum(Integer.parseInt(lb.getManager()));
-		lb.setManager(manager.getName());
+		MemberBean manager = mdao.getNameByNum(lb.getManager());
+		lb.setManager(manager.getMem_num());
 		lb.setM_phone(manager.getPhone());
 		lb.setM_email(manager.getEmail());
 		
-		MemberBean teacher = mdao.getNameByNum(Integer.parseInt(lb.getTeacher()));
-		lb.setTeacher(teacher.getName());
+		MemberBean teacher = mdao.getNameByNum(lb.getTeacher());
+		lb.setTeacher(teacher.getMem_num());
 		lb.setT_phone(teacher.getPhone());
 		lb.setT_email(teacher.getEmail());
 		

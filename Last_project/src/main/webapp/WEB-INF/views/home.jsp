@@ -91,17 +91,20 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
+                
+                	<br><h1 style="padding-left: 30px;">${chat_name}</h1>
+                
                     <div class="card-body">
-                        
-                        <form id="chatForm" class="chat-form">
-                            <input type="text" id="message" placeholder="메시지 입력..." autocomplete="off"> &nbsp;&nbsp;
-                            <button type="submit">전송</button>
-                        </form>
                         
                         <div class="chat-box" id="chat">
                         	<br><br>
                             <!-- 채팅 내용이 여기에 추가됩니다 -->
                         </div>
+                        
+                        <form id="chatForm" class="chat-form">
+                            <input type="text" id="message" placeholder="메시지 입력..." autocomplete="off"> &nbsp;&nbsp;
+                            <button type="submit">전송</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -113,6 +116,8 @@
         var mem_num = "<%= mem_num %>";
         var mem_name = "<%= mem_name %>";
         var chat_num = "<%= chat_num %>";
+        
+        var loginInfo = "<%= ((MemberBean)session.getAttribute("loginInfo")).getName()%>";
         
         var sock = new SockJS("/ex/echo");
     
@@ -130,10 +135,21 @@
             var message = e.data;
             var parts = message.split("/");
             
-            if(parts[2] == chat_num){             
-                $("#chat").append("<p><strong>" + parts[0] + ":</strong> " + parts[1] + "</p>");
-                var chatBox = document.getElementById("chat");
-                chatBox.scrollTop = chatBox.scrollHeight;
+            if(parts[2] == chat_num){
+            	
+            	if(parts[0] != mem_name){
+	            	
+	                $("#chat").append("<p><strong>" + parts[0] + ":</strong> " + parts[1] + "</p>");
+	                var chatBox = document.getElementById("chat");
+	                chatBox.scrollTop = chatBox.scrollHeight;
+                
+            	}else{
+            		
+	                $("#chat").append("<p><strong><font color='red'>" + parts[0] + "</font>:</strong> " + parts[1] + "</p>");
+	                var chatBox = document.getElementById("chat");
+	                chatBox.scrollTop = chatBox.scrollHeight;
+            		
+            	}
             }
         }
         

@@ -4,8 +4,8 @@ public class LectureBean {
 
 	private int lec_num;
 	private String lec_name;
-	private String teacher;
-	private String manager;
+	private int teacher;
+	private int manager;
 	private String lec_start;
 	private String lec_end;
 	private int stu_cnt;
@@ -59,16 +59,16 @@ public class LectureBean {
 	public void setLec_name(String lec_name) {
 		this.lec_name = lec_name;
 	}
-	public String getTeacher() {
+	public int getTeacher() {
 		return teacher;
 	}
-	public void setTeacher(String teacher) {
+	public void setTeacher(int teacher) {
 		this.teacher = teacher;
 	}
-	public String getManager() {
+	public int getManager() {
 		return manager;
 	}
-	public void setManager(String manager) {
+	public void setManager(int manager) {
 		this.manager = manager;
 	}
 	public String getLec_start() {

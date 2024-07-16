@@ -55,6 +55,15 @@ public class ChatDao {
 		
 		return cnt;
 	}
+
+	public String getChatNameByChatNum(String chat_num) {
+		
+		String chat_name = sqlSessionTemplate.selectOne("chat.model.Chat.getChatNameByChatNum", chat_num);
+		
+		System.out.println("getChatNameByChatNum name : " + chat_name);
+		
+		return chat_name;
+	}
 	
 	
 }
