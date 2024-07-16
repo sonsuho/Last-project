@@ -1,6 +1,5 @@
 package messenger.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +20,7 @@ import messenger.model.MessengerDao;
 import utility.Paging;
 
 @Controller
+@ComponentScan({"messenger,alarm"})
 public class MessengerReceiveListController {
 	//받은 메신저함 리스트
 	
@@ -48,7 +49,7 @@ public class MessengerReceiveListController {
 		
 		String url = request.getContextPath() + "/" + this.command;
 		int totalCount = messengerDao.getTotalCount(map);
-		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword);
+		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword,"","");
 		
 		List<MessengerBean> rlist = messengerDao.getMsgRecvList(map, pageInfo);
 				

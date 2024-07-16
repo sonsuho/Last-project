@@ -1,70 +1,40 @@
+<%@page import="member.model.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@include file = "managerBarTop.jsp"%>
+	pageEncoding="UTF-8"%>
+<%@include file="managerBarTop.jsp"%>
 <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            color: #333;
-            text-align: center;
-        }
-        .btn-group {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-        .btn-group input[type="button"] {
-            padding: 10px 20px;
-            margin: 5px;
-            border: none;
-            background-color: #007bff;
-            color: #fff;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .btn-group input[type="button"]:hover {
-            background-color: #0056b3;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th input[type="checkbox"] {
-            cursor: pointer;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
- <script>
+    .container {
+        display: flex;
+        transition: all 0.5s ease;
+    }
+    .left-panel, .right-panel {
+        padding: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background: #fff;
+        transition: all 1s ease;
+    }
+    .left-panel {
+        flex: 1;
+    }
+    .right-panel {
+        flex: 0;
+        display: none;
+        max-width: 0;
+        overflow: hidden;
+       
+    }
+    .container.expanded .left-panel {
+        flex: 1;
+    }
+    .container.expanded .right-panel {
+        display: block;
+        flex: 1;
+        max-width: 100%;
+        
+        
+    }
+</style>
+<script>
         function allDelete(obj) {
             var rcheck = document.getElementsByName("rowcheck");
             var check = obj.checked;
@@ -89,67 +59,119 @@
             document.myform.submit();
         }
 
-function etcList(sender_num){
-	location.href="etcList.manager?sender_num="+sender_num;
-}
 
-function requestList(){
-	location.href="request.manager";
+function requestList(mem_num){
+	location.href="request.manager?mem_num="+mem_num;
 }
 function requestList2() {
     location.href = "request2.manager";
 }
-function etcList2(mem_num) {
-    location.href = "etcList2.manager?mem_num="+mem_num;
+function etcList(mem_num) {
+    location.href = "etcList.manager?mem_num="+mem_num;
 }
+function etcSendList(sender_num){
+	location.href="etcSendList.manager?sender_num="+sender_num;
+}
+
+//화면 분할
+function openDetail(etc_num) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'etcDetail.manager?etc_num=' + etc_num, true);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            document.getElementById('rightPanel').innerHTML = xhr.responseText;
+            document.getElementById('container').classList.add('expanded');
+        }
+    };
+    xhr.send();
+}
+
 </script>
 <body>
-
-<h2>내(매니저) 문서함</h2>
-<div class="btn-group">
-<input type="button" value="승인 대기 문서" onclick="requestList()">
-<input type="button" value="문서함" onclick="etcList2('${loginInfo.mem_num}')">
-<input type="button" value="내가 쓴 문서" onclick="etcList('${loginInfo.mem_num}')">
-<input type="button" value="완료" onclick="requestList2()">
-</div>
-<hr>
-<form method="post" name="myform" action="selectDeleteEtc.manager">
-	<input type="button" value="일괄삭제" onclick="selectDelete()">
-	<input type="hidden" name="etc_delete" value="M">
-	<input type="hidden" name="sender_num" value="${loginInfo.mem_num}">
-	<table>
-		<tr>
-			<th><input type="checkbox" onclick="allDelete(this)"></th>
-			<th colspan="3"></th>
-		</tr>
+<div class="container" id="container">
+    <div class="left-panel" id="leftPanel">
+        <div class="page-header">
+            <h3 class="page-title">내(매니저) 문서함</h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page"></li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-lg-10 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+		<input type="button" value="승인 대기 문서" onclick="requestList('${loginInfo.mem_num}')" class="btn btn-sm btn-gradient-success py-3">
+		<input type="button" value="문서함" onclick="etcList('${loginInfo.mem_num}')" class="btn btn-sm btn-gradient-success py-3"> 
+		<input type="button" value="내가 쓴 문서" onclick="etcSendList('${loginInfo.mem_num}')" class="btn btn-sm btn-gradient-success py-3">  
+		<input type="button" value="결재함" onclick="requestList2()" class="btn btn-sm btn-gradient-success py-3">
+		<p class="card-description"></p>
 		
-		<c:forEach var="e" items="${elist }">
-		<tr>
-			<td><input type="checkbox" value="${e.etc_num }" name="rowcheck" ></td>
-			<td><a href="etcDetail.manager?etc_num=${e.etc_num }">${e.etc_title }</a></td>
-			<td>${e.etc_content }</td>
-			<td>
-			<fmt:parseDate var="fmtdate" value="${e.etc_sdate }" pattern="yyyy-MM-dd HH:mm"/>
-			<fmt:formatDate value="${fmtdate }"  pattern="yyyy-MM-dd HH:mm"/>
-			</td>
-		</tr>
-		</c:forEach>
-	</table>
-</form>
+	<form method="post" name="myform" action="selectDeleteEtc.manager">
+		<input type="button" value="일괄삭제" onclick="selectDelete()" class="btn btn-sm btn-gradient-danger py-3"> 
+		<input type="hidden" name="etc_delete" value="M"> 
+		<input type="hidden" name="mem_num" value="${loginInfo.mem_num}">
+		<table class="table table-hover">
+			<tr>
+				<th colspan="6"><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></th>
+			</tr>
+			<c:choose>
+				<c:when test="${elist == null || elist.isEmpty()}">
+					<tr>
+						<td colspan="3" style="text-align: center;">문서가 없습니다</td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="e" items="${elist }">
+						<c:if test="${fn:contains(e.etc_delete , 'M')}">
+							<tr>
+								<td><input type="checkbox" value="${e.etc_num }" name="rowcheck" class="form-check-input"></td>
+								<td>
+								<a href="javascript:void(0);" onclick="openDetail(${e.etc_num})">${e.etc_title}</a><br>
+								</td>
+								<td>${e.etc_content }</td>
+								<td>${e.memberName}</td>
+								<td>
+									<fmt:parseDate var="fmtdate" value="${e.etc_sdate }" pattern="yyyy-MM-dd HH:mm" /> 
+									<fmt:formatDate value="${fmtdate }" pattern="yyyy-MM-dd HH:mm" />
+								</td>
+							</tr>
+						</c:if>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+		</table>
+	</form>
 
- <form action="etcList.manager" method="post" align="center">
-	<select name="whatColumn" >
-		<option value="all" <c:if test="${param.whatColumn eq 'all'}">selected</c:if>>전체검색
-		<option value="etc_title" <c:if test="${param.whatColumn eq 'etc_title'}">selected</c:if>>제목
-		<option value="etc_content" <c:if test="${param.whatColumn eq 'etc_content'}">selected</c:if>>내용
-	</select>
-	<input type="hidden" name="sender_num" value="${loginInfo.mem_num}">
-	<input type="text" name="keyword">
-	<input type="submit" value="검색">
-</form>
-</body>
-<center>
-	${pageInfo.getPagingHtml() }
-</center>
-
-<%@include file = "managerBarBottom.jsp"%>
+	<form action="etcList.manager" method="post" align="center">
+		<div class="input-group input-group-sm mb-3">
+			<div class="input-group-prepend">
+		<input type="hidden" name="mem_num" value="${loginInfo.mem_num}">
+		<select name="whatColumn" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuSizeButton3">
+			<option value="all" <c:if test="${param.whatColumn eq 'all'}">selected</c:if>>전체검색
+			
+			<option value="etc_title" <c:if test="${param.whatColumn eq 'etc_title'}">selected</c:if>>제목
+			
+			<option value="etc_content" <c:if test="${param.whatColumn eq 'etc_content'}">selected</c:if>>내용
+			
+		</select> 
+		</div>
+		<input type="text" class="form-control form-control-sm" placeholder="Search" name="keyword"> 
+		<div class="input-group-append">
+			<button type="submit" class="btn btn-outline-secondary btn-sm">
+				<i class="fa fa-search"></i>
+			</button>
+		</div>
+                        </div>
+                    </form>
+                    <center>${pageInfo.getPagingHtml() }</center>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-panel" id="rightPanel">
+        <!-- 문서 상세 내용이 여기에 표시됩니다 -->
+        <h2>문서 내용을 선택하세요</h2>
+    </div>
+</div>
+<%@include file="managerBarBottom.jsp"%>

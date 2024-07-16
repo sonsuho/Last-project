@@ -23,15 +23,6 @@ public class LectureDao {
 
 	private String namespace = "lecture.model.Lecture";
 	
-	public String getClassNameByLec(String lec_num) {
-		
-		String className = sqlSessionTemplate.selectOne("lecture.model.Lecture.getClassNameByLec", lec_num);
-		
-		System.out.println("getClassNameByLec name : " + className);
-		
-		return className;
-	}
-	
 	public List<LectureBean> getLectureList(Paging pageInfo, Map<String,String> map){
 		RowBounds rowbounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
 		List<LectureBean> list = new ArrayList<LectureBean>();
@@ -68,6 +59,15 @@ public class LectureDao {
 		lectures = sqlSessionTemplate.selectList(namespace+".getLectureByMemNum", mem_num);
 		System.out.println(mem_num + "번 회원의 lectures.size() : " + lectures.size());
 		return lectures;
+	}
+	
+	public String getClassNameByLec(String lec_num) {
+		
+		String className = sqlSessionTemplate.selectOne("lecture.model.Lecture.getClassNameByLec", lec_num);
+		
+		System.out.println("getClassNameByLec name : " + className);
+		
+		return className;
 	}
 	
 }

@@ -14,7 +14,7 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<context:component-scan base-package="admin, messenger, member, lecture" />
+	<context:component-scan base-package="admin, messenger, member, lecture, alarm" />
 
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="10485760"/>

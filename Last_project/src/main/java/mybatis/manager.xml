@@ -4,6 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="manager.model.Manager">
+	<!--민곤  -->
 	<!-- etc -->
 	<insert id="insertEtc" parameterType="manager.model.EtcBean">
     insert into etc (etc_num, mem_num, sender_num, etc_title, etc_content, etc_sdate, etc_fdate, etc_file, etc_delete)
@@ -55,13 +56,13 @@
   		</foreach>
   	</delete>
   	
-  	<select id="fileCount" resultType="int">
-  		select count(etc_file) from etc where etc_num = #{etc_num}
+  	<select id="fileCount" resultType="String">
+  		select etc_file from etc where etc_num = #{etc_num}
   	</select>
   	
-  	<select id="fileCountBySenderNum" resultType="int">
-  		select count(etc_file) from etc where sender_num = #{sender_num}
-  	</select>
+  	<select id="fileCountBySenderNum" resultType="String">
+    select etc_file from etc where sender_num = #{sender_num} and etc_num = #{etc_num}
+</select>
   	
   	<select id="totalCountEtc" resultType="int">
   		select count(*) from etc 
@@ -80,7 +81,21 @@
   	
   	<select id="totalCountEtcByMem_Num" resultType="int">
   		select count(*) from etc 
-  		where mem_num = #{mem_num}
+  		where mem_num = #{mem_num} and etc_delete like '%S%'
+  		<if test="WhatColumn == 'all'">
+			where etc_title LIKE #{keyword} OR etc_content LIKE #{keyword}
+		</if>
+		<if test="WhatColumn == 'etc_title'">
+			where etc_title like #{keyword}
+		</if>
+		<if test="WhatColumn == 'etc_content'">
+			where etc_content like #{keyword}
+		</if>
+  	</select>
+  	
+  	<select id="totalCountEtcByMmem_Num" resultType="int">
+  		select count(*) from etc 
+  		where mem_num = #{mem_num} and etc_delete like '%M%'
   		<if test="WhatColumn == 'all'">
 			where etc_title LIKE #{keyword} OR etc_content LIKE #{keyword}
 		</if>
@@ -93,23 +108,39 @@
   	</select>
   	
   	<select id="totalCountEtcBySender_Num" resultType="int">
-  		select count(*) from etc 
-  		where sender_num = #{sender_num}
-  		<if test="WhatColumn == 'all'">
-			where etc_title LIKE #{keyword} OR etc_content LIKE #{keyword}
-		</if>
-		<if test="WhatColumn == 'etc_title'">
-			where etc_title like #{keyword}
-		</if>
-		<if test="WhatColumn == 'etc_content'">
-			where etc_content like #{keyword}
-		</if>
-  	</select>
+    select count(*) from etc 
+    where sender_num = #{sender_num} 
+      and etc_delete like '%S%'
+    <if test="WhatColumn == 'all'">
+        and (etc_title LIKE #{keyword} OR etc_content LIKE #{keyword})
+    </if>
+    <if test="WhatColumn == 'etc_title'">
+        and etc_title like #{keyword}
+    </if>
+    <if test="WhatColumn == 'etc_content'">
+        and etc_content like #{keyword}
+    </if>
+	</select>
+	
+  	<select id="totalCountEtcByMSender_Num" resultType="int">
+    select count(*) from etc 
+    where sender_num = #{sender_num} 
+      and etc_delete like '%M%'
+    <if test="WhatColumn == 'all'">
+        and (etc_title LIKE #{keyword} OR etc_content LIKE #{keyword})
+    </if>
+    <if test="WhatColumn == 'etc_title'">
+        and etc_title like #{keyword}
+    </if>
+    <if test="WhatColumn == 'etc_content'">
+        and etc_content like #{keyword}
+    </if>
+	</select>
   	
   	<!-- 내가 쓴 문서 가져오기 -->
   	<select id="getEtcListBySender_num" resultType="manager.model.EtcBean">
   		select * from etc 
-  		where sender_num = #{sender_num}
+  		where sender_num = #{sender_num} and etc_delete like '%S%'
   		<if test="WhatColumn == 'all'">
 			and (etc_title LIKE #{keyword} OR etc_content LIKE #{keyword})
 		</if>
@@ -151,21 +182,115 @@
   			#{etc_num}
   		</foreach>
 	</update>
+	
+	
   	
+    <resultMap id="EtcWithMemberNameResultMap" type="manager.model.EtcJoinMemberBean">
+        <id property="etc_num" column="etc_num"/>
+        <result property="mem_num" column="mem_num"/>
+        <result property="sender_num" column="sender_num"/>
+        <result property="etc_title" column="etc_title"/>
+        <result property="etc_content" column="etc_content"/>
+        <result property="etc_sdate" column="etc_sdate"/>
+        <result property="memberName" column="name"/>
+    </resultMap>
+
+    <select id="getEtcWithMemberInfo" parameterType="map" resultMap="EtcWithMemberNameResultMap">
+        SELECT e.etc_num, e.mem_num, e.sender_num, e.etc_title, e.etc_content, e.etc_sdate, e.etc_delete,
+               m.name
+        FROM etc e
+        JOIN member m ON e.mem_num = m.mem_num
+        WHERE e.mem_num = #{mem_num}
+    </select>
+
+    <select id="getEtcSenderListWithMemberInfo" parameterType="map" resultMap="EtcWithMemberNameResultMap">
+        SELECT e.etc_num, e.mem_num, e.sender_num, e.etc_title, e.etc_content, e.etc_sdate, e.etc_delete,
+               m.name
+        FROM etc e
+        JOIN member m ON e.sender_num = m.mem_num
+        WHERE e.sender_num = #{sender_num}
+    </select>
+    
+    <select id="getEtcStuSenderListWithMemberInfo" parameterType="map" resultMap="EtcWithMemberNameResultMap">
+        SELECT e.etc_num, e.mem_num, e.sender_num, e.etc_title, e.etc_content, e.etc_sdate, e.etc_delete,
+               m.name
+        FROM etc e
+        JOIN member m ON e.sender_num = m.mem_num
+        WHERE e.sender_num = #{sender_num}
+    </select>
+  	
+  	<select id="totalCountEtcByNum" resultType="int" parameterType="map">
+    SELECT COUNT(*)
+    FROM etc
+    WHERE mem_num = #{mem_num}
+    <if test="WhatColumn == 'all'">
+        AND (etc_title LIKE #{keyword} OR etc_content LIKE #{keyword})
+    </if>
+    <if test="WhatColumn == 'etc_title'">
+        AND etc_title LIKE #{keyword}
+    </if>
+    <if test="WhatColumn == 'etc_content'">
+        AND etc_content LIKE #{keyword}
+    </if>
+    ORDER BY etc_num DESC
+</select>
 	<!-- etc -->
 	
 	
 	<!-- request -->
 	
-	<insert id="studentReqInsert" parameterType="manager.model.RequestBean">
+	<insert id="ReqInsert" parameterType="manager.model.RequestBean">
     INSERT INTO request (req_num, mem_num, app_num, title,category, time1, time2, reason, sign, ap_delete)
     VALUES (seq_request.NEXTVAL, #{mem_num}, #{app_num}, #{title},#{category}, #{time1}, #{time2}, #{reason}, #{sign}, #{ap_delete})
   </insert>
   
+  <select id="RequestAdminPaging" resultMap="RequestWithMemberNameResultMap">
+    SELECT r.req_num, r.mem_num, r.category, r.time1, r.time2, r.reason, r.sign, r.ap_situ, r.title , r.ap_delete ,m.name
+    FROM request r
+    JOIN member m ON r.mem_num = m.mem_num
+    where r.ap_situ is null and r.app_num = #{mem_num}
+    	<if test="WhatColumn == 'all'">
+			where title like #{keyword} or reason like #{keyword} or ap_situ like #{keyword}
+		</if>
+		<if test="WhatColumn == 'title'">
+			where title like #{keyword}
+		</if>
+		<if test="WhatColumn == 'reason'">
+		
+			where reason like #{keyword}
+		</if>
+		<if test="WhatColumn == 'ap_situ'">
+			where ap_situ like #{keyword}
+		</if>
+		order by r.req_num desc
+	</select>
+  <select id="RequestAdminPaging2" resultMap="RequestWithMemberNameResultMap">
+    SELECT r.req_num, r.mem_num, r.category, r.time1, r.time2, r.reason, r.sign, r.ap_situ, r.title , r.ap_delete ,m.name
+    FROM request r
+    JOIN member m ON r.mem_num = m.mem_num
+    where r.app_num = #{mem_num}
+    	<if test="WhatColumn == 'all'">
+			where title like #{keyword} or reason like #{keyword} or ap_situ like #{keyword}
+		</if>
+		<if test="WhatColumn == 'title'">
+			where title like #{keyword}
+		</if>
+		<if test="WhatColumn == 'reason'">
+		
+			where reason like #{keyword}
+		</if>
+		<if test="WhatColumn == 'ap_situ'">
+			where ap_situ like #{keyword}
+		</if>
+		order by r.req_num desc
+	</select>
+	
+	
   <select id="RequestPaging" resultMap="RequestWithMemberNameResultMap">
     SELECT r.req_num, r.mem_num, r.category, r.time1, r.time2, r.reason, r.sign, r.ap_situ, r.title , r.ap_delete ,m.name
     FROM request r
     JOIN member m ON r.mem_num = m.mem_num
+    where r.mem_num = #{mem_num}
     	<if test="WhatColumn == 'all'">
 			where title like #{keyword} or reason like #{keyword} or ap_situ like #{keyword}
 		</if>
@@ -187,7 +312,7 @@
     SELECT r.req_num, r.mem_num, r.category, r.time1, r.time2, r.reason, r.sign, r.ap_situ, r.title , r.ap_delete ,m.name
     FROM request r
     JOIN member m ON r.mem_num = m.mem_num
-    where r.ap_situ is null
+    where r.ap_situ is null and r.app_num = #{app_num}
     	<if test="WhatColumn == 'all'">
 			where title like #{keyword} or reason like #{keyword} or ap_situ like #{keyword}
 		</if>
@@ -334,7 +459,7 @@
   		SELECT COUNT(*)
         FROM request r
         JOIN member m ON r.mem_num = m.mem_num 
-        where r.ap_situ is null
+        where r.ap_situ is null and r.app_num = #{app_num}
         <if test="WhatColumn == 'all'">
             WHERE r.title LIKE #{keyword} OR r.reason LIKE #{keyword} OR r.ap_situ LIKE #{keyword}
         </if>
@@ -349,6 +474,66 @@
         </if>
         
   	</select>
+  	
+  	<select id="getTotalCountBySitu2" resultType="int">
+  		SELECT COUNT(*)
+        FROM request r
+        JOIN member m ON r.mem_num = m.mem_num 
+        where r.ap_situ is null and r.mem_num = #{mem_num}
+        <if test="WhatColumn == 'all'">
+            WHERE r.title LIKE #{keyword} OR r.reason LIKE #{keyword} OR r.ap_situ LIKE #{keyword}
+        </if>
+        <if test="WhatColumn == 'title'">
+            WHERE r.title LIKE #{keyword}
+        </if>
+        <if test="WhatColumn == 'reason'">
+            WHERE r.reason LIKE #{keyword}
+        </if>
+        <if test="WhatColumn == 'ap_situ'">
+            WHERE r.ap_situ LIKE #{keyword}
+        </if>
+  	</select>
+  	
+  	
+  	<select id="getTotalCountBySitu3" resultType="int">
+  		SELECT COUNT(*)
+        FROM request r
+        JOIN member m ON r.mem_num = m.mem_num 
+        where r.ap_situ is null and r.app_num = #{mem_num}
+        <if test="WhatColumn == 'all'">
+            WHERE r.title LIKE #{keyword} OR r.reason LIKE #{keyword} OR r.ap_situ LIKE #{keyword}
+        </if>
+        <if test="WhatColumn == 'title'">
+            WHERE r.title LIKE #{keyword}
+        </if>
+        <if test="WhatColumn == 'reason'">
+            WHERE r.reason LIKE #{keyword}
+        </if>
+        <if test="WhatColumn == 'ap_situ'">
+            WHERE r.ap_situ LIKE #{keyword}
+        </if>
+        
+  	</select>
+  	
+  	<select id="getTotalCountByApprovalByApp_Num" resultType="int">
+  		SELECT COUNT(*)
+        FROM request r
+        JOIN member m ON r.mem_num = m.mem_num 
+        where r.ap_situ is not null and r.app_num = #{mem_num}
+        <if test="WhatColumn == 'all'">
+            WHERE r.title LIKE #{keyword} OR r.reason LIKE #{keyword} OR r.ap_situ LIKE #{keyword}
+        </if>
+        <if test="WhatColumn == 'title'">
+            WHERE r.title LIKE #{keyword}
+        </if>
+        <if test="WhatColumn == 'reason'">
+            WHERE r.reason LIKE #{keyword}
+        </if>
+        <if test="WhatColumn == 'ap_situ'">
+            WHERE r.ap_situ LIKE #{keyword}
+        </if>
+  	</select>
+  	
   	
   	<select id="getTotalCountByApproval" resultType="int">
   		SELECT COUNT(*)
@@ -407,6 +592,85 @@
   	</select>
 	<!-- request -->
 
-  
+	<!-- 일정 Calendar -->
+	<insert id="insertSchedule">
+		insert into calendar (cal_num, lec_num, mem_num, lesson_class, name, title, content, start_date, fin_date)
+		values(seq_calendar.nextval, #{lec_num}, #{mem_num}, #{lesson_class}, #{name}, #{title}, #{content}, #{start_date}, #{fin_date})
+	</insert>
+	
+	<select id="getScheduleByStart_date" resultType="manager.model.mCalendarBean">
+		select * from calendar where start_date = #{start_date} order by cal_num desc
+	</select>
+	
+	<select id="getCalendarListByCal_num" resultType="manager.model.mCalendarBean">
+		select * from calendar where cal_num = #{cal_num}
+	</select>
+	
+	<update id="updateSchedule">
+		update calendar set lesson_class = #{lesson_class}, title = #{title}, content = #{content}, fin_date = #{fin_date}
+		where cal_num = #{cal_num}
+	</update>
+	
+	<delete id="deleteSchedule">
+		delete from calendar where cal_num = #{cal_num}
+	</delete>
+	
+	<select id="getAllSchedules" resultType="manager.model.mCalendarBean">
+		select * from calendar
+	</select>
+	<!-- 일정 Calendar -->
+	
+	<!-- 근태관리 -->
+	<select id="getAttendPrimaryKey" resultType="member.model.AttendBean">
+		select att_num from attend where mem_num = #{mem_num} and ip = #{mem_ip} order by att_num desc FETCH FIRST 1 ROW ONLY
+	</select>
+	
+	<select id="getAttendListByAtt_num" resultType="member.model.AttendBean">
+		select * from attend where att_num = #{att_num}
+	</select>
+
+	<insert id="insertCheck" parameterType="map">
+		INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, study_time, situ, ip)
+		VALUES (seq_attend.nextval, #{mem_num}, trunc(sysdate), systimestamp, null ,0, '수업중', #{mem_ip})
+	</insert>
+
+	<update id="updateFdate" parameterType="int">
+    UPDATE attend 
+    SET att_fdate = systimestamp 
+    WHERE att_num = #{att_num}
+  </update>
+
+  <select id="getRunningTime" resultType="int" parameterType="map">
+    select round((#{att_fdate} - #{att_sdate}) * 24 * 60)from attend where att_num = #{att_num}
+  </select>
+     
+  <select id="transFormSdate" parameterType="map" resultType="int">
+    SELECT HOUR(#{new_sdate}) * 100 + MINUTE(#{new_sdate}) 
+    FROM attend 
+    WHERE att_num = #{att_num}
+  </select>
+
+  <select id="transFormFdate" parameterType="map" resultType="int">
+    SELECT HOUR(#{new_fdate}) * 100 + MINUTE(#{new_fdate}) 
+    FROM attend 
+    WHERE att_num = #{att_num}
+  </select>
+
+
+   <update id="updateAttendSitu">
+    update attend set situ = 
+    <choose>
+        <when test="condition == 'attend'"> '출근' </when>
+        <when test="condition == 'late'"> '지각' </when>
+        <when test="condition == 'leave'"> '조퇴' </when>
+        <when test="condition == 'absence'"> '결근' </when>
+    </choose>
+    where att_num = #{att_num}
+  </update>
+
+  <select id="getAttendListByMem_num" resultType="member.model.AttendBean">
+		select * from attend where mem_num = #{mem_num} order by att_sdate desc
+  </select>
+  <!-- 근태관리 -->
 
 </mapper>

@@ -25,7 +25,6 @@ public class LoginDao {
 		
 		if(mb != null) {
 			System.out.println("getInfoById mb 아이디 : " + mb.getId());
-			System.out.println("getInfoById mb 카테고리 : "+mb.getCategory());
 		}
 		
 		return mb;
@@ -39,5 +38,4 @@ public class LoginDao {
 		
 		return list;
 	}
-
 }

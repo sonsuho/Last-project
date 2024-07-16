@@ -1,107 +1,97 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file = "managerBarTop.jsp"%>
- <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            color: #333;
-            text-align: center;
-        }
-        .btn-group {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-        .btn-group input[type="button"] {
-            padding: 10px 20px;
-            margin: 5px;
-            border: none;
-            background-color: #007bff;
-            color: #fff;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .btn-group input[type="button"]:hover {
-            background-color: #0056b3;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th input[type="checkbox"] {
-            cursor: pointer;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+ 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <script>
-function msitu(req_num, app_num){
-	location.href="changeCompanion.manager?req_num="+req_num+"&app_num="+app_num;
+function msitu(req_num, app_num, mem_num){
+	location.href="changeCompanion.manager?req_num="+req_num+"&app_num="+app_num+"&mem_num="+mem_num;
+	
 }
 
-function psitu(req_num, app_num){
-	location.href="changeApproval.manager?req_num="+req_num+"&app_num="+app_num;
+function psitu(req_num, app_num, mem_num){
+	location.href="changeApproval.manager?req_num="+req_num+"&app_num="+app_num+"&mem_num="+mem_num;
 }
 </script>
-<h2>내(매니저) 문서함</h2>
+	<!-- plugins:css -->
+	<link rel="stylesheet" href="resources/assets/vendors/mdi/css/materialdesignicons.min.css">
+	<link rel="stylesheet" href="resources/assets/vendors/ti-icons/css/themify-icons.css">
+	<link rel="stylesheet" href="resources/assets/vendors/css/vendor.bundle.base.css">
+	<link rel="stylesheet" href="resources/assets/vendors/font-awesome/css/font-awesome.min.css">
+	<!-- endinject -->
+	<!-- Plugin css for this page -->
+	
 
-<h1>${title }</h1>
-<form>
-	<table>
-		<tr>
-			<td>
-				요청 내용<br>
-				${reason }<br><br>
-				희망기간 ${time2 }<br><br>
-				
-				<input type="button" value="반려" onclick="msitu('${req_num}','${app_num}')">
-				<input type="button" value="승인" onclick="psitu('${req_num}','${app_num}')">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				첨부파일<br>
-				<c:forEach var="upload" items="${uploadList}">		
+	<link rel="stylesheet" href="resources/assets/vendors/font-awesome/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="resources/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+	<!-- End plugin css for this page -->
+	<!-- inject:css -->
+	<!-- endinject -->
+	<!-- Layout styles -->
+	<link rel="stylesheet" href="resources/assets/css/style.css">
+	<!-- End layout styles -->
+	<link rel="shortcut icon" href="resources/assets/images/favicon.png" />
+
+
+
+			<div class="row">
+              <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h2 class="card-title">내(매니저) 문서함</h2>
+                    <br><br><br>
+                    <h4 class="card-title"><b>${title }</b></h4>
+                    
+                    <form class="forms-sample">
+                      <div class="form-group">
+                        <label for="exampleInputUsername1"><b>결재자</b></label><br>
+                        <i class="fa fa-user-o"></i><b>${mb.name }</b>·
+                        <c:if test="${mb.category eq 'manager'}">매니저</c:if>
+                       	<c:if test="${mb.category eq 'admin'}">관리자</c:if>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputUsername1"><b>보낸사람</b></label><br>
+                        <i class="fa fa-user-o"></i><b>${mem.name }</b>·
+                       	<c:if test="${mem.category eq 'student'}">학생</c:if>
+                       	<c:if test="${mb.category eq 'manager'}">매니저</c:if>
+                      </div>
+                      <hr>
+                      <div class="form-group">
+                        <label for="exampleInputConfirmPassword1"><i class="fa fa-pencil-square-o"></i><b>요청내용</b></label><br>
+                      	${reason }
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1"><i class="fa fa-calendar"></i><b>희망 마감 날짜</b></label><br>
+                        <fmt:parseDate var="fmtdate" value="${time2 }" pattern="yyyy-MM-dd"/>
+						<fmt:formatDate value="${fmtdate }"  pattern="yyyy-MM-dd"/><br>
+                      </div>
+						<c:choose>
+							<c:when test="${ap_situ == ''}">
+								<input type="button" value="반려" onclick="msitu('${req_num}','${app_num}','${mem.mem_num }')" class="btn btn-sm btn-gradient-danger py-3">
+								<input type="button" value="승인" onclick="psitu('${req_num}','${app_num}','${mem.mem_num }')" class="btn btn-sm btn-gradient-success py-3">
+							</c:when>
+							<c:otherwise>
+										
+							</c:otherwise>
+						</c:choose>
+                      <hr>
+                      <div class="form-group">
+                        <label for="exampleInputConfirmPassword1"><b>첨부파일</b></label>
+                        <c:forEach var="upload" items="${uploadList}">		
 					
-					<a href="<%=request.getContextPath() %>/resources/sign/${upload}" download="${upload}">
-					<i class = "fa fa-download"></i>						
-					<span>${upload}</span>
-					</a>
-    			</c:forEach>
-			</td>
-		</tr>
-		
-	</table>
-</form>
+						<a href="<%=request.getContextPath() %>/resources/files/${upload}" download="${upload}"><br>
+							<i class= "fa fa-download"></i>
+							<span>${upload}</span>
+						</a>
+						</c:forEach>
+                      </div>
+                        
+                    </form>
+                  </div>
+                </div>
+              </div>
+              </div>
 
-<%@include file = "managerBarBottom.jsp"%>
+
+

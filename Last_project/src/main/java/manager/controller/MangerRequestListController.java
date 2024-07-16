@@ -33,6 +33,7 @@ public class MangerRequestListController {
 	public ModelAndView requestList(@RequestParam(value = "whatColumn", required = false) String whatColumn,
 									@RequestParam(value = "keyword", required = false) String keyword,
 									@RequestParam(value = "pageNumber", required = false) String pageNumber,
+									@RequestParam(value = "mem_num", required = false) String mem_num,
 									HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 
@@ -40,8 +41,9 @@ public class MangerRequestListController {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("keyword", "%"+keyword+"%");
 		map.put("whatColumn", whatColumn);
+		map.put("app_num", mem_num);
 
-		int totalCountBySitu = rdao.getTotalCountBySitu(map);
+		int totalCountBySitu = rdao.getTotalCountBySitu(map); // 나한테 온 문서중에서 상태가 null인것
 		System.out.println("상태null개수:"+totalCountBySitu);
 
 		int AlltotalCount = rdao.getAllTotalCount();
@@ -50,12 +52,9 @@ public class MangerRequestListController {
 		String url = request.getContextPath()+command1;
 
 
-		Paging pageInfo = new Paging(pageNumber,null,totalCountBySitu,url,whatColumn,keyword);
+		System.out.println("매니저리스트mem_num:"+mem_num);
+		Paging pageInfo = new Paging(pageNumber,null,totalCountBySitu,url,whatColumn,keyword,mem_num,"");
 
-
-		List<RequestBean> rlist = rdao.getRequestList(pageInfo, map);
-
-		mav.addObject("rlist",rlist);
 
 		mav.addObject("pageInfo",pageInfo);
 
@@ -69,7 +68,7 @@ public class MangerRequestListController {
 		List<RequestJoinMemberBean> rmlist = rdao.RequestPaging1(pageInfo, map);
 		List<RequestJoinMemberBean> pendingList  = new ArrayList<RequestJoinMemberBean>();//승인이 필요한 문서 리스트
 		List<RequestJoinMemberBean> completedList = new ArrayList<RequestJoinMemberBean>();//완료된 문서 리스트
-
+		System.out.println("pendingList.size:"+pendingList.size());
 		for (RequestJoinMemberBean rjb : rmlist) {
 			if (rjb.getAp_situ() == null || rjb.getAp_situ().isEmpty()) {
 				pendingList.add(rjb); //상태가 NULL이면 승인이 필요한 문서리스트로
@@ -105,7 +104,7 @@ public class MangerRequestListController {
 		String url = request.getContextPath()+command2;
 
 
-		Paging pageInfo = new Paging(pageNumber,null,totalCount,url,whatColumn,keyword);
+		Paging pageInfo = new Paging(pageNumber,null,totalCount,url,whatColumn,keyword,"","");
 
 
 		List<RequestJoinMemberBean> rmlist = rdao.RequestPaging2(pageInfo, map);

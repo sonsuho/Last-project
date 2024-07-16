@@ -14,6 +14,12 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<context:component-scan base-package="teacher" />
-
+	<context:component-scan base-package="teacher, student, library, lecture, test, evaluation, manager, messenger,alarm" />
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10485760"/>
+		<property name="maxInMemorySize" value="10240"/>
+		<property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+	
 </beans>

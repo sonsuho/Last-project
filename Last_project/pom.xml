@@ -8,8 +8,8 @@
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
-		<java-version>1.6</java-version>
-		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
+		<java-version>1.8</java-version>
+		<org.springframework-version>4.3.8.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
@@ -24,7 +24,7 @@
 	</repositories>
 	
 	<dependencies>
-		<!-- Spring -->
+	   	<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -127,6 +127,19 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<!-- 웹소켓 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.8.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		
 		<!-- Valid 어노테이션을 사용하기 위한 dependency들 -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -180,19 +193,6 @@
 			<version>2.0</version>
 		</dependency>
 		
-		<!-- 다중 파일 업로드 -->
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.2.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>1.4</version>
-		</dependency>
-
 		<!-- spring 암호화 -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -220,14 +220,6 @@
 			<version>3.4</version>
 		</dependency>
 		<!-- 서명 -->
-
-		<!-- 웹소켓 -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-websocket</artifactId>
-			<version>5.3.10</version>
-		</dependency>
-		<!-- 웹소켓 -->
 		
 		<!-- json -->
 		<dependency>
@@ -268,20 +260,27 @@
 		</dependency>
 		
 		<!-- 본인인증 coolsms API dependency -->
-	  <dependency>
+	  	<dependency>
 		    <groupId>net.nurigo</groupId>
 		    <artifactId>javaSDK</artifactId>
 		    <version>2.2</version>
-	  </dependency> 
+	  	</dependency> 
 	  
-	  <!-- ajax ResponseBody 사용 설정-->
+	  	<!-- ajax ResponseBody 사용 설정-->
 		<dependency>
 		    <groupId>org.codehaus.jackson</groupId>
 		    <artifactId>jackson-mapper-asl</artifactId>
 		    <version>1.4.2</version>
 		</dependency>
 		
+		<!-- calendar Gson -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.8.6</version>
+		</dependency>
 	</dependencies>
+
     <build>
         <plugins>
             <plugin>

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import manager.model.EtcBean;
 import utility.Paging;
 
-@Service
+@Service("setcDao")
 public class SEtcDao {
 	private final String namespace = "manager.model.Manager";
 	

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../common/common.jsp" %>  
+<%@ include file="../common/common.jsp" %> 
 
 	<!-- adminBarTop.jsp -->   
 	<!-- content는 각각 jsp에 작성한뒤 include file="top.jsp" , include file="bottom.jsp" 해서 사용하기 -->
@@ -23,23 +23,6 @@
 	<!-- End layout styles -->
 	<link rel="shortcut icon" href="resources/assets/images/favicon.png" />
 	
-	<script src="resources/js/jquery.js"></script>
-	<script>
-		$(function(){
-			getTime();
-		});
-		function getTime() {
-        var d = new Date();
-        var hur = d.getHours().toString().padStart(2,'0');
-        var min = d.getMinutes().toString().padStart(2,'0');
-        var sec = d.getSeconds().toString().padStart(2,'0');
-        var timeBoard = document.getElementById("Now_Time");
-        var time = hur + ":" + min + ":" + sec;
-        timeBoard.innerHTML = time;
-        setTimeout(getTime, 1000);
-    }
-	</script>
-	
 	<div class="container-scroller">
 	
 	  <!-- 상단바 : partial:partials/_navbar.jsp -->
@@ -51,19 +34,7 @@
 	      </a>
 	    </div>
 	    <!-- 상단바 -->
-	    <div class="navbar-menu-wrapper d-flex align-items-stretch" style="border-bottom:1px solid #ddd;">
-	    	<!-- 좌측 : 선택된 게시판 class 추가하기 text-primary -->
-	    	<!-- 
-	    	<ul class="navbar-nav navbar-nav-left">
-	    		<li class="nav-item d-none d-lg-block">
-	    			<a class="nav-link" style="color: #000;" href=""><b>● 공지사항</b></a> 
-	    		</li>
-	    		<li class="nav-item d-none d-lg-block">
-	    			<a class="nav-link" href=""><b>·질문게시판</b></a> 
-	    		</li>
-	    	</ul>
-	    	 -->
-	    	<!-- 우측 -->
+	    <div class="navbar-menu-wrapper d-flex align-items-stretch">
 	      <ul class="navbar-nav navbar-nav-right">
 	        <!-- 전체화면 -->
 	        <li class="nav-item d-none d-lg-block full-screen-link">
@@ -74,7 +45,7 @@
 	        <!-- 메신저알림 -->
 					<%@ include file="../all/message.jsp" %> 
 					<!-- 게시판알림 -->
-					<%@ include file="../all/board.jsp" %> 
+					<%@ include file="../all/alarmModal.jsp" %> 
 	        <!-- 로그인/로그아웃 버튼 -->
 	        <li class="nav-item nav-logout d-none d-lg-block">
 	          <c:if test="${loginInfo == null}">
@@ -107,7 +78,7 @@
 	  <div class="container-fluid page-body-wrapper" >
 	  
 	    <!-- 사이드바 : partial:partials/_sidebar.jsp -->
-	    <nav class="sidebar sidebar-offcanvas fixed-top" style="top:70px; border-right:1px solid #ddd;" id="sidebar">
+	    <nav class="sidebar sidebar-offcanvas fixed-top" style="top:70px;" id="sidebar">
 	      <ul class="nav">
 	      	<!-- 프로필정보 -->
 	        <li class="nav-item nav-profile">
@@ -124,12 +95,6 @@
 	            <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
 	          </a>
 	        </li>
-	        <li>
-	        	<center>
-			        <!-- 시간 -->
-							<h2 id="Now_Time"></h2>
-						</center>
-					</li>
 	        <!-- 사이드바 메인 메뉴 -->
 	        <li class="nav-item">
 	          <a class="nav-link" href="home.admin">
@@ -164,10 +129,10 @@
 	          <div class="collapse" id="menu2">
 	            <ul class="nav flex-column sub-menu">
 	              <li class="nav-item">
-	                <a class="nav-link" href="idInsert.admin">직원아이디생성</a>
+	                <a class="nav-link" href="emplList.admin">직원목록</a>
 	              </li>
 	              <li class="nav-item">
-	                <a class="nav-link" href="emplList.admin">직원목록</a>
+	                <a class="nav-link" href="idInsert.admin">직원아이디생성</a>
 	              </li>
 	            </ul>
 	          </div>
@@ -180,8 +145,8 @@
 	          </a>
 	          <div class="collapse" id="menu3">
 	            <ul class="nav flex-column sub-menu">
-	              <li class="nav-item">
-	                <a class="nav-link" href="">요청목록</a>
+	               <li class="nav-item">
+	                <a class="nav-link" href="request.admin?mem_num=${loginInfo.mem_num }">결재목록</a>
 	              </li>
 	            </ul>
 	          </div>

@@ -7,8 +7,17 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/login-context.xml</config>
 	</configs>
 	<autoconfigs>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/manager-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/admin-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/messenger-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/member-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/student-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/teacher-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/root-context.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

@@ -28,18 +28,25 @@ public class MangerEtcDetailController {
     MemberDao mdao;
     
     @RequestMapping(value=command, method = RequestMethod.GET)
-    public ModelAndView etcdetailManager(@RequestParam int etc_num, HttpSession session) {
+    public ModelAndView etcdetailManager(@RequestParam int etc_num,
+    									HttpSession session) {
         ModelAndView mav = new ModelAndView();
         
         System.out.println("서류번호:"+etc_num);
         
         EtcBean eb = edao.getEtcByNum(etc_num);
         
-        String[] uploadList = eb.getEtc_file().split("/");
+        String[] uploadList = null;
+        if (eb.getEtc_file() != null) {
+            uploadList = eb.getEtc_file().split("/");
+        }
+
 		
 		mav.addObject("uploadList", uploadList);
 		
-		int fileCount = edao.fileCount(etc_num);
+		String fileNames  = edao.fileCount(etc_num);
+		String[] files = fileNames.split("/");
+		int fileCount = files.length;
         
         System.out.println("받은사람 번호:"+eb.getMem_num());
         
@@ -50,7 +57,7 @@ public class MangerEtcDetailController {
         System.out.println("받는사람이름:"+mem.getName());
         
         
-        mav.addObject("fileCount",fileCount);
+       mav.addObject("fileCount",fileCount);
         mav.addObject("sender",mb);
         mav.addObject("receiver",mem);
         mav.addObject("eb",eb);

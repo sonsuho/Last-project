@@ -80,5 +80,4 @@
 	<select id="getStudent" resultType="int">
 		select count(*) from member where category = 'student' and lec_num = #{lec_num}
 	</select>
-	
 </mapper>

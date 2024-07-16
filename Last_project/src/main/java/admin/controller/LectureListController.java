@@ -44,7 +44,7 @@ public class LectureListController {
 		
 		String url = request.getContextPath()+"/"+command;
 		int totalCount = ldao.getTotalLecture(map);
-		Paging pageInfo = new Paging(pageNumber,"10",totalCount,url,whatColumn,keyword);
+		Paging pageInfo = new Paging(pageNumber,"10",totalCount,url,whatColumn,keyword,"","");
 		
 		List<LectureBean> lectureList = ldao.getLectureList(pageInfo, map);
 		for (LectureBean lb : lectureList) {

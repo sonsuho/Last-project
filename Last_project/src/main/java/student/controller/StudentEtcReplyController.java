@@ -24,13 +24,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import alarm.model.AlarmService;
 import manager.model.EtcBean;
 import manager.model.EtcDao;
 import member.model.MemberBean;
 import member.model.MemberDao;
 
 @Controller
-@ComponentScan({"manager", "member","student"})
+@ComponentScan({"manager", "member","student","alarm"})
 public class StudentEtcReplyController {
 	private final String command="/replyEtc.student";
 	private final String getPage="replyEtcForm";
@@ -41,6 +42,9 @@ public class StudentEtcReplyController {
 
 	@Autowired
 	MemberDao mdao;
+	
+	@Autowired
+	AlarmService service;
 
 	@RequestMapping(value = command , method = RequestMethod.GET)
 	public ModelAndView rply(@RequestParam int etc_num,@RequestParam int mem_num,@RequestParam int sender_num) {
@@ -50,8 +54,6 @@ public class StudentEtcReplyController {
 		MemberBean mb = mdao.getNameByNum(mem_num);//받는사람정보 가져오기
 		
 		EtcBean eb = edao.getEtcByNum(etc_num);
-		
-		
 
 		mav.addObject("eb",eb);
 		mav.addObject("mb",mb);
@@ -65,7 +67,7 @@ public class StudentEtcReplyController {
 	@RequestMapping(value = command , method = RequestMethod.POST)
 	public ModelAndView rplyform(@ModelAttribute("etc") @Valid EtcBean etc, BindingResult result,
 			HttpServletResponse response, HttpSession session,HttpServletRequest request,
-			@RequestParam("multiFile") List<MultipartFile> multiFileList) throws IOException {
+			@RequestParam("multiFile") List<MultipartFile> multiFileList, Map<String , String> paramap) throws IOException {
 		ModelAndView mav = new ModelAndView();
 
 		if (result.hasErrors()) {
@@ -152,6 +154,18 @@ public class StudentEtcReplyController {
 
 		mav.setViewName(gotoPage);
 
+	        MemberBean mb = (MemberBean)session.getAttribute("loginInfo");
+
+	        paramap.put("fk_recipientno", String.valueOf(etc.getMem_num()) ); // 받는사람 (여러명일때는 ,,으로 구분된 str)
+	        paramap.put("url", "/etcList.manager?mem_num=" );
+	        paramap.put("url2", String.valueOf(etc.getMem_num() )); // 연결되는 pknum등...  (여러개일때는 ,,으로 구분된 str)(대신 받는 사람 수랑 같아야됨)
+	        paramap.put("alarm_content", mb.getName() + "님이 회신 문서를 보냈습니다. 확인해 주세요." );
+	        paramap.put("alarm_type", "1" );
+	        
+	        //System.out.println("stdList:"+stdList);
+	        
+	        service.addAlarm(paramap);
+	        
 		return mav;
 
 	}

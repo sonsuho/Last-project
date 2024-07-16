@@ -21,14 +21,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import alarm.model.AlarmService;
 import manager.model.EtcBean;
 import manager.model.EtcDao;
 import member.model.MemberBean;
 
 @Controller
+@ComponentScan({"manager", "alarm"})
 public class ManagerEtcController {
     private final String command = "/etc.manager";
     private final String getPage = "etcForm";
@@ -36,7 +39,11 @@ public class ManagerEtcController {
 
     @Autowired
     EtcDao edao;
+    
+    @Autowired
+    AlarmService service;
 
+    
     @RequestMapping(value = command, method = RequestMethod.GET)
     public ModelAndView request(HttpSession session) {
         ModelAndView mav = new ModelAndView();
@@ -54,11 +61,12 @@ public class ManagerEtcController {
     
    
 
+    @ResponseBody
     @RequestMapping(value = command, method = RequestMethod.POST)
     public ModelAndView etc(@ModelAttribute("etc") @Valid EtcBean etc, BindingResult result,
     							@RequestParam String [] selected_mem_num,
                                 HttpServletResponse response, HttpSession session,HttpServletRequest request,
-                                @RequestParam("multiFile") List<MultipartFile> multiFileList) throws IOException {
+                                @RequestParam("multiFile") List<MultipartFile> multiFileList, Map<String, String> paramap) throws IOException {
         ModelAndView mav = new ModelAndView();
 
         for(String i : selected_mem_num) {
@@ -74,7 +82,9 @@ public class ManagerEtcController {
             mav.setViewName(getPage);
             return mav;
         }
-
+        
+       
+ 		
      // 업로드할 여러개 파일 출력해 확인
      		System.out.println("multiFileList : " + multiFileList);
      		for(int i = 0; i < multiFileList.size(); i++) {			
@@ -151,6 +161,21 @@ public class ManagerEtcController {
         }
         
         mav.setViewName(gotoPage);
+        
+        String stdList = String.join(",", selected_mem_num );
+        
+        MemberBean mb = (MemberBean)session.getAttribute("loginInfo");
+
+        
+        paramap.put("fk_recipientno", stdList); // 받는사람 (여러명일때는 ,,으로 구분된 str)
+        paramap.put("url", "/etcList.student?mem_num=" );
+        paramap.put("url2", String.valueOf(stdList)); // 연결되는 pknum등...  (여러개일때는 ,,으로 구분된 str)(대신 받는 사람 수랑 같아야됨)
+        paramap.put("alarm_content", mb.getName() + "님이 문서를 보냈습니다. 확인해 주세요." );
+        paramap.put("alarm_type", "3" );
+        
+        System.out.println("stdList:"+stdList);
+        
+        service.addAlarm(paramap);
 
         return mav;
     }

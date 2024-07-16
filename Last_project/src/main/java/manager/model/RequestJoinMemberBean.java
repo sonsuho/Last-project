@@ -3,6 +3,7 @@ package manager.model;
 public class RequestJoinMemberBean {
 	private int req_num;
     private int mem_num;
+    private int app_num;
     private String title;
     private String category;
     private String time1;
@@ -15,6 +16,12 @@ public class RequestJoinMemberBean {
     
     
     
+	public int getApp_num() {
+		return app_num;
+	}
+	public void setApp_num(int app_num) {
+		this.app_num = app_num;
+	}
 	public String getAp_delete() {
 		return ap_delete;
 	}

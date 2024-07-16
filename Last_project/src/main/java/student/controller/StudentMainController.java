@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,9 +19,10 @@ import messenger.model.MessengerDao;
 
 
 @Controller
+@ComponentScan({"member,messenger,student"})
 public class StudentMainController {
 	private final String command = "/home.student";
-	private final String getPage = "studentHome";
+	private final String getPage = "home";
 	
 	@Autowired
 	RequestDao requestDao;

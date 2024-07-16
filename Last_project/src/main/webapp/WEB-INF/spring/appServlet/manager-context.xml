@@ -14,8 +14,7 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	
-	<context:component-scan base-package="manager,login,member,lecture" />
+	<context:component-scan base-package="manager, evaluation, lecture, login, member,alarm" />
 	
 	<!-- 파일 업로드할때 필요한 설정  -->
 	<bean id="multipartResolver" 
@@ -25,5 +24,5 @@
 		<property name="defaultEncoding" value="UTF-8"/>
 	</bean>
 	<!-- 파일 업로드할때 필요한 설정  -->
-
+	
 </beans>

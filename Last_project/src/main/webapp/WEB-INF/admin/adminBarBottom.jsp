@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-	<!-- adminBarBottom.jsp -->  
+	<!-- adminBarBottom.jsp --> 
 	<!-- content는 각각 jsp에 작성한뒤 include file="top.jsp" , include file="bottom.jsp" 해서 사용하기 -->
 
 	</div>

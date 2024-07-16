@@ -1,6 +1,5 @@
 package student.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import manager.model.RequestBean;
-import manager.model.RequestDao;
 import manager.model.RequestJoinMemberBean;
+import student.model.SRequestBean;
 import student.model.SRequestDao;
 import utility.Paging;
 
@@ -28,32 +27,30 @@ public class StudentRequestListController {
 	SRequestDao rdao;
 	
 	@RequestMapping(command)
-	public ModelAndView requestList3(@RequestParam(value = "whatColumn", required = false) String whatColumn,
+	public ModelAndView requestList(@RequestParam(value = "whatColumn", required = false) String whatColumn,
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "pageNumber", required = false) String pageNumber,
 			@RequestParam String mem_num,
 			HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 
-
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("keyword", "%"+keyword+"%");
 		map.put("whatColumn", whatColumn);
 		map.put("mem_num", mem_num);
 
-		int totalCount = rdao.getTotalCountBySitu(map);
+		int totalCount = rdao.getTotalCountBySitu3(map);
 		System.out.println("현재개수:"+totalCount);
 
 		int AlltotalCount = rdao.getAllTotalCount();
-		System.out.println("전체개수:"+AlltotalCount);
 
 		String url = request.getContextPath()+command;
 
 
-		Paging pageInfo = new Paging(pageNumber,null,totalCount,url,whatColumn,keyword);
+		Paging pageInfo = new Paging(pageNumber,null,totalCount,url,whatColumn,keyword,mem_num,"");
 
 
-		List<RequestJoinMemberBean> rmlist = rdao.RequestPaging(pageInfo, map);
+		List<RequestBean> rmlist = rdao.RequestPaging(pageInfo, map);
 //		List<RequestJoinMemberBean> pendingList  = new ArrayList<RequestJoinMemberBean>();
 //		List<RequestJoinMemberBean> completedList = new ArrayList<RequestJoinMemberBean>();
 //
@@ -75,8 +72,6 @@ public class StudentRequestListController {
 		mav.addObject("totalCount",totalCount);
 
 		mav.addObject("AlltotalCount",AlltotalCount);
-		
-		//mav.addObject("completedList",completedList);
 		
 		mav.setViewName(getPage);
 

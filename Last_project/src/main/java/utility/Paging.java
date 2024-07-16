@@ -19,6 +19,8 @@ public class Paging {
    //검색을 위한 변수 추가
    private String whatColumn = "" ; //검색 모드(작성자, 글제목, 전체 검색은 all) 등등
    private String keyword = "" ; //검색할 단어 
+   private String mem_num = "" ; //문서별 페이징
+   private String sender_num = "" ; //문서별 페이징
 
    public int getTotalCount() {
       return totalCount;
@@ -173,15 +175,38 @@ public class Paging {
    public void setKeyword(String keyword) {
       this.keyword = keyword;
    }
+   
+   
+
+   public String getMem_num() {
+	return mem_num;
+}
 
 
-   public Paging(
+public void setMem_num(String mem_num) {
+	this.mem_num = mem_num;
+}
+
+
+public String getSender_num() {
+	return sender_num;
+}
+
+
+public void setSender_num(String sender_num) {
+	this.sender_num = sender_num;
+}
+
+
+public Paging(
          String _pageNumber, 	// 보여줄 페이지 번호
          String _pageSize,  	// 한페이지에 보여줄 건수
          int totalCount,		// 총 레코드 건수
          String url, 			// 다음 요청
          String whatColumn, 	// 검색 컬럼
-         String keyword			// 검색 키워드
+         String keyword,			// 검색 키워드
+         String mem_num,			// 받는사람
+         String sender_num			// 보낸사람
          ) {      
 
       if(  _pageNumber == null || _pageNumber.equals("null") || _pageNumber.equals("")  ){
@@ -191,13 +216,17 @@ public class Paging {
       this.pageNumber = Integer.parseInt( _pageNumber ) ; 
 
       if( _pageSize == null || _pageSize.equals("null") || _pageSize.equals("") ){
-         _pageSize = "2" ; // 한 페이지에 보여줄 레코드 갯수
+         _pageSize = "5" ; // 한 페이지에 보여줄 레코드 갯수
       }      
       this.pageSize = Integer.parseInt( _pageSize ) ;
       
       this.limit = pageSize ; // 한 페이지에 보여줄 레코드 갯수
 
       this.totalCount = totalCount ; 
+      
+      this.mem_num = mem_num ; 
+      
+      this.sender_num = sender_num ; 
 
       this.totalPage = (int)Math.ceil((double)this.totalCount / this.pageSize) ; // ceil 반올림
       
@@ -248,7 +277,7 @@ public class Paging {
       
       String result = "" ;
       //added_param 변수 : 검색 관련하여 추가되는 파라미터 리스트
-      String added_param = "&whatColumn=" + whatColumn + "&keyword=" + keyword ; // &whatColumn=singer&keyword=아
+      String added_param = "&whatColumn=" + whatColumn + "&keyword=" + keyword+ "&mem_num=" + mem_num+ "&sender_num=" + sender_num ; // &whatColumn=singer&keyword=아
       
       
       if (this.beginPage != 1) { // 앞쪽, pageSize:한 화면에 보이는 레코드 수

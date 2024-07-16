@@ -21,17 +21,16 @@ import student.model.SEtcDao;
 @Controller
 @ComponentScan({"member","student"})
 public class StudentEtcDetailController {
-    private final String command1 = "/etcDetail.student";
-    private final String command2 = "/etcDetail2.student";
+    private final String command1 = "/etcDetail.student"; // 받은 문서함
+    private final String command2 = "/etcDetail2.student"; // 내가 쓴 문서함
     private final String getPage1 = "etcDetail";
     private final String getPage2 = "etcDetail2";
     
     @Autowired
-    SEtcDao edao;
+    EtcDao edao;
    
     @Autowired
     MemberDao mdao;
-    
 
     
     @RequestMapping(value=command1, method = RequestMethod.GET)
@@ -40,18 +39,29 @@ public class StudentEtcDetailController {
         
         System.out.println("서류번호:"+etc_num);
         
-        SEtcBean eb = edao.getEtcByNum(etc_num);
-        
-        String[] uploadList = eb.getEtc_file().split("/");
+        EtcBean eb = edao.getEtcByNum(etc_num);
+        int fileCount =0;
+        String[] uploadList = null;
+        if (eb.getEtc_file() != null) {
+            uploadList = eb.getEtc_file().split("/");
+            String fileNames  = edao.fileCount(etc_num);
+            String[] files = fileNames.split("/");
+            fileCount = files.length;
+        }
 		
 		mav.addObject("uploadList", uploadList);
 		
-		int fileCount = edao.fileCount(etc_num);
-        
+		//System.out.println("fileNames:"+fileNames);
+//		for(String fc : files) {
+//			System.out.println("fc:"+fc);
+//		}
+		
+		System.out.println("fileCount:"+fileCount);
+		
         System.out.println("받은사람 번호:"+eb.getMem_num());
         
         MemberBean mem = mdao.getNameByNum(eb.getMem_num());//받은사람이름 가져오기
-        MemberBean mb = mdao.getNameBySendNum(eb.getSender_num());//받은사람이름 가져오기
+        MemberBean mb = mdao.getNameBySendNum(eb.getSender_num());//보낸사람이름 가져오기
         
         System.out.println("보낸사람이름:"+mb.getName());
         System.out.println("받는사람이름:"+mem.getName());
@@ -74,12 +84,17 @@ public class StudentEtcDetailController {
         
         EtcBean eb = edao.getEtcBySenderNum(sender_num,etc_num);
         
-        String[] uploadList = eb.getEtc_file().split("/");
+        int fileCount =0;
+        String[] uploadList = null;
+        if (eb.getEtc_file() != null) {
+            uploadList = eb.getEtc_file().split("/");
+            String fileNames  = edao.fileCountBySenderNum(sender_num,etc_num);
+            String[] files = fileNames.split("/");
+            fileCount = files.length;
+        }
 		
 		mav.addObject("uploadList", uploadList);
 		
-		int fileCount = edao.fileCountBySenderNum(sender_num);
-        
         System.out.println("받은사람 번호:"+eb.getMem_num());
         
         MemberBean mem = mdao.getNameByNum(eb.getMem_num());//받은사람이름 가져오기

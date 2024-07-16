@@ -61,10 +61,10 @@ public class EtcDao {
 
 	}
 
-	public int fileCount(int etc_num) {
-		int cnt = -1;
-		cnt = sqlSessionTemplate.selectOne(namespace+".fileCount",etc_num);
-		return cnt;
+	public String fileCount(int etc_num) {
+		String str = "";
+		str = sqlSessionTemplate.selectOne(namespace+".fileCount",etc_num);
+		return str;
 	}
 
 //	public List<EtcBean> getEtcListByMem_num(int mem_num) {
@@ -80,10 +80,24 @@ public class EtcDao {
 		return cnt;
 	}
 	
+	public int totalCountEtcByMSender_Num(Map<String, String> map) {
+		int cnt = -1;
+		cnt = sqlSessionTemplate.selectOne(namespace+".totalCountEtcByMSender_Num",map);
+		return cnt;
+	}
+	
 	public int totalCountEtcByMem_Num(Map<String, String> map) {
 		int cnt = -1;
 		
 		cnt = sqlSessionTemplate.selectOne(namespace+".totalCountEtcByMem_Num",map);
+		
+		return cnt;
+	}
+	
+	public int totalCountEtcByMmem_Num(Map<String, String> map) {
+		int cnt = -1;
+		
+		cnt = sqlSessionTemplate.selectOne(namespace+".totalCountEtcByMmem_Num",map);
 		
 		return cnt;
 	}
@@ -98,10 +112,13 @@ public class EtcDao {
 		return eb;
 	}
 
-	public int fileCountBySenderNum(int sender_num) {
-		int cnt = -1;
-			cnt = sqlSessionTemplate.selectOne(namespace+".fileCountBySenderNum",sender_num);
-		return cnt;
+	public String fileCountBySenderNum(int sender_num,int etc_num) {
+		String str = "";
+		EtcBean eb = new EtcBean();
+		eb.setSender_num(sender_num);
+		eb.setEtc_num(etc_num);
+			str = sqlSessionTemplate.selectOne(namespace+".fileCountBySenderNum",eb);
+		return str;
 	}
 
 	public int insertReply(EtcBean etc) {
@@ -109,11 +126,25 @@ public class EtcDao {
 	          cnt = sqlSessionTemplate.insert(namespace + ".insertEtc", etc);
 	    return cnt;
 	}
-
-
-
 	
+	public List<EtcJoinMemberBean> getEtcWithMemberInfo(Paging pageInfo,Map<String, String> map) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+
+        return sqlSessionTemplate.selectList(namespace + ".getEtcWithMemberInfo", map,rowBounds);
+	}
 	
+	public List<EtcJoinMemberBean> getEtcSenderListWithMemberInfo(Paging pageInfo,Map<String, String> map) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+
+		return sqlSessionTemplate.selectList(namespace + ".getEtcSenderListWithMemberInfo", map,rowBounds);
+	}
+	public List<EtcJoinMemberBean> getEtcStuSenderListWithMemberInfo(Paging pageInfo,Map<String, String> map) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+		
+		return sqlSessionTemplate.selectList(namespace + ".getEtcStuSenderListWithMemberInfo", map,rowBounds);
+	}
+
+
 	
 
 }
