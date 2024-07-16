@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../common/common.jsp"%>
+<%@ include file="../all/myPage.jsp" %>
 
 	<!-- managerBarTop.jsp -->
 
@@ -100,9 +100,9 @@
 		      <ul class="nav">
 						<!-- 프로필정보 -->
 						<li class="nav-item nav-profile">
-							<a href="#" class="nav-link">
+							<a href="#" class="nav-link" onclick="myPage()">
 								<div class="nav-profile-image">
-									<img src="resources/assets/images/faces/face1.jpg" alt="profile" />
+									<img src="resources/userImage/user.png" alt="profile" />
 									<span class="login-status online"></span>
 								</div>
 								<div class="nav-profile-text d-flex flex-column">
@@ -162,12 +162,15 @@
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" data-bs-toggle="collapse" href="#menu3" aria-expanded="false" aria-controls="menu3"> 
-								<span class="menu-title">강좌관리</span> 
+								<span class="menu-title">수업관리</span> 
 								<i class="menu-arrow"></i> 
 								<i class="mdi mdi-crosshairs-gps menu-icon"></i>
 							</a>
 							<div class="collapse" id="menu3">
 								<ul class="nav flex-column sub-menu">
+									<li class="nav-item">
+										<a class="nav-link" href="lectureList.manager">내수업정보</a>
+									</li>
 									<li class="nav-item">
 										<a class="nav-link" href="lectureEval.manager">강의평가</a>
 									</li>

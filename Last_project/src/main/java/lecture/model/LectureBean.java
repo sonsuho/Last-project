@@ -4,17 +4,32 @@ public class LectureBean {
 
 	private int lec_num;
 	private String lec_name;
-	private String teacher;
-	private String manager;
+	private int teacher;
+	private int manager;
 	private String lec_start;
 	private String lec_end;
 	private int stu_cnt;
 	private String class_name;
 	
 	private int student; // 현재 등록된 학생수
+	private String m_name;	// 매니저 이름
+	private String t_name;	// 강사 이름
 	private String m_phone; // 매니저 전화번호
 	private String t_phone; // 강사 전화번호
 	private String m_email; // 매니저 이메일
+	
+	public String getM_name() {
+		return m_name;
+	}
+	public void setM_name(String m_name) {
+		this.m_name = m_name;
+	}
+	public String getT_name() {
+		return t_name;
+	}
+	public void setT_name(String t_name) {
+		this.t_name = t_name;
+	}
 	private String t_email; // 강사 이메일
 	
 	public String getM_phone() {
@@ -59,16 +74,16 @@ public class LectureBean {
 	public void setLec_name(String lec_name) {
 		this.lec_name = lec_name;
 	}
-	public String getTeacher() {
+	public int getTeacher() {
 		return teacher;
 	}
-	public void setTeacher(String teacher) {
+	public void setTeacher(int teacher) {
 		this.teacher = teacher;
 	}
-	public String getManager() {
+	public int getManager() {
 		return manager;
 	}
-	public void setManager(String manager) {
+	public void setManager(int manager) {
 		this.manager = manager;
 	}
 	public String getLec_start() {

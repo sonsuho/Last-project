@@ -17,6 +17,9 @@ public class MemberBean {
 	private String mem_ip;
 	private double mem_latitude;
 	private double mem_longitude;
+	private String image;
+	private String gender;
+	private String birth;
 	
 	public MemberBean() {
 		
@@ -163,5 +166,28 @@ public class MemberBean {
 		this.mem_longitude = mem_longitude;
 	}
 	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getBirth() {
+		return birth;
+	}
+
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
 	
 }

@@ -52,8 +52,8 @@ public class LectureInsertController {
 	@RequestMapping(value=command, method=RequestMethod.POST)
 	public String lectureInsert(LectureBean lecture, Model model,
 								@RequestParam("lec_name") List<String> lec_name,
-								@RequestParam("manager") List<String> manager,
-								@RequestParam("teacher") List<String> teacher,
+								@RequestParam("manager") List<Integer> manager,
+								@RequestParam("teacher") List<Integer> teacher,
 								@RequestParam("lec_start") List<String> lec_start,
 								@RequestParam("lec_end") List<String> lec_end,
 								@RequestParam("stu_cnt") List<Integer> stu_cnt,

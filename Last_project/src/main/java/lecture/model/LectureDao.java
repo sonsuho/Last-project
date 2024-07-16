@@ -38,6 +38,7 @@ public class LectureDao {
 	
 	public int insertLecture(LectureBean lecture) {
 		int cnt = -1;
+		System.out.println("insertLecture");
 		cnt = sqlSessionTemplate.insert(namespace+".insertLecture", lecture);
 		System.out.println("insertLecture cnt : " + cnt);
 		return cnt;
@@ -68,6 +69,15 @@ public class LectureDao {
 		System.out.println("getClassNameByLec name : " + className);
 		
 		return className;
+	}
+	
+	public int updateLecture(LectureBean lecture) {
+		int cnt = -1;
+		System.out.println("updateLecture");
+		System.out.println("manager/teacher :" + lecture.getManager()+"/"+lecture.getTeacher());
+		System.out.println("m_name/t_name :" + lecture.getM_name()+"/"+lecture.getT_name());
+		cnt = sqlSessionTemplate.update(namespace+".updateLecture", lecture);
+		return cnt;
 	}
 	
 }

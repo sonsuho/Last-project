@@ -11,9 +11,6 @@
       <br><br>
       
 			<a href="Messenger.manager">메신저 페이지</a><br>
-			<a href="lectureList.manager">내 수업 정보</a><br>
-	    	<a href="stuList.manager">내 학생 정보</a><br>
-	    	<a href="IdInsert.manager">학생 아이디 생성</a><br>
     </h3>
   </div>
 
