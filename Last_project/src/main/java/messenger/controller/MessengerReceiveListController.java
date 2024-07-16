@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +48,12 @@ public class MessengerReceiveListController {
 		model.addAttribute("studentlist", studentlist);
 		
 		MemberBean info = (MemberBean) session.getAttribute("loginInfo");
+
+	    // Null 체크 추가
+	    if (info == null) {
+	        // 예외 처리 방법 중 하나: 로그인 페이지로 리다이렉트
+	        return "redirect:/login.in";
+	    }
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("keyword", "%"+keyword+"%");
