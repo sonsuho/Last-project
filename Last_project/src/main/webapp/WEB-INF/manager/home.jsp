@@ -50,7 +50,9 @@
 
 <style>
         body {
-            font-family: Arial, sans-serif;
+        /* 
+            font-family: Comic Sans MS, serif;
+         */    
             background-color: #f8f9fa;
             margin: 0;
             padding: 0;
@@ -103,8 +105,9 @@
         }
 
         .date-wrap {
+         	font-family: Comic Sans MS, serif;
             width: 480px;
-            height: 510px;
+            height: 540px;
             margin: 20px auto;
             padding: 20px;
             background: #fff;
@@ -129,18 +132,8 @@
         }
 
         .button_wrap button {
-            padding: 10px 20px;
-            margin: 0 5px;
-            background: #007bff;
-            color: #fff;
             border: none;
-            border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
-        }
-
-        .button_wrap button:hover {
-            background: #0056b3;
         }
 
         table.date-month {
@@ -288,7 +281,7 @@
                         var hasEvent = hasEventOnDate(dateStr);
                         var eventStart = isEventStart(dateStr);
                         var eventCalNum = getEventCalNum(dateStr);
-                        var eventImg = eventStart ? ' <img src="resources/images/attendSymbol_2.jpg" style="width:20px; height:20px" />' : '';
+                        var eventImg = eventStart ? '  <img src="resources/images/attendSymbol3.jpg" style="width:12px; height:12px" />' : '';
                         $tr.append(td.replace('__TODAY__', (obj.today ? 'today' : ''))
                                     .replace('__EVENT__', (hasEvent ? 'event' : ''))
                                     .replace('__CLASS__', obj.class + ' ' + eventCalNum)
@@ -332,29 +325,29 @@
     <div class="date-wrap">
         <div class="date-month">
             <h2>
-                <span id="month-this"><%=request.getParameter("month") %></span>
+                <span id="month-this" style="font-family: Comic Sans MS, serif;"><%=request.getParameter("month") %></span>
             </h2>
             <div class="button_wrap">
-                <button type="button" id="month-prev" class="month-move" data-ym="<%=prev_month %>+'-01'"> < </button>
-                <button type="button" id="month-next" class="month-move" data-ym="<%=next_month %>+'-01'"> > </button>
+                <button type="button" id="month-prev" class="month-move" data-ym="<%=prev_month %>+'-01'"> <img src="resources/images/left.jpg" style="width:45px; height:30px" /> </button>
+                <button type="button" id="month-next" class="month-move" data-ym="<%=next_month %>+'-01'"> <img src="resources/images/right.jpg" style="width:45px; height:30px" /> </button>
             </div>
         </div>
         <table class="date-month" border="1">
             <thead>
                 <tr>
-                    <th>일</th>
-                    <th>월</th>
-                    <th>화</th>
-                    <th>수</th>
-                    <th>목</th>
-                    <th>금</th>
-                    <th>토</th>
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
                 </tr>
             </thead>
             <tbody id="tbl-month"></tbody>
         </table>
         <span>
-            <img src="resources/images/attendSymbol_2.jpg" style="width:15px; height:15px" /> start event
+            <img src="resources/images/attendSymbol3.jpg" style="width:15px; height:15px" /> start event
         </span>
     </div> 
 </center>
