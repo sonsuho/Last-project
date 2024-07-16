@@ -92,7 +92,18 @@
             <div class="col-lg-12">
                 <div class="card">
                 
-                	<br><h1 style="padding-left: 30px;">${chat_name}</h1>
+                	<br>
+                	<h1 style="padding-left: 30px; display: flex;">
+                		${chat_name}
+                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                		
+                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;             		
+						<button onclick="location.href='main.chat'" class="btn btn-gradient-info py-3" style="height: 35px; display: flex; justify-content: center; align-items: center;">
+						    prev
+						</button>
+
+                	</h1>
                 
                     <div class="card-body">
                         
