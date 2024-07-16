@@ -98,7 +98,7 @@
 		
 		function unreadMsg(){
 			$.ajax({
-	            url: '/unreadMessages',
+	            url: '/unread.messenger',
 	            type: 'GET',
 	            dataType: 'json',
 	            success: function(messages) {
