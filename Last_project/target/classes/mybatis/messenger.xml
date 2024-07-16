@@ -5,8 +5,9 @@
   
 <mapper namespace="messenger.model.Messenger">
 	<select id="getMsgRecvList" resultType="messenger.model.MessengerBean">
-		select * from messenger where recv_num = #{mem_num} 
-		
+		select * from messenger
+		where recv_num = #{mem_num} 
+		and del_chk != 2
 		<if test="whatColumn == 'all'">
 			and send_name like #{keyword} or title like #{keyword}
 		</if>
@@ -16,7 +17,7 @@
 	
 	<select id="getMsgSendList" resultType="messenger.model.MessengerBean">
 		select * from messenger where mem_num = #{mem_num} 
-		
+		and del_chk != 1
 		<if test="whatColumn == 'all'">
 			and send_name like #{keyword} or title like #{keyword}
 		</if>
@@ -24,8 +25,21 @@
 		order by send_time desc
 	</select>
 	
+	<!-- Recv List에서 사용 -->
 	<select id="getTotalCount" resultType="int">
 		select count(*) from messenger where recv_num = #{mem_num} 
+		and del_chk != 2
+		
+		<if test="whatColumn == 'all'">
+			and send_name like #{keyword} or title like #{keyword}
+		</if>
+		
+	</select>
+	
+	<!-- Send List에서 사용 -->
+	<select id="getSendTotalCount" resultType="int">
+		select count(*) from messenger where mem_num = #{mem_num} 
+		and del_chk != 1
 		
 		<if test="whatColumn == 'all'">
 			and send_name like #{keyword} or title like #{keyword}
@@ -40,14 +54,14 @@
 	
 	<select id="getRecentlyMsg" resultType="messenger.model.MessengerBean">
 		<![CDATA[
-	    select msg_num, send_name, send_time, read_chk
+	    select msg_num, send_name, send_time, read_chk, del_chk
 	    from (
-	        select msg_num, send_name, send_time, read_chk
+	        select msg_num, send_name, send_time, read_chk, del_chk
 	        from messenger 
 	        where recv_num = #{mem_num} 
 	        order by send_time desc
 	    ) 
-	    where rownum <= 3
+	    where rownum <= 3 and del_chk != 2
 	    ]]>
 	</select>
 	

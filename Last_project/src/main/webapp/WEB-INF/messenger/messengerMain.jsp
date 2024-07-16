@@ -86,35 +86,36 @@
                   </div><!-- row -->
 
 
-				  <form name="msgForm" action="deleteRecv.messenger" action="post">        
-	                  <table class="table table-hover">
-	                     <thead>
-	                       <tr>
-	                         <th colspan="6">
-	                         	<button type="button" class="btn btn-gradient-light" onclick="delSelectedCheck()">삭제</button>
-	                         </th>
-	                       </tr>
-	                       <tr>
-	                       	 <th width="50px;">
-	                              <label class="form-check-label">
-	                              	<input type="checkbox" class="form-check-input item" value="" onclick="delAllCheck(this)">
-	                              </label>
-	                       	 </th>
-	                         <th width="110px;">보낸사람</th>
-	                         <th>제목</th>
-	                         <th>내용</th>
-	                         <th width="220px;">받은 날짜</th>
-	                       </tr>
-	                     </thead>
-	                     <tbody>
-	                       <c:choose>
-	                     	 <c:when test="${fn:length(rlist) == 0 }">
-	                     	 	<tr>
-	                     	 		<th colspan="4" style="text-align:center;">검색된 내용이 없습니다.</th>
-	                     	 	</tr>
-	                     	 </c:when>
-	                     	 <c:otherwise>
+				  <form name="msgForm" action="deleteRecv.messenger" method="post">        
+					  <table class="table table-hover">
+					    <thead>
+					      <tr>
+					        <th colspan="6">
+					          <button type="button" class="btn btn-gradient-light" onclick="delSelectedCheck()">삭제</button>
+					        </th>
+					      </tr>
+					      <tr>
+					        <th width="50px;">
+					          <label class="form-check-label">
+					            <input type="checkbox" class="form-check-input item" value="" onclick="delAllCheck(this)">
+					          </label>
+					        </th>
+					        <th width="110px;">보낸사람</th>
+					        <th>제목</th>
+					        <th>내용</th>
+					        <th width="220px;">받은 날짜</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <c:choose>
+					        <c:when test="${fn:length(rlist) == 0 }">
+					          <tr>
+					            <th colspan="5" style="text-align:center;">메시지가 없습니다.</th>
+					          </tr>
+					        </c:when>
+					        <c:otherwise>
 					          <c:forEach var="rlist" items="${rlist}">
+					            <c:if test="${rlist.del_chk == 1 or rlist.del_chk == 3}">
 					              <tr onclick="goDetailMsg('${rlist.msg_num}')">
 					                <c:choose>
 					                  <c:when test="${rlist.read_chk == 1}">
@@ -141,12 +142,13 @@
 					                  </c:otherwise>
 					                </c:choose>
 					              </tr>
+					            </c:if>
 					          </c:forEach>
 					        </c:otherwise>
-	                       </c:choose>
-	                     </tbody>
-	                   </table>
-                   </form>
+					      </c:choose>
+					    </tbody>
+					  </table>
+					</form>
                  </div>
                </div><!-- card end -->
              </div>

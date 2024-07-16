@@ -11,6 +11,23 @@
 <style>
 	.sub-next-title { color: #9a9a9a; margin-right: 10px; cursor: pointer;}
 	.sub-next-title:hover {color: #b66dff; transition: 0.2s;}
+	
+	<!-- pop up -->
+	.pop-msg-title { font-size: 1.4rem; font-weight: bold;}
+	.pl20 {padding-left: 20px; box-sizing: border-box;}
+	.btn-reply { width: 100px; color: #198ae3 !important; font-weight: bold !important; padding: 10px 0 !important;}
+	.second_modal {
+		background:#fff; position: absolute; z-index:100; width:400px; height: 350px; display:flex; justify-content: space-between; padding: 16px 20px; box-sizing: border-box;  border-radius: 10px; box-shadow: 2px 5px 10px #ddd;
+	}
+	.second_modal .wrap {
+		width: 200px;
+	}
+	.second_modal .wrap:first-child {border-right: 1px solid #000;}
+	.second_modal .flex-wrap {
+		width: 100%; height: 100%; overflow-x: auto; 
+	}
+	ul, li { list-style: none;}
+	.msg_list {padding: 0;}
 </style>
 
 <%@ include file="../student/studentTop.jsp" %>
@@ -34,14 +51,7 @@
                   <div class="card-body">
                     
                     <div class="row">
-	                    <div class="col-lg-8">
-				          <div class="form-group">
-		                     <div class="form-check">
-		                       <label class="form-check-label">
-		                       <input type="checkbox" class="form-check-input"> 안 읽은 메시지만 보기 </label>
-		                     </div>
-		                  </div>
-				        </div>
+	                    <div class="col-lg-8"></div>
 				        <div class="col-lg-4">
 	                     	<form action="slist.messenger" style="display:flex;">
 	                     		<input type="hidden" name="whatColumn" value="all">
@@ -53,52 +63,54 @@
 	                </div>
 	    
                     
-                    <form name="msgForm" action="deleteSend.messenger" action="post">        
-	                  <table class="table table-hover">
-	                     <thead>
-	                       <tr>
-	                         <th colspan="6">
-	                         	<button type="button" class="btn btn-gradient-light" onclick="delSelectedCheck()">삭제</button>
-	                         </th>
-	                       </tr>
-	                       <tr>
-	                       	 <th width="50px;">
-	                              <label class="form-check-label">
-	                              	<input type="checkbox" class="form-check-input item" value="" onclick="delAllCheck(this)">
-	                              </label>
-	                       	 </th>
-	                         <th width="110px;">받는사람</th>
-	                         <th>제목</th>
-	                         <th>내용</th>
-	                         <th width="220px;">보낸 날짜</th>
-	                       </tr>
-	                     </thead>
-	                     <tbody>
-	                       <c:choose>
-	                     	 <c:when test="${fn:length(slist) == 0 }">
-	                     	 	<tr>
-	                     	 		<th colspan="5" style="text-align:center;">검색된 내용이 없습니다.</th>
-	                     	 	</tr>
-	                     	 </c:when>
-	                     	 <c:otherwise>
+					<form name="msgForm" action="deleteSend.messenger" method="post">        
+					  <table class="table table-hover">
+					    <thead>
+					      <tr>
+					        <th colspan="6">
+					          <button type="button" class="btn btn-gradient-light" onclick="delSelectedCheck()">삭제</button>
+					        </th>
+					      </tr>
+					      <tr>
+					        <th width="50px;">
+					          <label class="form-check-label">
+					            <input type="checkbox" class="form-check-input item" value="" onclick="delAllCheck(this)">
+					          </label>
+					        </th>
+					        <th width="110px;">받는사람</th>
+					        <th>제목</th>
+					        <th>내용</th>
+					        <th width="220px;">보낸 날짜</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <c:choose>
+					        <c:when test="${fn:length(slist) == 0}">
+					          <tr>
+					            <th colspan="5" style="text-align:center;">메시지가 없습니다.</th>
+					          </tr>
+					        </c:when>
+					        <c:otherwise>
 					          <c:forEach var="slist" items="${slist}">
+					            <c:if test="${slist.del_chk != 1}">
 					              <tr onclick="goDetailMsg('${slist.msg_num}')">
 					                <td onclick="event.stopPropagation();">
-					                      <label class="form-check-label">
-					                        <input type="checkbox" class="form-check-input item" name="delcheck" value="${slist.msg_num}">
-					                      </label>
-					                    </td>
-									<td>${slist.recv_name }</td>
-									<td>${slist.title }</td>
-									<td>${slist.content }</td>
-									<td>${slist.send_time }</td>
-								  </tr>
+					                  <label class="form-check-label">
+					                    <input type="checkbox" class="form-check-input item" name="delcheck" value="${slist.msg_num}">
+					                  </label>
+					                </td>
+					                <td>${slist.recv_name}</td>
+					                <td>${slist.title}</td>
+					                <td>${slist.content}</td>
+					                <td>${slist.send_time}</td>
+					              </tr>
+					            </c:if>
 					          </c:forEach>
 					        </c:otherwise>
-	                       </c:choose>
-	                     </tbody>
-	                   </table>
-                   </form>
+					      </c:choose>
+					    </tbody>
+					  </table>
+					</form>
                   </div>
                 </div><!-- card end -->
               </div>
