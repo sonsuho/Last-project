@@ -120,6 +120,7 @@ public class LectureInsertController {
 			int cnt = ldao.insertLecture(lb);
 			if(cnt!=-1) {
 				System.out.println("강좌 개설 성공");
+				// 개설 성공시 lb.getManager() lb.getTeacher() 에게 각각 lb.getLec_name() 강좌에 배정되었다는 알림 보내주세요!!
 			}
 		}
 	}

@@ -31,7 +31,11 @@ public class LectureDeleteController {
 		model.addAttribute("keyword",keyword);
 		
 		for(int lec_num : rowcheck) {			
-			ldao.deleteLecture(lec_num); 
+			int cnt = ldao.deleteLecture(lec_num); 
+			if(cnt != -1) {
+				// 삭제 성공시 lb.getManager() lb.getTeacher() 에게 각각 lb.getLec_name() 강좌가 취소/삭제? 되었다는 알림 보내주세요!!
+				
+			}
 		}
 		
 		return gotoPage;
