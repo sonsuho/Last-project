@@ -24,7 +24,7 @@ import messenger.model.MessengerDao;
 
 
 @Controller
-@ComponentScan({"member,messenger,student"})
+@ComponentScan({"member,messenger,manager,student,lecture"})
 public class StudentMainController {
 	private final String command = "/home.student";
 	private final String getPage = "home";
