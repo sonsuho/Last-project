@@ -78,6 +78,8 @@
 	                <th>회원번호</th>
 	                <th>이름</th>
 	                <th>아이디</th>
+	                <th>성별</th>
+	                <th>나이</th>
 	                <th>카테고리</th>
 	                <th>전화번호</th>
 	                <th>이메일</th>
@@ -91,6 +93,18 @@
 	                  <td>${empl.mem_num}</td>
                     <td>${empl.name}</td>
                     <td>${empl.id}</td>
+                    <td>${empl.gender}</td>
+                    <td>
+                    	<fmt:parseDate var="birth" value="${empl.birth}" pattern="yyyy-MM-dd" />
+                    	<c:set var="currentDate" value="<%=new java.util.Date()%>" />
+											<fmt:formatDate value="${currentDate}" pattern="yyyy" var="currentYear" />
+											<fmt:formatDate value="${birth}" pattern="yyyy" var="birthYear" />
+											<c:set var="age" value="${currentYear - birthYear}" />
+											<c:if test="${currentDate.month < birth.month || ((currentDate.month == birth.month) && (currentDate.date < birth.date))}">
+											    <c:set var="age" value="${age - 1}" />
+											</c:if>
+											${age}
+                    </td>
                     <td>
 	                   	<c:if test="${empl.category eq 'manager'}">매니저</c:if>
 	                   	<c:if test="${empl.category eq 'teacher'}">강사</c:if>

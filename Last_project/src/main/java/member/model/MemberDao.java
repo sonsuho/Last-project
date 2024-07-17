@@ -26,7 +26,7 @@ public class MemberDao {
 	} //getMemberByCate
 	
 	public void idInsert(MemberBean mb) {
-		sqlSessionTemplate.update(namespace+".idInsert", mb);
+		sqlSessionTemplate.insert(namespace+".idInsert", mb);
 	} //idInsert
 	
 	public List<MemberBean> getEmplList(Paging pageInfo, Map<String,String> map){
@@ -124,6 +124,18 @@ public class MemberDao {
 		System.out.println("changePhone Dao");
 		int cnt = -1;
 		cnt = sqlSessionTemplate.update(namespace+".changePhone",mb);
+		return cnt;
+	}
+	
+	public int changeImage(MemberBean mb) {
+		int cnt = -1;
+		cnt = sqlSessionTemplate.update(namespace+".changeImage",mb);
+		return cnt;
+	}
+
+	public int changeAddr(MemberBean mb) {
+		int cnt = -1;
+		cnt = sqlSessionTemplate.update(namespace+".changeAddr",mb);
 		return cnt;
 	}
 }

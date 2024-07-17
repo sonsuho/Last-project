@@ -13,27 +13,27 @@ import member.model.MemberBean;
 import member.model.MemberDao;
 
 @Controller
-public class ChangeImageController {
+public class ChangeAddrController {
 
-private final String command = "changeImage.admin";
+private final String command = "changeAddr.admin";
 	
 	@Autowired
 	MemberDao mdao;
 	
 	@RequestMapping(value=command, method=RequestMethod.POST)
 	@ResponseBody
-	public String changeImage(@RequestParam("image") String image, 
+	public String changeAddr(@RequestParam("addr") String addr, 
 						   HttpSession session) {
 		
-		System.out.println("ChangeImageController POST 요청");
+		System.out.println("ChangeAddrController POST 요청");
 		
 		MemberBean mb = new MemberBean();
 		mb.setMem_num(((MemberBean)session.getAttribute("loginInfo")).getMem_num());
-		mb.setImage(image);
-		int cnt = mdao.changeImage(mb); 
+		mb.setAddr(addr);
+		int cnt = mdao.changeAddr(mb); 
 		if(cnt != -1) {
-			((MemberBean)session.getAttribute("loginInfo")).setImage(image);
-			return image;
+			((MemberBean)session.getAttribute("loginInfo")).setAddr(addr);
+			return addr;
 		}else {
 			return "NO";
 		}

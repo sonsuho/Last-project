@@ -40,6 +40,8 @@ public class ManagerStuInsertController {
 				            @RequestParam("id") List<String> id,
 				            @RequestParam("pw") List<String> pw,
 				            @RequestParam("phone") List<String> phone,
+				            @RequestParam("gender") List<String> gender,
+                            @RequestParam("birth") List<String> birth,
 				            @RequestParam("email") List<String> email,
 				            @RequestParam("lec_num") String lec_num) {
 		
@@ -50,6 +52,8 @@ public class ManagerStuInsertController {
             mb.setId(id.get(i));
             mb.setPw(pw.get(i));
             mb.setCategory("student");
+            mb.setGender(gender.get(i));
+            mb.setBirth(birth.get(i));
             mb.setPhone(phone.get(i));
             mb.setEmail(email.get(i));
             list.add(mb);
@@ -107,8 +111,14 @@ public class ManagerStuInsertController {
 	private void printList(List<MemberBean> list, String lec_num) {
 		for(MemberBean mb : list) {
 			mb.setLec_num(lec_num); 
-			mb.setCategory("student");; 
+			mb.setCategory("student");
 			mb.setState("진행");
+			mb.setAddr("");
+			mb.setVacationNum(0);
+			mb.setImage("user.jpg");
+			mb.setMem_ip("106.241.247.83");
+			mb.setMem_latitude(37.55655207589364);
+			mb.setMem_longitude(126.91945616764994);
 			String pw = mb.getPw();
 			String encryPassword = Sha256.encrypt(pw);
 			mb.setPw(encryPassword);
