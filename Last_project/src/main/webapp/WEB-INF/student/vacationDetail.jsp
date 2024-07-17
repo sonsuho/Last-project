@@ -55,18 +55,20 @@
     }
 </style>
 
-<span class="cf">특정날짜를 찾으려면 Ctrl + F를 눌러 찾으세요.</span>
+<!-- header -->
+<div class="page-header">
+   <h3 class="page-title" style="font-weight: 700;">내 휴가 내역</h3>
+</div>
 
-<center>
-    <!-- header -->
-    <div class="page-header">
-        <h3 class="page-title">
-            <b>내 휴가 내역</b>
-        </h3>
-    </div>
+<div class="row">
+   <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+         <div class="card-body">
+<br><br>   
 
-    <h3>회원 이름 : <a class="name">${loginInfo.name}</a></h3>
+<h3 style="text-align: center">회원 이름 : <a class="name">${loginInfo.name}</a></h3>
 
+<span class="cf">특정날짜를 찾으려면 Ctrl + F를 눌러 찾으세요.</span><br><br>
     <table>
         <thead>
             <tr>
@@ -98,6 +100,10 @@
             </c:forEach>
         </tbody>
     </table>
-</center>
+    
+         </div>
+      </div>
+   </div>
+</div>
 
 <%@ include file = "studentBottom.jsp"%>

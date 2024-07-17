@@ -140,14 +140,24 @@
     StringBuffer month = dateBuffer.delete(7, 11);
 %>
 
-<c:if test="${loginInfo.category == 'manager'}">
-	<a href="home.manager" class="button">뒤로 돌아가기</a>
-</c:if>
+<!-- header -->
+<div class="page-header">
+   <h3 class="page-title" style="font-weight: 700;">일정 목록</h3>
+   <nav>
+   		<c:if test="${loginInfo.category == 'manager'}">
+			<a href="home.manager" class="button">뒤로 돌아가기</a>
+		</c:if>
+		
+		<c:if test="${loginInfo.category == 'student'}">
+			<a href="home.student" class="button">뒤로 돌아가기</a>
+		</c:if>
+   </nav>
+</div>
 
-<c:if test="${loginInfo.category == 'student'}">
-	<a href="home.student" class="button">뒤로 돌아가기</a>
-</c:if>
-
+<div class="row">
+   <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+         <div class="card-body">
 <br><br>
 
 <c:if test="${loginInfo.category != 'manager'}">
@@ -269,6 +279,31 @@
         </center>
     </c:if>
 </c:if>
+
+         </div>
+      </div>
+   </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <c:if test="${loginInfo.category == 'manager'}">
 	<%@include file = "managerBarBottom.jsp"%>

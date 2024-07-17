@@ -3,13 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:if test="${loginInfo.category == 'manager'}">
-	<%@include file = "managerBarTop.jsp"%>
+   <%@include file = "managerBarTop.jsp"%>
 </c:if>
 
 <c:if test="${loginInfo.category == 'student'}">
-	<%@include file = "../student/studentTop.jsp"%>
+   <%@include file = "../student/studentTop.jsp"%>
 </c:if>
-
 
 <style>
     body {
@@ -34,13 +33,13 @@
     }
 
     th {
-        background-color: #9C57FF;
-        color: #333;
+        background-color: #6c757d;
+        color: white;
         font-weight: bold;
     }
 
     td {
-        background-color: #D689FF;
+        background-color: #e9ecef;
         color: #333;
     }
 
@@ -52,83 +51,93 @@
         border: 1px solid #dee2e6;
         border-radius: 4px;
         resize: none;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
     }
 
     .back-button {
         display: inline-block;
         padding: 10px 20px;
         margin: 20px auto;
-        background-color: #9C57FF;
-        color: #333;
+        background-color: #007bff;
+        color: white;
         text-decoration: none;
         border-radius: 4px;
         transition: background-color 0.3s ease;
+        text-align: center;
     }
 
     .back-button:hover {
-        background-color: #ffb3ff;
+        background-color: #0056b3;
     }
 
     .back-button:focus {
         outline: none;
-        box-shadow: 0 0 0 4px rgba(255, 209, 255, 0.5);
+        box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.5);
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .page-title {
+        margin: 0;
+    }
+
+    nav {
+        margin: 0;
     }
 </style>
 
 <!-- header -->
 <div class="page-header">
-	<h3 class="page-title" style="font-weight: 700;">일정 확인</h3>
-	<nav style="float: right;">
-		<a href="schedule.manager?start_date=<%=request.getParameter("start_date")%>" class="back-button" style="color:white;">이전으로 돌아가기</a>
-	</nav>
+   <h3 class="page-title" style="font-weight: 700;">일정 확인</h3>
+   <nav>
+      <a href="schedule.manager?start_date=<%=request.getParameter("start_date")%>" class="back-button">이전으로 돌아가기</a>
+   </nav>
 </div>
 
 <div class="row">
-	<div class="col-lg-12 grid-margin stretch-card">
-		<div class="card">
-			<div class="card-body">
+   <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+         <div class="card-body">
 
-				<table>
-					<tr>
-						<th>번호</th>
-						<td>${calendar.cal_num}</td>
-						<th>소속반</th>
-						<td>${calendar.lesson_class}</td>
-					</tr>
-					<tr>
-						<th>신청자</th>
-						<td>${calendar.name}</td>
-						<th>일정제목</th>
-						<td>${calendar.title}</td>
-					</tr>
-					<tr>
-						<th>시작날짜</th>
-						<td>${calendar.start_date}</td>
-						<th>종료날짜</th>
-						<td>${calendar.fin_date}</td>
-					</tr>
-					<tr>
-						<th>내용</th>
-						<td colspan="3"><textarea cols="80" rows="15" disabled>${calendar.content}</textarea>
-						</td>
-					</tr>
-					<tr>
-						<th colspan="4"></th>
-					</tr>
-				</table>
+            <table>
+               <tr>
+                  <th style="width : 150px;">일정제목</th>
+                  <td colspan="3">${calendar.title}</td>
+               </tr>
+               <tr>
+                  <th>소속반</th>
+                  <td>${calendar.lesson_class}</td>
+                  <th>작성자</th>
+                  <td>${calendar.name}</td>
+               </tr>
+               <tr>
+                  <th>시작날짜</th>
+                  <td>${calendar.start_date}</td>
+                  <th>종료날짜</th>
+                  <td>${calendar.fin_date}</td>
+               </tr>
+               <tr>
+                  <th>내용</th>
+                  <td colspan="3"><textarea cols="80" rows="15" disabled>${calendar.content}</textarea>
+                  </td>
+               </tr>
+            </table>
 
-			</div>
-		</div>
-	</div>
+         </div>
+      </div>
+   </div>
 </div>
 
-
-
 <c:if test="${loginInfo.category == 'manager'}">
-	<%@include file = "managerBarBottom.jsp"%>
+   <%@include file = "managerBarBottom.jsp"%>
 </c:if>
 
 <c:if test="${loginInfo.category == 'student'}">
-	<%@include file = "../student/studentBottom.jsp"%>
+   <%@include file = "../student/studentBottom.jsp"%>
 </c:if>
-

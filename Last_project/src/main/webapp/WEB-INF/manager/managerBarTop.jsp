@@ -74,8 +74,7 @@
 		              <i class="mdi mdi-power"></i>
 		            </a>
 		       		</c:if>
-		       		
-		       		
+
 		        </li>
 		        <!-- 보고있는 페이지 상단으로 이동하는 버튼 -->
 		        <li class="nav-item nav-settings d-none d-lg-block">

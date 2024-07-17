@@ -100,7 +100,7 @@ td.today::before {
 .date-wrap {
 	font-family: Comic Sans MS, serif;
 	width: 480px;
-	height: 565px;
+	height: 535px;
 	margin: 20px auto;
 	padding: 20px;
 	background: #fff;
@@ -120,14 +120,13 @@ td.today::before {
 }
 
 .button_wrap {
-	text-align: center;
+	text-align: left;
 	margin-top: 10px;
 }
 
 .button_wrap button {
-            padding: 10px 20px;
-            margin: 0 5px;
             font-size: 16px;
+            font-weight : bold;
             background: #007bff;
             color: #fff;
             border-radius: 4px;
@@ -159,7 +158,6 @@ table.date-month {
 .cal_num1 {
 	background-image: linear-gradient(to top, #FFBA85 23%, white 23%);
 }
-
 .cal_num2 {
 	background-image: linear-gradient(to top, #9BFF94 23%, white 23%);
 }
@@ -334,35 +332,33 @@ table.date-month {
 	String next_month = sdf.format(monthago);
 %>
 <br>
-<center>
-    <div class="date-wrap">
-        <div class="date-month">
-            <h2>
-                <span id="month-this" style="font-family: Comic Sans MS, serif;"><%=request.getParameter("month") %></span>
-            </h2>
-            <div class="button_wrap">
-                <button type="button" id="month-prev" class="month-move" data-ym="<%=prev_month %>+'-01'"><</button>
-                <button type="button" id="month-next" class="month-move" data-ym="<%=next_month %>+'-01'">></button>
-            </div>
-        </div>
-        <table class="date-month" border="1">
-            <thead>
-                <tr>
-                    <th>Sun</th>
-                    <th>Mon</th>
-                    <th>Tue</th>
-                    <th>Wed</th>
-                    <th>Thu</th>
-                    <th>Fri</th>
-                    <th>Sat</th>
-                </tr>
-            </thead>
-            <tbody id="tbl-month"></tbody>
-        </table>
-        <span>
-            <img src="resources/images/attendSymbol3.jpg" style="width:15px; height:15px" /> start event
-        </span>
-    </div> 
-</center>
-	<!-- calendar 추가코드 -->
+
+<div class="date-wrap">
+	<div class="date-month">
+		<div class="button_wrap">
+			<span id="month-this" style="font-size: 27px;"><%=request.getParameter("month") %></span> &nbsp;&nbsp;
+			<button type="button" id="month-prev" class="month-move"data-ym="<%=prev_month %>+'-01'">∧</button>
+			<button type="button" id="month-next" class="month-move"data-ym="<%=next_month %>+'-01'">∨</button>
+		</div>
+	</div>
+	<table class="date-month" border="1">
+		<thead>
+			<tr>
+				<th>Sun</th>
+				<th>Mon</th>
+				<th>Tue</th>
+				<th>Wed</th>
+				<th>Thu</th>
+				<th>Fri</th>
+				<th>Sat</th>
+			</tr>
+		</thead>
+		<tbody id="tbl-month"></tbody>
+	</table>
+	<span> <img src="resources/images/attendSymbol3.jpg"
+		style="width: 15px; height: 15px" /> start event
+	</span>
+</div>
+
+<!-- calendar 추가코드 -->
 <%@ include file = "managerBarBottom.jsp"%>

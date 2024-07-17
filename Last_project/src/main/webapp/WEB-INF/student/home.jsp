@@ -37,9 +37,9 @@
 
 .notice-container {
 	position: absolute;
-	left : 900px;
+	left : 800px;
 	width: 700px;
-	height: 565px;
+	height: 535px;
 	background: #fff;
 	border-radius: 8px;
 	padding: 20px;
@@ -128,7 +128,7 @@ td.today::before {
 .date-wrap {
 	font-family: Comic Sans MS, serif;
 	width: 480px;
-	height: 565px;
+	height: 535px;
 	margin: 20px auto;
 	padding: 20px;
 	background: #fff;
@@ -148,14 +148,13 @@ td.today::before {
 }
 
 .button_wrap {
-	text-align: center;
+	text-align: left;
 	margin-top: 10px;
 }
 
 .button_wrap button {
-            padding: 10px 20px;
-            margin: 0 5px;
             font-size: 16px;
+            font-weight : bold;
             background: #007bff;
             color: #fff;
             border-radius: 4px;
@@ -187,7 +186,6 @@ table.date-month {
 .cal_num1 {
 	background-image: linear-gradient(to top, #FFBA85 23%, white 23%);
 }
-
 .cal_num2 {
 	background-image: linear-gradient(to top, #9BFF94 23%, white 23%);
 }
@@ -432,12 +430,10 @@ String next_month = sdf.format(monthago);
 
 <div class="date-wrap">
 	<div class="date-month">
-		<h2>
-			<span id="month-this"></span>
-		</h2>
 		<div class="button_wrap">
-			<button type="button" id="month-prev" class="month-move"><</button>
-			<button type="button" id="month-next" class="month-move">></button>
+			<span id="month-this" style="font-size: 27px;"></span> &nbsp;&nbsp;
+			<button type="button" id="month-prev" class="month-move">∧</button>
+			<button type="button" id="month-next" class="month-move">∨</button>
 		</div>
 	</div>
 	<table class="date-month" border="1">
