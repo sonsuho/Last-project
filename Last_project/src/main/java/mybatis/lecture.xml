@@ -73,6 +73,7 @@
 	
 	<delete id="deleteLecture">
 		delete from lecture where lec_num = #{lec_num}
+  			
 	</delete>
 	
 	<select id="getLectureByMemNum" resultType="lecture.model.LectureBean">
@@ -84,5 +85,20 @@
 		select * from going_class where lec_num = #{lec_num}
 		
 	</select>
+	
+	<!-- 민곤추가 -->
+	<delete id="deleteManagerFromLecture">
+		delete from lecture where lec_num= #{lec_num} and manager = #{manager}
+	</delete>
+	
+	<delete id="deleteTeacherFromLecture">
+		delete from lecture where lec_num= #{lec_num} and teacher = #{teacher}
+	</delete>
+	
+	<select id="getLectureByRowNum" resultType="lecture.model.LectureBean">
+    SELECT * FROM lecture WHERE lec_num = #{lec_num}
+	</select>
+	
+	<!-- 민곤추가 -->
 	
 </mapper>

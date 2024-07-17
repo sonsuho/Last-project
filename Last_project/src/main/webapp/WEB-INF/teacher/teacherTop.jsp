@@ -55,7 +55,7 @@
 						<!-- 메신저알림 -->
 						<%@ include file="../all/message.jsp" %> 
 						<!-- 게시판알림 -->
-						<%@ include file="../all/board.jsp" %> 
+						<%@ include file="../all/alarmModal.jsp" %> 
 						<!-- 로그인/로그아웃 버튼 -->
 		        <li class="nav-item nav-logout d-none d-lg-block">
 		          <c:if test="${loginInfo == null}">

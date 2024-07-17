@@ -70,4 +70,37 @@ public class LectureDao {
 		return className;
 	}
 	
+	public int updateLecture(LectureBean lecture) {
+		int cnt = -1;
+		System.out.println("updateLecture");
+		System.out.println("manager/teacher :" + lecture.getManager()+"/"+lecture.getTeacher());
+		System.out.println("m_name/t_name :" + lecture.getM_name()+"/"+lecture.getT_name());
+		cnt = sqlSessionTemplate.update(namespace+".updateLecture", lecture);
+		return cnt;
+	}
+
+	//민곤
+	public void deleteManagerFromLecture(int lec_num, int oldManager) {
+		LectureBean lb = new LectureBean();
+		lb.setLec_num(lec_num);
+		lb.setManager(oldManager);
+		sqlSessionTemplate.delete(namespace+".deleteManagerFromLecture",lb);
+		
+	}
+
+	public void deleteTeacherFromLecture(int lec_num, int oldTeacher) {
+		LectureBean lb = new LectureBean();
+		lb.setLec_num(lec_num);
+		lb.setTeacher(oldTeacher);
+		
+		sqlSessionTemplate.delete(namespace+".deleteTeacherFromLecture",lb);
+	}
+
+	public LectureBean getLectureByRowNum(int lec_num) {
+        LectureBean lectures = sqlSessionTemplate.selectOne(namespace + ".getLectureByRowNum", lec_num);
+		return lectures;
+	}
+	
+	//민곤
+	
 }
