@@ -48,7 +48,7 @@ public class LectureListController {
 		
 		List<LectureBean> lectureList = ldao.getLectureList(pageInfo, map);
 		for (LectureBean lb : lectureList) {
-		    String managerStr = lb.getManager();
+		    //String managerStr = lb.getManager();
 		    if (isNumeric(managerStr)) {
 		        int managerNum = Integer.parseInt(managerStr);
 		        MemberBean mb = mdao.getNameByNum(managerNum);
