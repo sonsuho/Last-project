@@ -119,4 +119,11 @@ public class MemberDao {
 		cnt = sqlSessionTemplate.selectOne(namespace+".getStudent", lec_num);
 		return cnt;
 	}
+	
+	public int changePhone(MemberBean mb) {
+		System.out.println("changePhone Dao");
+		int cnt = -1;
+		cnt = sqlSessionTemplate.update(namespace+".changePhone",mb);
+		return cnt;
+	}
 }

@@ -2,6 +2,8 @@ package login.controller;
 
 import java.util.Random;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -51,6 +53,19 @@ public class FindPwController {
 	    return code + "," + mem_num;
 	}
 	
+	@RequestMapping(value="sendSms.in", method=RequestMethod.POST)
+	@ResponseBody
+	public String sendSms(@RequestParam("userPhone") String phone, HttpSession session) throws Exception {
+		
+		MemberBean mb = new MemberBean();
+		mb.setMem_num(((MemberBean)session.getAttribute("loginInfo")).getMem_num());
+		mb.setPhone(phone);
+		String code = sendSms(mb);
+		System.out.println("findPw POST code : " + code);
+		
+		return code;
+	}
+	
 	public String sendSms(MemberBean mb) throws Exception {
 
 		System.out.println("SMS 본인인증 시작");
@@ -64,14 +79,14 @@ public class FindPwController {
 		}
 		
 		/*
-		String api_key = "NCSUQLACFB4JRAEV";
-	    String api_secret = "BXX3WJVWUVA3QVPBI1NQTCJQR5IR4MDV";
+		String api_key = "보안상의 이유로 테스트할때만 변경해서 사용";
+	    String api_secret = "보안상의 이유로 테스트할때만 변경해서 사용";
 	    Message coolsms = new Message(api_key, api_secret);
 
 	  
 	    HashMap<String, String> set = new HashMap<String, String>();
-	    set.put("to", "01084249684"); // 수신번호
-	    set.put("from", "01084249684"); // 발신번호
+	    set.put("to", "받는사람번호010xxxxxxxx"); // 수신번호
+	    set.put("from", "보내는사람번호010xxxxxxxx"); // 발신번호
 	    set.put("text", "sist 인증번호 ["+numStr+"]"); // 문자내용
 	    set.put("type", "sms"); // 문자 타입
 
