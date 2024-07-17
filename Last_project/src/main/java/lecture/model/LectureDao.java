@@ -96,11 +96,6 @@ public class LectureDao {
 		
 		sqlSessionTemplate.delete(namespace+".deleteTeacherFromLecture",lb);
 	}
-
-	public LectureBean getLectureByRowNum(int lec_num) {
-        LectureBean lectures = sqlSessionTemplate.selectOne(namespace + ".getLectureByRowNum", lec_num);
-		return lectures;
-	}
 	
 	//민곤
 	

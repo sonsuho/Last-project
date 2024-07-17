@@ -45,10 +45,7 @@ public class LectureUpdateController {
 	public Map<String, Object> letureUpdate(@RequestParam("lec_num") int lec_num) throws ParseException {
 		Map<String, Object> map = new HashMap<String, Object>();
 
-
-
 		System.out.println("lectureUpdate.admin GET 요청");
-		
 
 		LectureBean lecture = ldao.getLectureByNum(lec_num);
 		// String 타입의 날짜 정보를 Date 객체로 변환
@@ -56,23 +53,18 @@ public class LectureUpdateController {
 		Date lecStartDate = formatter.parse(lecture.getLec_start());
 		Date lecEndDate = formatter.parse(lecture.getLec_end());
 
-
 	    // Date 객체를 다시 String 타입으로 변환하여 LectureBean 객체에 설정
 	    lecture.setLec_start(formatter.format(lecStartDate));
 	    lecture.setLec_end(formatter.format(lecEndDate));
 	    lecture.setStudent(mdao.getStudent(lecture.getLec_num()));
 
-
 		/* 매니저, 강사 목록 가져오기 */
 		List<MemberBean> managerList = mdao.getMemberByCate("manager");
 		List<MemberBean> teacherList = mdao.getMemberByCate("teacher");
 
-
 		map.put("lecture",lecture);
 		map.put("managerList",managerList);
 		map.put("teacherList",teacherList);
-
-
 
 		return map;
 	}
@@ -83,14 +75,18 @@ public class LectureUpdateController {
 		System.out.println("lectureUpdate.admin POST 요청");
 		Map<String, Object> map = new HashMap<String, Object>();
 
+		LectureBean olb = ldao.getLectureByNum(lecture.getLec_num());
+		int oldManager = olb.getManager();
+		int oldTeacher = olb.getTeacher();
+		
 		int cnt = ldao.updateLecture(lecture);
+		LectureBean lb = ldao.getLectureByNum(lecture.getLec_num());
 
 		if(cnt==-1) {
 			map.put("lecture","실패");
 			return map;
 		}
 
-		LectureBean lb = ldao.getLectureByNum(lecture.getLec_num());
 		lb.setM_name(mdao.getNameByNum(lb.getManager()).getName());
 		lb.setT_name(mdao.getNameByNum(lb.getTeacher()).getName());
 		lb.setStudent(mdao.getStudent(lecture.getLec_num()));
@@ -102,9 +98,7 @@ public class LectureUpdateController {
 		
 		// 민곤 알림 추가
 		// 기존 강좌 정보 가져오기
-	    LectureBean oldLecture = ldao.getLectureByNum(lecture.getLec_num());
-	    int oldManager = oldLecture.getManager();
-	    int oldTeacher = oldLecture.getTeacher();
+	    System.out.println("oldManager:"+oldManager);
 	    if (lb != null) {
 	        String lecName = lb.getLec_name();
 
@@ -112,6 +106,8 @@ public class LectureUpdateController {
 	        if (oldManager != lb.getManager()) {
 	            // 이전 매니저에게 강좌 변경 알림 보내기
 	            String oldManagerId = String.valueOf(oldManager);
+	            
+	            System.out.println("lb.getManager():"+lb.getManager());
 
 	            paramap.put("fk_recipientno", oldManagerId);
 	            paramap.put("url", "/lectureList");
@@ -122,7 +118,7 @@ public class LectureUpdateController {
 	            service.addAlarm(paramap);
 
 	            // 이전 매니저의 강좌에서 삭제
-	            ldao.deleteManagerFromLecture(lecture.getLec_num(), oldManager);
+	            //ldao.deleteManagerFromLecture(lecture.getLec_num(), oldManager);
 	        }
 
 	        // 현재 매니저에게 강좌 변경 알림 보내기
@@ -150,7 +146,7 @@ public class LectureUpdateController {
 	            service.addAlarm(paramap);
 
 	            // 이전 강사의 강좌에서 삭제
-	            ldao.deleteTeacherFromLecture(lecture.getLec_num(), oldTeacher);
+	            //ldao.deleteTeacherFromLecture(lecture.getLec_num(), oldTeacher);
 	        }
 
 	        // 현재 강사에게 강좌 변경 알림 보내기

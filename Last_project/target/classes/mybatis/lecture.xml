@@ -86,6 +86,12 @@
 		
 	</select>
 	
+	<update id="updateLecture">
+      update lecture set lec_name = #{lec_name}, teacher = #{teacher}, manager = #{manager}, 
+      lec_start = #{lec_start}, lec_end = #{lec_end}, stu_cnt = #{stu_cnt}, class_name = #{class_name}
+      where lec_num = #{lec_num}
+   </update>
+	
 	<!-- 민곤추가 -->
 	<delete id="deleteManagerFromLecture">
 		delete from lecture where lec_num= #{lec_num} and manager = #{manager}
@@ -94,10 +100,6 @@
 	<delete id="deleteTeacherFromLecture">
 		delete from lecture where lec_num= #{lec_num} and teacher = #{teacher}
 	</delete>
-	
-	<select id="getLectureByRowNum" resultType="lecture.model.LectureBean">
-    SELECT * FROM lecture WHERE lec_num = #{lec_num}
-	</select>
 	
 	<!-- 민곤추가 -->
 	
