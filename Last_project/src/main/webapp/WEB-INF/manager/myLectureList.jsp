@@ -97,8 +97,8 @@
 				    	<tr data-bs-target="#staticBackdrop" data-lec-num="${lecture.lec_num}">
 							  <td>${lecture.lec_num}</td>
 							  <td>${lecture.lec_name}</td>
-							  <td>${lecture.manager}</td>
-							  <td>${lecture.teacher}</td>
+							  <td>${lecture.m_name}</td>
+							  <td>${lecture.t_name}</td>
 							  <td>${lecture.class_name}</td>
 							  <td>
 							    <fmt:parseDate var="start" value="${lecture.lec_start}" pattern="yyyy-MM-dd" />
@@ -244,8 +244,8 @@
 	          '<th>반</th><td>' + response.lecture.class_name + '</td>' +
 	          '</tr>' +
 	          '<tr>' +
-	          '<th rowspan=3>매니저</th><td>' + response.lecture.manager + '</td>' +
-	          '<th rowspan=3>강사</th><td>' + response.lecture.teacher + '</td>' +
+	          '<th rowspan=3>매니저</th><td>' + response.lecture.m_name + '</td>' +
+	          '<th rowspan=3>강사</th><td>' + response.lecture.t_name + '</td>' +
 	          '</tr>' +
 	          '<tr>' +
 	          '<td>' + response.lecture.m_phone + '</td><td>' + response.lecture.t_phone + '</td>' +

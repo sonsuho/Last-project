@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../common/common.jsp"%>
+<%@ include file="../all/myPage.jsp" %>
 
 	<!-- studentBarTop.jsp -->
 	
@@ -55,7 +56,7 @@
 						<!-- 메신저알림 -->
 						<%@ include file="../all/message.jsp" %> 
 						<!-- 게시판알림 -->
-						<%@ include file="../all/alarmModal.jsp" %> 
+						<%@ include file="../all/board.jsp" %> 
 						<!-- 로그인/로그아웃 버튼 -->
 		        <li class="nav-item nav-logout d-none d-lg-block">
 		          <c:if test="${loginInfo == null}">
@@ -97,9 +98,9 @@
 		      <ul class="nav">
 						<!-- 프로필정보 -->
 						<li class="nav-item nav-profile">
-							<a href="#" class="nav-link">
+							<a href="#" class="nav-link" onclick="myPage()">
 								<div class="nav-profile-image">
-									<img src="resources/assets/images/faces/face1.jpg" alt="profile" />
+									<img src="resources/assets/images/faces/${loginInfo.image}" alt="profile" />
 									<span class="login-status online"></span>
 								</div>
 								<div class="nav-profile-text d-flex flex-column">
@@ -132,6 +133,9 @@
 								<ul class="nav flex-column sub-menu">
 									<li class="nav-item">
 										<a class="nav-link" href="attStatus.student?mem_num=${loginInfo.mem_num}">내 근태 현황</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link"	href="request.student">휴가 신청</a>
 									</li>
 									<li class="nav-item">
 										<a class="nav-link" href="">휴가 내역</a>

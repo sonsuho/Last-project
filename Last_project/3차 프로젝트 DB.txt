@@ -23,19 +23,22 @@ CREATE TABLE member (
 	vacationNum number NULL,
 	mem_ip varchar2(20),
 	mem_latitude NUMBER(17, 14)	NULL,
-	mem_longitude NUMBER(18, 15)	NULL
+	mem_longitude NUMBER(18, 15)	NULL,
+	image varchar2(50) NULL,
+	gender varchar2(10) NULL,
+	birth date NULL
 );
 
-INSERT INTO member  VALUES (mem_seq.nextval, '관리자', 'admin', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'admin', 'X', '서울시 강남구', '010-1234-5678', 'chulsoo@google.com', '관리자', 0,'106.241.247.83' , 37.55655207589364, 126.91945616764994);
-INSERT INTO member  VALUES (mem_seq.nextval, '이영희', 'manager1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '1/2', '서울시 서초구', '010-2345-6789', 'younghee@google.com', '근무', 2,'106.241.247.83', 37.55655207589364, 126.91945616764994);
-INSERT INTO member  VALUES (mem_seq.nextval, '박민수', 'manager2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '3', '서울시 송파구', '010-3456-7890', 'minsoo@google.com', '근무', 4,'106.241.247.83', 37.55655207589364, 126.91945616764994);
-INSERT INTO member  VALUES (mem_seq.nextval, '최지영', 'teacher1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '1', '서울시 강동구', '010-4567-8901', 'jiyoung@google.com', '근무', 0,'106.241.247.83', 37.55655207589364, 126.91945616764994);
-INSERT INTO member  VALUES (mem_seq.nextval, '한가영', 'teacher2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '2', '서울시 마포구', '010-5678-9012', 'gayoung@google.com', '근무', 0,'106.241.247.83', 37.55655207589364, 126.91945616764994);
-INSERT INTO member  VALUES (mem_seq.nextval, '정우성', 'student1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 은평구', '010-6789-0123', 'woosung@google.com', '진행', 4,'106.241.247.83', 37.55655207589364, 126.91945616764994);
-INSERT INTO member  VALUES (mem_seq.nextval, '김혜수', 'student2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '2', '서울시 노원구', '010-7890-1234', 'hyesoo@google.com', '진행', 2,'106.241.247.83', 37.55655207589364, 126.91945616764994);
-INSERT INTO member  VALUES (mem_seq.nextval, '이동욱', 'student3', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 성북구', '010-8901-2345', 'dongwook@google.com', '중도퇴실', 5,'106.241.247.83', 37.55655207589364, 126.91945616764994);
-INSERT INTO member  VALUES (mem_seq.nextval, '김하늘', 'student4', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '2', '서울시 강북구', '010-9012-3456', 'haneul@google.com', '강제퇴실', 1,'106.241.247.83', 37.55655207589364, 126.91945616764994);
-INSERT INTO member  VALUES (mem_seq.nextval, '박지훈', 'student5', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '진행', 3,'106.241.247.83', 37.55655207589364, 126.91945616764994);
+INSERT INTO member  VALUES (mem_seq.nextval, '관리자', 'admin', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'admin', 'X', '서울시 강남구', '010-1234-5678', 'chulsoo@google.com', '관리자', 0,'106.241.247.83' , 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '이영희', 'manager1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '1/2', '서울시 서초구', '010-2345-6789', 'younghee@google.com', '근무', 2,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '박민수', 'manager2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '3', '서울시 송파구', '010-3456-7890', 'minsoo@google.com', '근무', 4,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '최지영', 'teacher1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '1', '서울시 강동구', '010-4567-8901', 'jiyoung@google.com', '근무', 0,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '한가영', 'teacher2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '2', '서울시 마포구', '010-5678-9012', 'gayoung@google.com', '근무', 0,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '정우성', 'student1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 은평구', '010-6789-0123', 'woosung@google.com', '진행', 4,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '김혜수', 'student2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '2', '서울시 노원구', '010-7890-1234', 'hyesoo@google.com', '진행', 2,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '이동욱', 'student3', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 성북구', '010-8901-2345', 'dongwook@google.com', '중도퇴실', 5,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '김하늘', 'student4', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '2', '서울시 강북구', '010-9012-3456', 'haneul@google.com', '강제퇴실', 1,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '박지훈', 'student5', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '진행', 3,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
 commit;
 
 col mem_num for 99
@@ -51,24 +54,24 @@ select mem_num, name, id, pw, category from member;
 
 drop sequence seq_lecture;
 create sequence seq_lecture
-	start with 1
-	increment by 1
-	nocache ;
+   start with 1
+   increment by 1
+   nocache ;
 
 DROP TABLE lecture CASCADE CONSTRAINTS;
 CREATE TABLE lecture (
-	lec_num number primary key,
-	lec_name varchar2(100) NULL,
-	teacher varchar2(15) NULL,
-	manager varchar2(15) NULL,
-	lec_start date NULL,
-	lec_end date NULL,
-	stu_cnt number NULL,
-	class_name varchar2(10) NULL
+   lec_num number primary key,
+   lec_name varchar2(100) NULL,
+   teacher number NULL,
+   manager number NULL,
+   lec_start date NULL,
+   lec_end date NULL,
+   stu_cnt number NULL,
+   class_name varchar2(10) NULL
 );
 
-insert into lecture values(seq_lecture.nextval, 'AWS를 사용한 풀스택 개발 교육', '최지영', '이영희', '2024-01-16', '2024-08-16', 24, 'A');
-insert into lecture values(seq_lecture.nextval, 'Chat-gpt API를 사용한 애플리케이션 개발 교육', '한가영', '박민수', '2024-04-16', '2024-12-16', 21, 'B');
+insert into lecture values(seq_lecture.nextval, 'AWS를 사용한 풀스택 개발 교육', 4, 2, '2024-01-16', '2024-08-16', 24, 'A');
+insert into lecture values(seq_lecture.nextval, 'Chat-gpt API를 사용한 애플리케이션 개발 교육', 5, 3, '2024-04-16', '2024-12-16', 21, 'B');
 
 ===================================
 ==== 일정 테이블

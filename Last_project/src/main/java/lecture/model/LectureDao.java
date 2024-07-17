@@ -70,4 +70,13 @@ public class LectureDao {
 		return className;
 	}
 	
+	public int updateLecture(LectureBean lecture) {
+		int cnt = -1;
+		System.out.println("updateLecture");
+		System.out.println("manager/teacher :" + lecture.getManager()+"/"+lecture.getTeacher());
+		System.out.println("m_name/t_name :" + lecture.getM_name()+"/"+lecture.getT_name());
+		cnt = sqlSessionTemplate.update(namespace+".updateLecture", lecture);
+		return cnt;
+	}
+	
 }
