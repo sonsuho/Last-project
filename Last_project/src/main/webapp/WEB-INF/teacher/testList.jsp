@@ -1,8 +1,8 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
-	    pageEncoding="UTF-8"%>
-	<%@ include file = "teacherTop.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file = "teacherTop.jsp"%>
 		
-	  <style type="text/css">
+	<style type="text/css">
 	  	
 		.form-group {
 		  display: flex;
@@ -51,9 +51,9 @@
 	  		height: 50px;
 	  	}
 	  	
-	  </style>
+	</style>
 	  
-	  <!-- header -->
+	<!-- header -->
 	  <div class="page-header">
 	    <h3 class="page-title">
 	      <span class="page-title-icon bg-gradient-primary text-white me-2">

@@ -34,7 +34,8 @@
                 <div class="card">
                   <div class="card-body">
                     <h2 class="card-title">내(학생) 문서함</h2>
-                     <input type="button" value="답장" onclick="reply('${eb.etc_num }','${sender.mem_num}','${receiver.mem_num}')" class="btn btn-gradient-info">
+                    <button class="btn btn-gradient-info" type="button" data-bs-toggle="modal" data-bs-target="#secondModal" id="openSecondModal" onclick="reply('${eb.etc_num }','${sender.mem_num}','${receiver.mem_num}')"><i class="mdi mdi-email"></i> &nbsp;&nbsp;답장</button>
+<%--                      <input type="button" value="답장" onclick="reply('${eb.etc_num }','${sender.mem_num}','${receiver.mem_num}')" class="btn btn-gradient-info"> --%>
                     <br><br><br>
                     <h4 class="card-title"><b>${eb.etc_title }</b></h4>
                     
@@ -70,4 +71,7 @@
                 </div>
               </div>
               </div>
-
+              
+<script>
+  
+	</script>

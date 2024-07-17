@@ -97,7 +97,8 @@ requestForm.jsp<br>
     <div>
         <p>*기간</p>
         <div class="fl">
-            <input type="date" id="time1" name="time1" value="${req.time1 }"> ~ 
+            <input type="date" id="time1" name="time1" value="${req.time1 }">
+            <span id="toText">~</span>
             <input type="date" id="time2" name="time2" value="${req.time2 }">
             <form:errors path="time1" cssClass="err"/>
         </div>
@@ -134,8 +135,8 @@ requestForm.jsp<br>
 <script>
     var canvas = $("#signature-pad canvas")[0];
     var sign = new SignaturePad(canvas, {
-        minWidth: 5,
-        maxWidth: 5,
+        minWidth: 3,
+        maxWidth: 3,
         penColor: "rgb(118, 109, 209)"
     });
     
@@ -219,6 +220,24 @@ requestForm.jsp<br>
         }
     });
 
+    $(document).ready(function() {
+		var time1Value = $("#time1").val();
+		var time2Value = $("#time2").val();
+		if (time2Value && time2Value < time1Value) {
+			$("#time2").val(""); 
+		}
+		handleRadioChange();
+	});
+
+	$("input[name='category']").on("change", handleRadioChange);
+
+	function handleRadioChange() {
+		if ($("#radio2").is(":checked")) {
+			$("#time2, #toText").hide().val(""); // 숨기고 값 초기화
+		} else {
+			$("#time2, #toText").show(); // 다시 보이기
+		}
+	}
 </script>
 
 <%@ include file="managerBarBottom.jsp"%>

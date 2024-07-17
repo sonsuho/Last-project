@@ -85,10 +85,4 @@
 		
 	</select>
 	
-	<update id="updateLecture">
-		update lecture set lec_name = #{lec_name}, teacher = #{teacher}, manager = #{manager}, 
-		lec_start = #{lec_start}, lec_end = #{lec_end}, stu_cnt = #{stu_cnt}, class_name = #{class_name}
-		where lec_num = #{lec_num}
-	</update>
-	
 </mapper>

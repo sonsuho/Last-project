@@ -92,15 +92,15 @@
 	    <div class="card">
 	      <div class="card-body">
     
-		    <div align="center" style="padding-top: 200;">
+		    <div align="center" style="padding-top: 200; padding-left: 500px;">
 		    
-			    <form action="teaching.teacher" method="post">
+			    <form action="teaching.teacher" method="post" style="display: flex;">
 			    	
-			    	<input type="button" value="새 수업"  class="btn btn-gradient-success py-3" onclick="meet()"> &nbsp;&nbsp;&nbsp;							<!-- 새 수업 버튼을 누르면 구글 미팅 창이 새로 생성되고 -->
+			    	<input type="button" value="새 수업"  class="btn btn-gradient-success py-3" onclick="meet()">	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;					<!-- 새 수업 버튼을 누르면 구글 미팅 창이 새로 생성되고 -->
 			    	
-			    	<input type="text" name="url" placeholder="수업 링크 입력" style="width: 400px; height: 40px;"> &nbsp;&nbsp;&nbsp;	<!-- 구글 미팅 창에서 링크를 복사해와서 첨부한 다음  -->
+			    	<input type="text" name="url" placeholder="수업 링크 입력" style="width: 400px; height: 50px;"  class="form-control mr-2"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<!-- 구글 미팅 창에서 링크를 복사해와서 첨부한 다음  -->
 			    	
-			    	<input type="submit" value="전송" class="btn btn-gradient-info py-3" onclick="return urlCheck()">													<!-- 전송을 누르면 다시 teachingController로 간다 -->
+			    	<input type="submit" value="시작" class="btn btn-gradient-info py-3" onclick="return urlCheck()">													<!-- 전송을 누르면 다시 teachingController로 간다 -->
 			    	
 			    </form>
 			    

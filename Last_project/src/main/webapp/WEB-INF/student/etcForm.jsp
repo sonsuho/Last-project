@@ -141,6 +141,41 @@
 	        }
 	    }
 	    
+	    // 체크박스 선택 했을 시 배열에 담기
+	    function allCheck(checkbox) {
+	   	    // 전체 선택 체크박스가 체크되었는지 여부를 확인
+	   	    let isChecked = $(checkbox).prop('checked');
+	   	    
+	   	    // rowcheck 체크박스들의 값을 모두 선택 또는 해제
+	   	    $('input[name="rowcheck"]').prop('checked', isChecked);
+	   	    
+	   	    // 모든 체크된 체크박스의 값을 업데이트
+	   	    updateSelectedItems();
+	    }
+	     
+	    
+	    // 받는 사람 선택에서 체크박스 선택 
+	     function rowCheck(){
+	     	updateSelectedItems();
+	     };
+	     
+	     // 받는 사람 체크된 사람 mem_num 배열로 만들어 이름 가져오기 
+	     // 오른쪽에 리스트로 보여주기 
+	     function updateSelectedItems() {
+	  		let selectedItems = [];
+	  		
+	  		$('input[name="allcheck"]:checked').each(function() {
+	  		    let value = $(this).val(); // 체크박스의 값 가져오기
+	  		    if (!isNaN(value)) { // 숫자인지 확인
+	  		        selectedItems.push(parseInt(value)); // 숫자로 변환하여 배열에 추가
+	  		    }
+	  		});
+	  		
+	  		
+	  		$('input[name="rowcheck"]:checked').each(function() {
+	              selectedItems.push( parseInt($(this).val()) );
+	        });
+	    
 	</script>
 <script type="text/javascript" src="resources/js/jquery.js"></script>
 <script type="text/javascript">

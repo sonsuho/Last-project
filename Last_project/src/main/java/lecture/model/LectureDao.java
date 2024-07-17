@@ -38,7 +38,6 @@ public class LectureDao {
 	
 	public int insertLecture(LectureBean lecture) {
 		int cnt = -1;
-		System.out.println("insertLecture");
 		cnt = sqlSessionTemplate.insert(namespace+".insertLecture", lecture);
 		System.out.println("insertLecture cnt : " + cnt);
 		return cnt;

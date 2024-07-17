@@ -35,7 +35,7 @@ import member.model.MemberBean;
 public class ManagerEtcController {
     private final String command = "/etc.manager";
     private final String getPage = "etcForm";
-    private final String gotoPage = "managerHome";
+    private final String gotoPage = "home";
 
     @Autowired
     EtcDao edao;
@@ -65,6 +65,7 @@ public class ManagerEtcController {
     @RequestMapping(value = command, method = RequestMethod.POST)
     public ModelAndView etc(@ModelAttribute("etc") @Valid EtcBean etc, BindingResult result,
     							@RequestParam String [] selected_mem_num,
+    							@RequestParam int sender_num,
                                 HttpServletResponse response, HttpSession session,HttpServletRequest request,
                                 @RequestParam("multiFile") List<MultipartFile> multiFileList, Map<String, String> paramap) throws IOException {
         ModelAndView mav = new ModelAndView();
@@ -72,13 +73,13 @@ public class ManagerEtcController {
         for(String i : selected_mem_num) {
         	System.out.println("학생넘버:"+i);
         }
-        System.out.println("컨트롤러sender_num:"+etc.getSender_num());
+        System.out.println("컨트롤러sender_num:"+sender_num);
         
         
         if (result.hasErrors()) {
             System.out.println("오류");
             System.out.println("etc_delete:"+etc.getEtc_delete());
-            mav.addObject("sender_num",etc.getSender_num());
+            mav.addObject("sender_num",sender_num);
             mav.setViewName(getPage);
             return mav;
         }
@@ -169,7 +170,7 @@ public class ManagerEtcController {
         
         paramap.put("fk_recipientno", stdList); // 받는사람 (여러명일때는 ,,으로 구분된 str)
         paramap.put("url", "/etcList.student?mem_num=" );
-        paramap.put("url2", String.valueOf(stdList)); // 연결되는 pknum등...  (여러개일때는 ,,으로 구분된 str)(대신 받는 사람 수랑 같아야됨)
+        paramap.put("url2", stdList); // 연결되는 pknum등...  (여러개일때는 ,,으로 구분된 str)(대신 받는 사람 수랑 같아야됨)
         paramap.put("alarm_content", mb.getName() + "님이 문서를 보냈습니다. 확인해 주세요." );
         paramap.put("alarm_type", "3" );
         

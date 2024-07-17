@@ -28,7 +28,7 @@ public class LoginController {
 	@Autowired
 	LoginDao ldao;
 	
-	@RequestMapping(value=command, method=RequestMethod.GET)										// login.in get 요청 받아서 login폴더의 loginForm.jsp로 넘어간다
+	@RequestMapping(value=command, method=RequestMethod.GET)		// login.in get 요청 받아서 login폴더의 loginForm.jsp로 넘어간다
 	public String loginForm() {
 		return getPage;
 	}
@@ -46,13 +46,13 @@ public class LoginController {
 		}
 		
 		MemberBean mb = ldao.getInfoById(lb.getId());				// 누락이 없다면 id를 가져와 해당하는 회원 정보가 있는지 체크
-		//System.out.println(mb.getPw());
+		System.out.println(mb.getPw());
 		
 		/* 패스워드 hash 추가 - 20240703 */
 		String encryPassword = Sha256.encrypt(lb.getPw());
 		System.out.println(encryPassword);
 		
-		if(mb == null || !( mb.getPw().equals(encryPassword) ) ) {		// 해당하는 회원 정보가 없거나 ... 비밀번호가 해당 회원 비밀번호와 다른경우
+		if(mb == null || !( mb.getPw().equals(encryPassword) ) ) {	// 해당하는 회원 정보가 없거나 ... 비밀번호가 해당 회원 비밀번호와 다른경우
 			
 			String fail = "fail";
 			

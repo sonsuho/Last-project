@@ -50,7 +50,7 @@
                       </div>
                       <div class="form-group">
                         <label for="exampleInputPassword1"><i class="fa fa-calendar"></i><b>희망 마감 날짜</b></label><br>
-                        <fmt:parseDate var="fmtdate" value="${time2 }" pattern="yyyy-MM-dd"/>
+                        <fmt:parseDate var="fmtdate" value="${time1 }" pattern="yyyy-MM-dd"/>
 						<fmt:formatDate value="${fmtdate }"  pattern="yyyy-MM-dd"/><br>
                       </div>
 						<c:if test="${ap_situ == ''}">
@@ -79,6 +79,5 @@
                 </div>
               </div>
               </div>
-
 
 
