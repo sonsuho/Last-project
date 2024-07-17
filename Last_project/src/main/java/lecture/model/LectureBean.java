@@ -12,9 +12,24 @@ public class LectureBean {
 	private String class_name;
 	
 	private int student; // 현재 등록된 학생수
+	private String m_name;	// 매니저 이름
+	private String t_name;	// 강사 이름
 	private String m_phone; // 매니저 전화번호
 	private String t_phone; // 강사 전화번호
 	private String m_email; // 매니저 이메일
+	
+	public String getM_name() {
+		return m_name;
+	}
+	public void setM_name(String m_name) {
+		this.m_name = m_name;
+	}
+	public String getT_name() {
+		return t_name;
+	}
+	public void setT_name(String t_name) {
+		this.t_name = t_name;
+	}
 	private String t_email; // 강사 이메일
 	
 	public String getM_phone() {

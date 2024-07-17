@@ -25,7 +25,7 @@ public class MessengerBean {
 	
 	public MessengerBean(int msg_num, int mem_num, int group_num, int recv_num, int ogmsg_num, String title,
 			String content, String msg_upload, String send_time, String read_time, int read_chk, String send_name,
-			String recv_name) {
+			String recv_name, int del_chk) {
 		super();
 		this.msg_num = msg_num;
 		this.mem_num = mem_num;

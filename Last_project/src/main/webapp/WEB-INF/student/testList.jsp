@@ -84,8 +84,8 @@
 			    		
 			    	<tr style="background-color: #F6F6F6">
 			    		<th style="padding-left: 25px;">번호</th>
-			    		<th style="padding-left: 25px;" align="right">시험 제목</th>
-			    		<th><span style="al">응시 여부</span></th>
+			    		<th style="padding-left: 30px;" align="right">시험 제목</th>
+			    		<th style="padding-left: 15px;"><span style="al">응시 여부</span></th>
 			    	</tr>
 			    		
 			    	<c:if test="${fn:length(tlist) == 0}">
@@ -105,7 +105,7 @@
 			    			<c:set var="j" value="0"/>
 			    				
 			    			<tr>
-								<td style="padding-left: 25px;">${i}</td>
+								<td style="padding-left: 35px;">${i}</td>
 								<td>${test.test_name}</td>
 								<td>
 										
@@ -113,7 +113,7 @@
 											
 										<c:if test="${testResult.test_num == test.test_num}">
 												
-											응시 완료
+											응시완료 (${testResult.point }점)
 												
 											<c:set var="j" value="1"/>
 											
@@ -123,7 +123,7 @@
 										
 									<c:if test="${j != 1}">
 											
-										<a href="testContent.student?test_num=${test.test_num }">응시 하기</a>
+										&nbsp;&nbsp;&nbsp;&nbsp;<a href="testContent.student?test_num=${test.test_num }" style="text-decoration-line: none;">응시하기</a>
 										
 									</c:if>
 									

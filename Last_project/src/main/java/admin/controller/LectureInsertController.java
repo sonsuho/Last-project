@@ -52,8 +52,8 @@ public class LectureInsertController {
 	@RequestMapping(value=command, method=RequestMethod.POST)
 	public String lectureInsert(LectureBean lecture, Model model,
 								@RequestParam("lec_name") List<String> lec_name,
-								@RequestParam("manager") List<String> manager,
-								@RequestParam("teacher") List<String> teacher,
+								@RequestParam("manager") List<Integer> manager,
+								@RequestParam("teacher") List<Integer> teacher,
 								@RequestParam("lec_start") List<String> lec_start,
 								@RequestParam("lec_end") List<String> lec_end,
 								@RequestParam("stu_cnt") List<Integer> stu_cnt,
@@ -120,6 +120,7 @@ public class LectureInsertController {
 			int cnt = ldao.insertLecture(lb);
 			if(cnt!=-1) {
 				System.out.println("강좌 개설 성공");
+				// 개설 성공시 lb.getManager() lb.getTeacher() 에게 각각 lb.getLec_name() 강좌에 배정되었다는 알림 보내주세요!!
 			}
 		}
 	}
