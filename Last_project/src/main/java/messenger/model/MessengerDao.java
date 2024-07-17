@@ -51,6 +51,12 @@ public class MessengerDao {
 		return cnt;
 	}
 	
+	public int getSendTotalCount(Map<String, Object>map) {
+		int cnt = -1;
+		cnt = sqlSessionTemplate.selectOne(namespace + ".getSendTotalCount", map);
+		return cnt;
+	}
+	
 	
 	public void insertAllMsg(MessengerBean mb) {
 		sqlSessionTemplate.insert(namespace + ".insertAllMsg", mb);
