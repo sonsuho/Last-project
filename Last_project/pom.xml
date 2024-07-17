@@ -298,7 +298,7 @@
 	                    <configuration>
 	                        <transformers>
 	                            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-	                                <mainClass>boot.main</mainClass> <!-- 여기에 실제 메인 클래스 경로를 지정 -->
+	                                <mainClass>boot.Main</mainClass> <!-- 여기에 실제 메인 클래스 경로를 지정 -->
 	                            </transformer>
 	                        </transformers>
 	                    </configuration>
