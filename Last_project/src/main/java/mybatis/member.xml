@@ -83,4 +83,8 @@
 	<select id="getStudent" resultType="int">
 		select count(*) from member where category = 'student' and lec_num = #{lec_num}
 	</select>
+	
+	<update id="changePhone">
+		update member set phone = #{phone} where mem_num = #{mem_num}
+	</update>
 </mapper>

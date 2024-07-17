@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,7 +45,10 @@ public class LectureUpdateController {
 	public Map<String, Object> letureUpdate(@RequestParam("lec_num") int lec_num) throws ParseException {
 		Map<String, Object> map = new HashMap<String, Object>();
 
+
+
 		System.out.println("lectureUpdate.admin GET 요청");
+		
 
 		LectureBean lecture = ldao.getLectureByNum(lec_num);
 		// String 타입의 날짜 정보를 Date 객체로 변환
@@ -52,19 +56,23 @@ public class LectureUpdateController {
 		Date lecStartDate = formatter.parse(lecture.getLec_start());
 		Date lecEndDate = formatter.parse(lecture.getLec_end());
 
-		// Date 객체를 다시 String 타입으로 변환하여 LectureBean 객체에 설정
-		lecture.setLec_start(formatter.format(lecStartDate));
-		lecture.setLec_end(formatter.format(lecEndDate));
-		lecture.setStudent(mdao.getStudent(lecture.getLec_num()));
-		System.out.println("lec_num : " + lecture.getLec_num());
+
+	    // Date 객체를 다시 String 타입으로 변환하여 LectureBean 객체에 설정
+	    lecture.setLec_start(formatter.format(lecStartDate));
+	    lecture.setLec_end(formatter.format(lecEndDate));
+	    lecture.setStudent(mdao.getStudent(lecture.getLec_num()));
+
 
 		/* 매니저, 강사 목록 가져오기 */
 		List<MemberBean> managerList = mdao.getMemberByCate("manager");
 		List<MemberBean> teacherList = mdao.getMemberByCate("teacher");
 
+
 		map.put("lecture",lecture);
 		map.put("managerList",managerList);
 		map.put("teacherList",teacherList);
+
+
 
 		return map;
 	}
@@ -158,6 +166,7 @@ public class LectureUpdateController {
 	    }
 	    // 민곤 알림 추가 끝
 			return map;
+
 
 	}
 }

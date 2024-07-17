@@ -63,4 +63,8 @@ public class LectureListController {
 		
 		return getPage;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> branch 'suho' of https://github.com/sonsuho/Last-project.git

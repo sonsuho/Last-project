@@ -79,6 +79,7 @@ public class LectureDao {
 		return cnt;
 	}
 
+
 	//민곤
 	public void deleteManagerFromLecture(int lec_num, int oldManager) {
 		LectureBean lb = new LectureBean();
@@ -104,3 +105,4 @@ public class LectureDao {
 	//민곤
 	
 }
+

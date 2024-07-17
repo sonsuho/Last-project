@@ -36,18 +36,8 @@ public class ManagerLectureListController {
 		
 		List<LectureBean> list = ldao.getLectureByMemNum(mb.getMem_num());
 		for (LectureBean lb : list) {
-		    String managerStr = lb.getManager();
-		    if (isNumeric(managerStr)) {
-		        int managerNum = Integer.parseInt(managerStr);
-		        MemberBean m = mdao.getNameByNum(managerNum);
-		        lb.setManager(managerNum);
-		    }
-		    String teacherStr = lb.getTeacher();
-		    if (isNumeric(teacherStr)) {
-		        int teacherNum = Integer.parseInt(teacherStr);
-		        MemberBean m = mdao.getNameByNum(teacherNum);
-		        lb.setTeacher(teacherNum);
-		    }
+			lb.setM_name(mdao.getNameByNum(lb.getManager()).getName());
+	        lb.setT_name(mdao.getNameByNum(lb.getTeacher()).getName());
 		    int stu_cnt = mdao.getStudent(lb.getLec_num());
 		    lb.setStudent(stu_cnt);
 		    System.out.println("학생수 : " + stu_cnt);
@@ -59,15 +49,5 @@ public class ManagerLectureListController {
 		
 		return getPage;
 	}
-
-	private boolean isNumeric(String str) {
-		try {
-	        Integer.parseInt(str);
-	        return true;
-	    } catch (NumberFormatException e) {
-	        return false;
-	    }
-	}
-	
 	
 }
