@@ -190,6 +190,7 @@
 							      <div class="modal-body"><br>
 							        <form id="editForm">
 							          <input type="hidden" name="lec_num" id="lec_num">
+							         
 							          <div class="mb-3">
 							            <label for="lec_name" class="form-label">강좌이름</label>
 							            <input type="text" class="form-control" id="lec_name" name="lec_name" required>

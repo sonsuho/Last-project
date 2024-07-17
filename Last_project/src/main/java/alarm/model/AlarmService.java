@@ -38,6 +38,9 @@ public class AlarmService implements InterAlarmService {
         }
 
         String str_url2 = paraMap.get("url2");
+        if (str_url2 == null) {
+            str_url2 = "";
+        }
         System.out.println("str_url2:"+str_url2);
         String[] arr_fk_recipientno = str_fk_recipientno.split(",");
         String[] arr_url2 = str_url2.split(",");
@@ -50,7 +53,12 @@ public class AlarmService implements InterAlarmService {
         if ("4".equals(paraMap.get("alarm_type"))) alarmType = "&#128161;";// 전구 이미지
         if ("5".equals(paraMap.get("alarm_type"))) alarmType = "&#128226;";//공지 이미지
         if ("6".equals(paraMap.get("alarm_type"))) alarmType = "&#128178;";//돈 이미지
-
+        if ("7".equals(paraMap.get("alarm_type"))) alarmType = "&#127909;";//수업 시작 노트북 이미지
+        if ("8".equals(paraMap.get("alarm_type"))) alarmType = "&#128221;";//시험 이미지
+        if ("9".equals(paraMap.get("alarm_type"))) alarmType = "&#128591;;";//시험 이미지
+        //	128214 수업 책이모지 128187노트북 이모지 녹화 이미지&#127909; 
+        //128221 시험 이모지 //&#128591; 죄송합니다 이모지
+        
         StringBuilder sb = new StringBuilder();
         sb.append(" INSERT ALL ");
 

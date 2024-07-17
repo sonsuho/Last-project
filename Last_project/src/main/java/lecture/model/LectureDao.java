@@ -78,5 +78,26 @@ public class LectureDao {
 		cnt = sqlSessionTemplate.update(namespace+".updateLecture", lecture);
 		return cnt;
 	}
+
+
+	//민곤
+	public void deleteManagerFromLecture(int lec_num, int oldManager) {
+		LectureBean lb = new LectureBean();
+		lb.setLec_num(lec_num);
+		lb.setManager(oldManager);
+		sqlSessionTemplate.delete(namespace+".deleteManagerFromLecture",lb);
+		
+	}
+
+	public void deleteTeacherFromLecture(int lec_num, int oldTeacher) {
+		LectureBean lb = new LectureBean();
+		lb.setLec_num(lec_num);
+		lb.setTeacher(oldTeacher);
+		
+		sqlSessionTemplate.delete(namespace+".deleteTeacherFromLecture",lb);
+	}
+	
+	//민곤
 	
 }
+

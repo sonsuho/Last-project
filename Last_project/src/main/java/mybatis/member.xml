@@ -9,6 +9,9 @@
 	<select id="getMemberByCate" resultType="member.model.MemberBean">
 		select * from member where category = #{category}
 	</select>
+	
+	
+	
 	<insert id="idInsert" parameterType="member.model.MemberBean">
 	    insert into member(mem_num, lec_num, name, id, pw, category, phone, email, state, mem_ip) 
 	    values(mem_seq.nextval,#{lec_num},#{name},#{id},#{pw},#{category},#{phone},

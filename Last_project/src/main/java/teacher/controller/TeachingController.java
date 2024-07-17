@@ -3,6 +3,7 @@ package teacher.controller;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import alarm.model.AlarmDao;
+import alarm.model.AlarmService;
 import lecture.model.On_going_lectureBean;
 import lecture.model.On_going_lectureDao;
 import member.model.MemberBean;
@@ -39,33 +41,22 @@ public class TeachingController {
 	@Autowired
 	On_going_lectureDao odao;
 	
+	@Autowired
+    AlarmService service;
+	
 	@RequestMapping(command)
 	public String teachingForm() {															// teacher 폴더 속 teachingForm.jsp로 넘어간 다음
 		return getPage;
 	}
 	
 	@RequestMapping(value = command, method = RequestMethod.POST)
-	public ModelAndView teaching(@RequestParam(value = "url") String url, HttpSession session) {
+	public ModelAndView teaching(@RequestParam(value = "url") String url, HttpSession session , Map<String, String> paramap) {
 		
 		MemberBean teacher = (MemberBean)session.getAttribute("loginInfo");					// session으로 설정된 loginInfo에서 강좌 번호를 가져온 다음
 		
 		String lec_Num = teacher.getLec_num();												// 해당 강좌 번호에 해당하는 모든 학생 리스트를 구하고
 		
 		List<MemberBean> slist = sdao.getStudentByLec_Num(lec_Num);							// 반복을 통해 해당 강좌를 수강하는 모든 학생들에게 수업 링크가 담긴 메시지를 보낸다
-		
-		for(MemberBean student : slist) {
-			
-			alarm.model.AlarmBean news = new alarm.model.AlarmBean();
-			
-			news.setFk_recipientno(student.getMem_num());
-			news.setUrl("");
-			news.setUrl2("");
-			news.setAlarm_content("수업 시작");
-			news.setAlarm_type("&#128161");
-			news.setView_status(0);
-			
-			//adao.addAlarm(news);
-		}
 		
 		On_going_lectureBean ob = new On_going_lectureBean();
 		
@@ -84,6 +75,25 @@ public class TeachingController {
 		mav.addObject("lec_Num", lec_Num);
 		
 		mav.setViewName(gotoPage);
+		
+		//민곤 알림 추가
+		StringBuilder stdList = new StringBuilder();
+		for (MemberBean mb : slist) {
+		    if (stdList.length() > 0) {
+		        stdList.append(",");
+		    }
+		    stdList.append(mb.getMem_num());
+		}
+		System.out.println(stdList.toString()); // 결과 출력 확인
+		
+		paramap.put("fk_recipientno", stdList.toString()); // 받는사람 (여러명일때는 ,,으로 구분된 str)
+		paramap.put("url", "/classNow" ); 
+		paramap.put("url2", ".student"); //url2에 아무것도 안넣으면 알림 클릭했을때 주소창에null로 나와서 오류
+		paramap.put("alarm_content", teacher.getName() + "님이 수업을 시작했습니다. 확인해 주세요." );
+		paramap.put("alarm_type", "7" );
+		
+		service.addAlarm(paramap);
+		//민곤 알림 추가
 		
 		return mav;
 	}

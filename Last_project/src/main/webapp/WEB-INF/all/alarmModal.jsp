@@ -229,7 +229,7 @@
 <!-- 게시판 알림 -->
 <li class="nav-item dropdown">
     <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false" onclick="openAlarm()">
-        <i class="mdi mdi-bell-outline"></i><div id="unreadAlarmCount"></div>
+        <i class="mdi mdi-bell-outline"></i><div class="&#128308;" id="unreadAlarmCount"></div>
         <span class="count-symbol bg-danger"></span>
     </a>
     <div class="dropdown-menu dropdown-menu-end navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
