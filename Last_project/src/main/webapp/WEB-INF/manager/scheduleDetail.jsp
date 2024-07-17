@@ -142,7 +142,7 @@
 
 <!-- header -->
 <div class="page-header">
-   <h3 class="page-title" style="font-weight: 700;">일정 목록</h3>
+   <h3 class="page-title" style="font-weight: 700;"><%=start_date %> 일정 목록</h3>
    <nav>
    		<c:if test="${loginInfo.category == 'manager'}">
 			<a href="home.manager" class="button">뒤로 돌아가기</a>
@@ -170,10 +170,8 @@
         <center>
             <table>
                 <tr>
-                    <th>번호</th>
-                    <th>회원번호</th>
+                	<th>작성자</th>
                     <th>반</th>
-                    <th>작성자</th>
                     <th>제목</th>
                     <th>시작날짜</th>
                     <th>종료날짜</th>
@@ -185,9 +183,6 @@
 
                 <c:forEach var="calendar" items="${calendarLists}" varStatus="status">
                     <tr>
-                        <td>${calendar.cal_num}</td>
-                        <td>${calendar.mem_num}</td>
-                        <td>${calendar.lesson_class}</td>
                         <td>
                             <c:if test="${fn:contains(calendar.name, '공용')}">
                                 [공용] ${calendar.name}
@@ -196,6 +191,7 @@
                                 ${calendar.name}
                             </c:if>
                         </td>
+                        <td>${calendar.lesson_class}</td>
                         <td>
                             <a href="scheduleView.manager?start_date=<%= request.getParameter("start_date")%>&cal_num=${calendar.cal_num}">${calendar.title}</a>
                         </td>
@@ -284,26 +280,6 @@
       </div>
    </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <c:if test="${loginInfo.category == 'manager'}">
 	<%@include file = "managerBarBottom.jsp"%>

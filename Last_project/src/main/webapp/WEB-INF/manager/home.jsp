@@ -62,14 +62,15 @@ td {
 	background: #fff;
 	padding: 0px 1px 15px;
 	border: 1px solid #dee2e6;
-	
+	width: 45px;
+	height: 45px;
 }
 
 td a {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 10px;
+	padding: 5px 1px 15px;
 	color: #000;
 	text-decoration: none;
 }
@@ -86,12 +87,12 @@ td.today a {
 td.today::before {
 	content: '';
 	position: absolute;
-	top: 40%;
+	top: 35%;
 	left: 50%;
-	width: 42px;
-	height: 42px;
+	width: 37px;
+	height: 37px;
 	background: #FFFFFF;
-	border: 1px solid #0000C9;
+	border: 2px solid #208738;
 	border-radius: 50%;
 	transform: translate(-50%, -50%);
 	z-index: 0;
@@ -100,7 +101,7 @@ td.today::before {
 .date-wrap {
 	font-family: Comic Sans MS, serif;
 	width: 480px;
-	height: 535px;
+	height: 585px; 
 	margin: 20px auto;
 	padding: 20px;
 	background: #fff;
@@ -154,168 +155,193 @@ table.date-month {
 	color: red;
 }
 
-/* CSS styles for different event colors */
-.cal_num1 {
-	background-image: linear-gradient(to top, #FFBA85 23%, white 23%);
+.lesson_classAll {
+	background-image: linear-gradient(to top, #BDBDBD 23%, white 23%);
 }
-.cal_num2 {
-	background-image: linear-gradient(to top, #9BFF94 23%, white 23%);
+.lesson_classA {
+	background-image: linear-gradient(to top, red 23%, white 23%);
 }
-.cal_num3 {
-	background-image: linear-gradient(to top, #368AFF 23%, white 23%);
+.lesson_classB {
+	background-image: linear-gradient(to top, orange 23%, white 23%);
 }
-.cal_num4 {
-	background-image: linear-gradient(to top, #FF85CA 23%, white 23%);
+.lesson_classC {
+	background-image: linear-gradient(to top, yellow 23%, white 23%);
 }
-.cal_num5 {
-	background-image: linear-gradient(to top, #FFB85A 23%, white 23%);
+.lesson_classD {
+	background-image: linear-gradient(to top, green 23%, white 23%);
 }
-.cal_num6 {
-	background-image: linear-gradient(to top, #A2FFFF 23%, white 23%);
+.lesson_classE {
+	background-image: linear-gradient(to top, lightgreen 23%, white 23%);
 }
-.cal_num7 {
-	background-image: linear-gradient(to top, #FF90FF 23%, white 23%);
+.lesson_classF {
+	background-image: linear-gradient(to top, blue 23%, white 23%);
 }
-.cal_num8 {
-	background-image: linear-gradient(to top, #FFFF90 23%, white 23%);
+.lesson_classG {
+	background-image: linear-gradient(to top, purple 23%, white 23%);
 }
-.cal_num9 {
-	background-image: linear-gradient(to top, #FFA2FF 23%, white 23%);
-}
-.cal_num10 {
-	background-image: linear-gradient(to top, #FFD2FF 23%, white 23%);
+.lesson_classH {
+	background-image: linear-gradient(to top, cyan 23%, white 23%);
 }
 /* calendar */
     </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-        var allSchedules = <%= new com.google.gson.Gson().toJson(allSchedules) %>;
+    var allSchedules = <%= new com.google.gson.Gson().toJson(allSchedules) %>;
 
-        function isDateInRange(date, startDate, endDate) {
-            var targetDate = new Date(date);
-            return targetDate >= new Date(startDate) && targetDate <= new Date(endDate);
-        }
+    function isDateInRange(date, startDate, endDate) {
+        var targetDate = new Date(date);
+        return targetDate >= new Date(startDate) && targetDate <= new Date(endDate);
+    }
 
-        function isEventStart(date) {
-            return allSchedules.some(function(schedule) {
-                return new Date(schedule.start_date).toISOString().substring(0, 10) === date;
-            });
-        }
-
-        function getEventCalNum(date) {
-            var event = allSchedules.find(function(schedule) {
-                return isDateInRange(date, schedule.start_date, schedule.fin_date);
-            });
-            return event ? 'cal_num' + (event.cal_num % 10 + 1) : '';
-        }
-
-        function hasEventOnDate(date) {
-            return allSchedules.some(function(schedule) {
-                return isDateInRange(date, schedule.start_date, schedule.fin_date);
-            });
-        }
-
-        function prevMonth(date) {
-            var target = new Date(date);
-            target.setDate(1);
-            target.setMonth(target.getMonth() - 1);
-            return getYmd(target);
-        }
-
-        function nextMonth(date) {
-            var target = new Date(date);
-            target.setDate(1);
-            target.setMonth(target.getMonth() + 1);
-            return getYmd(target);
-        }
-
-        function getYmd(target) {
-            var month = ('0' + (target.getMonth() + 1)).slice(-2);
-            return [target.getFullYear(), month, '01'].join('-');
-        }
-
-        function fullDays(date) {
-            var target = new Date(date);
-            var year = target.getFullYear();
-            var month = target.getMonth();
-            var firstWeekDay = new Date(year, month, 1).getDay();
-            var thisDays = new Date(year, month + 1, 0).getDate();
-            var cell = [28, 35, 42].filter(function(n) {
-                return n >= (firstWeekDay + thisDays);
-            }).shift();
-            var days = [];
-            for (var i = 0; i < cell; i++) {
-                days[i] = {
-                    date: '',
-                    dayNum: '',
-                    today: false,
-                    class: ''
-                };
-            }
-            var now = new Date();
-            var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-            var inDate;
-            for (var index = firstWeekDay, i = 1; i <= thisDays; index++, i++) {
-                inDate = new Date(year, month, i);
-                var dayClass = '';
-                if (inDate.getDay() === 0) {
-                    dayClass = 'sunday';
-                } else if (inDate.getDay() === 6) {
-                    dayClass = 'saturday';
-                }
-                days[index] = {
-                    date: i,
-                    dayNum: inDate.getDay(),
-                    today: (inDate.getTime() === today.getTime()),
-                    class: dayClass
-                };
-            }
-            return days;
-        }
-
-        function drawMonth(date) {
-            $('#month-this').text(date.substring(0, 7).replace('-', '.'));
-            $('#month-prev').data('ym', prevMonth(date));
-            $('#month-next').data('ym', nextMonth(date));
-            $('#tbl-month').empty();
-            var td = '<td class="__TODAY__ __EVENT__ __CLASS__"><a __HREF__>__DATE__ __EVENT_IMG__</a></td>';
-            var href = 'schedule.manager?start_date=' + date.substring(0, 8);
-            var week = null;
-            var days = fullDays(date);
-            for (var i = 0, length = days.length; i < length; i += 7) {
-                week = days.slice(i, i + 7);
-                var $tr = $('<tr></tr>');
-                week.forEach(function(obj, index) {
-                    if (obj.date) {
-                        var dateStr = date.substring(0, 7) + '-' + ('0' + obj.date).slice(-2);
-                        var hasEvent = hasEventOnDate(dateStr);
-                        var eventStart = isEventStart(dateStr);
-                        var eventCalNum = getEventCalNum(dateStr);
-                        var eventImg = eventStart ? '  <img src="resources/images/attendSymbol3.jpg" style="width:12px; height:12px" />' : '';
-                        $tr.append(td.replace('__TODAY__', (obj.today ? 'today' : ''))
-                                    .replace('__EVENT__', (hasEvent ? 'event' : ''))
-                                    .replace('__CLASS__', obj.class + ' ' + eventCalNum)
-                                    .replace('__HREF__', 'href="' + href + ('0' + obj.date).slice(-2) + '"')
-                                    .replace('__DATE__', obj.date)
-                                    .replace('__EVENT_IMG__', eventImg));
-                    } else {
-                        $tr.append('<td></td>');
-                    }
-                });
-                $('#tbl-month').append($tr);
-            }
-        }
-
-        $(function() {
-            var date = (new Date()).toISOString().substring(0, 10);
-            drawMonth(date);
-            $('.month-move').on('click', function(e) {
-                e.preventDefault();
-                drawMonth($(this).data('ym'));
-            });
+    function isEventStart(date) {
+        return allSchedules.some(function(schedule) {
+            return new Date(schedule.start_date).toISOString().substring(0, 10) === date;
         });
-    </script>
+    }
+
+    function getEventLesson_class(date) {
+        var event = allSchedules.find(function(schedule) {
+            return isDateInRange(date, schedule.start_date, schedule.fin_date);
+        });
+        if (event) {
+            if (event.lesson_class == 'All') {
+                return 'lesson_classAll';
+            }
+            if (event.lesson_class == 'A') {
+                return 'lesson_classA';
+            }
+            if (event.lesson_class == 'B') {
+                return 'lesson_classB';
+            }
+            if (event.lesson_class == 'C') {
+                return 'lesson_classC';
+            }
+            if (event.lesson_class == 'D') {
+                return 'lesson_classD';
+            }
+            if (event.lesson_class == 'E') {
+                return 'lesson_classE';
+            }
+            if (event.lesson_class == 'F') {
+                return 'lesson_classF';
+            }
+            if (event.lesson_class == 'G') {
+                return 'lesson_classG';
+            }
+            if (event.lesson_class == 'H') {
+                return 'lesson_classH';
+            }
+        }
+        return '';
+    }
+
+    function hasEventOnDate(date) {
+        return allSchedules.some(function(schedule) {
+            return isDateInRange(date, schedule.start_date, schedule.fin_date);
+        });
+    }
+
+    function prevMonth(date) {
+        var target = new Date(date);
+        target.setDate(1);
+        target.setMonth(target.getMonth() - 1);
+        return getYmd(target);
+    }
+
+    function nextMonth(date) {
+        var target = new Date(date);
+        target.setDate(1);
+        target.setMonth(target.getMonth() + 1);
+        return getYmd(target);
+    }
+
+    function getYmd(target) {
+        var month = ('0' + (target.getMonth() + 1)).slice(-2);
+        return [target.getFullYear(), month, '01'].join('-');
+    }
+
+    function fullDays(date) {
+        var target = new Date(date);
+        var year = target.getFullYear();
+        var month = target.getMonth();
+        var firstWeekDay = new Date(year, month, 1).getDay();
+        var thisDays = new Date(year, month + 1, 0).getDate();
+        var cell = [28, 35, 42].filter(function(n) {
+            return n >= (firstWeekDay + thisDays);
+        }).shift();
+        var days = [];
+        for (var i = 0; i < cell; i++) {
+            days[i] = {
+                date: '',
+                dayNum: '',
+                today: false,
+                class: ''
+            };
+        }
+        var now = new Date();
+        var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        var inDate;
+        for (var index = firstWeekDay, i = 1; i <= thisDays; index++, i++) {
+            inDate = new Date(year, month, i);
+            var dayClass = '';
+            if (inDate.getDay() === 0) {
+                dayClass = 'sunday';
+            } else if (inDate.getDay() === 6) {
+                dayClass = 'saturday';
+            }
+            days[index] = {
+                date: i,
+                dayNum: inDate.getDay(),
+                today: (inDate.getTime() === today.getTime()),
+                class: dayClass
+            };
+        }
+        return days;
+    }
+
+    function drawMonth(date) {
+        $('#month-this').text(date.substring(0, 7).replace('-', '.'));
+        $('#month-prev').data('ym', prevMonth(date));
+        $('#month-next').data('ym', nextMonth(date));
+        $('#tbl-month').empty();
+        var td = '<td class="__TODAY__ __EVENT__ __CLASS__"><a __HREF__>__DATE__ __EVENT_IMG__</a></td>';
+        var href = 'schedule.manager?start_date=' + date.substring(0, 8);
+        var week = null;
+        var days = fullDays(date);
+        for (var i = 0, length = days.length; i < length; i += 7) {
+            week = days.slice(i, i + 7);
+            var $tr = $('<tr></tr>');
+            week.forEach(function(obj, index) {
+                if (obj.date) {
+                    var dateStr = date.substring(0, 7) + '-' + ('0' + obj.date).slice(-2);
+                    var hasEvent = hasEventOnDate(dateStr);
+                    var eventStart = isEventStart(dateStr);
+                    var eventLesson_class = getEventLesson_class(dateStr);
+                    var eventImg = eventStart ? '  <img src="resources/images/attendSymbol3.jpg" style="width:12px; height:12px" />' : '';
+                    $tr.append(td.replace('__TODAY__', (obj.today ? 'today' : ''))
+                                .replace('__EVENT__', (hasEvent ? 'event' : ''))
+                                .replace('__CLASS__', obj.class + ' ' + eventLesson_class)
+                                .replace('__HREF__', 'href="' + href + ('0' + obj.date).slice(-2) + '"')
+                                .replace('__DATE__', obj.date)
+                                .replace('__EVENT_IMG__', eventImg));
+                } else {
+                    $tr.append('<td></td>');
+                }
+            });
+            $('#tbl-month').append($tr);
+        }
+    }
+
+    $(function() {
+        var date = (new Date()).toISOString().substring(0, 10);
+        drawMonth(date);
+        $('.month-move').on('click', function(e) {
+            e.preventDefault();
+            drawMonth($(this).data('ym'));
+        });
+    });
+</script>
 
 
 <%
@@ -355,10 +381,22 @@ table.date-month {
 		</thead>
 		<tbody id="tbl-month"></tbody>
 	</table>
-	<span> <img src="resources/images/attendSymbol3.jpg"
-		style="width: 15px; height: 15px" /> start event
-	</span>
+	
+	<div>
+		<span> 
+			<img src="resources/images/attendSymbol3.jpg" style="width: 15px; height: 15px" /> start event <br>
+			<img src="resources/images/class.jpg" style="width: 440px; height: 50px" />
+		</span>
+	</div>
 </div>
 
 <!-- calendar 추가코드 -->
-<%@ include file = "managerBarBottom.jsp"%>
+
+
+<c:if test="${loginInfo.category == 'manager'}">
+	<%@ include file = "managerBarBottom.jsp"%>
+</c:if>
+
+<c:if test="${loginInfo.category == 'student'}">
+	<%@include file = "../student/studentBottom.jsp"%>
+</c:if>
