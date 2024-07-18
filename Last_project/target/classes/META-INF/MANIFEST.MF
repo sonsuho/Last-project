@@ -1,5 +1,7 @@
 Manifest-Version: 1.0
-Built-By: user
-Build-Jdk: 12.0.2
+Build-Jdk-Spec: 12
+Implementation-Title: Last_project
+Implementation-Version: 1.0.0-BUILD-SNAPSHOT
+Main-Class: boot.Main
 Created-By: Maven Integration for Eclipse
 
