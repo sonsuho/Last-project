@@ -3,12 +3,15 @@ package teacher.controller;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import lecture.model.LectureBean;
@@ -28,9 +31,17 @@ public class TeacherHomeController {
 	@Autowired
 	LectureDao ldao;
 	
+	/* calendar추가코드 */
+	@Autowired
+	student.model.sCalendarDao sCalendarDao;
+	
 	@RequestMapping(command)
-	public ModelAndView home(HttpSession session) {
+	public ModelAndView home(HttpSession session,
+			@RequestParam(value = "month", required = false) String month,
+			Model model) {
 	    ModelAndView mav = new ModelAndView();
+	    
+	    List<student.model.sCalendarBean> lists = sCalendarDao.getAllSchedules();
 	    
 	    MemberBean teacher = (MemberBean) session.getAttribute("loginInfo");
 
@@ -59,6 +70,7 @@ public class TeacherHomeController {
 	    System.out.println(remainingDays);
 	    
 	    // ModelAndView에 데이터 추가
+	    mav.addObject("allSchedules", lists);	//calendar 일정
 	    mav.addObject("totalDays", totalDays); // 전체 날짜 수
 	    mav.addObject("remainingDays", remainingDays); // 남은 날짜 수
 	    

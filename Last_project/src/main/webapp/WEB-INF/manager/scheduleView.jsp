@@ -10,6 +10,10 @@
    <%@include file = "../student/studentTop.jsp"%>
 </c:if>
 
+<c:if test="${loginInfo.category == 'teacher'}">
+	<%@include file = "../teacher/teacherTop.jsp"%>
+</c:if>
+
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -140,4 +144,8 @@
 
 <c:if test="${loginInfo.category == 'student'}">
    <%@include file = "../student/studentBottom.jsp"%>
+</c:if>
+
+<c:if test="${loginInfo.category == 'teacher'}">
+	<%@include file = "../teacher/teacherBottom.jsp"%>
 </c:if>

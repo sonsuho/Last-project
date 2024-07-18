@@ -1,4 +1,3 @@
-<!-- 추가 -->
 <%@page import="manager.model.mCalendarBean"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Locale"%>
@@ -7,13 +6,32 @@
 <%@page import="java.util.Calendar"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.LocalDate"%>
-<!-- 추가 -->
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="studentTop.jsp"%>
 
 <style>
+
+.content-container {
+	justify-content: space-around;
+	gap: 20px;
+	    }
+.element1, .element2 {
+	width: 100%;
+	background: #fff;
+	border-radius: 8px;
+	padding: 20px;
+	margin-bottom: 20px;
+	border: 1px solid #e0e0e0;
+}
+	    
+.element2{
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	gap: 50px;	
+}
 
 .progress-container {
 	text-align: center;
@@ -37,13 +55,15 @@
 
 .notice-container {
 	position: absolute;
-	left : 800px;
-	width: 700px;
+	left : 620px;
 	height: 585px;
 	background: #fff;
 	border-radius: 8px;
 	padding: 20px;
 	margin: 20px auto;
+	border: 1px solid #e0e0e0;
+	width: 43%;
+     
 }
 
 .notice-container h4 {
@@ -211,7 +231,8 @@ table.date-month {
 .lesson_classH {
 	background-image: linear-gradient(to top, cyan 23%, white 23%);
 }
-/* calendar */
+/* calendar */ 
+	    
 </style>
 
 <script type="text/javascript">
@@ -234,6 +255,18 @@ table.date-month {
 	<!-- calendar -->
 <%
 	List<mCalendarBean> allSchedules = (List<mCalendarBean>) request.getAttribute("allSchedules");
+	
+	Calendar cal = Calendar.getInstance(new SimpleTimeZone(0x1ee6280, "KST"));
+
+	cal.add(Calendar.MONTH, -1);
+	java.util.Date monthago = cal.getTime();
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
+	String prev_month = sdf.format(monthago);
+
+	cal.add(Calendar.MONTH, +2);
+	monthago = cal.getTime();
+	sdf = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
+	String next_month = sdf.format(monthago);
 %>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -393,20 +426,6 @@ table.date-month {
         });
     });
 </script>
-
-<%
-Calendar cal = Calendar.getInstance(new SimpleTimeZone(0x1ee6280, "KST"));
-
-cal.add(Calendar.MONTH, -1);
-java.util.Date monthago = cal.getTime();
-SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
-String prev_month = sdf.format(monthago);
-
-cal.add(Calendar.MONTH, +2);
-monthago = cal.getTime();
-sdf = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
-String next_month = sdf.format(monthago);
-%>
 	<!-- calendar -->
 
 <!-- header -->
@@ -427,6 +446,14 @@ String next_month = sdf.format(monthago);
 </div>
 
 
+<div class="row">
+	<div class="col-lg-12 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<div class="content-container">
+
+
+
 <!-- Progress Section -->
 <div class="element1">
 	<div class="progress-container">
@@ -435,10 +462,8 @@ String next_month = sdf.format(monthago);
 		<p style="padding-left: 80px;" align="left">
 			<font size="6">D-${remainingDays}</font>
 		</p>
-		<div class="progress-bar" style="width: 90%; margin-left: 60px;"
-			align="center">
-			<div class="progress"
-				style="width: ${(1 - remainingDays/totalDays) * 100}%;"></div>
+		<div class="progress-bar" style="width: 90%; margin-left: 60px;" align="center">
+			<div class="progress" style="width: ${(1 - remainingDays/totalDays) * 100}%;"></div>
 		</div>
 		<p style="padding-left: 80px;" align="left">남은 강의 시간: 최소 62h 10m</p>
 		<p style="padding-left: 80px;" align="left">앞으로 매일 평균: 최소 7h 10m</p>
@@ -455,6 +480,9 @@ String next_month = sdf.format(monthago);
 
 <br><br>
 
+<div class="element2">
+	<div class="calendar-container">
+	
 <div class="date-wrap">
 	<div class="date-month">
 		<div class="button_wrap">
@@ -481,19 +509,36 @@ String next_month = sdf.format(monthago);
 		<img src="resources/images/attendSymbol3.jpg" style="width: 15px; height: 15px" /> start event<br>
 		<img src="resources/images/class.jpg" style="width: 440px; height: 50px" />
 	</span>
-</div>
+</div>	<!-- date-wrap -->
+</div> <!-- calendar-container -->
 <!-- calendar 추가코드 -->
 
 <div class="notice-container">
 	<h4>공지사항</h4>
 	<ul class="notice-list">
-		<li><span class="badge badge-general">전체</span> <span>쌍용강북센터
-				휴가 안내</span> <span>2024-06-28</span></li>
-		<li><span class="badge badge-important">우리반</span> <span>MySQL
-				과제 리스트 안내</span> <span>2024-06-24</span></li>
-		<li><span class="badge badge-important">우리반</span> <span>Spring
-				설치 방법</span> <span>2024-06-24</span></li>
+		<li>
+			<span class="badge badge-general">전체</span> 
+			<span>쌍용강북센터 휴가 안내</span>
+			<span>2024-06-28</span>
+		</li>
+		<li>
+			<span class="badge badge-important">우리반</span>
+			<span>MySQL 과제 리스트 안내</span>
+			<span>2024-06-24</span>
+		</li>
+		<li>
+			<span class="badge badge-important">우리반</span>
+			<span>Spring 설치 방법</span>
+			<span>2024-06-24</span>
+		</li>
 	</ul>
 </div>
+						
+					</div>	<!-- element2 -->
+				</div>	<!-- content-container -->
+			</div>	<!-- card-body -->
+		</div>	<!-- card -->
+	</div>	<!-- col-lg-12 grid-margin stretch-card -->
+</div>	<!-- row -->
 
 <%@ include file="studentBottom.jsp"%>

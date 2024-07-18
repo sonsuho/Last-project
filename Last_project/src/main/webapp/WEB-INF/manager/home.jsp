@@ -17,38 +17,92 @@
 	<%@include file = "../student/studentTop.jsp"%>
 </c:if>
 
-<%
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM");
-	LocalDate now = LocalDate.now();
-	String now_month = now.format(formatter);
-%>
-
- 	<div class="page-header">
-    <h3 class="page-title">
-      <span class="page-title-icon bg-gradient-primary text-white me-2">
-        <i class="mdi mdi-home"></i>
-      </span> 
-      ManagerMain
-      
-      <br><br>
-      
-      <a href="request.manager">승인 결재</a><br>
-			<a href="Messenger.manager">메신저 페이지</a><br>
-			<a href="etc.manager">학생에게 서류 요청하기</a><br>
-			<a href="notifications.manager">알림</a><br>
-			<a href="lectureList.manager">내 수업 정보</a><br>
-	    <a href="stuList.manager">내 학생 정보</a><br>
-	    <a href="IdInsert.manager">학생 아이디 생성</a><br>
-	<a href="lectureEval.manager">강의 평가 조사</a><br>				<!-- 시험을 클릭하면 TestListController로 가서 -->
-    </h3>
-  </div>
-  
-	<!-- calendar 추가코드 -->
-<%
-    List<mCalendarBean> allSchedules = (List<mCalendarBean>) request.getAttribute("allSchedules");
-%>
-
 <style>
+.content-container {
+	justify-content: space-around;
+	gap: 20px;
+	    }
+.element1, .element2 {
+	width: 100%;
+	background: #fff;
+	border-radius: 8px;
+	padding: 20px;
+	margin-bottom: 20px;
+	border: 1px solid #e0e0e0;
+}
+	    
+.element2{
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	gap: 50px;	
+}
+
+.progress-container {
+	text-align: center;
+}
+
+.progress-bar {
+	width: 100%;
+	height: 20px;
+	background: #e0e0e0;
+	border-radius: 10px;
+	margin: 20px 0;
+	position: relative;
+}
+
+.progress-bar .progress {
+	height: 100%;
+	width: 80%;
+	background: #36E0C6;
+	border-radius: 10px;
+}
+
+.notice-container {
+	position: absolute;
+	left : 620px;
+	height: 585px;
+	background: #fff;
+	border-radius: 8px;
+	padding: 20px;
+	margin: 20px auto;
+	border: 1px solid #e0e0e0;
+	width: 43%;
+     
+}
+
+.notice-container h4 {
+	margin-bottom: 20px;
+}
+
+.notice-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.notice-list li {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px 0;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.badge {
+	padding: 5px 10px;
+	border-radius: 5px;
+	color: #fff;
+}
+
+.badge-general {
+	background: #6c757d;
+}
+
+.badge-important {
+	background: #007bff;
+}
+
 /* calendar */
 th {
 	text-align: center;
@@ -101,7 +155,7 @@ td.today::before {
 .date-wrap {
 	font-family: Comic Sans MS, serif;
 	width: 480px;
-	height: 585px; 
+	height: 585px;
 	margin: 20px auto;
 	padding: 20px;
 	background: #fff;
@@ -133,7 +187,8 @@ td.today::before {
             border-radius: 4px;
             border: none;
             cursor: pointer;
-        }
+}
+        
 .button_wrap button:hover {
             background: #0056b3;
 }
@@ -182,8 +237,28 @@ table.date-month {
 .lesson_classH {
 	background-image: linear-gradient(to top, cyan 23%, white 23%);
 }
-/* calendar */
-    </style>
+/* calendar */   
+</style>
+
+<%
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM");
+	LocalDate now = LocalDate.now();
+	String now_month = now.format(formatter);
+	
+	List<mCalendarBean> allSchedules = (List<mCalendarBean>) request.getAttribute("allSchedules");
+	
+    Calendar cal = Calendar.getInstance(new SimpleTimeZone(0x1ee6280, "KST"));
+
+	cal.add(Calendar.MONTH, -1); 
+	java.util.Date monthago = cal.getTime();
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
+	String prev_month = sdf.format(monthago);
+	
+	cal.add(Calendar.MONTH, +2); 
+	monthago = cal.getTime();
+	sdf = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
+	String next_month = sdf.format(monthago);
+%>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -343,22 +418,66 @@ table.date-month {
     });
 </script>
 
+<div class="page-header">
+	<h3 class="page-title">
+		<span class="page-title-icon bg-gradient-primary text-white me-2">
+			<i class="mdi mdi-home"></i>
+		</span> ManagerMain
+	</h3>
+	<nav aria-label="breadcrumb">
+		<ul class="breadcrumb">
+			<li class="breadcrumb-item active" aria-current="page"><span></span>Overview
+				<i
+				class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+			</li>
+		</ul>
+	</nav>
+</div>
 
-<%
-    Calendar cal = Calendar.getInstance(new SimpleTimeZone(0x1ee6280, "KST"));
+<br><br>
 
-	cal.add(Calendar.MONTH, -1); 
-	java.util.Date monthago = cal.getTime();
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
-	String prev_month = sdf.format(monthago);
-	
-	cal.add(Calendar.MONTH, +2); 
-	monthago = cal.getTime();
-	sdf = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
-	String next_month = sdf.format(monthago);
-%>
-<br>
+<div>
+	<a href="request.manager">승인 결재</a><br>
+	<a href="Messenger.manager">메신저 페이지</a><br>
+	<a href="etc.manager">학생에게 서류 요청하기</a><br>
+	<a href="notifications.manager">알림</a><br>
+	<a href="lectureList.manager">내 수업 정보</a><br>
+	<a href="stuList.manager">내 학생 정보</a><br>
+	<a href="IdInsert.manager">학생 아이디 생성</a><br>
+	<a href="lectureEval.manager">강의 평가 조사</a><br>
+	<!-- 시험을 클릭하면 TestListController로 가서 -->
+</div>
+<br><br>
 
+
+<div class="row">
+	<div class="col-lg-12 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<div class="content-container">
+				
+				
+<!-- Progress Section -->
+<div class="element1">
+	<div class="progress-container">
+		<h1 style="padding-left: 50px;" align="left">강의 진행 현황</h1>
+		<br>
+		<p style="padding-left: 80px;" align="left">
+			<font size="6">D-${remainingDays}</font>
+		</p>
+		<div class="progress-bar" style="width: 90%; margin-left: 60px;" align="center">
+			<div class="progress" style="width: ${(1 - remainingDays/totalDays) * 100}%;"></div>
+		</div>
+		<p style="padding-left: 80px;" align="left">남은 강의 시간: 최소 62h 10m</p>
+		<p style="padding-left: 80px;" align="left">앞으로 매일 평균: 최소 7h 10m</p>
+	</div>
+</div>
+<br>	
+
+<div class="element2">
+	<div class="calendar-container">
+
+			
 <div class="date-wrap">
 	<div class="date-month">
 		<div class="button_wrap">
@@ -389,8 +508,35 @@ table.date-month {
 		</span>
 	</div>
 </div>
+</div> <!-- calendar-container -->
 
-<!-- calendar 추가코드 -->
+<div class="notice-container">
+	<h4>공지사항</h4>
+	<ul class="notice-list">
+		<li>
+			<span class="badge badge-general">전체</span> 
+			<span>쌍용강북센터 휴가 안내</span>
+			<span>2024-06-28</span>
+		</li>
+		<li>
+			<span class="badge badge-important">우리반</span>
+			<span>MySQL 과제 리스트 안내</span>
+			<span>2024-06-24</span>
+		</li>
+		<li>
+			<span class="badge badge-important">우리반</span>
+			<span>Spring 설치 방법</span>
+			<span>2024-06-24</span>
+		</li>
+	</ul>
+</div>
+						
+					</div>	<!-- element2 -->
+				</div>	<!-- content-container -->
+			</div>	<!-- card-body -->
+		</div>	<!-- card -->
+	</div>	<!-- col-lg-12 grid-margin stretch-card -->
+</div>	<!-- row -->
 
 
 <c:if test="${loginInfo.category == 'manager'}">

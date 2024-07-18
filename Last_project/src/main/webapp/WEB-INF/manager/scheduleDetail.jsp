@@ -12,6 +12,10 @@
 	<%@include file = "../student/studentTop.jsp"%>
 </c:if>
 
+<c:if test="${loginInfo.category == 'teacher'}">
+	<%@include file = "../teacher/teacherTop.jsp"%>
+</c:if>
+
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -151,6 +155,10 @@
 		<c:if test="${loginInfo.category == 'student'}">
 			<a href="home.student" class="button">뒤로 돌아가기</a>
 		</c:if>
+		
+		<c:if test="${loginInfo.category == 'teacher'}">
+			<a href="home.teacher" class="button">뒤로 돌아가기</a>
+		</c:if>
    </nav>
 </div>
 
@@ -287,4 +295,8 @@
 
 <c:if test="${loginInfo.category == 'student'}">
 	<%@include file = "../student/studentBottom.jsp"%>
+</c:if>
+
+<c:if test="${loginInfo.category == 'teacher'}">
+	<%@include file = "../teacher/teacherBottom.jsp"%>
 </c:if>
