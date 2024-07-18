@@ -145,23 +145,32 @@
 %>
 
 <!-- header -->
-<div class="page-header">
-   <h3 class="page-title" style="font-weight: 700;"><%=start_date %> 일정 목록</h3>
-   <nav>
-   		<c:if test="${loginInfo.category == 'manager'}">
-			<a href="home.manager" class="button">뒤로 돌아가기</a>
-		</c:if>
-		
-		<c:if test="${loginInfo.category == 'student'}">
-			<a href="home.student" class="button">뒤로 돌아가기</a>
-		</c:if>
-		
-		<c:if test="${loginInfo.category == 'teacher'}">
-			<a href="home.teacher" class="button">뒤로 돌아가기</a>
-		</c:if>
-   </nav>
-</div>
-
+	<div class="page-header">
+    	<h3 class="page-title">
+	    	<span class="page-title-icon bg-gradient-primary text-white me-2">
+	        	<i class="mdi mdi-clipboard-text"></i>
+	    	</span> <%=start_date %> 일정 목록
+    	</h3>
+    	<nav aria-label="breadcrumb">
+    		<ul class="breadcrumb">
+      			<li class="breadcrumb-item active" aria-current="page">
+          			<span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+        		</li>
+    		</ul>
+    		<c:if test="${loginInfo.category == 'manager'}">
+					<a href="home.manager" class="button">뒤로 돌아가기</a>
+			</c:if>
+				
+			<c:if test="${loginInfo.category == 'student'}">
+				<a href="home.student" class="button">뒤로 돌아가기</a>
+			</c:if>
+				
+			<c:if test="${loginInfo.category == 'teacher'}">
+				<a href="home.teacher" class="button">뒤로 돌아가기</a>
+			</c:if>
+    	</nav>
+	</div>
+	
 <div class="row">
    <div class="col-lg-12 grid-margin stretch-card">
       <div class="card">

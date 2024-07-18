@@ -519,12 +519,12 @@ table.date-month {
 			<span>2024-06-28</span>
 		</li>
 		<li>
-			<span class="badge badge-important">우리반</span>
+			<span class="badge badge-important">H반</span>
 			<span>MySQL 과제 리스트 안내</span>
 			<span>2024-06-24</span>
 		</li>
 		<li>
-			<span class="badge badge-important">우리반</span>
+			<span class="badge badge-important">H반</span>
 			<span>Spring 설치 방법</span>
 			<span>2024-06-24</span>
 		</li>

@@ -56,17 +56,29 @@
     }
 </style>
 
-<span class="cf">특정날짜를 찾으려면 Ctrl + F를 눌러 찾으세요.</span>
-
-<center>
-    <!-- header -->
-    <div class="page-header">
-        <h3 class="page-title">
-            <b>내 근퇴 현황</b>
-        </h3>
-    </div>
-    
-    <h3>회원 이름 : <a class="name">${loginInfo.name}</a></h3>
+<!-- header -->
+	<div class="page-header">
+    	<h3 class="page-title">
+	    	<span class="page-title-icon bg-gradient-primary text-white me-2">
+	        	<i class="mdi mdi-clipboard-text"></i>
+	    	</span> 내 근퇴 현황
+    	</h3>
+    	<nav aria-label="breadcrumb">
+      		<ul class="breadcrumb">
+      			<li class="breadcrumb-item active" aria-current="page">
+          			<span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+        		</li>
+    		</ul>
+    	</nav>
+	</div>
+	
+<div class="row">
+   <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+         <div class="card-body">	
+<br><br>    
+    <h3 style="text-align: center">회원 이름 : <a class="name">${loginInfo.name}</a></h3>
+    <span class="cf">특정날짜를 찾으려면 Ctrl + F를 눌러 찾으세요.</span><br><br>
     
     <table>
         <thead>
@@ -94,7 +106,10 @@
             </c:forEach>
         </tbody>
     </table>
-</center>
 
+         </div>
+      </div>
+   </div>
+</div>
 <%@ include file = "teacherBottom.jsp"%>
 위의 스타일링은 다음과 같은 변화를 포함합니다:

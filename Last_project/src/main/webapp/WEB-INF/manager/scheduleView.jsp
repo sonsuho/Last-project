@@ -97,12 +97,21 @@
 </style>
 
 <!-- header -->
-<div class="page-header">
-   <h3 class="page-title" style="font-weight: 700;">일정 확인</h3>
-   <nav>
-      <a href="schedule.manager?start_date=<%=request.getParameter("start_date")%>" class="back-button">이전으로 돌아가기</a>
-   </nav>
-</div>
+	<div class="page-header">
+    	<h3 class="page-title">
+	    	<span class="page-title-icon bg-gradient-primary text-white me-2">
+	        	<i class="mdi mdi-clipboard-text"></i>
+	    	</span> <%=request.getParameter("start_date")%> 일정 확인
+    	</h3>
+    	<nav aria-label="breadcrumb">
+      		<ul class="breadcrumb">
+      			<li class="breadcrumb-item active" aria-current="page">
+          			<span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+        		</li>
+    		</ul>
+    		<a href="schedule.manager?start_date=<%=request.getParameter("start_date")%>" class="back-button">이전으로 돌아가기</a>
+    	</nav>
+	</div>
 
 <div class="row">
    <div class="col-lg-12 grid-margin stretch-card">
