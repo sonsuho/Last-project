@@ -12,8 +12,10 @@
 		<org.springframework-version>4.3.8.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<start-class>boot.Main</start-class>
 	</properties>
 	
+	<!-- Oracle을 스프링에서 사용하기 위해서는 repositories를 사용하여 메이븐에 주소 따로 지정 -->
 	<repositories>
 		<repository>
 			<id>oracle</id>
@@ -282,19 +284,15 @@
 
 	<build>
 	    <plugins>
-	        <!-- maven-jar-plugin 설정 -->
-	        <plugin>
-	            <groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-jar-plugin</artifactId>
-	            <version>3.2.0</version>
-	            <configuration>
-	                <archive>
-	                    <manifestEntries>
-	                        <Main-Class>boot.Main</Main-Class> <!-- 메인 클래스 지정 -->
-	                    </manifestEntries>
-	                </archive>
-	            </configuration>
-	        </plugin>
+	    	
+	    	<plugin>
+		        <groupId>org.springframework.boot</groupId>
+		        <artifactId>spring-boot-maven-plugin</artifactId>
+		        <configuration>
+		            <mainClass>boot.Main</mainClass>
+		            <layout>JAR</layout>
+		        </configuration>
+		    </plugin>
 	        
 	        <!-- maven-eclipse-plugin 설정 -->
 	        <plugin>
@@ -318,10 +316,10 @@
 	            <artifactId>maven-compiler-plugin</artifactId>
 	            <version>3.8.1</version>
 	            <configuration>
-	                <source>${java-version}</source>
-	                <target>${java-version}</target>
+	                <source>1.8</source>
+	                <target>1.8</target>
 	                <compilerArguments>
-	                    <arg>-Xlint:all</arg>
+	                    <compilerArgument>-Xlint:all</compilerArgument>
 	                </compilerArguments>
 	                <showWarnings>true</showWarnings>
 	                <showDeprecation>true</showDeprecation>
@@ -329,4 +327,6 @@
 	        </plugin>
 	    </plugins>
 	</build>
+
+
 </project>

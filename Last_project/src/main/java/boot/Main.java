@@ -1,5 +1,6 @@
 package boot;
 
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -8,5 +9,4 @@ public class Main {
 		System.out.println("빈 깡통 메인");
 		
 	}
-
 }
