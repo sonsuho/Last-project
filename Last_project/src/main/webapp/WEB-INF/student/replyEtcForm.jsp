@@ -143,33 +143,7 @@ $(document).ready(function() {
 
     $('input[name="etc_fdate"]').attr('min', minDate);
 
-    $('#btnSave').click(function(e) {
-        e.preventDefault(); // 기본 폼 제출 방지
-
-        var title = $('input[name="etc_title"]').val().trim();
-        var content = $('textarea[name="etc_content"]').val().trim();
-        var selectedDate = $('input[name="etc_fdate"]').val().trim();
-
-        if (title.length === 0) {
-            alert('제목을 입력해주세요.');
-            return false;
-        }
-        if (content.length === 0) {
-            alert('내용을 입력해주세요.');
-            return false;
-        }
-        if (selectedDate.length === 0) {
-            alert('희망 마감 날짜를 선택해주세요.');
-            return false;
-        }
-
-        // 유효성 검사를 통과하면 폼을 제출
-        $('#form').submit(); // #form을 실제 폼 ID로 교체
-    });
-
-    $('#btnclose2, #closeModal2').click(function() {
-        $('#secondModal').modal('hide');
-    });
+});
 
     $('#textBox2').keyup(function() {
         var content = $(this).val();
@@ -191,14 +165,38 @@ $(document).ready(function() {
     });
     
  // 모달 닫기 버튼 처리
-    $("#btnclose2, #closeModal2").click(function() {
+    $("#btnclose2").click(function() {
         $('#secondModal').modal('hide');
     });
 
-});
-    
-    
-   
+    $(function() {
+        $('#btnSave2').click(function() {
+            var title = $('input[name="etc_title"]').val().trim();
+            var content = $('textarea[name="etc_content"]').val().trim();
+            var selectedDate = $('input[name="etc_fdate"]').val().trim();
+
+            // 유효성 검사
+            if (title.length === 0) {
+                alert('제목을 입력해주세요.');
+                return false; // 폼 제출 중단
+            }
+            if (content.length === 0) {
+                alert('내용을 입력해주세요.');
+                return false; // 폼 제출 중단
+            }
+            if (selectedDate.length === 0) {
+                var today = new Date(); // 오늘 날짜 객체 생성
+                var selected = new Date(selectedDate); // 선택한 날짜 객체 생성
+                alert('날짜를 선택해주세요.');
+                return false;
+                
+            }
+                
+            // 유효성 검사 통과 시 폼 제출
+            return true;
+        });
+    });
+
     
 </script>
     
@@ -252,7 +250,7 @@ $(document).ready(function() {
                 		<form:errors path="etc_fdate" cssClass="err"/>
                       	</div>
                       </div>
-                      <button type="button" id="btnSave" class="btn btn-gradient-primary me-2 save" data-action="save">신청하기</button>
+                      <button type="submit" id="btnSave2" class="btn btn-gradient-primary me-2 save" data-action="save">전송</button>
       				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnclose2">닫기</button>
       			</form:form>
             

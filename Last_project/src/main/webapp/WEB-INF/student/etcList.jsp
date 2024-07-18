@@ -102,13 +102,14 @@
     
  
     
-	function reply(etc_num,mem_num,sender_num){//받았던 사람이 이제 보내는사람이 되니까 반대로
+	/* function reply(etc_num,mem_num,sender_num){//받았던 사람이 이제 보내는사람이 되니까 반대로
 		location.href="replyEtc.student?etc_num="+etc_num+"&mem_num="+mem_num+"&sender_num="+sender_num;
-	}
+	} */
 	
 	
 	// Ajax를 이용한 답장 기능 구현
     function reply(etc_num, mem_num, sender_num) {
+		
         // Ajax 요청 보내기
         $.ajax({
             type: 'GET',
@@ -181,7 +182,7 @@
                             <input type="hidden" name="sender_num" value="${loginInfo.mem_num}">
                             <thead>
                                 <tr>
-                                    <th colspan="5"><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></th>
+                                    <td colspan="5"><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -447,6 +448,7 @@
 	</script>
 <script type="text/javascript" src="resources/js/jquery.js"></script>
 <script type="text/javascript">
+
     // jQuery를 이용하여 document.ready 이벤트 설정
     $(document).ready(function() {
         // 보낼 사람 선택 체크박스에 대한 클릭 이벤트 설정
@@ -472,9 +474,9 @@
         });
         
      // 모달 닫기 버튼 처리
-        $("#btnclose2, #closeModal2").click(function() {
+     /*    $("#btnclose2, #closeModal2").click(function() {
             $('#secondModal').modal('hide');
-        });
+        }); */
     });
     
     $(function(){
@@ -510,6 +512,8 @@
       });
     
     
+    
+    
    
     $(function() {
         $('#btnSave').click(function() {
@@ -538,6 +542,40 @@
             return true;
         });
     });
+    
+    $(function() {
+        $('#btnSave2').click(function() {
+            var title = $('input[name="etc_title"]').val().trim();
+            var content = $('textarea[name="etc_content"]').val().trim();
+            var selectedDate = $('input[name="etc_fdate"]').val().trim();
+
+            // 유효성 검사
+            if (title.length === 0) {
+                alert('제목을 입력해주세요.');
+                return false; // 폼 제출 중단
+            }
+            if (content.length === 0) {
+                alert('내용을 입력해주세요.');
+                return false; // 폼 제출 중단
+            }
+            if (selectedDate.length === 0) {
+                var today = new Date(); // 오늘 날짜 객체 생성
+                var selected = new Date(selectedDate); // 선택한 날짜 객체 생성
+                alert('날짜를 선택해주세요.');
+                return false;
+                
+            }
+                
+            // 유효성 검사 통과 시 폼 제출
+            return true;
+        });
+        
+        $("#closeModal2").click(function() {
+            $('#secondModal').modal('hide'); // 모달 숨기기
+        });
+        
+    });
+    
     
 
     

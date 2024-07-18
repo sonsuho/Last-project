@@ -265,21 +265,6 @@ col sign for a10;
 col ap_situ for a10;
 col ap_date for a10;
 
--- 데이터 삽입
-INSERT INTO request (req_num, mem_num, app_num, title,category, time1, time2, reason, sign, ap_situ, ap_date)
-VALUES (seq_request.NEXTVAL, 6, '2', '휴가결의서입니다.','휴가', '2024-06-25 08:00', '2024-06-25 10:00', '하핳ㅎ헣', 'sign1.pdf', '완료', '2024-06-25');
-
-INSERT INTO request (req_num, mem_num, app_num, title,category, time1, time2, reason, sign, ap_situ, ap_date)
-VALUES (seq_request.NEXTVAL, 7, '2', '조퇴신청입니다.', '조퇴', '2024-06-26 09:00', '2024-06-26 11:00', '친구 생일', 'sign2.pdf', '', '2024-06-26');
-
-INSERT INTO request (req_num, mem_num, app_num, title,category, time1, time2, reason, sign, ap_situ, ap_date)
-VALUES (seq_request.NEXTVAL, 8, '2', '제출합니다','결석', '2024-06-27 10:00', '2024-06-27 12:00', '일정이 있습니다', 'sign3.pdf', '진행중', '2024-06-27');
-
-INSERT INTO request (req_num, mem_num, app_num, title,category, time1, time2, reason, sign, ap_situ, ap_date)
-VALUES (seq_request.NEXTVAL, 9, '2', '안녕하세여','조퇴', '2024-06-28 13:00', '2024-06-28 15:00', '미팅이 있습니다', 'sign4.pdf', '', '2024-06-28');
-
-INSERT INTO request (req_num, mem_num, app_num, title, category, time1, time2, reason, sign, ap_situ, ap_date)
-VALUES (seq_request.NEXTVAL, 10, '2', '결의서','결석', '2024-06-29 14:00', '2024-06-29 16:00', '아파요', 'sign5.pdf', '진행중', '진행중-06-29');
 
 
 
