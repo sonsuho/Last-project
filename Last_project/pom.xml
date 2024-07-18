@@ -281,7 +281,7 @@
 		</dependency>
 	</dependencies>
 
-    <build>
+	<build>
 	    <plugins>
 	        <!-- maven-jar-plugin 설정 -->
 	        <plugin>
@@ -318,26 +318,19 @@
 	        <plugin>
 	            <groupId>org.apache.maven.plugins</groupId>
 	            <artifactId>maven-compiler-plugin</artifactId>
-	            <version>2.5.1</version>
+	            <version>3.8.1</version>
 	            <configuration>
-	                <source>1.6</source>
-	                <target>1.6</target>
-	                <compilerArgument>-Xlint:all</compilerArgument>
+	                <source>1.8</source>
+	                <target>1.8</target>
+	                <compilerArguments>
+	                    <compilerArgument>-Xlint:all</compilerArgument>
+	                </compilerArguments>
 	                <showWarnings>true</showWarnings>
 	                <showDeprecation>true</showDeprecation>
 	            </configuration>
 	        </plugin>
-	        
-	        <!-- exec-maven-plugin 설정 -->
-	        <plugin>
-	            <groupId>org.codehaus.mojo</groupId>
-	            <artifactId>exec-maven-plugin</artifactId>
-	            <version>1.2.1</version>
-	            <configuration>
-	                <mainClass>org.test.int1.Main</mainClass> <!-- 메인 클래스 지정 -->
-	            </configuration>
-	        </plugin>
 	    </plugins>
 	</build>
+
 
 </project>
