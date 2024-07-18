@@ -23,26 +23,30 @@ CREATE TABLE member (
 	vacationNum number NULL,
 	mem_ip varchar2(20),
 	mem_latitude NUMBER(17, 14)	NULL,
-	mem_longitude NUMBER(18, 15)	NULL
+	mem_longitude NUMBER(18, 15)	NULL,
+	image varchar2(50) NULL,
+	gender varchar2(10) NULL,
+	birth date NULL
 );
 
-INSERT INTO member  VALUES (mem_seq.nextval, '관리자', 'admin', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'admin', 'X', '서울시 강남구', '010-1234-5678', 'chulsoo@google.com', '관리자', 0,'106.241.247.83' , 37.55655207589364, 126.91945616764994);
-INSERT INTO member  VALUES (mem_seq.nextval, '이영희', 'manager1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '2', '서울시 서초구', '010-2345-6789', 'younghee@google.com', '근무', 2,'106.241.247.83', 37.55655207589364, 126.91945616764994);
-INSERT INTO member  VALUES (mem_seq.nextval, '박민수', 'manager2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '1', '서울시 송파구', '010-3456-7890', 'minsoo@google.com', '근무', 4,'106.241.247.83', 37.55655207589364, 126.91945616764994);
-INSERT INTO member  VALUES (mem_seq.nextval, '최지영', 'teacher1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '1', '서울시 강동구', '010-4567-8901', 'jiyoung@google.com', '근무', 0,'106.241.247.83', 37.55655207589364, 126.91945616764994);
-INSERT INTO member  VALUES (mem_seq.nextval, '한가영', 'teacher2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '2', '서울시 마포구', '010-5678-9012', 'gayoung@google.com', '근무', 0,'106.241.247.83', 37.55655207589364, 126.91945616764994);
-INSERT INTO member  VALUES (mem_seq.nextval, '정우성', 'student1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 은평구', '010-6789-0123', 'woosung@google.com', '진행', 4,'106.241.247.83', 37.55655207589364, 126.91945616764994);
-INSERT INTO member  VALUES (mem_seq.nextval, '김혜수', 'student2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '2', '서울시 노원구', '010-7890-1234', 'hyesoo@google.com', '진행', 2,'106.241.247.83', 37.55655207589364, 126.91945616764994);
-INSERT INTO member  VALUES (mem_seq.nextval, '이동욱', 'student3', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 성북구', '010-8901-2345', 'dongwook@google.com', '중도퇴실', 5,'106.241.247.83', 37.55655207589364, 126.91945616764994);
-INSERT INTO member  VALUES (mem_seq.nextval, '김하늘', 'student4', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '2', '서울시 강북구', '010-9012-3456', 'haneul@google.com', '강제퇴실', 1,'106.241.247.83', 37.55655207589364, 126.91945616764994);
-INSERT INTO member  VALUES (mem_seq.nextval, '박지훈', 'student5', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '진행', 3,'106.241.247.83', 37.55655207589364, 126.91945616764994);
+
+INSERT INTO member  VALUES (mem_seq.nextval, '관리자', 'admin', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'admin', 'X', '서울시 강남구', '010-1234-5678', 'chulsoo@gmail.com', '관리자', 0,'106.241.247.83' , 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '이영희', 'manager1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '1', '서울시 서초구', '010-2345-6789', 'younghee@gmail.com', '근무', 2,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '박민수', 'manager2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '3', '서울시 송파구', '010-3456-7890', 'minsoo@gmail.com', '근무', 4,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '최지영', 'teacher1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '1', '서울시 강동구', '010-4567-8901', 'jiyoung@gmail.com', '근무', 0,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '한가영', 'teacher2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '2', '서울시 마포구', '010-5678-9012', 'gayoung@gmail.com', '근무', 0,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '정우성', 'student1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 은평구', '010-6789-0123', 'woosung@gmail.com', '진행', 4,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '김혜수', 'student2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '2', '서울시 노원구', '010-7890-1234', 'hyesoo@gmail.com', '진행', 2,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '이동욱', 'student3', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 성북구', '010-8901-2345', 'dongwook@gmail.com', '중도퇴실', 5,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '김하늘', 'student4', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '2', '서울시 강북구', '010-9012-3456', 'haneul@gmail.com', '강제퇴실', 1,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '박지훈', 'student5', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 강서구', '010-0123-4567', 'jihoon@gmail.com', '진행', 3,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
 
 --틀린 IP(student)
-INSERT INTO member  VALUES (mem_seq.nextval, 'stu_test', 'stu_test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '진행', 3,'105.241.247.83', 37.55655207589364, 126.91945616764994);
+INSERT INTO member  VALUES (mem_seq.nextval, 'stu_test', 'stu_test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '진행', 3,'105.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
 --틀린 위도(manager)
-INSERT INTO member  VALUES (mem_seq.nextval, 'man_test', 'man_test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '근무', 3,'106.241.247.83', 31.55655207589364, 126.91945616764994);
+INSERT INTO member  VALUES (mem_seq.nextval, 'man_test', 'man_test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '근무', 3,'106.241.247.83', 31.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
 --틀린 경도(teacher)
-INSERT INTO member  VALUES (mem_seq.nextval, 'tea_test', 'tea_test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '근무', 3,'106.241.247.83', 37.55655207589364, 124.91945616764994);
+INSERT INTO member  VALUES (mem_seq.nextval, 'tea_test', 'tea_test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '근무', 3,'106.241.247.83', 37.55655207589364, 124.91945616764994, 'user.jpg', '여', '1975-01-16');
 commit;
 
 col mem_num for 99
@@ -556,4 +560,13 @@ insert into going_class (lec_num, link, onoff) values(1, 'null', 'off');
 insert into going_class (lec_num, link, onoff) values(2, 'null', 'off');
 
 commit;
+
+
+CREATE OR REPLACE FUNCTION func_get_alarm_time (p_date DATE) 
+RETURN VARCHAR2 IS
+BEGIN
+    RETURN TO_CHAR(p_date, 'YYYY-MM-DD HH24:MI:SS');
+END;
+/
+
 
