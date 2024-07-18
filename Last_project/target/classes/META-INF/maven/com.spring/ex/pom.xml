@@ -310,7 +310,7 @@
 	            </configuration>
 	        </plugin>
 	        
-	        <!-- maven-compiler-plugin 설정 -->
+ 			<!-- maven-compiler-plugin 설정 -->
 	        <plugin>
 	            <groupId>org.apache.maven.plugins</groupId>
 	            <artifactId>maven-compiler-plugin</artifactId>
@@ -318,9 +318,10 @@
 	            <configuration>
 	                <source>1.8</source>
 	                <target>1.8</target>
-	                <compilerArguments>
-	                    <compilerArgument>-Xlint:all</compilerArgument>
-	                </compilerArguments>
+	                <!-- 컴파일러 옵션을 compilerArgs로 수정 -->
+	                <compilerArgs>
+	                    <arg>-Xlint:all</arg>
+	                </compilerArgs>
 	                <showWarnings>true</showWarnings>
 	                <showDeprecation>true</showDeprecation>
 	            </configuration>
