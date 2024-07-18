@@ -165,9 +165,17 @@ $(document).ready(function() {
     });
     
  // 모달 닫기 버튼 처리
-    $("#btnclose2").click(function() {
-        $('#secondModal').modal('hide');
-    });
+     $("#Modal").click(function() {
+            $('#secondModal').modal('hide'); // 모달 숨기기
+            $("#formContainer").hide(); 
+        });
+        
+    
+        $("#close").click(function() {
+            $('#secondModal').modal('hide');
+            $("#formContainer").hide(); // 폼을 감싸는 div를 숨김
+        });
+
 
     $(function() {
         $('#btnSave2').click(function() {
@@ -201,7 +209,7 @@ $(document).ready(function() {
 </script>
     
    <!--답장 모달 -->
-
+				<div id="formContainer">
       			<form:form id="form" commandName="etc" action="replyEtc.student" method="post" enctype="multipart/form-data" acceptCharset="UTF-8" class="forms-sample">
 
                     <input type="hidden" name="etc_delete" value="MS">
@@ -219,7 +227,6 @@ $(document).ready(function() {
                			 <form:errors path="etc_title" cssClass="err"/>
                       </div>
                       
-                      
                       <div class="form-group">
                         <label>드래그나 클릭으로 업로드</label>
                         <div id="fileUpload" class="drop-zone">
@@ -232,8 +239,6 @@ $(document).ready(function() {
                           </span>
                         </div>
                       </div>
-                      
-              
                     
                       <div class="form-group">
                         <label for="exampleTextarea1">내용</label>
@@ -251,9 +256,9 @@ $(document).ready(function() {
                       	</div>
                       </div>
                       <button type="submit" id="btnSave2" class="btn btn-gradient-primary me-2 save" data-action="save">전송</button>
-      				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnclose2">닫기</button>
+      				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">닫기</button>
       			</form:form>
-            
+            </div>
 
     
     

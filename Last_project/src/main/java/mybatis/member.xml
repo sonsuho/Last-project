@@ -10,16 +10,18 @@
 		select * from member where category = #{category}
 	</select>
 	
-	
-	
 	<insert id="idInsert" parameterType="member.model.MemberBean">
-	    insert into member(mem_num, lec_num, name, id, pw, category, phone, email, state, mem_ip) 
-	    values(mem_seq.nextval,#{lec_num},#{name},#{id},#{pw},#{category},#{phone},
-	    CASE 
-		    WHEN #{email} LIKE '%@%' THEN #{email}
-		    ELSE CONCAT(#{email}, '@google.com')
-		  END,
-	    #{state},'106.241.247.83')
+	    insert into member values(
+	    	mem_seq.nextval, #{name}, #{id}, #{pw},
+	    	#{category}, #{lec_num}, #{addr}, #{phone},
+		    CASE 
+			    WHEN #{email} LIKE '%@%' THEN #{email}
+			    ELSE CONCAT(#{email}, '@gmail.com')
+			  END,
+	    	#{state}, #{vacationNum}, #{mem_ip},
+	    	#{mem_latitude}, #{mem_longitude},
+	    	#{image}, #{gender}, #{birth}
+	    )
 	</insert>
 	<select id="getEmplList" resultType="member.model.MemberBean">
 		select * from member where category in('manager','teacher')
@@ -86,5 +88,13 @@
 	
 	<update id="changePhone">
 		update member set phone = #{phone} where mem_num = #{mem_num}
+	</update>
+	
+	<update id="changeImage">
+		update member set image = #{image} where mem_num = #{mem_num}
+	</update>
+	
+	<update id="changeAddr">
+		update member set addr = #{addr} where mem_num = #{mem_num}
 	</update>
 </mapper>

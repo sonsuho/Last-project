@@ -308,8 +308,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="replyModalLabel">문서 보내기</h5>
         
-         <i class="fa fa-times" id="closeModal2"></i>
-
+         <i class="fa fa-times" id="Modal"></i>
       </div>
       <div class="modal-body">
       
@@ -512,8 +511,6 @@
       });
     
     
-    
-    
    
     $(function() {
         $('#btnSave').click(function() {
@@ -542,41 +539,18 @@
             return true;
         });
     });
+  
     
-    $(function() {
-        $('#btnSave2').click(function() {
-            var title = $('input[name="etc_title"]').val().trim();
-            var content = $('textarea[name="etc_content"]').val().trim();
-            var selectedDate = $('input[name="etc_fdate"]').val().trim();
-
-            // 유효성 검사
-            if (title.length === 0) {
-                alert('제목을 입력해주세요.');
-                return false; // 폼 제출 중단
-            }
-            if (content.length === 0) {
-                alert('내용을 입력해주세요.');
-                return false; // 폼 제출 중단
-            }
-            if (selectedDate.length === 0) {
-                var today = new Date(); // 오늘 날짜 객체 생성
-                var selected = new Date(selectedDate); // 선택한 날짜 객체 생성
-                alert('날짜를 선택해주세요.');
-                return false;
-                
-            }
-                
-            // 유효성 검사 통과 시 폼 제출
-            return true;
-        });
-        
-        $("#closeModal2").click(function() {
+        $("#Modal").click(function() {
             $('#secondModal').modal('hide'); // 모달 숨기기
+            $("#formContainer").hide(); 
         });
         
-    });
     
-    
+        $("#close").click(function() {
+            $('#secondModal').modal('hide');
+            $("#formContainer").hide(); // 폼을 감싸는 div를 숨김
+        });
 
     
 </script>
