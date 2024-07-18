@@ -69,13 +69,15 @@ th {
 		      				</td>
 		      				<th style="background: #E8F5FF; color: #1E3269;" style="padding:30px;">전화번호</th>
 		      				<td colspan=3 style="color: #323232;">
-		      					<span id="myphone">${loginInfo.phone}</span> &nbsp; <input type="button" value="변경" onclick="resetPhoneModal()" class="btn btn-sm btn-rounded btn-gradient-light">
+		      					<span id="myphone">${loginInfo.phone}</span> &nbsp; 
+		      					<input type="button" value="변경" onclick="resetPhoneModal()" class="btn btn-sm btn-rounded btn-gradient-light">
 		      				</td>
 		      			</tr>
 		      			<tr>
 		      				<th style="background: #E8F5FF; color: #1E3269;" style="padding:30px;">주소</th>
 		      				<td colspan=7 style="color: #323232;">
-		      					${loginInfo.addr} &nbsp; <!-- <input type="button" value="변경" onclick="alert('주소 변경')" class="btn btn-sm btn-rounded btn-gradient-light"> -->
+		      					<span id="myaddr">${loginInfo.addr}</span> &nbsp;
+		      					<input type="button" value="변경" onclick="resetAddr(this)" class="btn btn-sm btn-rounded btn-gradient-light">
 		      				</td>
 		      			</tr>
 		      		</table>
@@ -238,8 +240,59 @@ th {
 </div>
     
 <script>
+
 function myPage() {
 	$('#myPageModal').modal('show');
+}
+
+function resetAddr(btn) {
+	btn.style.display = 'none';
+
+  var addrTd = document.getElementById("myaddr");
+  var newAddrInput = document.createElement("input");
+  newAddrInput.type = "text";
+  newAddrInput.value = addrTd.textContent;
+  newAddrInput.classList.add("form-control");
+  newAddrInput.style.width = "500px";
+  newAddrInput.style.marginRight = "20px";
+
+  var saveBtn = document.createElement("button");
+  saveBtn.type = "button";
+  saveBtn.classList.add("btn", "btn-sm", "btn-rounded", "btn-gradient-light");
+  saveBtn.textContent = "저장";
+  saveBtn.onclick = function() {
+    changeAddr(newAddrInput.value);
+  };
+
+  var wrapper = document.createElement("div");
+  wrapper.classList.add("d-flex", "align-items-center");
+  wrapper.appendChild(newAddrInput);
+  wrapper.appendChild(saveBtn);
+
+  addrTd.innerHTML = "";
+  addrTd.appendChild(wrapper);
+}
+
+function changeAddr(addr){
+	$.ajax({
+    url: "changeAddr.admin",
+    type: "POST",
+    data: { addr: addr },
+    success: function(response) {
+      // 화면 업데이트
+      if(response != "NO"){
+    	  alert("주소가 변경되었습니다");
+	      var addrTd = document.getElementById("myaddr");
+	      addrTd.textContent = addr;
+	      addrTd.innerHTML = addr + " &nbsp; <input type='button' value='변경' onclick='resetAddr()' class='btn btn-sm btn-rounded btn-gradient-light'>";
+      } else{
+    	  alert("주소 변경에 실패했습니다.");
+      }
+    },
+    error: function(xhr, status, error) {
+      alert("주소 변경에 실패했습니다.");
+    }
+  });
 }
 
 function resetPwModal() {
@@ -275,11 +328,18 @@ function changeImage() {
 		  },
 		  url: "changeImage.admin",
 		  success: function(response){
-			  alert(response);
+			  if(response != "NO"){
+				  alert("이미지가 변경되었습니다 (새로고침한 뒤 적용됩니다)");
+			  }else{
+				  alert("다시 시도해주세요");
+			  }
 		  }
 	  });
+  } else{
+	  alert("이미지를 선택하세요");
+	  return false;
   }
-  closeModal();
+	closeModal();
   return true;
 }
 

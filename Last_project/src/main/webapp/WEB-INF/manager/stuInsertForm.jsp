@@ -14,7 +14,7 @@
 	  margin-right: 0.3rem;
 	}
 	.form-select{
-	  width: 150px;
+	  width: 110px;
 	}
 	th, td{
 	  text-align: center;
@@ -37,7 +37,7 @@
 	</style>
 	
 	<div class="page-header">
-  	<h3 class="page-title">${param.lec_num}번 강좌 학생 정보 등록</h3>
+  	<h3 class="page-title">[${param.lec_num}] 번 강좌 학생 정보 등록</h3>
   </div>
     
   <div class="row">
@@ -58,7 +58,7 @@
 					            	업로드
 					            	<i class="mdi mdi-upload btn-icon-prepend"></i>
 					            </button>
-					          	<input type="button" onclick="location.href='emplExcelDownload.manager'" value="양식다운" class="file-upload-browse btn btn-gradient-dark py-3">
+					          	<input type="button" onclick="location.href='studentExcelDownload.manager'" value="양식다운" class="file-upload-browse btn btn-gradient-dark py-3">
 					          </span>
 					        </span>
 					      </div>
@@ -78,19 +78,31 @@
 					  <table class="table table-hover">
 					    <thead>
 					      <tr>
-					        <th width=14%>이름</th>
-					    		<th width=16%>아이디</th>
-					    		<th width=16%>비밀번호</th>
-					    		<th width=25%>전화번호</th>
-					    		<th width=25%>이메일</th>
+					        <th width=12%>이름</th>
+					    		<th width=12%>아이디</th>
+					    		<th width=12%>비밀번호</th>
+					    		<th width=10%>성별</th>
+					    		<th width=12%>생년월일</th>
+					    		<th width=15%>전화번호</th>
+					    		<th width=20%>이메일</th>
 					    		<th>제거</th>
 					      </tr>
 					    </thead>
-					    <tbody>
+					    <tbody id="plusTr">
 					      <tr>
 					        <td><input type="text" name="name" placeholder="이름" size="4" class="form-control mr-2" required></td>
 					        <td><input type="text" name="id" placeholder="아이디" size="10" class="form-control mr-2" required></td>
 					        <td><input type="password" name="pw" placeholder="비밀번호" size="5" class="form-control mr-2" required></td>
+					        <td>
+					        	<select name="gender" class="form-select mr-2" style="color: black;" required>
+					            <option value="">성별
+					            <option value="남">남자
+				              <option value="여">여자
+					          </select>
+					        </td>
+					        <td>
+					        	<input type="date" class="form-control me-3" id="birth" name="birth" required>
+					        </td>
 					        <td><input type="text" name="phone" id="phone-number" placeholder="전화번호를 입력하세요" size="15" class="form-control mr-2" required></td>
 					        <td>
 					          <span class="input-group">
@@ -113,24 +125,32 @@
 
 	<script>	
 		function addId() {
-		  var container = document.querySelector('tbody');
-		  var newId = document.createElement('tr');
+			var container = document.querySelector('tbody[id=plusTr]');
+			var newId = document.createElement('tr');
 		  newId.innerHTML = `
-			  	<tr>
-		        <td><input type="text" name="name" placeholder="이름" size="4" class="form-control mr-2" required></td>
-		        <td><input type="text" name="id" placeholder="아이디" size="10" class="form-control mr-2" required></td>
-		        <td><input type="password" name="pw" placeholder="비밀번호" size="5" class="form-control mr-2" required></td>
-		        <td><input type="text" name="phone" id="phone-number" placeholder="전화번호를 입력하세요" size="15" class="form-control mr-2" required></td>
-		        <td>
-		          <span class="input-group">
-						    <input type="text" name="email" id="email" class="form-control" placeholder="email" aria-label="email" aria-describedby="basic-addon2" required>
-						    <label class="input-group-text" id="basic-addon2">@ google.com</label>
-						  </span>
-		        </td>
-		        <td>
-		          <i class="fa fa-minus-square" onclick="removeId(this)"></i>
-		        </td>
-		      </tr>
+	        <td><input type="text" name="name" placeholder="이름" size="4" class="form-control mr-2" required></td>
+	        <td><input type="text" name="id" placeholder="아이디" size="10" class="form-control mr-2" required></td>
+	        <td><input type="password" name="pw" placeholder="비밀번호" size="5" class="form-control mr-2" required></td>
+	        <td>
+	        	<select name="gender" class="form-select mr-2" style="color: black;" required>
+	            <option value="">성별
+	            <option value="남">남자
+              <option value="여">여자
+	          </select>
+	        </td>
+	        <td>
+	        	<input type="date" class="form-control me-3" id="birth" name="birth" required>
+	        </td>
+	        <td><input type="text" name="phone" id="phone-number" placeholder="전화번호를 입력하세요" size="15" class="form-control mr-2" required></td>
+	        <td>
+	          <span class="input-group">
+					    <input type="text" name="email" id="email" class="form-control" placeholder="email" aria-label="email" aria-describedby="basic-addon2" required>
+					    <label class="input-group-text" id="basic-addon2">@ google.com</label>
+					  </span>
+	        </td>
+	        <td>
+	          <i class="fa fa-minus-square" onclick="removeId(this)"></i>
+	        </td>
 		  `;		  
 		  // 새로 추가된 전화번호 입력 필드에 이벤트 리스너 등록
 		  var newPhoneInput = newId.querySelector('#phone-number');
@@ -169,8 +189,7 @@
          	success:function(data){
              console.log("data: ",data);
              alert('엑셀파일이 업로드 되었습니다.');
-             w2ui['statisticInfoGrid'].reload();
-             $("#excelInput").val("");
+						 location.href = "lectureList.manager";
           },
 					error: function(xhr, status, error) {
 				    // 오류 처리 로직
@@ -181,7 +200,6 @@
 					data: {lec_num : ${param.lec_num}}
         };
         $("#excelUploadForm").ajaxSubmit(options);
-				location.href = "lectureList.manager";
       }   
     }
 		

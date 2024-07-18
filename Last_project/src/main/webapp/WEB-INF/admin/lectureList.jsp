@@ -190,7 +190,6 @@
 							      <div class="modal-body"><br>
 							        <form id="editForm">
 							          <input type="hidden" name="lec_num" id="lec_num">
-							         
 							          <div class="mb-3">
 							            <label for="lec_name" class="form-label">강좌이름</label>
 							            <input type="text" class="form-control" id="lec_name" name="lec_name" required>
@@ -341,8 +340,8 @@
   	          '<th>반</th><td>' + response.lecture.class_name + '</td>' +
   	          '</tr>' +
   	          '<tr>' +
-  	          '<th rowspan=3>매니저</th><td>' + response.lecture.m_name + '</td>' +
-  	          '<th rowspan=3>강사</th><td>' + response.lecture.t_name + '</td>' +
+  	          '<th rowspan=3>매니저</th><td>' + response.lecture.m_name + ' (' + response.lecture.m_age + "/" + response.lecture.m_gender + ')</td>' +
+  	          '<th rowspan=3>강사</th><td>' + response.lecture.t_name + ' (' + response.lecture.t_age + "/" + response.lecture.t_gender + ')</td>' +
   	          '</tr>' +
   	          '<tr>' +
   	          '<td>' + response.lecture.m_phone + '</td><td>' + response.lecture.t_phone + '</td>' +
