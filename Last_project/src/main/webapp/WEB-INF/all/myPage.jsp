@@ -246,7 +246,7 @@ function myPage() {
 }
 
 function resetAddr(btn) {
-  btn.style.display = 'none';
+	btn.style.display = 'none';
 
   var addrTd = document.getElementById("myaddr");
   var newAddrInput = document.createElement("input");
@@ -283,8 +283,8 @@ function changeAddr(addr){
       if(response != "NO"){
     	  alert("주소가 변경되었습니다");
 	      var addrTd = document.getElementById("myaddr");
-	      addrTd.textContent = newAddr;
-	      addrTd.innerHTML = newAddr + " &nbsp; <input type='button' value='변경' onclick='resetAddr()' class='btn btn-sm btn-rounded btn-gradient-light'>";
+	      addrTd.textContent = addr;
+	      addrTd.innerHTML = addr + " &nbsp; <input type='button' value='변경' onclick='resetAddr()' class='btn btn-sm btn-rounded btn-gradient-light'>";
       } else{
     	  alert("주소 변경에 실패했습니다.");
       }
