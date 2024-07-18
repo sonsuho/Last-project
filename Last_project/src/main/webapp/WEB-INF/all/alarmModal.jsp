@@ -202,10 +202,10 @@
 	    // 페이지 로드시 안 읽은 소식 개수 초기화
 	    updateUnreadAlarmCount();
 
-	    // 일정 시간마다 안 읽은 소식 개수 업데이트 (예: 10초마다)
+	    // 일정 시간마다 안 읽은 소식 개수 업데이트 (예: 5초마다)
 	    setInterval(function() {
 	        updateUnreadAlarmCount();
-	    }, 10000); // 10초마다 업데이트
+	    }, 5000); // 5초마다 업데이트
 
 	    // 안 읽은 소식 개수를 서버에서 가져오는 함수
 	    function updateUnreadAlarmCount() {
@@ -229,7 +229,7 @@
 <!-- 게시판 알림 -->
 <li class="nav-item dropdown">
     <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false" onclick="openAlarm()">
-        <i class="mdi mdi-bell-outline"></i><div class="&#128308;" id="unreadAlarmCount"></div>
+        <i class="mdi mdi-bell-outline"></i><div id="unreadAlarmCount"></div>
         <span class="count-symbol bg-danger"></span>
     </a>
     <div class="dropdown-menu dropdown-menu-end navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
