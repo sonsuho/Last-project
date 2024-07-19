@@ -3,6 +3,9 @@
 <%@ include file="../common/common.jsp"%>
 <%@ include file="../all/myPage.jsp" %>
 
+<!-- 메시지 탑 메뉴 ajax -->
+<%@ include file="../all/topMenuMessage.jsp" %>
+
 	<!-- studentBarTop.jsp -->
 	
 	<script>
@@ -15,7 +18,8 @@
 			location.href = "logout.in";
 		}
 	}
-</script>
+
+	</script>
 
 	<!-- plugins:css -->
 	<link rel="stylesheet" href="resources/assets/vendors/mdi/css/materialdesignicons.min.css">
@@ -33,6 +37,7 @@
 	<link rel="stylesheet" href="resources/assets/css/style.css">
 	<!-- End layout styles -->
 	<link rel="shortcut icon" href="resources/assets/images/favicon.png" />
+
 
 	<div class="container-scroller">
 	

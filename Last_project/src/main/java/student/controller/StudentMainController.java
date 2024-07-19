@@ -58,17 +58,19 @@ public class StudentMainController {
 		
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		
-		int mem_num = loginInfo.getMem_num();
-		System.out.println("mem_num: " + mem_num);
-		
-		List<MessengerBean> reclist = messengerDao.getRecentlyMsg(mem_num);
-		session.setAttribute("reclist", reclist);
-		
-		for(MessengerBean mb :  reclist) {
-			System.out.println(mb.getMsg_num());
-			System.out.println(mb.getSend_name());
-			System.out.println(mb.getSend_time());
-		}
+//		7/17 삭제 예정, 수진 
+//		int mem_num = loginInfo.getMem_num();
+//		System.out.println("mem_num: " + mem_num);
+//		
+//		List<MessengerBean> reclist = messengerDao.getRecentlyMsg(mem_num);
+//		session.setAttribute("reclist", reclist);
+//		
+//		for(MessengerBean mb :  reclist) {
+//			System.out.println(mb.getMsg_num());
+//			System.out.println(mb.getSend_name());
+//			System.out.println(mb.getSend_time());
+//		}
+//		
 		
 		ModelAndView mav = new ModelAndView();
 		List<student.model.sCalendarBean> lists = sCalendarDao.getAllSchedules();
