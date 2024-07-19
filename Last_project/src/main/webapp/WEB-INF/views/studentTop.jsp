@@ -1,8 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../common/common.jsp"%>
+<%@ include file="../all/myPage.jsp" %>
 
 	<!-- studentBarTop.jsp -->
+	
+	<script>
+	function checkAttend(situ){
+		if(situ == '수업중'){
+			alert(" '퇴실하기'를 완료하시고 로그아웃하셔야합니다.");
+			location.href = "home.student";
+		}
+		if(situ != '수업중'){
+			location.href = "logout.in";
+		}
+	}
+</script>
 
 	<!-- plugins:css -->
 	<link rel="stylesheet" href="resources/assets/vendors/mdi/css/materialdesignicons.min.css">
@@ -43,7 +56,7 @@
 						<!-- 메신저알림 -->
 						<%@ include file="../all/message.jsp" %> 
 						<!-- 게시판알림 -->
-						<%@ include file="../all/board.jsp" %> 
+						<%@ include file="../all/alarmModal.jsp" %> 
 						<!-- 로그인/로그아웃 버튼 -->
 		        <li class="nav-item nav-logout d-none d-lg-block">
 		          <c:if test="${loginInfo == null}">
@@ -51,8 +64,13 @@
 		              <i class="mdi mdi-power"></i>
 		            </a>
 		       		</c:if>
-		          <c:if test="${loginInfo != null}">
-		            <a class="nav-link" href="logout.in">
+		           <c:if test="${loginInfo != null}">
+		           <%
+		          	//AttendController session
+		          	String situ = (String)session.getAttribute("situ");
+		           
+		        	%>
+		           <a class="nav-link" onclick="checkAttend('<%=situ%>')">
 		              <i class="mdi mdi-power"></i>
 		            </a>
 		       		</c:if>
@@ -80,9 +98,9 @@
 		      <ul class="nav">
 						<!-- 프로필정보 -->
 						<li class="nav-item nav-profile">
-							<a href="#" class="nav-link">
+							<a href="#" class="nav-link" onclick="myPage()">
 								<div class="nav-profile-image">
-									<img src="resources/assets/images/faces/face1.jpg" alt="profile" />
+									<img src="resources/assets/images/faces/${loginInfo.image}" alt="profile" />
 									<span class="login-status online"></span>
 								</div>
 								<div class="nav-profile-text d-flex flex-column">
@@ -114,10 +132,7 @@
 							<div class="collapse" id="menu1">
 								<ul class="nav flex-column sub-menu">
 									<li class="nav-item">
-										<a class="nav-link" href="">내 근태 현황</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link"	href="request.student">휴가 신청</a>
+										<a class="nav-link" href="attStatus.student?mem_num=${loginInfo.mem_num}">내 근태 현황</a>
 									</li>
 									<li class="nav-item">
 										<a class="nav-link" href="">휴가 내역</a>

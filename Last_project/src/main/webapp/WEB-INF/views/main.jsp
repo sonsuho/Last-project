@@ -80,6 +80,38 @@
 	            return false; // 삭제 실패 처리
 	        }
 	    }
+	    
+	    function enterRoom(event) {
+	        event.preventDefault();
+	        
+	        // 선택된 채팅방 가져오기
+	        var selectedRoom = document.querySelector('input[name="chat_num"]:checked');
+
+	        if (!selectedRoom) {
+	            alert('들어가실 채팅방을 선택해주세요.');
+	            return false;
+	        }
+
+	        // 선택된 채팅방의 값 (chat_num) 가져오기
+	        var chatNum = selectedRoom.value;
+
+	        // mylist에 있는 채팅방 번호들을 배열로 가져오기
+	        var myChatRooms = [
+	            <c:forEach var="room" items="${mylist}" varStatus="loop">
+	                ${room.chat_num}<c:if test="${!loop.last}">,</c:if>
+	            </c:forEach>
+	        ];
+
+	        // 선택된 채팅방의 번호가 mylist에 있는지 확인
+	        if (myChatRooms.includes(parseInt(chatNum))) {
+	            var form = event.target.form;
+	            form.submit();
+	        } else {
+	            // 사용자의 채팅방이 없을 경우 경고 메시지 출력
+	            alert('들어가실 채팅방을 선택해주세요.');
+	            return false; // 삭제 실패 처리
+	        }
+	    }
 	</script>
     
     <!-- header -->
@@ -177,7 +209,7 @@
                     
                     <br><br>
                     
-                    <input type="submit" class="btn btn-gradient-info py-3" value="Enter">
+                    <input type="submit" class="btn btn-gradient-info py-3" value="Enter" onclick="enterRoom(event)">
         
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
