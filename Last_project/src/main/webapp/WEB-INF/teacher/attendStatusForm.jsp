@@ -1,7 +1,7 @@
 <%@page import="org.springframework.ui.Model"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file = "studentTop.jsp"%>
+<%@ include file = "teacherTop.jsp"%>
 
 <style>
     body {
@@ -57,11 +57,11 @@
 </style>
 
 <!-- header -->
-<div class="page-header">
+	<div class="page-header">
     	<h3 class="page-title">
 	    	<span class="page-title-icon bg-gradient-primary text-white me-2">
 	        	<i class="mdi mdi-clipboard-text"></i>
-	    	</span> 내 근퇴현황
+	    	</span> 내 근퇴 현황
     	</h3>
     	<nav aria-label="breadcrumb">
       		<ul class="breadcrumb">
@@ -71,23 +71,22 @@
     		</ul>
     	</nav>
 	</div>
-
+	
 <div class="row">
    <div class="col-lg-12 grid-margin stretch-card">
       <div class="card">
-         <div class="card-body">
-<br><br>
-	<h3 style="text-align: center">회원 이름 : <a class="name">${loginInfo.name}</a></h3>
-
-<span class="cf">특정날짜를 찾으려면 Ctrl + F를 눌러 찾으세요.</span><br><br>
- 
+         <div class="card-body">	
+<br><br>    
+    <h3 style="text-align: center">회원 이름 : <a class="name">${loginInfo.name}</a></h3>
+    <span class="cf">특정날짜를 찾으려면 Ctrl + F를 눌러 찾으세요.</span><br><br>
+    
     <table>
         <thead>
             <tr>
                 <th>날짜</th>
-                <th>출석시간</th>
-                <th>퇴실시간</th>
-                <th>출결상태</th>
+                <th>출근시간</th>
+                <th>퇴근시간</th>
+                <th>상태</th>
                 <th>비고</th>
             </tr>
         </thead>
@@ -107,11 +106,10 @@
             </c:forEach>
         </tbody>
     </table>
-    
+
          </div>
       </div>
    </div>
 </div>
-
-<%@ include file = "studentBottom.jsp"%>
+<%@ include file = "teacherBottom.jsp"%>
 위의 스타일링은 다음과 같은 변화를 포함합니다:

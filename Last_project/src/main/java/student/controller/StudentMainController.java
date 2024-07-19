@@ -10,8 +10,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import lecture.model.LectureBean;
@@ -41,8 +43,18 @@ public class StudentMainController {
 	@Autowired
 	LectureDao ldao;
 	
+
+	/* calendar추가코드 */
+	@Autowired
+	student.model.sCalendarDao sCalendarDao;
+
+	
 	@RequestMapping(value = command , method = RequestMethod.GET)
-	public ModelAndView approval(HttpSession session) {
+	public ModelAndView approval(
+			HttpSession session,
+			@RequestParam(value = "month", required = false) String month,
+			Model model
+			) {
 		
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		
@@ -59,7 +71,9 @@ public class StudentMainController {
 		}
 		
 		ModelAndView mav = new ModelAndView();
-		
+		List<student.model.sCalendarBean> lists = sCalendarDao.getAllSchedules();
+	    //model.addAttribute("allSchedules", lists);
+	    
 	    String lec_num = loginInfo.getLec_num();
 	    LectureBean lecture = ldao.getLectureByNum(Integer.parseInt(lec_num));
 	    
@@ -84,7 +98,9 @@ public class StudentMainController {
 	    System.out.println(totalDays);
 	    System.out.println(remainingDays);
 	    
+	    
 	    // ModelAndView에 데이터 추가
+	    mav.addObject("allSchedules", lists);	//calendar 일정
 	    mav.addObject("totalDays", totalDays); // 전체 날짜 수
 	    mav.addObject("remainingDays", remainingDays); // 남은 날짜 수
 		

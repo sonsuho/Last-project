@@ -79,4 +79,10 @@
 		select * from calendar
 	</select>
 	<!-- calendar -->
+	
+	<!-- 내 휴가내역 -->
+	 <select id="getVacationDetailListsByCategory" resultType="student.model.SRequestBean">
+		select * from request where mem_num = #{mem_num} and ap_situ = '승인' and category = '휴가' order by req_num desc
+	</select>
+	<!-- 내 휴가내역 -->
 </mapper>

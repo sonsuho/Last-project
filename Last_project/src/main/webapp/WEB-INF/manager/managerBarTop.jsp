@@ -75,8 +75,7 @@
 		              <i class="mdi mdi-power"></i>
 		            </a>
 		       		</c:if>
-		       		
-		       		
+
 		        </li>
 		        <!-- 보고있는 페이지 상단으로 이동하는 버튼 -->
 		        <li class="nav-item nav-settings d-none d-lg-block">
@@ -137,7 +136,14 @@
 										<a class="nav-link" href="attStatus.manager?mem_num=${loginInfo.mem_num}">내 근태 현황</a>
 									</li>
 									<li class="nav-item">
+<<<<<<< HEAD
 										<a class="nav-link" href="">휴가 내역</a>
+=======
+										<a class="nav-link" href="requestForm.manager">휴가 신청</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="vacationDetail.manager?mem_num=${loginInfo.mem_num}">휴가 내역</a>
+>>>>>>> refs/heads/huiwon
 									</li>
 								</ul>
 							</div></li>

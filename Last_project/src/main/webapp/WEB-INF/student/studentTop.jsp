@@ -68,7 +68,6 @@
 		           <%
 		          	//AttendController session
 		          	String situ = (String)session.getAttribute("situ");
-		           
 		        	%>
 		           <a class="nav-link" onclick="checkAttend('<%=situ%>')">
 		              <i class="mdi mdi-power"></i>
@@ -135,7 +134,14 @@
 										<a class="nav-link" href="attStatus.student?mem_num=${loginInfo.mem_num}">내 근태 현황</a>
 									</li>
 									<li class="nav-item">
+<<<<<<< HEAD
 										<a class="nav-link" href="">휴가 내역</a>
+=======
+										<a class="nav-link"	href="request.student">휴가 신청</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="vacationDetail.student?mem_num=${loginInfo.mem_num}">휴가 내역</a>
+>>>>>>> refs/heads/huiwon
 									</li>
 								</ul>
 							</div>

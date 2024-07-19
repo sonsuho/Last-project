@@ -1,7 +1,6 @@
-<%@page import="org.springframework.ui.Model"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file = "studentTop.jsp"%>
+<%@ include file = "managerBarTop.jsp"%>
 
 <style>
     body {
@@ -56,12 +55,11 @@
     }
 </style>
 
-<!-- header -->
-<div class="page-header">
+	<div class="page-header">
     	<h3 class="page-title">
 	    	<span class="page-title-icon bg-gradient-primary text-white me-2">
 	        	<i class="mdi mdi-clipboard-text"></i>
-	    	</span> 내 근퇴현황
+	    	</span> 내 휴가 내역
     	</h3>
     	<nav aria-label="breadcrumb">
       		<ul class="breadcrumb">
@@ -71,38 +69,45 @@
     		</ul>
     	</nav>
 	</div>
-
+	
+	
 <div class="row">
    <div class="col-lg-12 grid-margin stretch-card">
       <div class="card">
          <div class="card-body">
-<br><br>
-	<h3 style="text-align: center">회원 이름 : <a class="name">${loginInfo.name}</a></h3>
-
-<span class="cf">특정날짜를 찾으려면 Ctrl + F를 눌러 찾으세요.</span><br><br>
- 
+<br><br>   
+         <h3 style="text-align: center">회원 이름 : <a class="name">${loginInfo.name}</a></h3>
+         
+		<span class="cf">특정날짜를 찾으려면 Ctrl + F를 눌러 찾으세요.</span><br><br>
     <table>
         <thead>
             <tr>
-                <th>날짜</th>
-                <th>출석시간</th>
-                <th>퇴실시간</th>
-                <th>출결상태</th>
-                <th>비고</th>
+                <th>시작날짜</th>
+                <th>마감날짜</th>  
+                <th>요청사유</th>
+                <th>승인여부</th>
+                <th>결재일자</th>
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="attend" items="${attendLists}" varStatus="status">
-                <c:set var="dateStr" value="${attend.day}" />
-                <fmt:parseDate value="${dateStr}" var="parsedDate" pattern="yyyy-MM-dd HH:mm:ss.S" />
+            <c:forEach var="vacation" items="${vacationLists}" varStatus="status">
+
+            	<c:set var="time1" value="${vacation.time1}" />
+                <fmt:parseDate value="${time1}" var="parsedDate" pattern="yyyy-MM-dd HH:mm" />
                 <fmt:formatDate value="${parsedDate}" var="formattedDate" pattern="yyyy-MM-dd" />
-                <c:set var="day" value="${formattedDate}" />
+                <c:set var="startDay" value="${formattedDate}" />
+
+                <c:set var="time2" value="${vacation.time2}" />
+                <fmt:parseDate value="${time2}" var="parsedDate2" pattern="yyyy-MM-dd HH:mm" />
+                <fmt:formatDate value="${parsedDate2}" var="formattedDate2" pattern="yyyy-MM-dd" />
+                <c:set var="finDay" value="${formattedDate2}" />
+
                 <tr>
-                    <td>${day}</td>
-                    <td><fmt:formatDate value="${attend.att_sdate}" pattern="kk:mm:ss"/></td>
-                    <td><fmt:formatDate value="${attend.att_fdate}" pattern="kk:mm:ss"/></td>
-                    <td>${attend.situ}</td>
-                    <td></td>
+                    <td>${startDay}</td>
+                    <td>${finDay}</td>
+                    <td>${vacation.reason}</td>
+                    <td>${vacation.ap_situ}</td>
+                    <td>${vacation.ap_date}</td>
                 </tr>
             </c:forEach>
         </tbody>
@@ -113,5 +118,4 @@
    </div>
 </div>
 
-<%@ include file = "studentBottom.jsp"%>
-위의 스타일링은 다음과 같은 변화를 포함합니다:
+<%@ include file = "managerBarBottom.jsp"%>
