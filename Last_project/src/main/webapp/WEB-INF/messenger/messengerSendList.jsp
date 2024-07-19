@@ -50,7 +50,7 @@
     .seleted_list div { width: 15%; background: #f6f6f6; display: flex; justify-content: center; align-content: center; border-radius: 50px; margin-right: 7px; padding: 5px; color: #666; margin-top:10px; font-size: 14px;}
     .seleted_list div:last-child { margin-right:0;}
     
-    #selectedItems {height: 80%; display:flex; flex-wrap: wrap; overflow-y:auto;}
+    #selectedItems {display:flex; flex-wrap: wrap; overflow-y:auto;}
     #selectedItems div { padding: 15px 7px 0; box-sizing: border-box;}
 </style>
 
@@ -116,10 +116,10 @@
 					            <input type="checkbox" class="form-check-input item" value="" onclick="delAllCheck(this)">
 					          </label>
 					        </th>
-					        <th width="110px;">받는사람</th>
-					        <th>제목</th>
-					        <th>내용</th>
-					        <th width="220px;">보낸 날짜</th>
+					        <th width="110px;" style="text-align: left !important;">받는사람</th>
+					        <th style="text-align: left !important;">제목</th>
+					        <th style="text-align: left !important;">내용</th>
+					        <th width="220px;" style="text-align: left !important;">보낸 날짜</th>
 					      </tr>
 					    </thead>
 					    <tbody>
@@ -141,7 +141,11 @@
 					                <td>${slist.recv_name}</td>
 					                <td class="ellipsis">${slist.title}</td>
 					                <td class="ellipsis ellipsis2">${slist.content}</td>
-					                <td>${slist.send_time}</td>
+					                <td>
+					                	<c:set var="sendTimeStr" value="${slist.send_time}" />
+										<fmt:parseDate value="${sendTimeStr}" var="sendTime" pattern="yyyy-MM-dd HH:mm:ss.S" />
+										<fmt:formatDate value="${sendTime}" pattern="yyyy-MM-dd HH:mm:ss" />
+					                </td>
 					              </tr>
 					            </c:if>
 					          </c:forEach>
@@ -309,7 +313,6 @@
 </c:choose>
 
 <script src="<%=request.getContextPath()%>/resources/js/jquery.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>
 <script>

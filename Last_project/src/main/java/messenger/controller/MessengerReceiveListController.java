@@ -40,9 +40,11 @@ public class MessengerReceiveListController {
 						HttpServletRequest request,
 						Model model, HttpSession session) {
 		
+		List<MemberBean> admin = memberDao.getMemberByCate("admin");
 		List<MemberBean> managerlist = memberDao.getMemberByCate("manager");
 		List<MemberBean> teacherlist = memberDao.getMemberByCate("teacher");
 		List<MemberBean> studentlist = memberDao.getMemberByCate("student");
+		model.addAttribute("admin", admin);
 		model.addAttribute("managerlist", managerlist);
 		model.addAttribute("teacherlist", teacherlist);
 		model.addAttribute("studentlist", studentlist);

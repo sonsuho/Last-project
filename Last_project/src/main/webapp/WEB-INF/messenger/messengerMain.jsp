@@ -40,9 +40,12 @@
         white-space: nowrap;    
         overflow: hidden;    
         text-overflow: ellipsis;  
-        max-width: 120px;         
+        max-width: 120px !important;
     }
     table .ellipsis2 {
+    	white-space: nowrap;    
+        overflow: hidden;    
+        text-overflow: ellipsis;  
     	max-width: 200px !important;
     }
     
@@ -50,10 +53,9 @@
     .seleted_list div { width: 15%; background: #f6f6f6; display: flex; justify-content: center; align-content: center; border-radius: 50px; margin-right: 7px; padding: 5px; color: #666; margin-top:10px; font-size: 14px;}
     .seleted_list div:last-child { margin-right:0;}
     
-    #selectedItems {height: 80%; display:flex; flex-wrap: wrap; overflow-y:auto;}
+    #selectedItems {display:flex; flex-wrap: wrap; overflow-y:auto;}
     #selectedItems div { padding: 15px 7px 0; box-sizing: border-box;}
 </style>
-
 
 <c:choose>
     <c:when test="${loginInfo.category == 'admin'}">
@@ -62,12 +64,11 @@
     
     <c:when test="${loginInfo.category == 'manager'}">
         <%@ include file="../manager/managerBarTop.jsp" %>
-    </c:when>
-<%--     
+    </c:when>    
     <c:when test="${loginInfo.category == 'teacher'}">
         <%@ include file="../teacher/teacherTop.jsp" %>
     </c:when>
-     --%>
+    
     <c:when test="${loginInfo.category == 'student'}">
         <%@ include file="../student/studentTop.jsp" %>
     </c:when>
@@ -100,7 +101,7 @@
 	                     </div>
 	                     <div class="form-check">
 	                       <label class="form-check-label">
-	                       <input type="checkbox" class="form-check-input"> 안 읽은 메시지만 보기 </label>
+	                       <input type="checkbox" class="form-check-input" id="unreadChk"> 안 읽은 메시지만 보기 </label>
 	                     </div>
 	                  </div>
 			        </div>
@@ -119,18 +120,18 @@
 					  <table class="table table-hover">
 					    <thead>
 					      <tr>
-					        <th width="50px;">
+					        <th width="50px;" style="text-align:left;">
 					          <label class="form-check-label">
 					            <input type="checkbox" class="form-check-input item" value="" onclick="delAllCheck(this)">
 					          </label>
 					        </th>
-					        <th width="110px;">보낸사람</th>
-					        <th>제목</th>
-					        <th>내용</th>
-					        <th width="220px;">받은 날짜</th>
+					        <th width="110px;" style="text-align: left !important;">보낸사람</th>
+					        <th style="text-align: left !important;">제목</th>
+					        <th style="text-align: left !important;">내용</th>
+					        <th width="220px;" style="text-align: left !important;">받은 날짜</th>
 					      </tr>
 					    </thead>
-					    <tbody>
+					    <tbody class="msgList">
 					      <c:choose>
 					        <c:when test="${fn:length(rlist) == 0 }">
 					          <tr>
@@ -151,7 +152,11 @@
 					                    <td style="background:#f6f6f6 !important;">${rlist.send_name}</td>
 					                    <td class="ellipsis" style="background:#f6f6f6 !important;">${rlist.title}</td>
 					                    <td class="ellipsis ellipsis2" style="background:#f6f6f6 !important;">${rlist.content}</td>
-					                    <td style="background:#f6f6f6 !important;">${rlist.send_time}</td>
+					                    <td style="background:#f6f6f6 !important;">
+					                    	<c:set var="sendTimeStr" value="${rlist.send_time}" />
+											<fmt:parseDate value="${sendTimeStr}" var="sendTime" pattern="yyyy-MM-dd HH:mm:ss.S" />
+											<fmt:formatDate value="${sendTime}" pattern="yyyy-MM-dd HH:mm:ss" />
+					                    </td>
 					                  </c:when>
 					                  <c:otherwise>
 					                    <td onclick="event.stopPropagation();">
@@ -163,7 +168,9 @@
 					                    <td class="ellipsis">${rlist.title}</td>
 					                    <td class="ellipsis ellipsis2">${rlist.content}</td>
 					                    <td>
-					                    	${rlist.send_time}
+					                   		<c:set var="sendTimeStr" value="${rlist.send_time}" />
+											<fmt:parseDate value="${sendTimeStr}" var="sendTime" pattern="yyyy-MM-dd HH:mm:ss.S" />
+											<fmt:formatDate value="${sendTime}" pattern="yyyy-MM-dd HH:mm:ss" />
 					                    </td>
 					                  </c:otherwise>
 					                </c:choose>
@@ -172,6 +179,10 @@
 					          </c:forEach>
 					        </c:otherwise>
 					      </c:choose>
+					    </tbody>
+					    <tbody class="unreadList" style="display: none">
+					    <!-- 읽지 않은 메시지 노출 -->
+					    
 					    </tbody>
 					  </table>
 					</form>
@@ -218,6 +229,22 @@
                               <input type="checkbox" class="form-check-input" name="allcheck" onclick="allCheck(this)">전체선택</label>
                             </div>
                				<ul class="msg_list">
+               					<li>
+									<c:set var="loginInfo" value="${sessionScope.loginInfo}" />
+									<c:forEach var="mb" items="${admin }">
+										<c:if test="${loginInfo.category != 'student' }">
+										<b>관리자</b>
+											<ul>
+												<li>
+													<div class="form-check">
+						                              <label class="form-check-label">
+						                              <input type="checkbox" class="form-check-input item" name="rowcheck" value="${mb.mem_num }" onchange="rowCheck()">${mb.name }</label>
+						                            </div>
+												</li>
+											</ul>
+										</c:if>
+									</c:forEach>
+								</li>
 								<li>
 									<b>매니저</b>
 									<ul>
@@ -369,16 +396,15 @@
     <c:when test="${loginInfo.category == 'manager'}">
         <%@ include file="../manager/managerBarBottom.jsp" %>
     </c:when>
-<%--     
+
     <c:when test="${loginInfo.category == 'teacher'}">
-        <%@ include file="../teacher/teacherTop.jsp" %>
+        <%@ include file="../teacher/teacherBottom.jsp" %>
     </c:when>
-     --%>
+    
     <c:when test="${loginInfo.category == 'student'}">
         <%@ include file="../student/studentBottom.jsp" %>
     </c:when>
 </c:choose>
-
 
 
 
@@ -388,6 +414,53 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>
 <script>
+	// 안 읽은 메시지 보기
+	$("#unreadChk").change(function(){
+		
+		if($(this).is(":checked")){
+			
+			$.ajax({
+				url : 'unreadList.messenger',
+				type : 'GET',
+				headers : {
+					'Accept' : 'application/json'
+				},
+				success : function(data){
+					// 안 읽은 메시지 목록 HTML 생성
+	                var unreadHtml = '';
+	                $.each(data, function(index, message) {
+	                    unreadHtml += '<tr onclick="goDetailMsg(\'' + message.msg_num + '\')">';
+	                    unreadHtml += '  <td onclick="event.stopPropagation();">';
+	                    unreadHtml += '    <label class="form-check-label">';
+	                    unreadHtml += '      <input type="checkbox" class="form-check-input item" name="delcheck" value="' + message.msg_num + '">';
+	                    unreadHtml += '    </label>';
+	                    unreadHtml += '  </td>';
+	                    unreadHtml += '  <td>' + message.send_name + '</td>';
+	                    unreadHtml += '  <td class="ellipsis" style="max-width:120px;">' + message.title + '</td>';
+	                    unreadHtml += '  <td class="ellipsis2">' + message.content + '</td>';
+	                    unreadHtml += '  <td>' + message.send_time + '</td>';
+	                    unreadHtml += '</tr>';
+	                });
+	
+	                // 안 읽은 메시지 목록 HTML 추가
+	                $('.msgList').hide();
+	                $('.unreadList').html(unreadHtml);
+	                $('.unreadList').show();
+	                
+					
+				},
+				error : function(xhr, status, error) {
+	                console.error('Error fetching messages:', error);
+	            }
+				
+			});
+			
+		} else {
+			$('.unreadList').hide();
+			$('.msgList').show();
+		}
+	});
+
 
 	// ajax 
     // 디테일 모달 
@@ -724,4 +797,9 @@
 		}
 	});
     
+	
+	
+	
+
+		
 </script>
