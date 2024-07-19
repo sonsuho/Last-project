@@ -62,11 +62,11 @@
     <c:when test="${loginInfo.category == 'manager'}">
         <%@ include file="../manager/managerBarTop.jsp" %>
     </c:when>
-<%--     
+         
     <c:when test="${loginInfo.category == 'teacher'}">
         <%@ include file="../teacher/teacherTop.jsp" %>
     </c:when>
-     --%>
+    
     <c:when test="${loginInfo.category == 'student'}">
         <%@ include file="../student/studentTop.jsp" %>
     </c:when>
@@ -302,11 +302,11 @@
     <c:when test="${loginInfo.category == 'manager'}">
         <%@ include file="../manager/managerBarBottom.jsp" %>
     </c:when>
-<%--     
+     
     <c:when test="${loginInfo.category == 'teacher'}">
-        <%@ include file="../teacher/teacherTop.jsp" %>
+        <%@ include file="../teacher/teacherBottom.jsp" %>
     </c:when>
-     --%>
+    
     <c:when test="${loginInfo.category == 'student'}">
         <%@ include file="../student/studentBottom.jsp" %>
     </c:when>

@@ -249,12 +249,14 @@
 									<b>매니저</b>
 									<ul>
 										<c:forEach var="mb" items="${teacherlist }">
-											<li>
-												<div class="form-check">
-					                              <label class="form-check-label">
-					                              <input type="checkbox" class="form-check-input item" name="rowcheck" value="${mb.mem_num }" onchange="rowCheck()">${mb.name }</label>
-					                            </div>
-											</li>
+											<c:if test="${mb.mem_num != loginInfo.mem_num }">
+												<li>
+													<div class="form-check">
+						                              <label class="form-check-label">
+						                              <input type="checkbox" class="form-check-input item" name="rowcheck" value="${mb.mem_num }" onchange="rowCheck()">${mb.name }</label>
+						                            </div> 
+												</li>
+											</c:if>
 										</c:forEach>
 									</ul>
 								</li>
@@ -262,12 +264,14 @@
 									<b>강사</b>
 									<ul>
 										<c:forEach var="mb" items="${managerlist }">
-											<li>
-												<div class="form-check">
-					                              <label class="form-check-label">
-					                              <input type="checkbox" class="form-check-input item" name="rowcheck" value="${mb.mem_num }" onchange="rowCheck()">${mb.name }</label>
-					                            </div> 
-											</li>
+											<c:if test="${mb.mem_num != loginInfo.mem_num }">
+												<li>
+													<div class="form-check">
+						                              <label class="form-check-label">
+						                              <input type="checkbox" class="form-check-input item" name="rowcheck" value="${mb.mem_num }" onchange="rowCheck()">${mb.name }</label>
+						                            </div> 
+												</li>
+											</c:if>
 										</c:forEach>
 									</ul>
 								</li>
@@ -275,12 +279,14 @@
 									<b>학생</b>
 									<ul>
 										<c:forEach var="mb" items="${studentlist }">
-											<li>
-												<div class="form-check">
-					                              <label class="form-check-label">
-					                              <input type="checkbox" class="form-check-input item" name="rowcheck" value="${mb.mem_num }" onchange="rowCheck()">${mb.name }</label>
-					                            </div>
-											</li>
+											<c:if test="${mb.mem_num != loginInfo.mem_num }">
+												<li>
+													<div class="form-check">
+						                              <label class="form-check-label">
+						                              <input type="checkbox" class="form-check-input item" name="rowcheck" value="${mb.mem_num }" onchange="rowCheck()">${mb.name }</label>
+						                            </div> 
+												</li>
+											</c:if>
 										</c:forEach>
 									</ul>
 								</li>

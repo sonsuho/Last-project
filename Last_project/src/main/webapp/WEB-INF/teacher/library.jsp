@@ -11,6 +11,16 @@
     </style>
     
     <script type="text/javascript">
+    
+    	// 자료실 글쓰기
+    	function writeLibrary(pageNumber, whatColumn, keyword){
+    		location.href = "writeLibrary.teacher?pageNumber=" + pageNumber + "&whatColumn=" + whatColumn + "&keyword=" + keyword;
+    	}
+    	
+    	// 자료실 상세보기 
+    	function contentLib(num){
+    		location.href = "contentLibrary.teacher?li_num=" + num;
+    	}
     	
     	function allCheck(obj){
     		
@@ -61,90 +71,112 @@
     
     </script>
     
-    <!-- header -->
-  	<div class="page-header">
-    	<h3 class="page-title">
-      		<span class="page-title-icon bg-gradient-primary text-white me-2">
-        		<i class="mdi mdi-home"></i>
-      		</span> TeacherMain
-    	</h3>
-    	<nav aria-label="breadcrumb">
-      		<ul class="breadcrumb">
-        		<li class="breadcrumb-item active" aria-current="page">
-          			<span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
-        		</li>
-      		</ul>
-    	</nav>
-  	</div>
+    <div class="row">
+       <div class="col-lg-12 grid-margin stretch-card">
+          <div class="card">
+             <div class="card-body">
     
-    <div align="center">
-    	
-    	<h1>자료실 목록</h1>
-    	
-    	<form name="myform" action="deleteAllLibrary.teacher">
-    	
-	    	<table border="1">
-	    		
-	    		<tr>
-	    			<td colspan="6" align="right" bgcolor="#BBFFDD">
-	    				<a href="writeLibrary.teacher?pageNumber=${pageInfo.pageNumber}&whatColumn=${pageInfo.whatColumn}&keyword=${pageInfo.keyword}">글쓰기</a>
-	    			</td>
-	    		</tr>
-	    		
-	    		<tr>
-	    			<th><input type="checkbox" name="allcheck" onclick="allCheck(this)"></th>
-	    			<th>제목</th>
-	    			<th>작성자</th>
-	    			<th>작성일</th>
-	    		</tr>
-	    		
-	    		<c:if test="${fn:length(list) == 0}">
-	    			
-	    			<tr>
-	    				<td colspan="4" align="center" style="height: 50">자료실에 작성된 글이 없습니다!!</td>
-	    			</tr>
-	    			
-	    		</c:if>
-	    		
-	    		<c:if test="${fn:length(list) != 0}">
-	    			
-	    			<c:forEach var="library" items="${list}">
-	    				
-	    				<tr>
-							<td align="center"><input type="checkbox" name="rowcheck" value="${library.li_num }"></td>
-							<td><a href="contentLibrary.teacher?li_num=${library.li_num}">${library.title}</a></td>
-							<td>${library.writer}</td>
-							<td>${library.day}</td>
-	    				</tr>
-	    				
-	    			</c:forEach>
-	    			
-	    		</c:if>
-	    		
-	    	</table>
-    	
-    	</form>
-    	
-    	<br>
-    	
-    	${pageInfo.pagingHtml}
-    	    	
-    	<form action="library.teacher">
-    		
-    		<select name="whatColumn">
-    			<option value="all">전체검색</option>
-    			<option value="title">제목</option>
-    			<option value="content">내용</option>
-    		</select>
-    		
-    		<input type="text" name="keyword">
-    		
-    		<input type="submit" value="검색">
-    		
-    	</form>
-		
-		<input type="button" value="삭제" onclick="selectDelete()">
-		
+    			<div class="row">
+    				<div class="col-lag-12">
+				    	<h1 style="text-align:center;">자료실</h1>
+    				</div>
+    			</div>
+    			
+    			<div class="row" style="margin-top: 36px;">
+    				<!-- 자료실 삭제 / 글쓰기 버튼 학생 빼고 활성화  -->
+    				<div class="col-lg-4" style="display:flex; justify-content: flex-start; align-content: center;">
+    					<c:if test="${loginInfo.category != 'student' }">
+    						<%-- <a href="writeLibrary.teacher?pageNumber=${pageInfo.pageNumber}&whatColumn=${pageInfo.whatColumn}&keyword=${pageInfo.keyword}">글쓰기</a> --%>
+	    					<div>
+		    					<button type="button" onclick="writeLibrary('${pageInfo.pageNumber}', '${pageInfo.whatColumn}', '${pageInfo.keyword}' )" style="padding:12px; margin-right: 7px;" class="btn btn-gradient-primary"><i class="fa fa-send"></i> &nbsp;&nbsp;글쓰기</button>
+	    					</div>
+	    					<div>
+		    					<button type="button" class="btn btn-gradient-light btn-sm" onclick="selectDelete()"><img src="resources/images/delete.png" style="width:24px; height:24px;">삭제</button>
+	    					</div>
+    					</c:if>
+    				</div>
+    				<div class="col-lg-2">
+    				</div>
+    				
+    				<div class="col-lg-6">
+    				  <form action="library.teacher">
+    					<div class="form-group" style="display:flex; justify-content: flex-start; align-content: center;">
+    					
+	                      <select name="whatColumn" class="form-select" style="width:140px; margin-right: 15px;">
+			    			 <option value="all">전체검색</option>
+			    			 <option value="title">제목</option>
+			    			 <option value="content">내용</option>
+	                      </select>
+	                      
+	                      <input type="text" name="keyword" class="form-control" style="font-size: 16px;" placeholder="검색어를 입력하세요.">
+				    	  <input type="submit"class="btn btn-sm btn-success py-3" style="width: 70px;" value="검색">
+	                      
+	                    </div>
+				      </form>
+    				</div><!-- col-lg-8 end  -->
+    			</div><!-- row end -->
+		    	
+		    	<form name="myform" action="deleteAllLibrary.teacher">
+		    	
+			    	<table class="table table-hover">
+			    		
+			    		<thead>
+				    		<tr>
+				    			<th style="background:#f6f6f6; width:100px !important;">
+				    				<label class="form-check-label">
+				    					<input type="checkbox" class="form-check-input item" name="allcheck" onclick="allCheck(this)">
+				    				</label>
+				    			</th>
+				    			<th style="background:#f6f6f6; text-align: left !important;">제목</th>
+				    			<th style="background:#f6f6f6; text-align: left !important;">작성자</th>
+				    			<th style="background:#f6f6f6; text-align: left !important;">작성일</th>
+				    		</tr>
+			    		</thead>
+			    		
+			    		<tbody>
+			    		
+				    		<c:if test="${fn:length(list) == 0}">
+				    			
+				    			<tr>
+				    				<td colspan="4" align="center" style="height: 50">작성된 글이 없습니다.</td>
+				    			</tr>
+				    			
+				    		</c:if>
+				    		
+				    		<c:if test="${fn:length(list) != 0}">
+				    			
+				    			<c:forEach var="library" items="${list}">
+				    				
+				    				<tr onclick="contentLib('${library.li_num}')">
+										<td align="center">
+											<label class="form-check-label">
+												<input type="checkbox" class="form-check-input item" name="rowcheck" value="${library.li_num }">
+											</label>
+										</td>
+										<td>${library.title}</td>
+										<td>${library.writer}</td>
+										<td>${library.day}</td>
+				    				</tr>
+				    				
+				    			</c:forEach>
+				    			
+				    		</c:if>
+			    		
+			    		</tbody>
+			    		
+			    	</table>
+		    	
+		    	</form>
+		    	
+		    	<br>
+		    	<div style="text-align: center;">
+			    	${pageInfo.pagingHtml}
+		    	</div>
+		    	    	
+    
+    		</div>
+          </div>
+       </div>
     </div>
     
 <%@ include file = "teacherBottom.jsp"%>
