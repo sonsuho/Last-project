@@ -17,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import lecture.model.LectureBean;
 import lecture.model.LectureDao;
+import manager.model.NoticeBean;
+import manager.model.NoticeDao;
 import manager.model.mCalendarBean;
 import manager.model.mCalendarDao;
 import member.model.MemberBean;
@@ -33,6 +35,9 @@ public class ManagerMainController {
 	
 	@Autowired
 	LectureDao ldao;
+	
+	@Autowired
+	NoticeDao ndao;
 	
 	@RequestMapping(value = command , method = RequestMethod.GET)
 	public ModelAndView approval(
@@ -52,6 +57,8 @@ public class ManagerMainController {
 		String lec_num = loginInfo.getLec_num();
 		LectureBean lecture = ldao.getLectureByNum(Integer.parseInt(lec_num));
 
+		List<NoticeBean> noticeList = ndao.getNoticeList_all();
+		
 		// lecture에서 가져온 날짜와 시간 문자열
 		String startDateTimeString = lecture.getLec_start();
 		String endDateTimeString = lecture.getLec_end();
@@ -74,6 +81,7 @@ public class ManagerMainController {
 		System.out.println(remainingDays);
 
 		// ModelAndView에 데이터 추가
+		mav.addObject("noticeList", noticeList);	//Notice 공지사항
 		mav.addObject("allSchedules", lists);	//calendar 일정
 		mav.addObject("totalDays", totalDays); // 전체 날짜 수
 		mav.addObject("remainingDays", remainingDays); // 남은 날짜 수

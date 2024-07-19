@@ -513,24 +513,15 @@ table.date-month {
 <div class="notice-container">
 	<h4>공지사항</h4>
 	<ul class="notice-list">
-		<li>
-			<span class="badge badge-general">전체</span> 
-			<span>쌍용강북센터 휴가 안내</span>
-			<span>2024-06-28</span>
-		</li>
-		<li>
-			<span class="badge badge-important">H반</span>
-			<span>MySQL 과제 리스트 안내</span>
-			<span>2024-06-24</span>
-		</li>
-		<li>
-			<span class="badge badge-important">H반</span>
-			<span>Spring 설치 방법</span>
-			<span>2024-06-24</span>
-		</li>
+		<c:forEach var="notice" items="${noticeList}">
+			<li>
+				<span class="badge badge-general">${notice.lec_num}반</span> 
+				<span><a href="noticeDetail.manager?n_num=${notice.n_num}">${notice.title}</a></span>
+				<span>${notice.day}</span>
+			</li>
+		</c:forEach>
 	</ul>
 </div>
-						
 					</div>	<!-- element2 -->
 				</div>	<!-- content-container -->
 			</div>	<!-- card-body -->

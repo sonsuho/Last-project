@@ -32,7 +32,7 @@ CREATE TABLE member (
 
 INSERT INTO member  VALUES (mem_seq.nextval, '관리자', 'admin', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'admin', 'X', '서울시 강남구', '010-1234-5678', 'chulsoo@gmail.com', '관리자', 0,'106.241.247.83' , 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
 INSERT INTO member  VALUES (mem_seq.nextval, '이영희', 'manager1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '1', '서울시 서초구', '010-2345-6789', 'younghee@gmail.com', '근무', 2,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
-INSERT INTO member  VALUES (mem_seq.nextval, '박민수', 'manager2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '3', '서울시 송파구', '010-3456-7890', 'minsoo@gmail.com', '근무', 4,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '박민수', 'manager2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '2', '서울시 송파구', '010-3456-7890', 'minsoo@gmail.com', '근무', 4,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
 INSERT INTO member  VALUES (mem_seq.nextval, '최지영', 'teacher1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '1', '서울시 강동구', '010-4567-8901', 'jiyoung@gmail.com', '근무', 0,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
 INSERT INTO member  VALUES (mem_seq.nextval, '한가영', 'teacher2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '2', '서울시 마포구', '010-5678-9012', 'gayoung@gmail.com', '근무', 0,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
 INSERT INTO member  VALUES (mem_seq.nextval, '정우성', 'student1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 은평구', '010-6789-0123', 'woosung@gmail.com', '진행', 4,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
@@ -87,14 +87,14 @@ insert into lecture values(seq_lecture.nextval, 'Chat-gpt API를 사용한 애�
 ==== 일정 테이블
 ===================================
 
-drop sequence seq_calender;
-create sequence seq_calender
+drop sequence seq_calendar;
+create sequence seq_calendar
 	start with 1
 	increment by 1
 	nocache ;
 
-DROP TABLE calender CASCADE CONSTRAINTS;
-CREATE TABLE calender (
+DROP TABLE calendar CASCADE CONSTRAINTS;
+CREATE TABLE calendar (
 	cal_num number primary key,
 	lec_num number NULL,
 	mem_num varchar2(20) NULL,

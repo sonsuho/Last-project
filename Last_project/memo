@@ -128,13 +128,12 @@ create sequence seq_notice
 DROP TABLE notice CASCADE CONSTRAINTS;
 CREATE TABLE notice (
 	n_num number primary key,
-	title varchar2(20) NULL,
 	lec_num number NULL,
+	title varchar2(20) NULL,
 	mem_num number NULL,
 	writer varchar2(20) NULL,
 	day varchar2(20) NULL,
-	content varchar2(30) NULL,
-	upload varchar2(200) NULL
+	content varchar2(30) NULL
 );
 
 ===================================
