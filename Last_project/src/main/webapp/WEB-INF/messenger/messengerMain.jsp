@@ -16,19 +16,46 @@
 	.pl20 {padding-left: 20px; box-sizing: border-box;}
 	.btn-reply { width: 100px; color: #198ae3 !important; font-weight: bold !important; padding: 10px 0 !important;}
 	.second_modal {
-		background:#fff; position: absolute; z-index:100; width:400px; height: 350px; display:flex; justify-content: space-between; padding: 16px 20px; box-sizing: border-box;  border-radius: 10px; box-shadow: 2px 5px 10px #ddd;
+		background:#fff; position: absolute; top: 90px; z-index:100; width:400px; height: 350px; display:flex; justify-content: space-between; padding: 16px 20px; box-sizing: border-box;  border-radius: 10px; box-shadow: 2px 5px 10px #ddd;
 	}
 	.second_modal .wrap {
 		width: 200px;
 	}
-	.second_modal .wrap:first-child {border-right: 1px solid #000;}
+	.second_modal .wrap:first-child {border-right: 1px solid #ddd;}
 	.second_modal .flex-wrap {
-		width: 100%; height: 100%; overflow-x: auto; 
+		width: 100%; height: 100%; overflow-y: auto; 
 	}
 	ul, li { list-style: none;}
 	.msg_list {padding: 0;}
+	
+	
+	
+	.btn-add {border: 1px solid #ddd; border-radius: 6px; position: absolute; bottom:0; right:45;}
+	
+	table th, table td {
+        padding: 8px;
+        text-align: left;
+    }
+    table .ellipsis {
+        white-space: nowrap;    
+        overflow: hidden;    
+        text-overflow: ellipsis;  
+        max-width: 120px !important;
+    }
+    table .ellipsis2 {
+    	white-space: nowrap;    
+        overflow: hidden;    
+        text-overflow: ellipsis;  
+    	max-width: 200px !important;
+    }
+    
+    .seleted_list { display: flex; justify-content:flex-start; flex-wrap: wrap;}
+    .seleted_list div { width: 15%; background: #f6f6f6; display: flex; justify-content: center; align-content: center; border-radius: 50px; margin-right: 7px; padding: 5px; color: #666; margin-top:10px; font-size: 14px;}
+    .seleted_list div:last-child { margin-right:0;}
+    
+    #selectedItems {display:flex; flex-wrap: wrap; overflow-y:auto;}
+    #selectedItems div { padding: 15px 7px 0; box-sizing: border-box;}
 </style>
-
 
 <c:choose>
     <c:when test="${loginInfo.category == 'admin'}">
@@ -37,12 +64,11 @@
     
     <c:when test="${loginInfo.category == 'manager'}">
         <%@ include file="../manager/managerBarTop.jsp" %>
-    </c:when>
-<%--     
+    </c:when>    
     <c:when test="${loginInfo.category == 'teacher'}">
         <%@ include file="../teacher/teacherTop.jsp" %>
     </c:when>
-     --%>
+    
     <c:when test="${loginInfo.category == 'student'}">
         <%@ include file="../student/studentTop.jsp" %>
     </c:when>
@@ -68,10 +94,14 @@
                    
                    <div class="row">
                     <div class="col-lg-8">
-			          <div class="form-group">
+                    
+			          <div style="display:flex; justify-content: flex-start; align-content: center;">
+			          	 <div style="margin-top: 5px; margin-right: 15px;">
+                           <button type="button" class="btn btn-gradient-light btn-sm" onclick="delSelectedCheck()"><img src="resources/images/delete.png" style="width:24px; height:24px; margin-right: 7px;">삭제</button>
+	                     </div>
 	                     <div class="form-check">
 	                       <label class="form-check-label">
-	                       <input type="checkbox" class="form-check-input"> 안 읽은 메시지만 보기 </label>
+	                       <input type="checkbox" class="form-check-input" id="unreadChk"> 안 읽은 메시지만 보기 </label>
 	                     </div>
 	                  </div>
 			        </div>
@@ -86,35 +116,31 @@
                   </div><!-- row -->
 
 
-				  <form name="msgForm" action="deleteRecv.messenger" action="post">        
-	                  <table class="table table-hover">
-	                     <thead>
-	                       <tr>
-	                         <th colspan="6">
-	                         	<button type="button" class="btn btn-gradient-light" onclick="delSelectedCheck()">삭제</button>
-	                         </th>
-	                       </tr>
-	                       <tr>
-	                       	 <th width="50px;">
-	                              <label class="form-check-label">
-	                              	<input type="checkbox" class="form-check-input item" value="" onclick="delAllCheck(this)">
-	                              </label>
-	                       	 </th>
-	                         <th width="110px;">보낸사람</th>
-	                         <th>제목</th>
-	                         <th>내용</th>
-	                         <th width="220px;">받은 날짜</th>
-	                       </tr>
-	                     </thead>
-	                     <tbody>
-	                       <c:choose>
-	                     	 <c:when test="${fn:length(rlist) == 0 }">
-	                     	 	<tr>
-	                     	 		<th colspan="4" style="text-align:center;">검색된 내용이 없습니다.</th>
-	                     	 	</tr>
-	                     	 </c:when>
-	                     	 <c:otherwise>
+				  <form name="msgForm" action="deleteRecv.messenger" method="post">        
+					  <table class="table table-hover">
+					    <thead>
+					      <tr>
+					        <th width="50px;" style="text-align:left;">
+					          <label class="form-check-label">
+					            <input type="checkbox" class="form-check-input item" value="" onclick="delAllCheck(this)">
+					          </label>
+					        </th>
+					        <th width="110px;" style="text-align: left !important;">보낸사람</th>
+					        <th style="text-align: left !important;">제목</th>
+					        <th style="text-align: left !important;">내용</th>
+					        <th width="220px;" style="text-align: left !important;">받은 날짜</th>
+					      </tr>
+					    </thead>
+					    <tbody class="msgList">
+					      <c:choose>
+					        <c:when test="${fn:length(rlist) == 0 }">
+					          <tr>
+					            <th colspan="5" style="text-align:center;">메시지가 없습니다.</th>
+					          </tr>
+					        </c:when>
+					        <c:otherwise>
 					          <c:forEach var="rlist" items="${rlist}">
+					            <c:if test="${rlist.del_chk == 1 or rlist.del_chk == 3}">
 					              <tr onclick="goDetailMsg('${rlist.msg_num}')">
 					                <c:choose>
 					                  <c:when test="${rlist.read_chk == 1}">
@@ -124,9 +150,13 @@
 					                      </label>
 					                    </td>
 					                    <td style="background:#f6f6f6 !important;">${rlist.send_name}</td>
-					                    <td style="background:#f6f6f6 !important;">${rlist.title}</td>
-					                    <td style="background:#f6f6f6 !important;">${rlist.content}</td>
-					                    <td style="background:#f6f6f6 !important;">${rlist.send_time}</td>
+					                    <td class="ellipsis" style="background:#f6f6f6 !important;">${rlist.title}</td>
+					                    <td class="ellipsis ellipsis2" style="background:#f6f6f6 !important;">${rlist.content}</td>
+					                    <td style="background:#f6f6f6 !important;">
+					                    	<c:set var="sendTimeStr" value="${rlist.send_time}" />
+											<fmt:parseDate value="${sendTimeStr}" var="sendTime" pattern="yyyy-MM-dd HH:mm:ss.S" />
+											<fmt:formatDate value="${sendTime}" pattern="yyyy-MM-dd HH:mm:ss" />
+					                    </td>
 					                  </c:when>
 					                  <c:otherwise>
 					                    <td onclick="event.stopPropagation();">
@@ -135,18 +165,27 @@
 					                      </label>
 					                    </td>
 					                    <td>${rlist.send_name}</td>
-					                    <td>${rlist.title}</td>
-					                    <td>${rlist.content}</td>
-					                    <td>${rlist.send_time}</td>
+					                    <td class="ellipsis">${rlist.title}</td>
+					                    <td class="ellipsis ellipsis2">${rlist.content}</td>
+					                    <td>
+					                   		<c:set var="sendTimeStr" value="${rlist.send_time}" />
+											<fmt:parseDate value="${sendTimeStr}" var="sendTime" pattern="yyyy-MM-dd HH:mm:ss.S" />
+											<fmt:formatDate value="${sendTime}" pattern="yyyy-MM-dd HH:mm:ss" />
+					                    </td>
 					                  </c:otherwise>
 					                </c:choose>
 					              </tr>
+					            </c:if>
 					          </c:forEach>
 					        </c:otherwise>
-	                       </c:choose>
-	                     </tbody>
-	                   </table>
-                   </form>
+					      </c:choose>
+					    </tbody>
+					    <tbody class="unreadList" style="display: none">
+					    <!-- 읽지 않은 메시지 노출 -->
+					    
+					    </tbody>
+					  </table>
+					</form>
                  </div>
                </div><!-- card end -->
              </div>
@@ -161,12 +200,12 @@
 	    
 	    <!--  메세지 보내기  -->
 	    <!---- 첫번째 모달 팝업 ----->
-		<div class="modal fade" id="firstModal" tabindex="-1">
+		<div class="modal fade" id="firstModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
 		  <div class="modal-dialog modal-dialog-centered">
 		    <div class="modal-content"  style="background:#fff">
 		      <div class="modal-header">
 		        <h5 class="modal-title" id="exampleModalLabel"><b>메시지 보내기</b></h5>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		        <button type="button" id="closePopupButton" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 		      <div class="modal-body">
 		        <form action="send.messenger" method="post" enctype="multipart/form-data">
@@ -177,8 +216,10 @@
 		          <div class="mb-3" style="position:relative;">
 		            <label class="col-form-label">받는 사람</label>
 		            <div class="input-group-append">
-               			<button class="btn btn-sm btn-inverse-success" type="button" onclick="secondModal()"> 받는 사람 선택</button>
+               			<button class="btn btn-sm btn-inverse-success" type="button" onclick="return secondModal()"> 받는 사람 선택</button>
                		</div>
+               		
+               		<div class="seleted_list"></div>
                		
                		<div id="secondModal" class="second_modal" style="display:none;">
                			<!-- 받는 사람 리스트 -->
@@ -188,6 +229,22 @@
                               <input type="checkbox" class="form-check-input" name="allcheck" onclick="allCheck(this)">전체선택</label>
                             </div>
                				<ul class="msg_list">
+               					<li>
+									<c:set var="loginInfo" value="${sessionScope.loginInfo}" />
+									<c:forEach var="mb" items="${admin }">
+										<c:if test="${loginInfo.category != 'student' }">
+										<b>관리자</b>
+											<ul>
+												<li>
+													<div class="form-check">
+						                              <label class="form-check-label">
+						                              <input type="checkbox" class="form-check-input item" name="rowcheck" value="${mb.mem_num }" onchange="rowCheck()">${mb.name }</label>
+						                            </div>
+												</li>
+											</ul>
+										</c:if>
+									</c:forEach>
+								</li>
 								<li>
 									<b>매니저</b>
 									<ul>
@@ -232,23 +289,22 @@
                		
 						
 						<!-- 선택된 사람 노출 -->
-						<div class="wrap flex-wrap">
-							<div style="padding-left: 10px;">
+						<div class="wrap" style="position: relative; width: 100%;">
+							<div style="padding: 5px 0 5px 10px;">
 								<b>받는 사람 목록</b>
 							</div>
 							<div id="selectedItems">
 								<!--ajax 선택된 사람 리스트 노출 -->
 								
 							</div>
-							<button onclick="return selectedPeople()">추가하기</button>
+							<div class="btn-add"><button class="btn btn-gradient-success btn-sm" onclick="return selectedPeople()">추가하기</button></div>
 						</div>
-						<p id="chk_txt" style="color: red; font-size: 12px;"></p>
 					</div>
                		
 		          </div>
 		          <div class="mb-3">
 		            <label class="col-form-label">내용</label>
-		            <textarea class="form-control" id="msg_content" name="content" cols="20" rows="10" required></textarea>
+		            <textarea class="form-control" id="msg_content" name="content" cols="20" rows="6" required></textarea>
 		          </div>
 		          <div class="mb-3">
 		            <label class="col-form-label">파일첨부</label>
@@ -270,7 +326,7 @@
 
 			
 		<!-- 메시지 디테일 모달 -->
-	    <div class="modal fade" id="detailModal">
+	    <div class="modal fade" id="detailModal" data-bs-backdrop="static" data-bs-keyboard="false">
 	        <div class="modal-dialog modal-dialog-centered">
 	        	
 	            <div class="modal-content" style="background:#fff;">
@@ -287,7 +343,7 @@
 	    
  	    
 	    <!-- 답장하기 모달  -->
-		<div class="modal fade" id="replyModal">
+		<div class="modal fade" id="replyModal" data-bs-backdrop="static" data-bs-keyboard="false">
 		  <div class="modal-dialog modal-dialog-centered">
 		    <div class="modal-content"  style="background:#fff">
 		      <div class="modal-header">
@@ -340,16 +396,15 @@
     <c:when test="${loginInfo.category == 'manager'}">
         <%@ include file="../manager/managerBarBottom.jsp" %>
     </c:when>
-<%--     
+
     <c:when test="${loginInfo.category == 'teacher'}">
-        <%@ include file="../teacher/teacherTop.jsp" %>
+        <%@ include file="../teacher/teacherBottom.jsp" %>
     </c:when>
-     --%>
+    
     <c:when test="${loginInfo.category == 'student'}">
         <%@ include file="../student/studentBottom.jsp" %>
     </c:when>
 </c:choose>
-
 
 
 
@@ -359,6 +414,53 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>
 <script>
+	// 안 읽은 메시지 보기
+	$("#unreadChk").change(function(){
+		
+		if($(this).is(":checked")){
+			
+			$.ajax({
+				url : 'unreadList.messenger',
+				type : 'GET',
+				headers : {
+					'Accept' : 'application/json'
+				},
+				success : function(data){
+					// 안 읽은 메시지 목록 HTML 생성
+	                var unreadHtml = '';
+	                $.each(data, function(index, message) {
+	                    unreadHtml += '<tr onclick="goDetailMsg(\'' + message.msg_num + '\')">';
+	                    unreadHtml += '  <td onclick="event.stopPropagation();">';
+	                    unreadHtml += '    <label class="form-check-label">';
+	                    unreadHtml += '      <input type="checkbox" class="form-check-input item" name="delcheck" value="' + message.msg_num + '">';
+	                    unreadHtml += '    </label>';
+	                    unreadHtml += '  </td>';
+	                    unreadHtml += '  <td>' + message.send_name + '</td>';
+	                    unreadHtml += '  <td class="ellipsis" style="max-width:120px;">' + message.title + '</td>';
+	                    unreadHtml += '  <td class="ellipsis2">' + message.content + '</td>';
+	                    unreadHtml += '  <td>' + message.send_time + '</td>';
+	                    unreadHtml += '</tr>';
+	                });
+	
+	                // 안 읽은 메시지 목록 HTML 추가
+	                $('.msgList').hide();
+	                $('.unreadList').html(unreadHtml);
+	                $('.unreadList').show();
+	                
+					
+				},
+				error : function(xhr, status, error) {
+	                console.error('Error fetching messages:', error);
+	            }
+				
+			});
+			
+		} else {
+			$('.unreadList').hide();
+			$('.msgList').show();
+		}
+	});
+
 
 	// ajax 
     // 디테일 모달 
@@ -471,8 +573,30 @@
 			return false;
 		}
 		
+		// 선택된 사람들 가져오기
+	    var selectedItems = [];
+	    for (var i = 0; i < rcheck.length; i++) {
+	        if (rcheck[i].checked) {
+	            var personName = rcheck[i].parentNode.textContent.trim(); // 체크박스 레이블의 이름 가져오기
+	            var personId = rcheck[i].value; // 체크박스의 값(ID) 가져오기
+	            selectedItems.push({id: personId, name: personName});
+	        }
+	    }
+
+	    // selected_list 영역에 추가하기
+	    var selectedList = document.querySelector(".seleted_list");
+	    selectedList.innerHTML = ""; // 기존 내용 초기화
+	    selectedItems.forEach(function(person) {
+	        var personElement = document.createElement("div");
+	        personElement.textContent = person.name;
+	        personElement.setAttribute("data-id", person.id); // ID를 데이터 속성으로 추가
+	        selectedList.appendChild(personElement);
+	    });
+		
+		
 		//받는사람 모달 팝업 닫기 
 		$('#secondModal').hide();
+		return false;
 	
 	}
 
@@ -524,7 +648,7 @@
   				 $('#selectedItems').empty(); // 기존 리스트 초기화
   				 
                  $.each(response, function(index, item) {
-                     $('#selectedItems').append('<div><span><img src="resources/user.png" width="24px;"></span>' + item.name + '</div>' );
+                     $('#selectedItems').append('<div><span><img src="resources/user.png" width="36px; margin-right: 7px;"></span>' + item.name + '</div>' );
                  });
   				
   			},
@@ -534,11 +658,24 @@
   		});//ajax
   	}//updateSelectedItems()
   	
+  	
     // 상세보기 팝업 닫혔을 시 페이지 리로드 
   	function modalClose() {
   		$("#detailModal").modal('hide');
   		location.reload();
   	}
+  	
+  	
+ 	// 팝업 닫기 버튼 클릭 시 데이터 초기화
+  	document.getElementById('closePopupButton').addEventListener('click', function() {
+  	    document.getElementById('msg_title').value = ''; 
+  	    document.getElementById('msg_content').value = ''; 
+  	    
+  	  	$('input[name="allcheck"], input[name="rowcheck"]').prop('checked', false);
+  	 	updateSelectedItems(true)
+  	  	
+  	});
+  	
 
 	// 파일 업로드
 	function checkFileInput(){
@@ -592,8 +729,7 @@
   				
   				// 기존 메시지 타이틀 
   				$("#replyModal .modal-body .msg_title").html(
-  						'<h3><b>' + newTitle + '</b></h3>' +
-  						'<button onclick="goDetailMsg(' + data.msg_num + ')">원글보기</button>'
+  						'<h3><b>' + newTitle + '</b></h3>'
   				);
   				$("#replyModal").modal('hide');
   				
@@ -637,6 +773,7 @@
 		for(var i=0; i<delcheck.length; i++){
 			if(delcheck[i].checked){
 				flag = true;
+				confirm("삭제하시겠습니까?");
 			}
 		}
 		if(flag == false){
@@ -645,5 +782,24 @@
 		}
 		document.msgForm.submit();
 	}//delSelectedCheck()
+	
+	
+	// 메시지 작성 시 글자 수 제한
+	document.getElementById('msg_title').addEventListener('input', function(){
+		if(this.value.length > 33){
+			this.value = this.value.slice(0, 33);
+		}
+	});
+	
+	document.getElementById('msg_content').addEventListener('input', function(){
+		if(this.value.length > 166){
+			this.value = this.value.slice(0, 166);
+		}
+	});
     
+	
+	
+	
+
+		
 </script>

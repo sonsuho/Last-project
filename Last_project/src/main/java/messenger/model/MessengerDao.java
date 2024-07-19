@@ -51,6 +51,12 @@ public class MessengerDao {
 		return cnt;
 	}
 	
+	public int getSendTotalCount(Map<String, Object>map) {
+		int cnt = -1;
+		cnt = sqlSessionTemplate.selectOne(namespace + ".getSendTotalCount", map);
+		return cnt;
+	}
+	
 	
 	public void insertAllMsg(MessengerBean mb) {
 		sqlSessionTemplate.insert(namespace + ".insertAllMsg", mb);
@@ -89,7 +95,7 @@ public class MessengerDao {
 		sqlSessionTemplate.delete(namespace + ".deleteMsg", msg_num);
 	}
 	
-	// msg_num 가져와서 Update (보낸사람, 받는사람 둘 다 삭)
+	// msg_num 가져와서 Update (보낸사람, 받는사람 둘 다 삭제)
 	public void updateForDelMsg(MessengerBean mb) {
 		sqlSessionTemplate.update(namespace + ".updateForDelMsg", mb);
 	}
@@ -97,6 +103,13 @@ public class MessengerDao {
 	public MessengerBean getMsgByNum(int msg_num) {
 		MessengerBean mb = sqlSessionTemplate.selectOne(namespace + ".getMsgByNum", msg_num);
 		return mb;
+	}
+	
+	public List<MessengerBean> getUnreadList(Map<String, Object> map, Paging pageInfo) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+		
+		List<MessengerBean> unreadList = sqlSessionTemplate.selectList(namespace + ".getUnreadList", map, rowBounds);
+		return unreadList;
 	}
 	
 }
