@@ -25,38 +25,40 @@ $(document).ready(function() {
                 // 새로운 메시지 여부 확인
                 var hasUnreadMessage = false;
 
-                $.each(data, function(index, message) {
-                    // 메시지 항목 생성
-                    var listItem = $('<li>');
-                    var anchor = $('<a>').addClass('dropdown-item preview-item').attr('href', 'rlist.messenger');
-                    var previewThumbnail = $('<div>').addClass('preview-thumbnail');
-                    var profilePic = $('<img>').attr('src', message.profile_image).attr('alt', 'image').addClass('profile-pic');
-                    var previewItemContent = $('<div>').addClass('preview-item-content d-flex align-items-start flex-column justify-content-center');
-                    var previewSubject = $('<h6>').addClass('preview-subject ellipsis mb-1 font-weight-normal').html('<b>' + message.send_name + '</b>님이 메시지를 보냈습니다.');
-                    var textGray = $('<p>').addClass('text-gray mb-0').text(message.send_time);
-
-                    // 읽음 상태에 따라 배경색 설정
-                    if (message.read_chk == 1) {
-                        anchor.css('background', '#f6f6f6');
-                    } else {
-                        hasUnreadMessage = true; // 새로운 메시지가 있음
-                    }
-
-                    // 요소 조립
-                    previewThumbnail.append(profilePic);
-                    previewItemContent.append(previewSubject, textGray);
-                    anchor.append(previewThumbnail, previewItemContent);
-                    listItem.append(anchor);
-                    messageList.append(listItem);
-                });
-
-                // 새로운 메시지 여부에 따라 bg-danger 클래스 추가/제거
-                if (hasUnreadMessage) {
-                    $('.msg-count-symbol').addClass('bg-danger');
+                if (data.length === 0) {
+                    // 메시지가 하나도 없을 때 메시지 표시
+                    messageList.append('<li><a class="dropdown-item preview-item" style="font-size:14px !important; padding-left:15px;">메시지가 없습니다.</a></li>');
                 } else {
-                    $('.msg-count-symbol').removeClass('bg-danger');
-                }
+                    $.each(data, function(index, message) {
+                        var listItem = $('<li>');
+                        var anchor = $('<a>').addClass('dropdown-item preview-item').attr('href', 'rlist.messenger');
+                        var previewThumbnail = $('<div>').addClass('preview-thumbnail');
+                        var profilePic = $('<img>').attr('src', message.profile_image).attr('alt', 'image').addClass('profile-pic');
+                        var previewItemContent = $('<div>').addClass('preview-item-content d-flex align-items-start flex-column justify-content-center');
+                        var previewSubject = $('<h6>').addClass('preview-subject ellipsis mb-1 font-weight-normal').html('<b>' + message.send_name + '</b>님이 메시지를 보냈습니다.');
+                        var textGray = $('<p>').addClass('text-gray mb-0').text(message.send_time);
 
+                        if (message.read_chk == 1) {
+                            anchor.css('background', '#f6f6f6');
+                        } else {
+                            hasUnreadMessage = true;
+                        }
+
+                        previewThumbnail.append(profilePic);
+                        previewItemContent.append(previewSubject, textGray);
+                        anchor.append(previewThumbnail, previewItemContent);
+                        listItem.append(anchor);
+                        messageList.append(listItem);
+                    });
+
+                    // 새로운 메시지 여부에 따라 bg-danger 클래스 추가/제거
+                    if (hasUnreadMessage) {
+                        $('.msg-count-symbol').addClass('bg-danger');
+                    } else {
+                        $('.msg-count-symbol').removeClass('bg-danger');
+                    }
+                }
+                
                 // 메시지 리스트 표시
                 //$('#topMenuMessageList').show();
             },
