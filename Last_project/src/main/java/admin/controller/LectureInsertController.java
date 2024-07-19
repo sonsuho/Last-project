@@ -57,7 +57,6 @@ public class LectureInsertController {
 	
 	@RequestMapping(value=command, method=RequestMethod.POST)
 	public String lectureInsert(LectureBean lecture, Model model,
-<<<<<<< HEAD
 
 	                            @RequestParam("lec_name") List<String> lec_name,
 	                            @RequestParam("manager") List<Integer> manager,
@@ -118,37 +117,6 @@ public class LectureInsertController {
 	    
 	    return gotoPage;
 
-=======
-								@RequestParam("lec_name") List<String> lec_name,
-								@RequestParam("manager") List<String> manager,
-								@RequestParam("teacher") List<String> teacher,
-								@RequestParam("lec_start") List<String> lec_start,
-								@RequestParam("lec_end") List<String> lec_end,
-								@RequestParam("stu_cnt") List<Integer> stu_cnt,
-								@RequestParam("class_name") List<String> class_name ) {
-		
-		/* 매니저, 강사 목록 가져오기 */
-		List<MemberBean> managerList = mdao.getMemberByCate("manager");
-		List<MemberBean> teacherList = mdao.getMemberByCate("teacher");
-		model.addAttribute("managerList",managerList);	
-		model.addAttribute("teacherList",teacherList);
-		
-		List<LectureBean> list = new ArrayList<LectureBean>();
-        for (int i = 0; i < lec_name.size(); i++) {
-        	LectureBean lb = new LectureBean();
-            lb.setLec_name(lec_name.get(i));
-            lb.setManager(manager.get(i));
-            lb.setTeacher(teacher.get(i));
-            lb.setLec_start(lec_start.get(i));
-            lb.setLec_end(lec_end.get(i));
-            lb.setStu_cnt(stu_cnt.get(i));
-            lb.setClass_name(class_name.get(i));
-            list.add(lb);
-        }
-        printList(list);
-        
-		return gotoPage;
->>>>>>> refs/heads/huiwon
 	}
 	
 	@RequestMapping(value=command2, method=RequestMethod.POST)
