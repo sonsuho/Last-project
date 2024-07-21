@@ -202,10 +202,10 @@
 	    // 페이지 로드시 안 읽은 소식 개수 초기화
 	    updateUnreadAlarmCount();
 
-	    // 일정 시간마다 안 읽은 소식 개수 업데이트 (예: 10초마다)
+	    // 일정 시간마다 안 읽은 소식 개수 업데이트 (예: 5초마다)
 	    setInterval(function() {
 	        updateUnreadAlarmCount();
-	    }, 10000); // 10초마다 업데이트
+	    }, 5000); // 5초마다 업데이트
 
 	    // 안 읽은 소식 개수를 서버에서 가져오는 함수
 	    function updateUnreadAlarmCount() {

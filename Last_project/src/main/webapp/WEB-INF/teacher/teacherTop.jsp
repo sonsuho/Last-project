@@ -3,6 +3,9 @@
 <%@ include file="../common/common.jsp"%>
 <%@ include file="../all/myPage.jsp" %>
 
+<!-- 메시지 탑 메뉴 ajax -->
+<%@ include file="../all/topMenuMessage.jsp" %>
+
 	<!-- studentBarTop.jsp -->
 
 <script>
@@ -56,7 +59,7 @@
 						<!-- 메신저알림 -->
 						<%@ include file="../all/message.jsp" %> 
 						<!-- 게시판알림 -->
-						<%@ include file="../all/board.jsp" %> 
+						<%@ include file="../all/alarmModal.jsp" %> 
 						<!-- 로그인/로그아웃 버튼 -->
 		        <li class="nav-item nav-logout d-none d-lg-block">
 		          <c:if test="${loginInfo == null}">

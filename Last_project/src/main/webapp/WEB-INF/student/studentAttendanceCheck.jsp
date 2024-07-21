@@ -12,6 +12,7 @@
 <script type="text/javascript">
     function getTime() {
         var d = new Date();
+        
         var hur = d.getHours().toString().padStart(2,'0');
         var min = d.getMinutes().toString().padStart(2,'0');
         var sec = d.getSeconds().toString().padStart(2,'0');
@@ -19,6 +20,15 @@
         var time = hur + ":" + min + ":" + sec;
         timeBoard.innerHTML = time;
         setTimeout(getTime, 1000);
+        
+        var year = d.getFullYear();
+        var month = (d.getMonth() + 1).toString().padStart(2, '0'); // 월은 0부터 시작하므로 +1 필요
+        var date = d.getDate().toString().padStart(2, '0');
+        var days = ['일', '월', '화', '수', '목', '금', '토'];
+        var day = days[d.getDay()];
+        var dateBoard = document.getElementById("Now_Date");
+        var fullDate = year + "-" + month + "-" + date + " (" + day + ")";
+        dateBoard.innerHTML = fullDate;
     }
 
     function getInformation_in() {
@@ -116,12 +126,18 @@
 
 <div align="center">
 	<body onload="getTime()">
-	<h2 id="Now_Time"></h2>
+	<h6 id="Now_Date" style="color: #949494; position: relative; right: 40px; font-family: Times New Roman, serif;"></h6>
+	<h1 id="Now_Time" style="font-family: Times New Roman, serif;"></h1>
 
-	출석시간 :
-	<%=att_sdate %><br> 
-	퇴실시간 :
-	<%=att_fdate %><br>
+	<span style="position: absolute; left: 63px;">출석시간</span>
+	<span style="position: absolute; left: 128px; ">:</span>
+	<span style="position: absolute; left: 143px; color: #A6A6A6;"><%=att_sdate %></span>
+	<br><br>
+	<span style="position: absolute; left: 63px; ">퇴실시간</span>
+	<span style="position: absolute; left: 128px; ">:</span>
+	<span style="position: absolute; left: 143px; color: #A6A6A6;"><%=att_fdate %></span>
+	
+	<br><br>
 
 <%
 	String check_flag = (String)session.getAttribute("check_flag");		//MemberBean.getMem_num()
@@ -132,7 +148,6 @@
 
     if(check_flag.equals("")) {    //아직 출석 안함
 %>
-
 		<!-- 출석하기 Button -->
 		<form name="checkInForm" id="checkInForm" action="start.student?mem_num=${loginInfo.mem_num}&mem_ip=${loginInfo.mem_ip}&mem_latitude=${loginInfo.mem_latitude}&mem_longitude=${loginInfo.mem_longitude}" method="post">
 	
@@ -161,4 +176,5 @@
     }
 %>
 	</body>
+	<hr style="width : 70%;">
 </div>

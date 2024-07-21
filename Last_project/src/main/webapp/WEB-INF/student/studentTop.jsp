@@ -3,6 +3,9 @@
 <%@ include file="../common/common.jsp"%>
 <%@ include file="../all/myPage.jsp" %>
 
+<!-- 메시지 탑 메뉴 ajax -->
+<%@ include file="../all/topMenuMessage.jsp" %>
+
 	<!-- studentBarTop.jsp -->
 	
 	<script>
@@ -15,7 +18,8 @@
 			location.href = "logout.in";
 		}
 	}
-</script>
+
+	</script>
 
 	<!-- plugins:css -->
 	<link rel="stylesheet" href="resources/assets/vendors/mdi/css/materialdesignicons.min.css">
@@ -33,6 +37,7 @@
 	<link rel="stylesheet" href="resources/assets/css/style.css">
 	<!-- End layout styles -->
 	<link rel="shortcut icon" href="resources/assets/images/favicon.png" />
+
 
 	<div class="container-scroller">
 	
@@ -56,7 +61,7 @@
 						<!-- 메신저알림 -->
 						<%@ include file="../all/message.jsp" %> 
 						<!-- 게시판알림 -->
-						<%@ include file="../all/board.jsp" %> 
+						<%@ include file="../all/alarmModal.jsp" %> 
 						<!-- 로그인/로그아웃 버튼 -->
 		        <li class="nav-item nav-logout d-none d-lg-block">
 		          <c:if test="${loginInfo == null}">
@@ -68,7 +73,6 @@
 		           <%
 		          	//AttendController session
 		          	String situ = (String)session.getAttribute("situ");
-		           
 		        	%>
 		           <a class="nav-link" onclick="checkAttend('<%=situ%>')">
 		              <i class="mdi mdi-power"></i>
@@ -138,7 +142,7 @@
 										<a class="nav-link"	href="request.student">휴가 신청</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="">휴가 내역</a>
+										<a class="nav-link" href="vacationDetail.student?mem_num=${loginInfo.mem_num}">휴가 내역</a>
 									</li>
 								</ul>
 							</div>

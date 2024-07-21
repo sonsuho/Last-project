@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="managerBarTop.jsp"%>
+
 <style>
     .container {
         display: flex;
@@ -131,7 +132,7 @@ function openDetail(etc_num) {
 				        <div class="col-lg-4">
 	                     	<form action="etcList.manager" style="display:flex;">
 	                     		<input type="hidden" name="whatColumn" value="all">
-								<input type="hidden" name="sender_num" value="${loginInfo.mem_num}">		                        
+								<input type="hidden" name="mem_num" value="${loginInfo.mem_num}">		                        
 								<input type="text" name="keyword" class="form-control" placeholder="이름 또는 제목을 입력하세요." aria-label="Recipient's username" aria-describedby="basic-addon2" style="width: 400px;">
 		                        <button type="submit" class="btn btn-sm btn-success py-3" type="button" style="width: 70px;">검색</button>
 	                        </form>
@@ -144,7 +145,7 @@ function openDetail(etc_num) {
 		<input type="hidden" name="mem_num" value="${loginInfo.mem_num}">
 		<table class="table table-hover">
 			<tr>
-				<th colspan="6"><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></th>
+				<td colspan="6"><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></td>
 			</tr>
 			<c:choose>
 				<c:when test="${elist == null || elist.isEmpty()}">

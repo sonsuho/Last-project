@@ -73,6 +73,7 @@
 	
 	<delete id="deleteLecture">
 		delete from lecture where lec_num = #{lec_num}
+  			
 	</delete>
 	
 	<select id="getLectureByMemNum" resultType="lecture.model.LectureBean">
@@ -86,9 +87,26 @@
 	</select>
 	
 	<update id="updateLecture">
-		update lecture set lec_name = #{lec_name}, teacher = #{teacher}, manager = #{manager}, 
-		lec_start = #{lec_start}, lec_end = #{lec_end}, stu_cnt = #{stu_cnt}, class_name = #{class_name}
-		where lec_num = #{lec_num}
-	</update>
+      update lecture set lec_name = #{lec_name}, teacher = #{teacher}, manager = #{manager}, 
+      lec_start = #{lec_start}, lec_end = #{lec_end}, stu_cnt = #{stu_cnt}, class_name = #{class_name}
+      where lec_num = #{lec_num}
+   </update>
+	
+	<!-- 민곤추가 -->
+	<delete id="deleteManagerFromLecture">
+		delete from lecture where lec_num= #{lec_num} and manager = #{manager}
+	</delete>
+	
+	<delete id="deleteTeacherFromLecture">
+		delete from lecture where lec_num= #{lec_num} and teacher = #{teacher}
+	</delete>
+	
+	<!-- 민곤추가 -->
+	
+	<select id="getLectureForManager" resultType="lecture.model.LectureBean">
+		select * from lecture 
+		where manager = #{mem_num} and lec_end > SYSDATE 
+		order by lec_start, lec_end
+	</select>
 	
 </mapper>

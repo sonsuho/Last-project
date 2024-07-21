@@ -25,7 +25,7 @@ public class MessengerDetailController {
 	
 	@RequestMapping(value="/detail.messenger", produces = "application/json")
 	public @ResponseBody MessengerBean detail(@RequestParam("msg_num") int msg_num, HttpSession session) {
-		System.out.println("여기루 오나여? 디테일?");
+		System.out.println("메시지 디테일 컨트롤러 ");
 		System.out.println("msg_num: " + msg_num);
 		
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");

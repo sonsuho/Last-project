@@ -72,38 +72,25 @@ public class ManagerStuInsertController {
 		if(excelFile==null||excelFile.isEmpty()){
 			System.out.println("엑셀파일을 선택해 주세요");
 		}
-		System.out.println("여기1");
 		String filePath = "C:\\upload\\excelUpload\\"+excelFile.getOriginalFilename();
-		System.out.println("여기2");
 		File destFile = new File(filePath);
-		System.out.println("여기3");
 		if(!destFile.exists()) {
-			System.out.println("여기4");
 			//디렉토리 생성
 			destFile.mkdirs();
-			System.out.println("여기5");
 		} 
 		try {
-			System.out.println("여기6");
 			excelFile.transferTo(destFile);
-			System.out.println("여기7");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		StuExcelReader excelReader = new StuExcelReader();
-		System.out.println("여기8");
 		
 		String extention = StringUtils.getFilenameExtension(filePath);
-		System.out.println("여기9");
 		if(extention.equals("xlsx")) {
-			System.out.println("여기10");
 			List<MemberBean> list = excelReader.xlsxToList(filePath);
-			System.out.println("여기11");
 			printList(list, lec_num);
-			System.out.println("여기12");
 		}
 		
-		System.out.println("성공!!!!!!!!");
 		return gotoPage;
 	}
 

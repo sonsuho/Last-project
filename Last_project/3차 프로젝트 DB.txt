@@ -30,7 +30,7 @@ CREATE TABLE member (
 );
 
 INSERT INTO member  VALUES (mem_seq.nextval, '관리자', 'admin', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'admin', 'X', '서울시 강남구', '010-1234-5678', 'chulsoo@gmail.com', '관리자', 0,'106.241.247.83' , 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
-INSERT INTO member  VALUES (mem_seq.nextval, '이영희', 'manager1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '1/2', '서울시 서초구', '010-2345-6789', 'younghee@gmail.com', '근무', 2,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+INSERT INTO member  VALUES (mem_seq.nextval, '이영희', 'manager1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '1', '서울시 서초구', '010-2345-6789', 'younghee@gmail.com', '근무', 2,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
 INSERT INTO member  VALUES (mem_seq.nextval, '박민수', 'manager2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '3', '서울시 송파구', '010-3456-7890', 'minsoo@gmail.com', '근무', 4,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
 INSERT INTO member  VALUES (mem_seq.nextval, '최지영', 'teacher1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '1', '서울시 강동구', '010-4567-8901', 'jiyoung@gmail.com', '근무', 0,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
 INSERT INTO member  VALUES (mem_seq.nextval, '한가영', 'teacher2', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '2', '서울시 마포구', '010-5678-9012', 'gayoung@gmail.com', '근무', 0,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
@@ -39,6 +39,14 @@ INSERT INTO member  VALUES (mem_seq.nextval, '김혜수', 'student2', '03ac67421
 INSERT INTO member  VALUES (mem_seq.nextval, '이동욱', 'student3', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 성북구', '010-8901-2345', 'dongwook@gmail.com', '중도퇴실', 5,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
 INSERT INTO member  VALUES (mem_seq.nextval, '김하늘', 'student4', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '2', '서울시 강북구', '010-9012-3456', 'haneul@gmail.com', '강제퇴실', 1,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
 INSERT INTO member  VALUES (mem_seq.nextval, '박지훈', 'student5', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 강서구', '010-0123-4567', 'jihoon@gmail.com', '진행', 3,'106.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+
+--틀린 IP(student)
+INSERT INTO member  VALUES (mem_seq.nextval, 'stu_test', 'stu_test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '진행', 3,'105.241.247.83', 37.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+--틀린 위도(manager)
+INSERT INTO member  VALUES (mem_seq.nextval, 'man_test', 'man_test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'manager', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '근무', 3,'106.241.247.83', 31.55655207589364, 126.91945616764994, 'user.jpg', '여', '1975-01-16');
+--틀린 경도(teacher)
+INSERT INTO member  VALUES (mem_seq.nextval, 'tea_test', 'tea_test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '근무', 3,'106.241.247.83', 37.55655207589364, 124.91945616764994, 'user.jpg', '여', '1975-01-16');
+
 commit;
 
 col mem_num for 99
@@ -77,14 +85,14 @@ insert into lecture values(seq_lecture.nextval, 'Chat-gpt API를 사용한 애�
 ==== 일정 테이블
 ===================================
 
-drop sequence seq_calender;
-create sequence seq_calender
+drop sequence seq_calendar;
+create sequence seq_calendar
 	start with 1
 	increment by 1
 	nocache ;
 
-DROP TABLE calender CASCADE CONSTRAINTS;
-CREATE TABLE calender (
+DROP TABLE calendar CASCADE CONSTRAINTS;
+CREATE TABLE calendar (
 	cal_num number primary key,
 	lec_num number NULL,
 	mem_num varchar2(20) NULL,
@@ -162,7 +170,44 @@ CREATE TABLE attend (
 col day for a10
 col situ for a10
 col ip for a15
-select * from attend;
+
+--데이터 삽입
+--학생
+--정상출석
+INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
+VALUES (seq_attend.nextval, 11, TO_DATE('2024/07/15','YYYY/MM/DD'), TO_DATE('2024/07/15 08:30:15','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/15 18:30:15','YYYY/MM/DD HH24:MI:SS'), '출석');
+--지각
+INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
+VALUES (seq_attend.nextval, 11, TO_DATE('2024/07/14','YYYY/MM/DD'), TO_DATE('2024/07/14 10:13:22','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/14 17:50:15','YYYY/MM/DD HH24:MI:SS'), '지각');
+--조퇴
+INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
+VALUES (seq_attend.nextval, 11, TO_DATE('2024/07/13','YYYY/MM/DD'), TO_DATE('2024/07/13 09:01:05','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/13 13:30:15','YYYY/MM/DD HH24:MI:SS'), '조퇴');
+
+--매니저
+--정상출석
+INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
+VALUES (seq_attend.nextval, 12, TO_DATE('2024/07/15','YYYY/MM/DD'), TO_DATE('2024/07/15 08:30:15','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/15 18:30:15','YYYY/MM/DD HH24:MI:SS'), '출근');
+--지각
+INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
+VALUES (seq_attend.nextval, 12, TO_DATE('2024/07/14','YYYY/MM/DD'), TO_DATE('2024/07/14 10:13:22','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/14 17:50:15','YYYY/MM/DD HH24:MI:SS'), '지각');
+--조퇴
+INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
+VALUES (seq_attend.nextval, 12, TO_DATE('2024/07/13','YYYY/MM/DD'), TO_DATE('2024/07/13 09:01:05','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/13 13:30:15','YYYY/MM/DD HH24:MI:SS'), '조퇴');
+
+--강사
+--정상출석
+INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
+VALUES (seq_attend.nextval, 13, TO_DATE('2024/07/15','YYYY/MM/DD'), TO_DATE('2024/07/15 08:30:15','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/15 18:30:15','YYYY/MM/DD HH24:MI:SS'), '출근');
+--지각
+INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
+VALUES (seq_attend.nextval, 13, TO_DATE('2024/07/14','YYYY/MM/DD'), TO_DATE('2024/07/14 10:13:22','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/14 17:50:15','YYYY/MM/DD HH24:MI:SS'), '지각');
+--조퇴
+INSERT INTO attend (att_num, mem_num, day, att_sdate, att_fdate, situ)
+VALUES (seq_attend.nextval, 13, TO_DATE('2024/07/13','YYYY/MM/DD'), TO_DATE('2024/07/13 09:01:05','YYYY/MM/DD HH24:MI:SS'), TO_DATE('2024/07/13 13:30:15','YYYY/MM/DD HH24:MI:SS'), '조퇴');
+
+commit;
+----------------------------------------------------------------------------------------------------------------
+
 
 ===================================
 ==== 강의평가결과 테이블
@@ -504,13 +549,23 @@ CREATE TABLE study_group (
 DROP TABLE going_class CASCADE CONSTRAINTS;
 CREATE TABLE going_class (
 	lec_num number primary key,
+	lec_name varchar2(100) null,		-- student, teacher 로그인이 안되서 임의로 추가한 칼럼
 	link varchar2(100) null,
 	onoff varchar2(10) null
 );
 
 
-insert into going_class values(1, 'null', 'off');
-insert into going_class values(2, 'null', 'off');
+insert into going_class (lec_num, link, onoff) values(1, 'null', 'off');
+insert into going_class (lec_num, link, onoff) values(2, 'null', 'off');
 
 commit;
+
+
+CREATE OR REPLACE FUNCTION func_get_alarm_time (p_date DATE) 
+RETURN VARCHAR2 IS
+BEGIN
+    RETURN TO_CHAR(p_date, 'YYYY-MM-DD HH24:MI:SS');
+END;
+/
+
 

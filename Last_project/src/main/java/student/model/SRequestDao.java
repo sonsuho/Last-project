@@ -92,4 +92,8 @@ public class SRequestDao {
 		
 		return cnt;
 	}
+	public List<SRequestBean> getVacationDetailListsByCategory(int mem_num) {
+		List<SRequestBean> lists = sqlSessionTemplate.selectList(namespace+".getVacationDetailListsByCategory", mem_num);
+		return lists;
+	}
 }

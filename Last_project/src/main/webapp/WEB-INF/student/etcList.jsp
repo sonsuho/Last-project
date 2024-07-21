@@ -102,13 +102,14 @@
     
  
     
-	function reply(etc_num,mem_num,sender_num){//받았던 사람이 이제 보내는사람이 되니까 반대로
+	/* function reply(etc_num,mem_num,sender_num){//받았던 사람이 이제 보내는사람이 되니까 반대로
 		location.href="replyEtc.student?etc_num="+etc_num+"&mem_num="+mem_num+"&sender_num="+sender_num;
-	}
+	} */
 	
 	
 	// Ajax를 이용한 답장 기능 구현
     function reply(etc_num, mem_num, sender_num) {
+		
         // Ajax 요청 보내기
         $.ajax({
             type: 'GET',
@@ -181,7 +182,7 @@
                             <input type="hidden" name="sender_num" value="${loginInfo.mem_num}">
                             <thead>
                                 <tr>
-                                    <th colspan="5"><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></th>
+                                    <td colspan="5"><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -307,8 +308,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="replyModalLabel">문서 보내기</h5>
         
-         <i class="fa fa-times" id="closeModal2"></i>
-
+         <i class="fa fa-times" id="Modal"></i>
       </div>
       <div class="modal-body">
       
@@ -447,6 +447,7 @@
 	</script>
 <script type="text/javascript" src="resources/js/jquery.js"></script>
 <script type="text/javascript">
+
     // jQuery를 이용하여 document.ready 이벤트 설정
     $(document).ready(function() {
         // 보낼 사람 선택 체크박스에 대한 클릭 이벤트 설정
@@ -472,9 +473,9 @@
         });
         
      // 모달 닫기 버튼 처리
-        $("#btnclose2, #closeModal2").click(function() {
+     /*    $("#btnclose2, #closeModal2").click(function() {
             $('#secondModal').modal('hide');
-        });
+        }); */
     });
     
     $(function(){
@@ -538,7 +539,18 @@
             return true;
         });
     });
+  
     
+        $("#Modal").click(function() {
+            $('#secondModal').modal('hide'); // 모달 숨기기
+            $("#formContainer").hide(); 
+        });
+        
+    
+        $("#close").click(function() {
+            $('#secondModal').modal('hide');
+            $("#formContainer").hide(); // 폼을 감싸는 div를 숨김
+        });
 
     
 </script>

@@ -26,7 +26,7 @@ public class MemberDao {
 	} //getMemberByCate
 	
 	public void idInsert(MemberBean mb) {
-		sqlSessionTemplate.insert(namespace+".idInsert", mb);
+		sqlSessionTemplate.update(namespace+".idInsert", mb);
 	} //idInsert
 	
 	public List<MemberBean> getEmplList(Paging pageInfo, Map<String,String> map){

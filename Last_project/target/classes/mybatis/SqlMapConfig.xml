@@ -18,7 +18,6 @@
 		<mapper resource="mybatis/lecture.xml"/>
 		<mapper resource="mybatis/test.xml"/>
 		<mapper resource="mybatis/chat.xml"/>
-		<mapper resource="mybatis/member.xml"/>
 		<mapper resource="mybatis/testResult.xml"/>
 		<mapper resource="mybatis/evaluation.xml"/>
 	</mappers>

@@ -5,49 +5,65 @@
   
 <mapper namespace="messenger.model.Messenger">
 	<select id="getMsgRecvList" resultType="messenger.model.MessengerBean">
-		select * from messenger where recv_num = #{mem_num} 
-		
-		<if test="whatColumn == 'all'">
-			and send_name like #{keyword} or title like #{keyword}
-		</if>
-		
-		order by send_time desc
+		<![CDATA[
+	    select * from messenger
+	    where recv_num = #{mem_num} 
+	    and del_chk != 2
+	    ]]>
+	    <if test="whatColumn == 'all'">
+	        and (send_name like #{keyword} or title like #{keyword})
+	    </if>
+	    order by send_time desc
 	</select>
 	
 	<select id="getMsgSendList" resultType="messenger.model.MessengerBean">
-		select * from messenger where mem_num = #{mem_num} 
-		
+		<![CDATA[
+		select * from messenger
+		where mem_num = #{mem_num} 
+		and del_chk != 1
+		]]>
 		<if test="whatColumn == 'all'">
-			and send_name like #{keyword} or title like #{keyword}
+			and (send_name like #{keyword} or title like #{keyword})
 		</if>
 		
 		order by send_time desc
 	</select>
 	
+	<!-- Recv List에서 사용 -->
 	<select id="getTotalCount" resultType="int">
-		select count(*) from messenger where recv_num = #{mem_num} 
-		
-		<if test="whatColumn == 'all'">
-			and send_name like #{keyword} or title like #{keyword}
-		</if>
-		
+	    select count(*) from messenger 
+	    where recv_num = #{mem_num} 
+	    and del_chk != 2
+	    <if test="whatColumn == 'all'">
+	        and (send_name like #{keyword} or title like #{keyword})
+	    </if>
+	</select>
+	
+	<!-- Send List에서 사용 -->
+	<select id="getSendTotalCount" resultType="int">
+	    select count(*) from messenger 
+	    where mem_num = #{mem_num} 
+	    and del_chk != 1
+	    <if test="whatColumn == 'all'">
+	        and (send_name like #{keyword} or title like #{keyword})
+	    </if>
 	</select>
 	
 	<insert id="insertAllMsg">
-		insert into messenger(msg_num, mem_num, recv_num, ogmsg_num, title, content, msg_upload, send_time, send_name, recv_name, del_chk)
-		values(msg_seq.nextval, #{mem_num}, #{recv_num}, #{ogmsg_num}, #{title}, #{content}, #{msg_upload}, sysdate, #{send_name}, #{recv_name}, #{del_chk})
+		insert into messenger(msg_num, mem_num, recv_num, ogmsg_num, title, content, msg_upload, send_time, send_name, read_chk, recv_name, del_chk)
+		values(msg_seq.nextval, #{mem_num}, #{recv_num}, #{ogmsg_num}, #{title}, #{content}, #{msg_upload}, sysdate, #{send_name}, #{read_chk},  #{recv_name}, #{del_chk})
 	</insert>
 	
 	<select id="getRecentlyMsg" resultType="messenger.model.MessengerBean">
 		<![CDATA[
-	    select msg_num, send_name, send_time, read_chk
+	    select msg_num, send_name, send_time, read_chk, del_chk
 	    from (
-	        select msg_num, send_name, send_time, read_chk
+	        select msg_num, send_name, send_time, read_chk, del_chk
 	        from messenger 
 	        where recv_num = #{mem_num} 
 	        order by send_time desc
 	    ) 
-	    where rownum <= 3
+	    where rownum <= 3 and del_chk != 2
 	    ]]>
 	</select>
 	
@@ -75,7 +91,14 @@
 		select * from messenger where msg_num = #{msg_num}
 	</select>
 	
-	
+	<select id="getUnreadList" resultType="messenger.model.MessengerBean">
+		
+	    select * from messenger
+	    where recv_num = #{mem_num}
+	  	and read_chk = 0
+	    and del_chk != 2
+	    order by send_time desc
+	</select>
 	
 	
 </mapper>

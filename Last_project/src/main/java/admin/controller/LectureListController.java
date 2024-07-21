@@ -46,9 +46,10 @@ public class LectureListController {
 		int totalCount = ldao.getTotalLecture(map);
 		Paging pageInfo = new Paging(pageNumber,"10",totalCount,url,whatColumn,keyword,"","");
 		
+		
 		List<LectureBean> lectureList = ldao.getLectureList(pageInfo, map);
 		for (LectureBean lb : lectureList) {
-	        lb.setM_name(mdao.getNameByNum(lb.getManager()).getName());
+			lb.setM_name(mdao.getNameByNum(lb.getManager()).getName());
 	        lb.setT_name(mdao.getNameByNum(lb.getTeacher()).getName());
 		    int stu_cnt = mdao.getStudent(lb.getLec_num());
 		    lb.setStudent(stu_cnt);
@@ -63,4 +64,6 @@ public class LectureListController {
 		
 		return getPage;
 	}
+
 }
+

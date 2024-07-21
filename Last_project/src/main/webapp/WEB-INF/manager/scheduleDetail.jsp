@@ -12,6 +12,10 @@
 	<%@include file = "../student/studentTop.jsp"%>
 </c:if>
 
+<c:if test="${loginInfo.category == 'teacher'}">
+	<%@include file = "../teacher/teacherTop.jsp"%>
+</c:if>
+
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -140,8 +144,37 @@
     StringBuffer month = dateBuffer.delete(7, 11);
 %>
 
-<a href="calendar.manager" class="button">뒤로 돌아가기(calendarForm)</a>
-
+<!-- header -->
+	<div class="page-header">
+    	<h3 class="page-title">
+	    	<span class="page-title-icon bg-gradient-primary text-white me-2">
+	        	<i class="mdi mdi-clipboard-text"></i>
+	    	</span> <%=start_date %> 일정 목록
+    	</h3>
+    	<nav aria-label="breadcrumb">
+    		<ul class="breadcrumb">
+      			<li class="breadcrumb-item active" aria-current="page">
+          			<span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+        		</li>
+    		</ul>
+    		<c:if test="${loginInfo.category == 'manager'}">
+					<a href="home.manager" class="button">뒤로 돌아가기</a>
+			</c:if>
+				
+			<c:if test="${loginInfo.category == 'student'}">
+				<a href="home.student" class="button">뒤로 돌아가기</a>
+			</c:if>
+				
+			<c:if test="${loginInfo.category == 'teacher'}">
+				<a href="home.teacher" class="button">뒤로 돌아가기</a>
+			</c:if>
+    	</nav>
+	</div>
+	
+<div class="row">
+   <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+         <div class="card-body">
 <br><br>
 
 <c:if test="${loginInfo.category != 'manager'}">
@@ -154,10 +187,8 @@
         <center>
             <table>
                 <tr>
-                    <th>번호</th>
-                    <th>회원번호</th>
+                	<th>작성자</th>
                     <th>반</th>
-                    <th>작성자</th>
                     <th>제목</th>
                     <th>시작날짜</th>
                     <th>종료날짜</th>
@@ -169,9 +200,6 @@
 
                 <c:forEach var="calendar" items="${calendarLists}" varStatus="status">
                     <tr>
-                        <td>${calendar.cal_num}</td>
-                        <td>${calendar.mem_num}</td>
-                        <td>${calendar.lesson_class}</td>
                         <td>
                             <c:if test="${fn:contains(calendar.name, '공용')}">
                                 [공용] ${calendar.name}
@@ -180,6 +208,7 @@
                                 ${calendar.name}
                             </c:if>
                         </td>
+                        <td>${calendar.lesson_class}</td>
                         <td>
                             <a href="scheduleView.manager?start_date=<%= request.getParameter("start_date")%>&cal_num=${calendar.cal_num}">${calendar.title}</a>
                         </td>
@@ -264,10 +293,19 @@
     </c:if>
 </c:if>
 
+         </div>
+      </div>
+   </div>
+</div>
+
 <c:if test="${loginInfo.category == 'manager'}">
 	<%@include file = "managerBarBottom.jsp"%>
 </c:if>
 
 <c:if test="${loginInfo.category == 'student'}">
 	<%@include file = "../student/studentBottom.jsp"%>
+</c:if>
+
+<c:if test="${loginInfo.category == 'teacher'}">
+	<%@include file = "../teacher/teacherBottom.jsp"%>
 </c:if>

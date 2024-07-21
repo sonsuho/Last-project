@@ -28,6 +28,20 @@ public class RequestDao {
 
 		return rlist;
 	}
+	public RequestBean getRequestList_re(int mem_num) {
+
+		RequestBean rb = sqlSessionTemplate.selectOne(namespace+".getRequestList_re", mem_num);
+
+		return rb;
+	}
+	
+	public List<RequestBean> getVacationDetailListsByCategory(int mem_num) {
+
+		List<RequestBean> lists = sqlSessionTemplate.selectList(namespace+".getVacationDetailListsByCategory", mem_num);
+
+		return lists;
+	}
+	
 	public List<RequestJoinMemberBean> RequestPaging1(Paging pageInfo, Map<String, String> map) {
 
 		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());

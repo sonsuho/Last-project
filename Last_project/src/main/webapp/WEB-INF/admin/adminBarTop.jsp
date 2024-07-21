@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../common/common.jsp" %> 
-
+<%@ include file="../common/common.jsp" %>
+ 
+<!-- 메시지 탑 메뉴 ajax -->
+<%@ include file="../all/topMenuMessage.jsp" %>
+    
 	<!-- adminBarTop.jsp -->   
 	<!-- content는 각각 jsp에 작성한뒤 include file="top.jsp" , include file="bottom.jsp" 해서 사용하기 -->
 	<!-- 컨트롤+F 눌러서 `admin`은 각자 코드에 맞게 수정하고 사용하기 -->

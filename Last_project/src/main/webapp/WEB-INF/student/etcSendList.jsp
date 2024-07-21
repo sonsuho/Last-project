@@ -130,7 +130,7 @@
                             <input type="hidden" name="sender_num" value="${loginInfo.mem_num}">
                             <thead>
                                 <tr>
-                                    <th colspan="6"><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></th>
+                                    <td colspan="6"><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></td>
                                 </tr>
                             </thead>
                             <tbody>

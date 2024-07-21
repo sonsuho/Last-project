@@ -28,4 +28,5 @@ public class StudentCalendarController {
 	    model.addAttribute("allSchedules", lists);
 	    return getPage;
 	}
+
 }

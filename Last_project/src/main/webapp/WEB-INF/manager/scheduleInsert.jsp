@@ -108,7 +108,7 @@
 </script>
 
 <%
-    String[] group = {"A", "B", "C", "D", "E", "F", "G", "H"};
+    String[] group = {"All", "A", "B", "C", "D", "E", "F", "G", "H"};
 %>
 
 <div class="form-container">
@@ -187,5 +187,3 @@
 <a href="schedule.manager?start_date=<%= request.getParameter("start_date")%>" class="back-link">이전으로 돌아가기</a>
 
 <%@include file = "managerBarBottom.jsp"%>
-
-
