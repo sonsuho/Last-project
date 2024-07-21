@@ -16,12 +16,16 @@ public class NoticeBean {
 	
 	@NotEmpty(message = "내용은 필수 입력입니다.")
 	private String content;
+	
+	@NotEmpty(message = "반은 필수 입력입니다.")
+	private String class_name;
 
 	public NoticeBean() {
 
 	}
 
-	public NoticeBean(int n_num, String lec_num, String title, int mem_num, String writer, String day, String content) {
+	public NoticeBean(int n_num, String lec_num, String title, int mem_num, String writer, String day, String content,
+			String class_name) {
 		super();
 		this.n_num = n_num;
 		this.lec_num = lec_num;
@@ -30,6 +34,15 @@ public class NoticeBean {
 		this.writer = writer;
 		this.day = day;
 		this.content = content;
+		this.class_name = class_name;
+	}
+
+	public String getClass_name() {
+		return class_name;
+	}
+
+	public void setClass_name(String class_name) {
+		this.class_name = class_name;
 	}
 
 	public int getN_num() {

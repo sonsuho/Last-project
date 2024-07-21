@@ -175,6 +175,12 @@
 								<span class="menu-title">수업하기</span> 
 							</a>
 						</li>
+						
+						<li class="nav-item">
+							<a class="nav-link" href="notice.manager"> 
+								<span class="menu-title">공지사항</span> 
+							</a>
+						</li>
 					</ul>
 				</nav>
 				

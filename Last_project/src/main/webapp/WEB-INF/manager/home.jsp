@@ -1,3 +1,4 @@
+<%@page import="org.springframework.web.servlet.ModelAndView"%>
 <%@page import="manager.model.mCalendarBean"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Locale"%>
@@ -21,7 +22,8 @@
 .content-container {
 	justify-content: space-around;
 	gap: 20px;
-	    }
+}
+
 .element1, .element2 {
 	width: 100%;
 	background: #fff;
@@ -61,15 +63,14 @@
 
 .notice-container {
 	position: absolute;
-	left : 620px;
-	height: 585px;
+	left : 50%;
 	background: #fff;
 	border-radius: 8px;
 	padding: 20px;
 	margin: 20px auto;
 	border: 1px solid #e0e0e0;
 	width: 43%;
-     
+	height: 51%;
 }
 
 .notice-container h4 {
@@ -104,58 +105,57 @@
 }
 
 /* calendar */
-th {
-	text-align: center;
-	background: #28a745;
-	color: #fff;
-	padding: 10px;
+/* 기존 스타일을 새로운 클래스 이름으로 변경 */
+.calendar-header {
+    text-align: center;
+    background: #28a745;
+    color: #fff;
+    padding: 10px;
 }
 
-td {
-	text-align: center;
-	background: #fff;
-	padding: 0px 1px 15px;
-	border: 1px solid #dee2e6;
-	width: 45px;
-	height: 45px;
+.calendar-day {
+    text-align: center;
+    background: #fff;
+    padding: 0px 1px 15px;
+    border: 1px solid #dee2e6;
+    width: 45px;
+    height: 45px;
 }
 
-td a {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 5px 1px 15px;
-	color: #000;
-	text-decoration: none;
+.calendar-day a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 1px 15px;
+    color: #000;
+    text-decoration: none;
 }
 
-td.today {
-	position: relative;
+.calendar-today {
+    position: relative;
 }
 
-td.today a {
-	position: relative;
-	z-index: 1;
+.calendar-today a {
+    position: relative;
+    z-index: 1;
 }
 
-td.today::before {
-	content: '';
-	position: absolute;
-	top: 35%;
-	left: 50%;
-	width: 37px;
-	height: 37px;
-	background: #FFFFFF;
-	border: 2px solid #208738;
-	border-radius: 50%;
-	transform: translate(-50%, -50%);
-	z-index: 0;
+.calendar-today::before {
+    content: '';
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    width: 37px;
+    height: 37px;
+    background: #FFFFFF;
+    border: 2px solid #208738;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
 }
 
 .date-wrap {
 	font-family: Comic Sans MS, serif;
-	width: 480px;
-	height: 585px;
 	margin: 20px auto;
 	padding: 20px;
 	background: #fff;
@@ -380,7 +380,7 @@ table.date-month {
         $('#month-prev').data('ym', prevMonth(date));
         $('#month-next').data('ym', nextMonth(date));
         $('#tbl-month').empty();
-        var td = '<td class="__TODAY__ __EVENT__ __CLASS__"><a __HREF__>__DATE__ __EVENT_IMG__</a></td>';
+        var td = '<td class="calendar-day __TODAY__ __EVENT__ __CLASS__"><a __HREF__>__DATE__ __EVENT_IMG__</a></td>';
         var href = 'schedule.manager?start_date=' + date.substring(0, 8);
         var week = null;
         var days = fullDays(date);
@@ -394,14 +394,14 @@ table.date-month {
                     var eventStart = isEventStart(dateStr);
                     var eventLesson_class = getEventLesson_class(dateStr);
                     var eventImg = eventStart ? '  <img src="resources/images/attendSymbol3.jpg" style="width:12px; height:12px" />' : '';
-                    $tr.append(td.replace('__TODAY__', (obj.today ? 'today' : ''))
+                    $tr.append(td.replace('__TODAY__', (obj.today ? 'calendar-today' : ''))
                                 .replace('__EVENT__', (hasEvent ? 'event' : ''))
                                 .replace('__CLASS__', obj.class + ' ' + eventLesson_class)
                                 .replace('__HREF__', 'href="' + href + ('0' + obj.date).slice(-2) + '"')
                                 .replace('__DATE__', obj.date)
                                 .replace('__EVENT_IMG__', eventImg));
                 } else {
-                    $tr.append('<td></td>');
+                    $tr.append('<td class="calendar-day"></td>');
                 }
             });
             $('#tbl-month').append($tr);
@@ -477,7 +477,6 @@ table.date-month {
 <div class="element2">
 	<div class="calendar-container">
 
-			
 <div class="date-wrap">
 	<div class="date-month">
 		<div class="button_wrap">
@@ -488,7 +487,7 @@ table.date-month {
 	</div>
 	<table class="date-month" border="1">
 		<thead>
-			<tr>
+			<tr class="calendar-header">
 				<th>Sun</th>
 				<th>Mon</th>
 				<th>Tue</th>
@@ -513,9 +512,19 @@ table.date-month {
 <div class="notice-container">
 	<h4>공지사항</h4>
 	<ul class="notice-list">
-		<c:forEach var="notice" items="${noticeList}">
+		<c:forEach var="notice" items="${noticeList}" end="9">
 			<li>
-				<span class="badge badge-general">${notice.lec_num}반</span> 
+				<c:if test="${notice.class_name eq 'All'}">
+					<span class="badge badge-general">
+						전체
+					</span>
+				</c:if>
+				<c:if test="${notice.class_name ne 'All'}">
+					<span class="badge badge-important">
+						${notice.class_name}반
+					</span>
+				</c:if>
+				
 				<span><a href="noticeDetail.manager?n_num=${notice.n_num}">${notice.title}</a></span>
 				<span>${notice.day}</span>
 			</li>

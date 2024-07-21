@@ -1,8 +1,5 @@
 package manager.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,13 +67,12 @@ public class ManagerNoticeController {
 		map.put("whatColumn", whatColumn);
 		map.put("keyword", "%" + keyword + "%");
 		map.put("pageNumber", pageNumber);
-		map.put("lec_num", lec_num);
 		                            
 		int totalCount = ndao.getTotalCount(map);
 		
 		String url = request.getContextPath() + this.getCommand;
 		
-		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword,"","");
+		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword);
 		
 		List<NoticeBean> noticeList = ndao.getNoticeList(pageInfo, map);
 		
@@ -143,13 +139,36 @@ public class ManagerNoticeController {
 			@RequestParam(value="pageNumber", required = false) String pageNumber,
 			@RequestParam(value="whatColumn", required = false) String whatColumn,
 			@RequestParam(value="keyword", required = false) String keyword,
-			@RequestParam(value="n_num") String n_num, HttpSession session, HttpServletRequest request) {
+			@RequestParam(value="n_num", required = false) String n_num, 
+			HttpSession session, HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("pageNumber", pageNumber);
 		mav.addObject("whatColumn", whatColumn);
 		mav.addObject("keyword", keyword);
+		
+		if(n_num == null) {
+			Map<String, String> map = new HashMap<String, String>();
+			
+			map.put("whatColumn", whatColumn);
+			map.put("keyword", "%" + keyword + "%");
+			map.put("pageNumber", pageNumber);
+			
+			int totalCount = ndao.getTotalCount(map);
+			
+			String url = request.getContextPath() + this.detailCommand;
+			
+			Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword);
+			
+			List<NoticeBean> list = ndao.getNoticeList(pageInfo, map);
+			
+			mav.addObject("noticeList", list);
+			mav.addObject("pageInfo", pageInfo);
+			
+			mav.setViewName(getPage);
+			return mav;
+		}
 		
 		NoticeBean notice = ndao.getNoticeByN_num(n_num);
 		
@@ -160,17 +179,17 @@ public class ManagerNoticeController {
 		map.put("whatColumn", whatColumn);
 		map.put("keyword", "%" + keyword + "%");
 		map.put("pageNumber", pageNumber);
-		map.put("lec_num", ( (MemberBean)session.getAttribute("loginInfo") ).getLec_num());
 		
 		int totalCount = ndao.getTotalCount(map);
 		
 		String url = request.getContextPath() + this.detailCommand;
 		
-		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword,"","");
+		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword);
 		
 		List<NoticeBean> list = ndao.getNoticeList(pageInfo, map);
 		
 		mav.addObject("noticeList", list);
+		mav.addObject("pageInfo", pageInfo);
 		
 		mav.setViewName(detailPage);
 		

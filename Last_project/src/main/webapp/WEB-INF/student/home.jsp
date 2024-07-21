@@ -11,11 +11,11 @@
 <%@ include file="studentTop.jsp"%>
 
 <style>
-
 .content-container {
 	justify-content: space-around;
 	gap: 20px;
-	    }
+}
+
 .element1, .element2 {
 	width: 100%;
 	background: #fff;
@@ -24,13 +24,13 @@
 	margin-bottom: 20px;
 	border: 1px solid #e0e0e0;
 }
-	    
-.element2{
+
+.element2 {
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
 	flex-wrap: wrap;
-	gap: 50px;	
+	gap: 50px;
 }
 
 .progress-container {
@@ -52,17 +52,17 @@
 	background: #36E0C6;
 	border-radius: 10px;
 }
+
 .notice-container {
 	position: absolute;
-	left : 620px;
-	height: 585px;
+	left: 50%;
 	background: #fff;
 	border-radius: 8px;
 	padding: 20px;
 	margin: 20px auto;
 	border: 1px solid #e0e0e0;
 	width: 43%;
-     
+	height: 51%;
 }
 
 .notice-container h4 {
@@ -97,58 +97,57 @@
 }
 
 /* calendar */
-th {
-	text-align: center;
-	background: #28a745;
-	color: #fff;
-	padding: 10px;
+/* 기존 스타일을 새로운 클래스 이름으로 변경 */
+.calendar-header {
+    text-align: center;
+    background: #28a745;
+    color: #fff;
+    padding: 10px;
 }
 
-td {
-	text-align: center;
-	background: #fff;
-	padding: 0px 1px 15px;
-	border: 1px solid #dee2e6;
-	width: 45px;
-	height: 45px;
+.calendar-day {
+    text-align: center;
+    background: #fff;
+    padding: 0px 1px 15px;
+    border: 1px solid #dee2e6;
+    width: 45px;
+    height: 45px;
 }
 
-td a {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 5px 1px 15px;
-	color: #000;
-	text-decoration: none;
+.calendar-day a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 1px 15px;
+    color: #000;
+    text-decoration: none;
 }
 
-td.today {
-	position: relative;
+.calendar-today {
+    position: relative;
 }
 
-td.today a {
-	position: relative;
-	z-index: 1;
+.calendar-today a {
+    position: relative;
+    z-index: 1;
 }
 
-td.today::before {
-	content: '';
-	position: absolute;
-	top: 35%;
-	left: 50%;
-	width: 37px;
-	height: 37px;
-	background: #FFFFFF;
-	border: 2px solid #208738;
-	border-radius: 50%;
-	transform: translate(-50%, -50%);
-	z-index: 0;
+.calendar-today::before {
+    content: '';
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    width: 37px;
+    height: 37px;
+    background: #FFFFFF;
+    border: 2px solid #208738;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
 }
 
 .date-wrap {
 	font-family: Comic Sans MS, serif;
-	width: 480px;
-	height: 585px;
 	margin: 20px auto;
 	padding: 20px;
 	background: #fff;
@@ -173,17 +172,17 @@ td.today::before {
 }
 
 .button_wrap button {
-            font-size: 16px;
-            font-weight : bold;
-            background: #007bff;
-            color: #fff;
-            border-radius: 4px;
-            border: none;
-            cursor: pointer;
+	font-size: 16px;
+	font-weight: bold;
+	background: #007bff;
+	color: #fff;
+	border-radius: 4px;
+	border: none;
+	cursor: pointer;
 }
-        
+
 .button_wrap button:hover {
-            background: #0056b3;
+	background: #0056b3;
 }
 
 table.date-month {
@@ -206,32 +205,39 @@ table.date-month {
 .lesson_classAll {
 	background-image: linear-gradient(to top, #BDBDBD 23%, white 23%);
 }
+
 .lesson_classA {
 	background-image: linear-gradient(to top, red 23%, white 23%);
 }
+
 .lesson_classB {
 	background-image: linear-gradient(to top, orange 23%, white 23%);
 }
+
 .lesson_classC {
 	background-image: linear-gradient(to top, yellow 23%, white 23%);
 }
+
 .lesson_classD {
 	background-image: linear-gradient(to top, green 23%, white 23%);
 }
+
 .lesson_classE {
 	background-image: linear-gradient(to top, lightgreen 23%, white 23%);
 }
+
 .lesson_classF {
 	background-image: linear-gradient(to top, blue 23%, white 23%);
 }
+
 .lesson_classG {
 	background-image: linear-gradient(to top, purple 23%, white 23%);
 }
+
 .lesson_classH {
 	background-image: linear-gradient(to top, cyan 23%, white 23%);
 }
-/* calendar */ 
-	    
+/* calendar */
 </style>
 
 <script type="text/javascript">
@@ -388,7 +394,7 @@ table.date-month {
         $('#month-prev').data('ym', prevMonth(date));
         $('#month-next').data('ym', nextMonth(date));
         $('#tbl-month').empty();
-        var td = '<td class="__TODAY__ __EVENT__ __CLASS__"><a __HREF__>__DATE__ __EVENT_IMG__</a></td>';
+        var td = '<td class="calendar-day __TODAY__ __EVENT__ __CLASS__"><a __HREF__>__DATE__ __EVENT_IMG__</a></td>';
         var href = 'schedule.manager?start_date=' + date.substring(0, 8);
         var week = null;
         var days = fullDays(date);
@@ -402,14 +408,14 @@ table.date-month {
                     var eventStart = isEventStart(dateStr);
                     var eventLesson_class = getEventLesson_class(dateStr);
                     var eventImg = eventStart ? '  <img src="resources/images/attendSymbol3.jpg" style="width:12px; height:12px" />' : '';
-                    $tr.append(td.replace('__TODAY__', (obj.today ? 'today' : ''))
+                    $tr.append(td.replace('__TODAY__', (obj.today ? 'calendar-today' : ''))
                                 .replace('__EVENT__', (hasEvent ? 'event' : ''))
                                 .replace('__CLASS__', obj.class + ' ' + eventLesson_class)
                                 .replace('__HREF__', 'href="' + href + ('0' + obj.date).slice(-2) + '"')
                                 .replace('__DATE__', obj.date)
                                 .replace('__EVENT_IMG__', eventImg));
                 } else {
-                    $tr.append('<td></td>');
+                    $tr.append('<td class="calendar-day"></td>');
                 }
             });
             $('#tbl-month').append($tr);
@@ -444,14 +450,20 @@ table.date-month {
 	</nav>
 </div>
 
+<br><br>
+<div>
+	<a href="request.student">요청 페이지</a>
+	<br>
+	<a href="rlist.messenger">메신저 페이지</a>
+	<br>
+</div>
+<br><br>
 
 <div class="row">
 	<div class="col-lg-12 grid-margin stretch-card">
 		<div class="card">
 			<div class="card-body">
 				<div class="content-container">
-
-
 
 <!-- Progress Section -->
 <div class="element1">
@@ -468,16 +480,6 @@ table.date-month {
 		<p style="padding-left: 80px;" align="left">앞으로 매일 평균: 최소 7h 10m</p>
 	</div>
 </div>
-<br>
-<br>
-<div>
-	<a href="request.student">요청 페이지</a>
-	<br>
-	<a href="rlist.messenger">메신저 페이지</a>
-	<br>
-</div>
-
-<br><br>
 
 <div class="element2">
 	<div class="calendar-container">
@@ -491,19 +493,19 @@ table.date-month {
 		</div>
 	</div>
 	<table class="date-month" border="1">
-		<thead>
-			<tr>
-				<th>Sun</th>
-				<th>Mon</th>
-				<th>Tue</th>
-				<th>Wed</th>
-				<th>Thu</th>
-				<th>Fri</th>
-				<th>Sat</th>
-			</tr>
-		</thead>
-		<tbody id="tbl-month"></tbody>
-	</table>
+	    <thead>
+	        <tr class="calendar-header">
+	            <th>Sun</th>
+	            <th>Mon</th>
+	            <th>Tue</th>
+	            <th>Wed</th>
+	            <th>Thu</th>
+	            <th>Fri</th>
+	            <th>Sat</th>
+	        </tr>
+	    </thead>
+    <tbody id="tbl-month"></tbody>
+</table>
 	<span> 
 		<img src="resources/images/attendSymbol3.jpg" style="width: 15px; height: 15px" /> start event<br>
 		<img src="resources/images/class.jpg" style="width: 440px; height: 50px" />
@@ -515,21 +517,23 @@ table.date-month {
 <div class="notice-container">
 	<h4>공지사항</h4>
 	<ul class="notice-list">
-		<li>
-			<span class="badge badge-general">전체</span> 
-			<span>쌍용강북센터 휴가 안내</span>
-			<span>2024-06-28</span>
-		</li>
-		<li>
-			<span class="badge badge-important">H반</span>
-			<span>MySQL 과제 리스트 안내</span>
-			<span>2024-06-24</span>
-		</li>
-		<li>
-			<span class="badge badge-important">H반</span>
-			<span>Spring 설치 방법</span>
-			<span>2024-06-24</span>
-		</li>
+		<c:forEach var="notice" items="${noticeList}" end="9">
+			<li>
+				<c:if test="${notice.class_name eq 'All'}">
+					<span class="badge badge-general">
+						전체
+					</span>
+				</c:if>
+				<c:if test="${notice.class_name ne 'All'}">
+					<span class="badge badge-important">
+						${notice.class_name}반
+					</span>
+				</c:if>
+				
+				<span><a href="noticeDetail.manager?n_num=${notice.n_num}">${notice.title}</a></span>
+				<span>${notice.day}</span>
+			</li>
+		</c:forEach>
 	</ul>
 </div>
 						

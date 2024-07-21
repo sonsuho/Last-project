@@ -682,40 +682,38 @@
 	
 	<!-- 공지사항 -->
 	<select id="getTotalCount" resultType="int">
-		
-		select count(*) from notice where lec_num = #{lec_num}
+		select count(*) from notice
 		
 		<if test="whatColumn == 'title'">
-			and title like #{keyword}
+			where title like #{keyword}
 		</if>
 		
 		<if test="whatColumn == 'content'">
-			and content like #{keyword}
+			where content like #{keyword}
 		</if>
 		
 		<if test="whatColumn == 'all'">
-			and (title like #{keyword} or content like #{keyword})
+			where title like #{keyword} or content like #{keyword}
 		</if>
 		
 	</select>
 	
+
 	<select id="getNoticeList" resultType="manager.model.NoticeBean" parameterType="hashmap">
-		
-		select * from notice where 
+		select * from notice
 		
 		<if test="whatColumn == 'title'">
-			title like #{keyword}
+			where title like #{keyword}
 		</if>
 		
 		<if test="whatColumn == 'content'">
-			content like #{keyword}
+			where content like #{keyword}
 		</if>
 		
 		<if test="whatColumn == 'all'">
-			title like #{keyword} or content like #{keyword}
+			where title like #{keyword} or content like #{keyword}
 		</if>
 		order by n_num desc
-		
 	</select>
 	
 	<select id="getNoticeList_all" resultType="manager.model.NoticeBean">
@@ -741,9 +739,9 @@
 		order by n_num desc
 		
 	</select>
-	
+
 	<insert id="insertNotice">	
-		insert into notice values(seq_notice.nextval, #{lec_num}, #{title}, #{mem_num}, #{writer}, sysdate, #{content})
+		insert into notice values(seq_notice.nextval, #{lec_num}, #{title}, #{mem_num}, #{writer}, sysdate, #{content}, #{class_name})
 	</insert>
 	
 	<select id="getNoticeByN_num" resultType="manager.model.NoticeBean">
@@ -751,7 +749,7 @@
 	</select>
 	
 	<update id="updateNotice">
-		update notice set title = #{title}, content = #{content}, day = sysdate where n_num = #{n_num} 
+		update notice set title = #{title}, content = #{content}, day = sysdate, class_name = #{class_name} where n_num = #{n_num} 
 	</update>
 	
 	<delete id="deleteNoticeByN_num">

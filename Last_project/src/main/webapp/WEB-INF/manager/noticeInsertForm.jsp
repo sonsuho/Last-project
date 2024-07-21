@@ -43,7 +43,9 @@
 	  	</nav>
 	</div>
 	
-	
+<%
+    String[] group = {"All", "A", "B", "C", "D", "E", "F", "G", "H"};
+%>
 	
 		<div align="center">
 		
@@ -54,10 +56,19 @@
 			<table border="1">
 				
 				<tr>
-					<th>lec_num</th>
-					<td>
-						<input type="text" name="lec_num" value="${notice.lec_num}" disabled> <br>
-					</td>
+					<td colspan="2">
+	                    <select name="class_name">
+	                        <option value="">소속반을 선택하세요</option>
+	                        <c:set var="gList" value="<%= group %>"/>
+	                        <c:forEach var="i" begin="0" end="${fn:length(gList) - 1}">
+	                            <option value="${gList[i]}" 
+	                                <c:if test="${notice.class_name eq gList[i]}">selected</c:if>>
+	                                ${gList[i]}
+	                            </option>
+	                        </c:forEach>
+	                    </select>
+	                    <form:errors path="class_name" cssClass="err" />
+	                </td>
 				</tr>
 				
 				<tr>

@@ -69,5 +69,14 @@ public class LectureDao {
 		
 		return className;
 	}
+
 	
+	public String getClassName(String lec_num) {
+		
+		String className = sqlSessionTemplate.selectOne("lecture.model.Lecture.getClassName", lec_num);
+		
+		System.out.println("getClassNameByLec name : " + className);
+		
+		return className;
+	}
 }

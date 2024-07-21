@@ -1,7 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ include file = "managerBarTop.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:if test="${loginInfo.category == 'manager'}">
+   <%@include file = "managerBarTop.jsp"%>
+</c:if>
+
+<c:if test="${loginInfo.category == 'student'}">
+   <%@include file = "../student/studentTop.jsp"%>
+</c:if>
+
+<c:if test="${loginInfo.category == 'teacher'}">
+	<%@include file = "../teacher/teacherTop.jsp"%>
+</c:if>
 
 <style type="text/css">
 
@@ -65,7 +77,7 @@ table {
 	<h3 class="page-title">
 		<span class="page-title-icon bg-gradient-primary text-white me-2">
 			<i class="mdi mdi-home"></i>
-		</span> ManagerMain
+		</span> 공지사항
 	</h3>
 	<nav aria-label="breadcrumb">
 		<ul class="breadcrumb">
@@ -93,11 +105,15 @@ table {
 
 			<tr>
 				<th>
-					<input type="checkbox" name="allcheck" onclick="allCheck(this)"></th>
+					<c:if test="${loginInfo.category == 'manager'}">
+						<input type="checkbox" name="allcheck" onclick="allCheck(this)">
+					</c:if>
+				</th>
 				<th>제목</th>
 				<th>작성자</th>
 				<th>작성일</th>
 				<th>lec_num</th>
+				<th>반</th>
 			</tr>
 
 			<c:if test="${fn:length(noticeList) == 0}">
@@ -111,11 +127,18 @@ table {
 				<c:forEach var="notice" items="${noticeList}">
 
 					<tr>
-						<td align="center"><input type="checkbox" name="rowcheck" value="${notice.n_num }"></td>
+						<td align="center">
+							<c:if test="${loginInfo.category == 'manager'}">
+			    				<c:if test="${notice.lec_num == loginInfo.lec_num}">
+									<input type="checkbox" name="rowcheck" value="${notice.n_num }">
+								</c:if>
+							</c:if>
+						</td>
 						<td><a href="noticeDetail.manager?n_num=${notice.n_num}">${notice.title}</a></td>
 						<td>${notice.writer}</td>
 						<td>${notice.day}</td>
 						<td>${notice.lec_num}</td>
+						<td>${notice.class_name}</td>
 					</tr>
 
 				</c:forEach>
@@ -138,8 +161,20 @@ table {
 
 	</form>
 
-	<input type="button" value="삭제" onclick="selectDelete()">
+	<c:if test="${loginInfo.category == 'manager'}">
+		<input type="button" value="삭제" onclick="selectDelete()">
+	</c:if>
 
 </div>
 
-<%@ include file = "managerBarBottom.jsp"%>
+<c:if test="${loginInfo.category == 'manager'}">
+   <%@include file = "managerBarBottom.jsp"%>
+</c:if>
+
+<c:if test="${loginInfo.category == 'student'}">
+   <%@include file = "../student/studentBottom.jsp"%>
+</c:if>
+
+<c:if test="${loginInfo.category == 'teacher'}">
+	<%@include file = "../teacher/teacherBottom.jsp"%>
+</c:if>

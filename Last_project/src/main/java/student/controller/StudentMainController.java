@@ -18,95 +18,106 @@ import org.springframework.web.servlet.ModelAndView;
 
 import lecture.model.LectureBean;
 import lecture.model.LectureDao;
+import manager.model.NoticeBean;
+import manager.model.NoticeDao;
 import manager.model.RequestDao;
 import member.model.MemberBean;
 import member.model.MemberDao;
 import messenger.model.MessengerBean;
 import messenger.model.MessengerDao;
 
-
 @Controller
 @ComponentScan({"member,messenger,student"})
 public class StudentMainController {
-	private final String command = "/home.student";
-	private final String getPage = "home";
-	
-	@Autowired
-	RequestDao requestDao;
-	
-	@Autowired
-	MessengerDao messengerDao;
-	
-	@Autowired
-	MemberDao memberDao;
-	
-	@Autowired
-	LectureDao ldao;
-	
+    private final String command = "/home.student";
+    private final String getPage = "home";
+    
+    @Autowired
+    RequestDao requestDao;
+    
+    @Autowired
+    MessengerDao messengerDao;
+    
+    @Autowired
+    MemberDao memberDao;
+    
+    @Autowired
+    LectureDao ldao;
+    
+    @Autowired
+    NoticeDao ndao;
 
-	/* calendar추가코드 */
-	@Autowired
-	student.model.sCalendarDao sCalendarDao;
+    /* calendar 추가코드 */
+    @Autowired
+    student.model.sCalendarDao sCalendarDao;
 
-	
-	@RequestMapping(value = command , method = RequestMethod.GET)
-	public ModelAndView approval(
-			HttpSession session,
-			@RequestParam(value = "month", required = false) String month,
-			Model model
-			) {
-		
-		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
-		
-		int mem_num = loginInfo.getMem_num();
-		System.out.println("mem_num: " + mem_num);
-		
-		List<MessengerBean> reclist = messengerDao.getRecentlyMsg(mem_num);
-		session.setAttribute("reclist", reclist);
-		
-		for(MessengerBean mb :  reclist) {
-			System.out.println(mb.getMsg_num());
-			System.out.println(mb.getSend_name());
-			System.out.println(mb.getSend_time());
-		}
-		
-		ModelAndView mav = new ModelAndView();
-		List<student.model.sCalendarBean> lists = sCalendarDao.getAllSchedules();
-	    //model.addAttribute("allSchedules", lists);
-	    
-	    String lec_num = loginInfo.getLec_num();
-	    LectureBean lecture = ldao.getLectureByNum(Integer.parseInt(lec_num));
-	    
-	    // lecture에서 가져온 날짜와 시간 문자열
-	    String startDateTimeString = lecture.getLec_start();
-	    String endDateTimeString = lecture.getLec_end();
-	    
-	    // 날짜와 시간 포맷 설정 ('yyyy-MM-dd hh:mm:ss.s')
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
-	    
-	    // LocalDateTime 객체로 변환
-	    LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeString, formatter);
-	    LocalDateTime endDateTime = LocalDateTime.parse(endDateTimeString, formatter);
-	    LocalDateTime currentDateTime = LocalDateTime.now();
-	    
-	    // 전체 기간 계산 (날짜 차이)
-	    long totalDays = ChronoUnit.DAYS.between(startDateTime.toLocalDate(), endDateTime.toLocalDate());
-	    
-	    // 남은 기간 계산 (날짜 차이)
-	    long remainingDays = ChronoUnit.DAYS.between(currentDateTime.toLocalDate(), endDateTime.toLocalDate());
-	    
-	    System.out.println(totalDays);
-	    System.out.println(remainingDays);
-	    
-	    
-	    // ModelAndView에 데이터 추가
-	    mav.addObject("allSchedules", lists);	//calendar 일정
-	    mav.addObject("totalDays", totalDays); // 전체 날짜 수
-	    mav.addObject("remainingDays", remainingDays); // 남은 날짜 수
-		
-		mav.setViewName(getPage);
-		
-		return mav;
-	}
-	
+    @RequestMapping(value = command, method = RequestMethod.GET)
+    public ModelAndView approval(
+            HttpSession session,
+            @RequestParam(value = "month", required = false) String month,
+            Model model
+            ) {
+        
+        MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
+		/*
+		String class_name = loginInfo.getLec_num().getClass_name();
+		 */
+        int mem_num = loginInfo.getMem_num();
+        System.out.println("mem_num: " + mem_num);
+        
+        List<MessengerBean> reclist = messengerDao.getRecentlyMsg(mem_num);
+        session.setAttribute("reclist", reclist);
+        
+        for(MessengerBean mb :  reclist) {
+            System.out.println(mb.getMsg_num());
+            System.out.println(mb.getSend_name());
+            System.out.println(mb.getSend_time());
+        }
+        
+        ModelAndView mav = new ModelAndView();
+        
+        // 사용자가 속한 반의 일정만 가져오기
+        String lec_num = loginInfo.getLec_num();
+        List<student.model.sCalendarBean> scheduleList = sCalendarDao.getAllSchedules();
+		/*
+		List<student.model.sCalendarBean> lists = sCalendarDao.getSchedulesByLecNum(lec_num);
+		 */
+        LectureBean lecture = ldao.getLectureByNum(Integer.parseInt(lec_num));
+        
+        List<NoticeBean> noticeList = ndao.getNoticeList_all();
+        
+        // lecture에서 가져온 날짜와 시간 문자열
+        String startDateTimeString = lecture.getLec_start();
+        String endDateTimeString = lecture.getLec_end();
+        
+        // 날짜와 시간 포맷 설정 ('yyyy-MM-dd hh:mm:ss.s')
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+        
+        // LocalDateTime 객체로 변환
+        LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeString, formatter);
+        LocalDateTime endDateTime = LocalDateTime.parse(endDateTimeString, formatter);
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        
+        // 전체 기간 계산 (날짜 차이)
+        long totalDays = ChronoUnit.DAYS.between(startDateTime.toLocalDate(), endDateTime.toLocalDate());
+        
+        // 남은 기간 계산 (날짜 차이)
+        long remainingDays = ChronoUnit.DAYS.between(currentDateTime.toLocalDate(), endDateTime.toLocalDate());
+        
+        System.out.println(totalDays);
+        System.out.println(remainingDays);
+        
+        // ModelAndView에 데이터 추가
+		/*
+		mav.addObject("lec_num", lec_num); // Notice 공지사항
+		 */
+        mav.addObject("noticeList", noticeList);    // Notice 공지사항
+        mav.addObject("allSchedules", scheduleList);    // calendar 일정
+        mav.addObject("totalDays", totalDays); // 전체 날짜 수
+        mav.addObject("remainingDays", remainingDays); // 남은 날짜 수
+        
+        mav.setViewName(getPage);
+        
+        return mav;
+    }
 }

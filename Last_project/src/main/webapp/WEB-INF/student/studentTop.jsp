@@ -184,7 +184,7 @@
 							<div class="collapse" id="menu4">
 								<ul class="nav flex-column sub-menu">
 									<li class="nav-item">
-										<a class="nav-link" href="">공지사항</a>
+										<a class="nav-link" href="notice.manager">공지사항</a>
 									</li>
 									<li class="nav-item">
 										<a class="nav-link" href="">커뮤니티</a>

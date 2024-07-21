@@ -57,8 +57,6 @@ public class ManagerMainController {
 		String lec_num = loginInfo.getLec_num();
 		LectureBean lecture = ldao.getLectureByNum(Integer.parseInt(lec_num));
 
-		List<NoticeBean> noticeList = ndao.getNoticeList_all();
-		
 		// lecture에서 가져온 날짜와 시간 문자열
 		String startDateTimeString = lecture.getLec_start();
 		String endDateTimeString = lecture.getLec_end();
@@ -79,7 +77,8 @@ public class ManagerMainController {
 
 		System.out.println(totalDays);
 		System.out.println(remainingDays);
-
+		
+		List<NoticeBean> noticeList = ndao.getNoticeList_all();
 		// ModelAndView에 데이터 추가
 		mav.addObject("noticeList", noticeList);	//Notice 공지사항
 		mav.addObject("allSchedules", lists);	//calendar 일정

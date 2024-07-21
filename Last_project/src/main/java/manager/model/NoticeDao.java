@@ -61,8 +61,6 @@ public class NoticeDao {
 		
 		return list;
 	}
-	
-	
 
 	public int insertNotice(NoticeBean nb) {
 		

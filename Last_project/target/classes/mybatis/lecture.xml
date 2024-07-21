@@ -5,12 +5,6 @@
   
 <mapper namespace="lecture.model.Lecture">
 	
-	<select id="getClassNameByLec" resultType="java.lang.String">
-		
-		select lec_name from lecture where lec_num = #{lec_num}
-		
-	</select>
-	
 	<update id="updateOngoingLecture">
 		
 		update going_class set link = #{link}, onoff = #{onoff} where lec_num = #{lec_num}
@@ -83,6 +77,14 @@
 		
 		select * from going_class where lec_num = #{lec_num}
 		
+	</select>
+	
+	<select id="getClassNameByLec" resultType="java.lang.String">
+		select lec_name from lecture where lec_num = #{lec_num}
+	</select>
+	
+	<select id="getClassName" resultType="java.lang.String">
+		select class_name from lecture where lec_num = #{lec_num} 
 	</select>
 	
 </mapper>

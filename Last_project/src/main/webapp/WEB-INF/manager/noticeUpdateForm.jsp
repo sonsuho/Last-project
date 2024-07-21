@@ -35,14 +35,21 @@
 			<table>
 				
 				<tr>
-					<th>lec_num</th>
+					<th>강좌번호</th>
 					<td>
 						<input type="text" name=lec_num value="${notice.lec_num}" disabled> <br>
 						<input type="hidden" name=lec_num value="${notice.lec_num}">
 					</td>
 				</tr>
 				
-				
+				<tr>
+					<th>반</th>
+					
+					<td>
+						<input type="text" name=class_name value="${notice.class_name}" disabled> <br>
+						<input type="hidden" name=class_name value="${notice.class_name}"> <br>
+					</td>
+				</tr>
 				<tr>
 					<th>제목</th>
 					<td>

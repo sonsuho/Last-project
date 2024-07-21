@@ -1,6 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file = "managerBarTop.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:if test="${loginInfo.category == 'manager'}">
+   <%@include file = "managerBarTop.jsp"%>
+</c:if>
+
+<c:if test="${loginInfo.category == 'student'}">
+   <%@include file = "../student/studentTop.jsp"%>
+</c:if>
+
+<c:if test="${loginInfo.category == 'teacher'}">
+	<%@include file = "../teacher/teacherTop.jsp"%>
+</c:if>
 
 	<style type="text/css">
     	
@@ -85,6 +97,8 @@
 			
 			<div align="left" style="padding-left: 45px;">
 			
+				공개대상 : ${notice.class_name } <br><br>
+				
 				제목 : ${notice.title} <br><br>
 				
 				작성자 : ${notice.writer} <br><br>
@@ -92,13 +106,15 @@
 				작성일 : ${notice.day } <br><br>
 				
 				내용 : ${notice.content } <br><br>
+				
+				
 			
 			</div>
 			
 			<br>
 			
 			<!-- 자신의 반 공지사항은 자신만 수정 및 삭제가 가능하도록 -->
-			<c:if test="${notice.lec_num == loginInfo.lec_num}">
+			<c:if test="${notice.lec_num == loginInfo.lec_num && loginInfo.category == 'manager'}">
 				<a href="noticeUpdate.manager?n_num=${notice.n_num}">수정</a>
 				<a href="noticeDelete.manager?n_num=${notice.n_num}">삭제</a>
 			</c:if>
@@ -120,10 +136,16 @@
 	    		</tr>
 	    		
 	    		<tr>
-	    			<th><input type="checkbox" name="allcheck" onclick="allCheck(this)"></th>
+	    		
+		    		<th>
+			    		<c:if test="${loginInfo.category == 'manager'}">
+							<input type="checkbox" name="allcheck" onclick="allCheck(this)">
+						</c:if>
+		    		</th>	
 	    			<th>제목</th>
 	    			<th>작성자</th>
 	    			<th>작성일</th>
+	    			<th>반</th>
 	    		</tr>
 	    		
 	    		<c:if test="${fn:length(noticeList) == 0}">
@@ -139,7 +161,15 @@
 	    			<c:forEach var="element" items="${noticeList}">
 	    				
 	    				<tr>
-							<td align="center"><input type="checkbox" name="rowcheck" value="${element.n_num }"></td>
+	    					<td align="center">
+		    					<c:if test="${loginInfo.category == 'manager'}">
+			    					<c:if test="${element.lec_num == loginInfo.lec_num}">
+											<input type="checkbox" name="rowcheck" value="${element.n_num }">
+			    					</c:if>
+		    					</c:if>
+							</td>
+							
+							
 							<td>
 								<c:if test="${notice.n_num == element.n_num}">
 									<a href="noticeDetail.manager?n_num=${element.n_num}"><font size="15" color="red">${element.title}</font></a>							
@@ -151,13 +181,14 @@
 							</td>
 							<td>${element.writer}</td>
 							<td>${element.day}</td>
+							<td>${element.class_name}</td>
 	    				</tr>	
 	    			</c:forEach>
 	    		</c:if>
 	    	</table>
     	</form>
-    	<br>
     	
+    	<br>
     	${pageInfo.pagingHtml}
     	    	
     	<form action="notice.manager">
@@ -174,8 +205,19 @@
     		
     	</form>
     	
-    	<input type="button" value="삭제" onclick="selectDelete()">
-		
+    	<c:if test="${loginInfo.category == 'manager'}">
+			<input type="button" value="삭제" onclick="selectDelete()">
+	    </c:if>
 	</div>
 	
-<%@ include file = "managerBarBottom.jsp"%>
+<c:if test="${loginInfo.category == 'manager'}">
+   <%@include file = "managerBarBottom.jsp"%>
+</c:if>
+
+<c:if test="${loginInfo.category == 'student'}">
+   <%@include file = "../student/studentBottom.jsp"%>
+</c:if>
+
+<c:if test="${loginInfo.category == 'teacher'}">
+	<%@include file = "../teacher/teacherBottom.jsp"%>
+</c:if>
