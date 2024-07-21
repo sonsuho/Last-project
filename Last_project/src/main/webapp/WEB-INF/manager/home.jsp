@@ -451,6 +451,13 @@ table.date-month {
 											    				</div>
 												    	</div>
 											    </c:forEach>
+											    <c:if test="${lecture.size()==0}">
+											    	<div class="square-container" style="background: #f0f0f0; opacity: 0.5;" onclick="alert('진행 또는 예정인 강좌가 없습니다')">
+											    		<div class="square-content">
+											    			<center><br><br><br><br>현재 담당중인 강좌가 존재하지 않습니다</center>
+											    		</div>
+											    	</div>
+											    </c:if>
 											</div>
 											
                   </div>
@@ -649,7 +656,7 @@ function lectureModal(element) {
 	       var lectureState;
 	       
 	       if(today < lecStartDate){
-	       	lecState = "success";
+	       	lecState = "warning";
 	       	lectureState = "예정";
 	       } else if(today >= lecStartDate && today <= lecEndDate){
 	       	lecState = "info";

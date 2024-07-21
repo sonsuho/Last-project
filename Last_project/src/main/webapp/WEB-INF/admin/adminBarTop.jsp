@@ -46,7 +46,7 @@
 	          </a>
 	        </li>
 	        <!-- 메신저알림 -->
-					<%@ include file="../all/message.jsp" %> 
+					<%@ include file="../all/message.jsp" %>
 					<!-- 게시판알림 -->
 					<%@ include file="../all/alarmModal.jsp" %> 
 	        <!-- 로그인/로그아웃 버튼 -->

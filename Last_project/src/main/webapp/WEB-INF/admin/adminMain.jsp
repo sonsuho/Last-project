@@ -18,14 +18,14 @@
 
 	<style>
 		.square-container {
-			  width: 474px; /* 정사각형 크기 */
+			  width: 30%; /* 정사각형 크기 */
 			  height: 250px;
 			  display: inline-block; /* 가로로 나란히 배치 */
 			  margin-top: 30px; /* 간격 조절 */
 			  margin-left: 10px; /* 간격 조절 */
 			  margin-right: 10px; /* 간격 조절 */
 			  padding: 15px; /* 간격 조절 */
-			  border: 1px solid #f0f0f0;
+			  border: 2px solid #f0f0f0;
 			  border-radius: 20px;
 		}
 		
@@ -33,6 +33,12 @@
 			  margin-top: 15px;
     }
     
+    .square-container:hover{
+		border: 2px #dcdcdc solid;
+		cursor: pointer;
+		opacity: 0.8;
+}
+
     .square-title {
     		display: flex;
 			  align-items: center;
@@ -92,26 +98,26 @@
                  	<div class="lecture-container">
                  	
                  			<div class="lecture-title">
-				              		<font size="5pt" style="padding-left: 20px; padding-right: 30px;">관리자 메인화면</font>
-				              		<button class="btn btn-gradient-success btn-rounded" onclick="location.href='lectureList.manager'">버튼</button>
+				              		<font size="5pt" style="padding-left: 20px; padding-right: 30px;">클래스별 강좌 현황</font>
+				              		<button class="btn btn-gradient-success btn-rounded" onclick="location.href='lectureList.admin'">강좌목록</button>
 				              </div>
 		                  
 			                <div class="inner-container">
 											    <c:forEach var="lb" items="${lecture}">
-											    		<div class="square-container">
+											    		<div class="square-container" data-lec-num="${lb.lec_num}" onclick="lectureModal(this)">
 											    				<div class="square-content">
 											    						<div class="square-title">
 							    												<font style="padding-left: 20px; font-size: 20px; font-weight: bold; width: 320px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${lb.lec_name}</font>
-							    												<button class="btn btn-inverse-secondary btn-sm" onclick="lectureModal(${lb.lec_num})">상세보기</button>
+							    												<button class="btn btn-inverse-secondary btn-sm">${lb.class_name}</button>
 							    										</div>
 							    										<table class="table" style="margin-top:30px;">
 																	    		<tr>
-																	    				<td><span class="badge badge-info" style="width:55px; opacity: 0.6;">강사</span></td>
+																	    				<td><span class="badge badge-info" style="width:55px; opacity: 0.6;">매니저</span></td>
+																	    				<td>${lb.t_name}</td>
+																	    				<td><span class="badge badge-danger" style="width:55px; opacity: 0.6;">강사</span></td>
 																	    				<td>${lb.m_name}</td>
-																	    				<td><span class="badge badge-danger" style="width:55px; opacity: 0.6;">반</span></td>
-																	    				<td>${lb.class_name}</td>
 																	    				<td><span class="badge badge-success" style="width:55px; opacity: 0.6;">학생수</span></td>
-																	    				<td>${lb.student}/${lb.stu_cnt}</td>
+																    				<td>${lb.student}/${lb.stu_cnt}</td>
 																	    		</tr>
 																	    </table>
 																	    <p style="padding-top:20px; padding-left: 20px;" align="left">
@@ -129,7 +135,7 @@
 											    				</div>
 												    	</div>
 											    </c:forEach>
-											</div>
+							</div>
 											
                   </div>
               </div>
@@ -308,7 +314,8 @@ function studentDetail(lec_num) {
     $('#studentDetailModal').modal('show');
 }
 
-function lectureModal(lec_num) {
+function lectureModal(element) {
+	var lec_num = element.getAttribute('data-lec-num');
    $.ajax({
 	     type: "POST",
 	     url: "lectureDetail.admin",
@@ -338,7 +345,7 @@ function lectureModal(lec_num) {
 	       var lectureState;
 	       
 	       if(today < lecStartDate){
-	       	lecState = "success";
+	       	lecState = "warning";
 	       	lectureState = "예정";
 	       } else if(today >= lecStartDate && today <= lecEndDate){
 	       	lecState = "info";
