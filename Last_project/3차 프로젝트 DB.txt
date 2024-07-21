@@ -48,6 +48,9 @@ INSERT INTO member  VALUES (mem_seq.nextval, 'man_test', 'man_test', '03ac674216
 --틀린 경도(teacher)
 INSERT INTO member  VALUES (mem_seq.nextval, 'tea_test', 'tea_test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '근무', 3,'106.241.247.83', 37.55655207589364, 124.91945616764994, 'user.jpg', '여', '1975-01-16');
 
+
+INSERT INTO member  VALUES (mem_seq.nextval, 'test', 'test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'student', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '진행', 3, '211.217.173.69', 37.5605672, 126.9433486, 'user.jpg', '여', '1975-01-16');
+
 commit;
 
 col mem_num for 99
