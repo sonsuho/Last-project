@@ -111,7 +111,7 @@
 				    		</div>
 				    		
 				    	</div>
-				    	<div style="padding: 30px 0 50px; font-size: 16px;">
+				    	<div style="padding: 20px 0 80px; font-size: 16px;">
 				    		${library.content }
 				    	</div>
 				    	<div>

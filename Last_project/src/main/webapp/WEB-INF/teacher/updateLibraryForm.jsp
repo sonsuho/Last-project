@@ -95,7 +95,7 @@
 					    		
 					    	</div>
 					    	<div style="padding: 30px 0 50px; font-size: 16px;">
-					    		<textarea rows="5" cols="22" name="content" id="libContent" style="width: 100%;">${library.content}</textarea>
+					    		<textarea rows="10" cols="22" name="content" id="libContent" style="width: 100%;">${library.content}</textarea>
 					    	</div>
 					    	<div>
 					    		<p style="margin-bottom: 10px;">

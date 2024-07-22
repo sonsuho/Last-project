@@ -122,7 +122,7 @@
 			    		
 			    		<thead>
 				    		<tr>
-				    			<th style="background:#f6f6f6; width:100px !important;">
+				    			<th style="background:#f6f6f6; width:100px !important;" onclick="event.stopPropagation();">
 				    				<label class="form-check-label">
 				    					<input type="checkbox" class="form-check-input item" name="allcheck" onclick="allCheck(this)">
 				    				</label>
@@ -148,7 +148,7 @@
 				    			<c:forEach var="library" items="${list}">
 				    				
 				    				<tr onclick="contentLib('${library.li_num}')">
-										<td align="center">
+										<td align="center" onclick="event.stopPropagation();">
 											<label class="form-check-label">
 												<input type="checkbox" class="form-check-input item" name="rowcheck" value="${library.li_num }">
 											</label>
