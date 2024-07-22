@@ -53,45 +53,30 @@
 		
 	</style>
 	
-    <!-- header -->
-    <div class="page-header">
-    	<h3 class="page-title">
-	    	<span class="page-title-icon bg-gradient-primary text-white me-2">
-	        	<i class="mdi mdi-clipboard-text"></i>
-	    	</span> testList
-    	</h3>
-    	<nav aria-label="breadcrumb">
-      		<ul class="breadcrumb">
-      			<li class="breadcrumb-item active" aria-current="page">
-          			<span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
-        		</li>
-    		</ul>
-    	</nav>
-	</div>
 	
 	<div class="row">
 	  <div class="col-lg-12 grid-margin stretch-card">
 	    <div class="card">
 	      <div class="card-body">
 	
-			<h1 align="left" style="margin-left: 50px">시험 목록 게시판</h1>
+			<h1 align="left">시험 목록 게시판</h1>
 			    
 		    <div align="center">		    
 			    
 			    <br>
 		    	
-			    <table>
+			    <table class="table">
 			    		
-			    	<tr style="background-color: #F6F6F6">
-			    		<th style="padding-left: 25px;">번호</th>
-			    		<th style="padding-left: 25px;" align="right">시험 제목</th>
-			    		<th><span style="al">응시 여부</span></th>
+			    	<tr>
+			    		<th style="padding-left: 25px; background-color: #F6F6F6;">번호</th>
+			    		<th style="padding-left: 30px; background-color: #F6F6F6;" align="right">시험 제목</th>
+			    		<th style="padding-left: 15px; background-color: #F6F6F6;"><span style="al">응시 여부</span></th>
 			    	</tr>
 			    		
 			    	<c:if test="${fn:length(tlist) == 0}">
 			    			
 			    			<tr>
-			    				<td colspan="3" align="center" style="height: 250">준비된 시험이 없습니다!!!</td>
+			    				<td colspan="3" align="center" style="padding:48px 0;">준비된 시험이 없습니다.</td>
 			    			</tr>
 			    			
 			    	</c:if>
@@ -105,7 +90,7 @@
 			    			<c:set var="j" value="0"/>
 			    				
 			    			<tr>
-								<td style="padding-left: 25px;">${i}</td>
+								<td style="padding-left: 35px;">${i}</td>
 								<td>${test.test_name}</td>
 								<td>
 										
@@ -113,7 +98,7 @@
 											
 										<c:if test="${testResult.test_num == test.test_num}">
 												
-											응시 완료
+											응시완료 (${testResult.point }점)
 												
 											<c:set var="j" value="1"/>
 											
@@ -123,7 +108,7 @@
 										
 									<c:if test="${j != 1}">
 											
-										<a href="testContent.student?test_num=${test.test_num }">응시 하기</a>
+										&nbsp;&nbsp;&nbsp;&nbsp;<a href="testContent.student?test_num=${test.test_num }" style="text-decoration-line: none;">응시하기</a>
 										
 									</c:if>
 									

@@ -2,6 +2,7 @@ package manager.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import alarm.model.AlarmService;
 import evaluation.model.EvaluationBean;
 import evaluation.model.EvaluationDao;
 import evaluation.model.EvaluationResultDao;
 import lecture.model.LectureDao;
 import manager.model.ManagerDao;
 import member.model.MemberBean;
+import student.model.StudentDao;
 
 @Controller
 @ComponentScan({"manager,alarm,student,lecture,evaluation"})
@@ -32,6 +35,9 @@ public class LectureEvaluationController {
 	ManagerDao mdao;
 	
 	@Autowired
+	StudentDao sdao;
+	
+	@Autowired
 	LectureDao ldao;
 	
 	@Autowired
@@ -39,6 +45,9 @@ public class LectureEvaluationController {
 	
 	@Autowired
 	EvaluationResultDao erdao;
+	
+	@Autowired
+	AlarmService service;
 	
 	@RequestMapping(value = command,  method = RequestMethod.GET)
 	public ModelAndView writeForm(HttpSession session) {
@@ -67,7 +76,7 @@ public class LectureEvaluationController {
 	}
 	
 	@RequestMapping(value = command,  method = RequestMethod.POST)
-	public ModelAndView write(HttpServletRequest request) {
+	public ModelAndView write(HttpServletRequest request,HttpSession session , Map<String, String> paramap) {
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -86,6 +95,32 @@ public class LectureEvaluationController {
 			
 			edao.insertEvaluation(eb);
 		}
+		
+		
+		//민곤 알림 추가
+		MemberBean manager = (MemberBean)session.getAttribute("loginInfo");
+		
+		String lec_Num = manager.getLec_num();	
+		
+		List<MemberBean> slist = sdao.getStudentByLec_Num(lec_Num);		// 반복을 통해 해당 강좌를 수강하는 모든 학생들에게 수업 링크가 담긴 메시지를 보낸다
+
+		StringBuilder stdList = new StringBuilder();
+		for (MemberBean mb : slist) {
+			if (stdList.length() > 0) {
+			stdList.append(",");
+			}
+		stdList.append(mb.getMem_num());
+		}
+		System.out.println("stdList.toString():"+stdList.toString()); // 출력 확인
+				
+		paramap.put("fk_recipientno", stdList.toString()); // 받는사람 (여러명일때는 ,,으로 구분된 str)
+		paramap.put("url", "/evalList" ); 
+		paramap.put("url2", ".student"); //url2에 아무것도 안넣으면 알림 클릭했을때 주소창에null로 나와서 오류
+		paramap.put("alarm_content", manager.getName() + "님 반의 강의평가가 열렸습니다." );
+		paramap.put("alarm_type", "2" );
+				
+		service.addAlarm(paramap);
+		//민곤 알림 추가
 		
 		mav.setViewName(gotoPage);
 		

@@ -117,10 +117,11 @@ public class TestContentController {
 		int correct = 0;
 		
 		for(int i = 0; i < 5; i++) {
-			
-			if(problems[i].equals(test_answer[i])) {
-				correct++;
-				score += 20;
+			if(problems[i] != null) {				
+				if(problems[i].equals(test_answer[i])) {
+					correct++;
+					score += 20;
+				}
 			}
 		}
 		

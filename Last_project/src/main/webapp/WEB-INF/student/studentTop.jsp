@@ -1,9 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../common/common.jsp"%>
+<%@ include file="../all/myPage.jsp" %>
+
+<!-- 메시지 탑 메뉴 ajax -->
+<%@ include file="../all/topMenuMessage.jsp" %>
 
 	<!-- studentBarTop.jsp -->
+
+<style>
+	/* gnb부트스트랩 컬러 색상 바꿈 */
+	.navbar .navbar-menu-wrapper .navbar-nav .nav-item .nav-link  {
+		color : #333 !important;
+	}
+
+	.gnb li a{
+	    font-size: 14px;
+	    position: relative;   /*부모는 상대위치*/
+	    font-weight: bold;
+	}
+	.gnb li a:hover{
+		color: #000 !important;
+	}
 	
+	.gnb li a:before{
+	    content : '';
+	    position: absolute;  /*before를 절대위치*/
+	    background-color: dodgerblue;
+	    height: 2px;
+	    width : 0;
+	    bottom: 0px;      	 /*bottom을 주어, 글자 밑에 위치시킴*/       
+	    transition: 0.5s;    /*가상클래스에 이벤트 발생시 시간 지정*/
+	    
+	    
+	    left : 50%;         /*만약 왼쪽에서부터 커지게하려면-> left를 0으로 두면 됨*/
+	    transform: translateX(-50%);
+	}
+	
+	.gnb li a:hover:before{ /*hover시 width:0 -> 100%가 됨*/
+	    width : 100%;
+	    font-weight: bold !important;
+	      
+	}
+</style>
+
+
 	<script>
 	function checkAttend(situ){
 		if(situ == '수업중'){
@@ -14,7 +55,8 @@
 			location.href = "logout.in";
 		}
 	}
-</script>
+
+	</script>
 
 	<!-- plugins:css -->
 	<link rel="stylesheet" href="resources/assets/vendors/mdi/css/materialdesignicons.min.css">
@@ -33,6 +75,7 @@
 	<!-- End layout styles -->
 	<link rel="shortcut icon" href="resources/assets/images/favicon.png" />
 
+
 	<div class="container-scroller">
 	
 		<!-- 상단바 : partial:partials/_navbar.jsp -->
@@ -45,6 +88,27 @@
 		    </div>
 				<!-- 상단바 -->
 		    <div class="navbar-menu-wrapper d-flex align-items-stretch">
+		    
+		    
+		      <!-- gnb -->
+		      <ul class="navbar-nav mr-lg-2 gnb">
+	            <li class="nav-item  d-none d-lg-flex">
+	              <a class="nav-link" href="library.teacher">
+	                자료실
+	              </a>
+	            </li>
+	            <li class="nav-item  d-none d-lg-flex">
+	              <a class="nav-link" href="#">
+	                공지사항
+	              </a>
+	            </li>
+	            <li class="nav-item  d-none d-lg-flex">
+	              <a class="nav-link active" href="main.chat">
+	               스터디 그룹챗
+	              </a>
+	            </li>
+          	  </ul>
+		    
 		      <ul class="navbar-nav navbar-nav-right">
 		        <!-- 전체화면 -->
 		        <li class="nav-item d-none d-lg-block full-screen-link">
@@ -55,7 +119,7 @@
 						<!-- 메신저알림 -->
 						<%@ include file="../all/message.jsp" %> 
 						<!-- 게시판알림 -->
-						<%@ include file="../all/board.jsp" %> 
+						<%@ include file="../all/alarmModal.jsp" %> 
 						<!-- 로그인/로그아웃 버튼 -->
 		        <li class="nav-item nav-logout d-none d-lg-block">
 		          <c:if test="${loginInfo == null}">
@@ -96,9 +160,9 @@
 		      <ul class="nav">
 						<!-- 프로필정보 -->
 						<li class="nav-item nav-profile">
-							<a href="#" class="nav-link">
+							<a href="#" class="nav-link" onclick="myPage()">
 								<div class="nav-profile-image">
-									<img src="resources/assets/images/faces/face1.jpg" alt="profile" />
+									<img src="resources/assets/images/faces/${loginInfo.image}" alt="profile" />
 									<span class="login-status online"></span>
 								</div>
 								<div class="nav-profile-text d-flex flex-column">
@@ -132,9 +196,7 @@
 									<li class="nav-item">
 										<a class="nav-link" href="attStatus.student?mem_num=${loginInfo.mem_num}">내 근태 현황</a>
 									</li>
-									<li class="nav-item">
-										<a class="nav-link"	href="request.student">휴가 신청</a>
-									</li>
+									
 									<li class="nav-item">
 										<a class="nav-link" href="vacationDetail.student?mem_num=${loginInfo.mem_num}">휴가 내역</a>
 									</li>

@@ -119,4 +119,26 @@ public class MemberDao {
 		cnt = sqlSessionTemplate.selectOne(namespace+".getStudent", lec_num);
 		return cnt;
 	}
+	
+	public int changePhone(MemberBean mb) {
+		System.out.println("changePhone Dao");
+		int cnt = -1;
+		cnt = sqlSessionTemplate.update(namespace+".changePhone",mb);
+		return cnt;
+	}
+	
+	public int changeImage(MemberBean mb) {
+		int cnt = -1;
+		cnt = sqlSessionTemplate.update(namespace+".changeImage",mb);
+		return cnt;
+	}
+
+	public int changeAddr(MemberBean mb) {
+		int cnt = -1;
+		cnt = sqlSessionTemplate.update(namespace+".changeAddr",mb);
+		return cnt;
+	}
+
+
+	
 }

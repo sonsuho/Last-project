@@ -27,7 +27,7 @@ public class RequestController {
 
 	private final String command = "requestForm.manager";
 	private final String getPage = "requestForm";
-	private final String gotoPage = "managerHome";
+	private final String gotoPage = "home";
 	
 	@Autowired
 	RequestDao rdao;

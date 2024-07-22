@@ -198,4 +198,5 @@
 		<url-pattern>*.lecture</url-pattern>
 	</servlet-mapping>
 	
+
 </web-app>

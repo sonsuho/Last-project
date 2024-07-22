@@ -197,13 +197,64 @@
             }
         });
     }
+    
+    $(document).ready(function() {
+	    // 페이지 로드시 안 읽은 소식 개수 초기화
+	    updateUnreadAlarmCount();
+
+	    // 일정 시간마다 안 읽은 소식 개수 업데이트 (예: 5초마다)
+	    setInterval(function() {
+	        updateUnreadAlarmCount();
+	    }, 5000); // 5초마다 업데이트
+
+	    // 안 읽은 소식 개수를 서버에서 가져오는 함수
+	    function updateUnreadAlarmCount() {
+	        $.ajax({
+	            url: "getUnreadAlarmCnt.alarm",
+	            method: "GET",
+	            dataType: "json",
+	            success: function(response) {
+	                var count = response.n;
+	                // 안 읽은 소식 개수를 화면에 업데이트
+	                $("#unreadAlarmCount").html("<b>"+ count +"</b>");
+	            },
+	            error: function(error) {
+	                console.log("Error fetching unread alarm count:", error);
+	            }
+	        });
+	    }
+	});
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        function updateCountSymbol() {
+            var unreadCount = document.getElementById("unreadAlarmCount").innerText;
+            var countSymbol = document.getElementById("countSymbol");
+
+            if (parseInt(unreadCount) > 0) {
+                countSymbol.style.display = "inline";
+            } else {
+                countSymbol.style.display = "none";
+            }
+        }
+
+        // 초기화
+        updateCountSymbol();
+
+        // unreadAlarmCount의 값이 동적으로 변경될 때마다 updateCountSymbol 함수를 호출하도록 설정
+        var observer = new MutationObserver(updateCountSymbol);
+        observer.observe(document.getElementById("unreadAlarmCount"), { childList: true, characterData: true, subtree: true });
+
+        // 예: 알람 카운트가 변경되는 상황에서 updateCountSymbol 함수를 호출
+        // document.getElementById("unreadAlarmCount").innerText = "2"; 
+    });
+
 </script>
 
 <!-- 게시판 알림 -->
 <li class="nav-item dropdown">
     <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false" onclick="openAlarm()">
-        <i class="mdi mdi-bell-outline"></i>
-        <span class="count-symbol bg-danger"></span>
+        <i class="mdi mdi-bell-outline"></i><div id="unreadAlarmCount"></div>
+        <span class="count-symbol bg-danger" id="countSymbol"></span>
     </a>
     <div class="dropdown-menu dropdown-menu-end navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
         <h6 class="p-3 mb-0">알림창</h6>

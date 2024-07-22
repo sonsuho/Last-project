@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import login.model.LoginBean;
 import login.model.LoginDao;
 import member.model.MemberBean;
+import member.model.MemberDao;
 import utility.Sha256;
 
 @Controller
@@ -27,6 +28,9 @@ public class LoginController {
 	
 	@Autowired
 	LoginDao ldao;
+	
+	@Autowired
+	MemberDao memberDao;
 	
 	@RequestMapping(value=command, method=RequestMethod.GET)		// login.in get 요청 받아서 login폴더의 loginForm.jsp로 넘어간다
 	public String loginForm() {
@@ -46,10 +50,11 @@ public class LoginController {
 		}
 		
 		MemberBean mb = ldao.getInfoById(lb.getId());				// 누락이 없다면 id를 가져와 해당하는 회원 정보가 있는지 체크
+		//System.out.println(mb.getPw());
 		
 		/* 패스워드 hash 추가 - 20240703 */
 		String encryPassword = Sha256.encrypt(lb.getPw());
-		System.out.println(encryPassword);
+		//System.out.println(encryPassword);
 		
 		if(mb == null || !( mb.getPw().equals(encryPassword) ) ) {	// 해당하는 회원 정보가 없거나 ... 비밀번호가 해당 회원 비밀번호와 다른경우
 			
@@ -63,6 +68,19 @@ public class LoginController {
 		}
 		
 		session.setAttribute("loginInfo", mb);						// 모든 문제가 없는 경우 세션으로 회원 정보를 지정한다음 result.jsp로 넘어간다!!!
+		
+		
+		
+		List<MemberBean> admin = memberDao.getMemberByCate("admin");
+		List<MemberBean> managerlist = memberDao.getMemberByCate("manager");
+		List<MemberBean> teacherlist = memberDao.getMemberByCate("teacher");
+		List<MemberBean> studentlist = memberDao.getMemberByCate("student");
+		session.setAttribute("admin", admin);
+		session.setAttribute("managerlist", managerlist);
+		session.setAttribute("teacherlist", teacherlist);
+		session.setAttribute("studentlist", studentlist);
+		
+		
 		
 		List<MemberBean> mlist = new ArrayList<MemberBean>();
 		List<MemberBean> alist = new ArrayList<MemberBean>();

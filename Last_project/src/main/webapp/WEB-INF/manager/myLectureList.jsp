@@ -94,15 +94,15 @@
 				    </thead>
 				    <tbody>
 				    	<c:forEach var="lecture" items="${lectureList}">
-				    	<tr data-bs-target="#staticBackdrop" data-lec-num="${lecture.lec_num}">
+					    <fmt:parseDate var="start" value="${lecture.lec_start}" pattern="yyyy-MM-dd" />
+					    <fmt:parseDate var="end" value="${lecture.lec_end}" pattern="yyyy-MM-dd" />
+				    	<tr data-bs-target="#staticBackdrop" data-lec-num="${lecture.lec_num}" <c:if test="${end.time < currentDate.time}">style="opacity: 0.7;"</c:if>>
 							  <td>${lecture.lec_num}</td>
 							  <td>${lecture.lec_name}</td>
-							  <td>${lecture.manager}</td>
-							  <td>${lecture.teacher}</td>
+							  <td>${lecture.m_name}</td>
+							  <td>${lecture.t_name}</td>
 							  <td>${lecture.class_name}</td>
 							  <td>
-							    <fmt:parseDate var="start" value="${lecture.lec_start}" pattern="yyyy-MM-dd" />
-							    <fmt:parseDate var="end" value="${lecture.lec_end}" pattern="yyyy-MM-dd" />
 							    <fmt:formatDate value="${start}" pattern="yyyy-MM-dd" /> ~
 							    <fmt:formatDate value="${end}" pattern="yyyy-MM-dd" /> &nbsp;
 							    <c:choose>
@@ -119,7 +119,9 @@
 							  </td>
 							  <td>${lecture.student} / ${lecture.stu_cnt}</td>
 							  <td>
-							    <button type="button" data-lec-num="${lecture.lec_num}" class="btn btn-sm btn-gradient-success py-3 student-register-button">학생등록</button>
+							  	<c:if test="${end.time >= currentDate.time}">
+							    	<button type="button" data-lec-num="${lecture.lec_num}" class="btn btn-sm btn-gradient-success py-3 student-register-button" >학생등록</button>
+							    </c:if>
 							  </td>
 							</tr>
 				    	</c:forEach>
@@ -244,8 +246,8 @@
 	          '<th>반</th><td>' + response.lecture.class_name + '</td>' +
 	          '</tr>' +
 	          '<tr>' +
-	          '<th rowspan=3>매니저</th><td>' + response.lecture.manager + '</td>' +
-	          '<th rowspan=3>강사</th><td>' + response.lecture.teacher + '</td>' +
+	          '<th rowspan=3>매니저</th><td>' + response.lecture.m_name + ' (' + response.lecture.m_age + "/" + response.lecture.m_gender + ')</td>' +
+  	        '<th rowspan=3>강사</th><td>' + response.lecture.t_name + ' (' + response.lecture.t_age + "/" + response.lecture.t_gender + ')</td>' +
 	          '</tr>' +
 	          '<tr>' +
 	          '<td>' + response.lecture.m_phone + '</td><td>' + response.lecture.t_phone + '</td>' +

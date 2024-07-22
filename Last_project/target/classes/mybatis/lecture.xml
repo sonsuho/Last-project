@@ -5,6 +5,12 @@
   
 <mapper namespace="lecture.model.Lecture">
 	
+	<select id="getClassNameByLec" resultType="java.lang.String">
+		
+		select lec_name from lecture where lec_num = #{lec_num}
+		
+	</select>
+	
 	<update id="updateOngoingLecture">
 		
 		update going_class set link = #{link}, onoff = #{onoff} where lec_num = #{lec_num}
@@ -62,15 +68,16 @@
 	</select>
 	
 	<insert id="insertLecture">
-		insert into lecture values(seq_lecture.nextval,#{lec_name},#{teacher},#{manager},#{lec_start},#{lec_end},#{stu_cnt},#{class_name})
-	</insert>
+		insert into lecture values(seq_lecture.nextval,#{lec_name},#{teacher},#{manager},TO_DATE(#{lec_start}, 'YYYY-MM-DD'),TO_DATE(#{lec_end}, 'YYYY-MM-DD'),#{stu_cnt},#{class_name})
+	</insert> 
 	
 	<delete id="deleteLecture">
 		delete from lecture where lec_num = #{lec_num}
+  			
 	</delete>
 	
 	<select id="getLectureByMemNum" resultType="lecture.model.LectureBean">
-		select * from lecture where manager = #{mem_num}
+		select * from lecture where manager = #{mem_num} order by lec_num desc
 	</select>
 	
 	<select id="getLectureByLec" resultType="lecture.model.On_going_lectureBean">
@@ -79,12 +86,80 @@
 		
 	</select>
 	
-	<select id="getClassNameByLec" resultType="java.lang.String">
-		select lec_name from lecture where lec_num = #{lec_num}
+	<update id="updateLecture">
+      update lecture set lec_name = #{lec_name}, teacher = #{teacher}, manager = #{manager}, 
+      lec_start = #{lec_start}, lec_end = #{lec_end}, stu_cnt = #{stu_cnt}, class_name = #{class_name}
+      where lec_num = #{lec_num}
+   </update>
+	
+	<!-- 민곤추가 -->
+	<delete id="deleteManagerFromLecture">
+		delete from lecture where lec_num= #{lec_num} and manager = #{manager}
+	</delete>
+	
+	<delete id="deleteTeacherFromLecture">
+		delete from lecture where lec_num= #{lec_num} and teacher = #{teacher}
+	</delete>
+	
+	<!-- 민곤추가 -->
+	
+
+	
+	   <!-- 수호추가 -->
+   <select id="getLectureByTeacher" resultType="java.lang.Integer">
+       SELECT lec_num
+       FROM lecture
+       WHERE teacher = #{mem_num}
+         AND sysdate BETWEEN lec_start AND lec_end
+   </select>
+   
+      <insert id="insertGoingClass">
+      insert into going_class (lec_num, onoff) values(seq_going.nextval, 'off');
+   </insert>
+   
+
+	<select id="getLectureForManager" resultType="lecture.model.LectureBean">
+		select * from lecture 
+		where manager = #{mem_num} and lec_end >= SYSDATE 
+		order by lec_start, lec_end
 	</select>
 	
-	<select id="getClassName" resultType="java.lang.String">
-		select class_name from lecture where lec_num = #{lec_num} 
+	<select id="getLectureByClass1" resultType="lecture.model.LectureBean">
+		SELECT *
+	    FROM (
+	        SELECT *
+	        FROM lecture
+	        WHERE class_name = #{class_name} AND SYSDATE >= lec_start and lec_end >= SYSDATE
+	        ORDER BY lec_end
+	    )
+	    WHERE ROWNUM = 1
 	</select>
+	<select id="getLectureByClass2" resultType="lecture.model.LectureBean">
+		SELECT *
+	    FROM (
+	        SELECT *
+	        FROM lecture
+	        WHERE class_name = #{class_name} AND lec_start > SYSDATE
+	        ORDER BY lec_start
+	    )
+	    WHERE ROWNUM = 1
+	</select>
+	<select id="getLectureByClass3" resultType="lecture.model.LectureBean">
+		SELECT *
+	    FROM (
+	        SELECT *
+	        FROM lecture
+	        WHERE class_name = #{class_name} AND SYSDATE > lec_end
+	        ORDER BY lec_start
+	    )
+	    WHERE ROWNUM = 1
+	</select>
+	
+	<select id="getLectureForTeacher" resultType="lecture.model.LectureBean">
+		SELECT * from
+		(select * from lecture where teacher = #{mem_num} and SYSDATE >= lec_start order by lec_start)
+		where rownum = 1
+	</select>
+
 	
 </mapper>

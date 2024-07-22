@@ -2,13 +2,16 @@ package excel;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -61,7 +64,13 @@ public class StuExcelReader {
                                         value = curCell.getCellFormula();
                                         break;
                                     case NUMERIC:
-                                        value = curCell.getNumericCellValue() + "";
+                                    	SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                    	if (DateUtil.isCellDateFormatted(curCell)) {
+                                            Date date = curCell.getDateCellValue();
+                                            value = dbDateFormat.format(date);
+                                        } else {
+                                            value = curCell.getNumericCellValue() + "";
+                                        }
                                         break;
                                     case STRING:
                                         value = curCell.getStringCellValue();
@@ -97,6 +106,12 @@ public class StuExcelReader {
                                 	break;
                                 case 4: // 이메일
                                 	mb.setEmail(value);
+                                	break;
+                                case 5: // 성별
+                                	mb.setGender(value);
+                                	break;
+                                case 6: // 생년월일
+                                	mb.setBirth(value);
                                 	break;
                                 default:
                                     break;

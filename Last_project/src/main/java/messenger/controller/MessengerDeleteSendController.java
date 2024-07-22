@@ -24,7 +24,7 @@ public class MessengerDeleteSendController {
 		System.out.println("mb.getDel_chk()1 : " + mb.getDel_chk());
 		
 		for (int msg_num : delcheckArr) {
-			System.out.println("recvList msg_num: " + msg_num);
+			System.out.println("sendList msg_num: " + msg_num);
 			
 			mb = messengerDao.getMsgByNum(msg_num);
 			
@@ -36,20 +36,21 @@ public class MessengerDeleteSendController {
 				System.out.println("mb.getDel_chk()3 : " + mb.getDel_chk());
 			}
 			
-			// del_chk가 0이거나 0보다 작을 때 
+			// del_chk가 0이거나 0일 때 삭제
 			if(mb.getDel_chk() == 0) {
 				System.out.println("del_chk 0일 때 delete ");
 				System.out.println("mb.getDel_chk()3 : " + mb.getDel_chk());
 				messengerDao.deleteMsg(msg_num);
 			} else {
 				System.out.println("del_chk 0이 아닐 때 update");
+				System.out.println("mb.getDel_chk()4 update : " + mb.getDel_chk());
 				messengerDao.updateForDelMsg(mb);
 			}
 			
 			
         }
 		
-		return "redirect:/rlist.messenger";
+		return "redirect:/slist.messenger";
 	}
 	
 	

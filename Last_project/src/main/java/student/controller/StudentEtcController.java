@@ -36,7 +36,7 @@ import student.model.SEtcDao;
 public class StudentEtcController {
     private final String command = "/etc.student";
     private final String getPage = "etcForm";
-    private final String gotoPage = "studentHome";
+    private final String gotoPage = "home";
 
     @Autowired
     SEtcDao edao;
@@ -61,19 +61,20 @@ public class StudentEtcController {
     
     @RequestMapping(value = command, method = RequestMethod.POST)
     public ModelAndView Studentrequest(@ModelAttribute("etc") @Valid SEtcBean etc, BindingResult result,
-    		@RequestParam String [] selected_mem_num,HttpServletResponse response, HttpSession session,HttpServletRequest request,
+    		@RequestParam int sender_num,
+    		@RequestParam String [] rowcheck,HttpServletResponse response, HttpSession session,HttpServletRequest request,
                                 @RequestParam("multiFile") List<MultipartFile> multiFileList,Map<String, String> paramap) throws IOException {
         ModelAndView mav = new ModelAndView();
 
-        for(String i : selected_mem_num) {
+        for(String i : rowcheck) {
         	System.out.println("학생넘버:"+i);
         }
-        System.out.println("컨트롤러sender_num:"+etc.getSender_num());
+        System.out.println("컨트롤러sender_num:"+sender_num);
         
         
         if (result.hasErrors()) {
             System.out.println("오류");
-            mav.addObject("sender_num",etc.getSender_num());
+            mav.addObject("sender_num",sender_num);
             mav.setViewName(getPage);
             return mav;
         }
@@ -141,7 +142,7 @@ public class StudentEtcController {
 
 
         System.out.println("기타 넘버:" + etc.getMem_num());
-        int cnt = edao.insert(etc,selected_mem_num);
+        int cnt = edao.insert(etc,rowcheck);
         if (cnt > 0) {
             PrintWriter pw = response.getWriter();
             response.setContentType("text/html;charset=UTF-8");
@@ -155,7 +156,7 @@ public class StudentEtcController {
         
         mav.setViewName(gotoPage);
 
-        String stdList = String.join(",", selected_mem_num );
+        String stdList = String.join(",", rowcheck );
         
         MemberBean mb = (MemberBean)session.getAttribute("loginInfo");
 
