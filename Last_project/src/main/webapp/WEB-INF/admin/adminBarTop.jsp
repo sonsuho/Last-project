@@ -31,7 +31,7 @@
 	   .navbar .navbar-menu-wrapper .navbar-nav .nav-item .nav-link  {
 	      color : #333 !important;
 	   }
-   </style>
+   </style>      
 	
 	<div class="container-scroller">
 	
