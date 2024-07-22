@@ -98,7 +98,7 @@
 	              </a>
 	            </li>
 	            <li class="nav-item  d-none d-lg-flex">
-	              <a class="nav-link" href="#">
+	              <a class="nav-link" href="notice.manager">
 	                공지사항
 	              </a>
 	            </li>

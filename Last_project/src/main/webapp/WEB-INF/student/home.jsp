@@ -135,6 +135,17 @@
 		font-weight: bold;
 }
 
+.badge{
+	padding: 5px 10px;
+	border-radius: 5px;
+	color: #fff;
+}
+.badge-general{
+	background: #6c757d;
+}
+.badge-important {
+	background: #007bff;
+}
 /* calendar */
 /* 기존 스타일을 새로운 클래스 이름으로 변경 */
 .calendar-header {
