@@ -160,6 +160,9 @@
         FROM etc e
         JOIN member m ON e.mem_num = m.mem_num
         WHERE e.mem_num = #{mem_num}
+        <if test="WhatColumn == 'all'">
+    		AND (e.etc_title LIKE #{keyword} OR e.etc_content LIKE #{keyword} OR m.name LIKE #{keyword})
+		</if>
     </select>
 
     <select id="getEtcSenderListWithMemberInfo" parameterType="map" resultMap="EtcWithMemberNameResultMap">
@@ -168,6 +171,9 @@
         FROM etc e
         JOIN member m ON e.sender_num = m.mem_num
         WHERE e.sender_num = #{sender_num}
+         <if test="WhatColumn == 'all'">
+    		AND (e.etc_title LIKE #{keyword} OR e.etc_content LIKE #{keyword} OR m.name LIKE #{keyword})
+		</if>
     </select>
     
     <select id="getEtcStuSenderListWithMemberInfo" parameterType="map" resultMap="EtcWithMemberNameResultMap">
@@ -176,6 +182,9 @@
         FROM etc e
         JOIN member m ON e.sender_num = m.mem_num
         WHERE e.sender_num = #{sender_num}
+        <if test="WhatColumn == 'all'">
+    		AND (e.etc_title LIKE #{keyword} OR e.etc_content LIKE #{keyword} OR m.name LIKE #{keyword})
+		</if>
     </select>
   	
   	<select id="totalCountEtcByNum" resultType="int" parameterType="map">
