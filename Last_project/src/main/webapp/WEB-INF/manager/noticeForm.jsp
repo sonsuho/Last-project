@@ -12,160 +12,187 @@
 </c:if>
 
 <c:if test="${loginInfo.category == 'teacher'}">
-	<%@include file = "../teacher/teacherTop.jsp"%>
+   <%@include file = "../teacher/teacherTop.jsp"%>
 </c:if>
 
 <style type="text/css">
 
 table {
-	width: 650px;
+   width: 650px;
 }
 
 </style>
 
 <script type="text/javascript">
-	function allCheck(obj) {
 
-		var rcheck = document.getElementsByName("rowcheck");
+   // 상세보기 
+   function detailLib(num){
+      location.href = "noticeDetail.manager?n_num=" + num;
+   }
+   
+   function allCheck(obj) {
 
-		var check = obj.checked;
+      var rcheck = document.getElementsByName("rowcheck");
 
-		if (check) {
-			for (var i = 0; i < rcheck.length; i++) {
-				rcheck[i].checked = true;
-			}
-		} else {
-			for (var i = 0; i < rcheck.length; i++) {
-				rcheck[i].checked = false;
-			}
-		}
+      var check = obj.checked;
 
-	}
+      if (check) {
+         for (var i = 0; i < rcheck.length; i++) {
+            rcheck[i].checked = true;
+         }
+      } else {
+         for (var i = 0; i < rcheck.length; i++) {
+            rcheck[i].checked = false;
+         }
+      }
 
-	function selectDelete() {
+   }
 
-		var flag = false;
+   function selectDelete() {
 
-		var rcheck = document.getElementsByName("rowcheck");
+      var flag = false;
 
-		for (var i = 0; i < rcheck.length; i++) {
+      var rcheck = document.getElementsByName("rowcheck");
 
-			if (rcheck[i].checked == true) {
-				flag = true;
-				break;
-			}
-		}
+      for (var i = 0; i < rcheck.length; i++) {
 
-		if (!flag) {
-			alert('삭제할 항목을 선택하세요.');
-			return false;
-		}
+         if (rcheck[i].checked == true) {
+            flag = true;
+            break;
+         }
+      }
 
-		var result = confirm("삭제 하시겠습니까?");
+      if (!flag) {
+         alert('삭제할 항목을 선택하세요.');
+         return false;
+      }
 
-		if (result == true) {
-			document.myform.submit();
-		} else {
-			alert('취소했습니다');
-			return false;
-		}
-	}
+      var result = confirm("삭제 하시겠습니까?");
+
+      if (result == true) {
+         document.myform.submit();
+      } else {
+         alert('취소했습니다');
+         return false;
+      }
+   }
 </script>
 
-<!-- header -->
-<div class="page-header">
-	<h3 class="page-title">
-		<span class="page-title-icon bg-gradient-primary text-white me-2">
-			<i class="mdi mdi-home"></i>
-		</span> 공지사항
-	</h3>
-	<nav aria-label="breadcrumb">
-		<ul class="breadcrumb">
-			<li class="breadcrumb-item active" aria-current="page"><span></span>Overview
-				<i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
-			</li>
-		</ul>
-	</nav>
-</div>
+   <div class="row">
+       <div class="col-lg-12 grid-margin stretch-card">
+          <div class="card">
+             <div class="card-body">
+    
+             <div class="row">
+                <div class="col-lag-12">
+                   <h1 style="text-align:center;">공지사항</h1>
+                </div>
+             </div>
+             
+             <div class="row" style="margin-top: 36px;">
+                <div class="col-lg-4" style="display:flex; justify-content: flex-start; align-content: center;">
+                   <c:if test="${loginInfo.category == 'manager'}">
+                     <input type="button" value="선택삭제" onclick="selectDelete()" style="padding:12px; margin-right: 7px; width:80px; height:35px;" class="btn btn-gradient-primary">
+                  </c:if>
+                  <c:if test="${loginInfo.category == 'manager'}">
+                     <a href="noticeInsert.manager?pageNumber=${pageInfo.pageNumber}&whatColumn=${pageInfo.whatColumn}&keyword=${pageInfo.keyword}" style="padding:12px; margin-right: 7px; width:80px; height:35px;" class="btn btn-gradient-primary">글쓰기</a>
+                  </c:if>
+                  
 
+                </div>
+                <div class="col-lg-2">
+                </div>
+                
+                <div class="col-lg-6">
+                  <form action="notice.manager">
+                   <div class="form-group" style="display:flex; justify-content: flex-start; align-content: center;">
+                   
+                         <select name="whatColumn" class="form-select" style="width:140px; margin-right: 15px;">
+                       <option value="all">전체검색</option>
+                       <option value="title">제목</option>
+                       <option value="content">내용</option>
+                         </select>
+                         
+                         <input type="text" name="keyword" class="form-control" style="font-size: 16px;" placeholder="검색어를 입력하세요.">
+                     <input type="submit"class="btn btn-sm btn-success py-3" style="width: 70px;" value="검색">
+                         
+                       </div>
+                  </form>
+                </div><!-- col-lg-8 end  -->
+             </div><!-- row end -->
+             
+             <form name="myform" action="deleteAllNotice.manager">
+             
+                <table class="table table-hover">
+                   
+                   <thead>
+                      <tr>
+                         <th style="background:#f6f6f6; width:100px !important;" onclick="event.stopPropagation();">
+                         <c:if test="${loginInfo.category == 'manager'}">
+                            <input type="checkbox"name="allcheck" onclick="allCheck(this)">
+                         </c:if>
+                         </th>
+                         <th style="background:#f6f6f6; text-align: left !important;">제목</th>
+                        <th style="background:#f6f6f6; text-align: left !important;">작성자</th>
+                        <th style="background:#f6f6f6; text-align: left !important;">작성일</th>
+                        <th style="background:#f6f6f6; text-align: left !important;">반</th>
+                      </tr>
+                   </thead>
+                   
+                   <tbody>
+                   
+                      <c:if test="${fn:length(noticeList) == 0}">
+                         
+                         <tr>
+                            <td colspan="4" align="center" style="height: 50">작성된 글이 없습니다.</td>
+                         </tr>
+                         
+                      </c:if>
+                      
+                      <c:if test="${fn:length(noticeList) != 0}">
+                         
+                         <c:forEach var="notice" items="${noticeList}">
+                           <tr onclick="detailLib('${notice.n_num}')">
+                              <td align="center">
+                                 <c:if test="${loginInfo.category == 'manager'}">
+                                     <c:if test="${notice.lec_num == loginInfo.lec_num}">
+                                       <input type="checkbox"  name="rowcheck" value="${notice.n_num }">
+                                    </c:if>
+                                 </c:if>
+                              </td>
+                              <td><a href="noticeDetail.manager?n_num=${notice.n_num}">${notice.title}</a></td>
+                              <td>${notice.writer}</td>
+                              <td>${notice.day}</td>
+                              <td>
+                                 <c:if test="${notice.class_name eq 'All'}">
+                                    전체
+                                 </c:if>
+                                 <c:if test="${notice.class_name ne 'All'}">
+                                    ${notice.class_name}반
+                                 </c:if>
+                              </td>
+                           </tr>
+                        </c:forEach>
+                         
+                      </c:if>
+                   
+                   </tbody>
+                   
+                </table>
+             
+             </form>
+             
+             <br>
+             <div style="text-align: center;">
+                ${pageInfo.pagingHtml}
+             </div>
+                    
+    
+          </div>
+          </div>
+       </div>
+    </div>
 
-<div align="center">
-
-	<h1>공지사항</h1>
-
-	<form name="myform" action="deleteAllNotice.manager">
-
-		<table border="1">
-
-			<tr>
-				<td colspan="6" align="right" bgcolor="#BBFFDD">
-				<a href="noticeInsert.manager?pageNumber=${pageInfo.pageNumber}&whatColumn=${pageInfo.whatColumn}&keyword=${pageInfo.keyword}">글쓰기</a>
-				</td>
-			</tr>
-
-			<tr>
-				<th>
-					<c:if test="${loginInfo.category == 'manager'}">
-						<input type="checkbox" name="allcheck" onclick="allCheck(this)">
-					</c:if>
-				</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>작성일</th>
-				<th>lec_num</th>
-				<th>반</th>
-			</tr>
-
-			<c:if test="${fn:length(noticeList) == 0}">
-
-				<tr>
-					<td colspan="4" align="center" style="height: 50">공지사항에 작성된 글이 없습니다!!</td>
-				</tr>
-			</c:if>
-			<c:if test="${fn:length(noticeList) != 0}">
-
-				<c:forEach var="notice" items="${noticeList}">
-
-					<tr>
-						<td align="center">
-							<c:if test="${loginInfo.category == 'manager'}">
-			    				<c:if test="${notice.lec_num == loginInfo.lec_num}">
-									<input type="checkbox" name="rowcheck" value="${notice.n_num }">
-								</c:if>
-							</c:if>
-						</td>
-						<td><a href="noticeDetail.manager?n_num=${notice.n_num}">${notice.title}</a></td>
-						<td>${notice.writer}</td>
-						<td>${notice.day}</td>
-						<td>${notice.lec_num}</td>
-						<td>${notice.class_name}</td>
-					</tr>
-
-				</c:forEach>
-
-			</c:if>
-
-		</table>
-
-	</form>
-
-	<br> ${pageInfo.pagingHtml}
-
-	<form action="notice.manager">
-
-		<select name="whatColumn">
-			<option value="all">전체검색</option>
-			<option value="title">제목</option>
-			<option value="content">내용</option>
-		</select> <input type="text" name="keyword"> <input type="submit" value="검색">
-
-	</form>
-
-	<c:if test="${loginInfo.category == 'manager'}">
-		<input type="button" value="삭제" onclick="selectDelete()">
-	</c:if>
-
-</div>
 
 <c:if test="${loginInfo.category == 'manager'}">
    <%@include file = "managerBarBottom.jsp"%>
@@ -176,5 +203,5 @@ table {
 </c:if>
 
 <c:if test="${loginInfo.category == 'teacher'}">
-	<%@include file = "../teacher/teacherBottom.jsp"%>
+   <%@include file = "../teacher/teacherBottom.jsp"%>
 </c:if>
