@@ -13,11 +13,11 @@
 <%@ include file="teacherTop.jsp"%>
 
 <style>
+
 .content-container {
 	justify-content: space-around;
 	gap: 20px;
-}
-
+	    }
 .element1, .element2 {
 	width: 100%;
 	background: #fff;
@@ -58,13 +58,14 @@
 .notice-container {
 	position: absolute;
 	left : 620px;
+	height: 585px;
 	background: #fff;
 	border-radius: 8px;
 	padding: 20px;
 	margin: 20px auto;
 	border: 1px solid #e0e0e0;
 	width: 43%;
-	height: 51%;     
+     
 }
 
 .notice-container h4 {
@@ -431,108 +432,301 @@ table.date-month {
     });
 </script>
 
-<!-- header -->
-<div class="page-header">
-	<h3 class="page-title">
-		<span class="page-title-icon bg-gradient-primary text-white me-2">
-			<i class="mdi mdi-home"></i>
-		</span> Teacher Home
-	</h3>
-	<nav aria-label="breadcrumb">
-		<ul class="breadcrumb">
-			<li class="breadcrumb-item active" aria-current="page"><span></span>Overview
-				<i
-				class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
-			</li>
-		</ul>
-	</nav>
-</div>
-
-
 <div class="row">
-	<div class="col-lg-12 grid-margin stretch-card">
-		<div class="card">
-			<div class="card-body">
-				<div class="content-container">
-
-<!-- Progress Section -->
-<div class="element1">
-	<div class="progress-container">
-		<h1 style="padding-left: 50px;" align="left">강의 진행 현황</h1>
-		<br>
-		<p style="padding-left: 80px;" align="left">
-			<font size="6">D-${remainingDays}</font>
-		</p>
-		<div class="progress-bar" style="width: 90%; margin-left: 60px;" align="center">
-			<div class="progress" style="width: ${(1 - remainingDays/totalDays) * 100}%;"></div>
-		</div>
-		<p style="padding-left: 80px;" align="left">남은 강의 시간: 최소 62h 10m</p>
-		<p style="padding-left: 80px;" align="left">앞으로 매일 평균: 최소 7h 10m</p>
-	</div>
-</div>
-
-<br><br>
-
-<div class="element2">
-	<div class="calendar-container">
-	
-<div class="date-wrap">
-	<div class="date-month">
-		<div class="button_wrap">
-			<span id="month-this" style="font-size: 27px;"><%=request.getParameter("month") %></span> &nbsp;&nbsp;
-			<button type="button" id="month-prev" class="month-move"data-ym="<%=prev_month %>+'-01'">∧</button>
-			<button type="button" id="month-next" class="month-move"data-ym="<%=next_month %>+'-01'">∨</button>
-		</div>
-	</div>
-	<table class="date-month" border="1">
-		<thead>
-			<tr class="calendar-header">
-				<th>Sun</th>
-				<th>Mon</th>
-				<th>Tue</th>
-				<th>Wed</th>
-				<th>Thu</th>
-				<th>Fri</th>
-				<th>Sat</th>
-			</tr>
-		</thead>
-		<tbody id="tbl-month"></tbody>
-	</table>
-		<span> 
-			<img src="resources/images/attendSymbol3.jpg" style="width: 15px; height: 15px" /> start event <br>
-			<img src="resources/images/class.jpg" style="width: 440px; height: 50px" />
-		</span>
-	</div>
-</div>
-<!-- calendar 추가코드 -->
-
-<div class="notice-container">
-	<h4>공지사항</h4>
-	<ul class="notice-list">
-		<c:forEach var="notice" items="${noticeList}" end="9">
-			<li>
-				<c:if test="${notice.class_name eq 'All'}">
-					<span class="badge badge-general">
-						전체
-					</span>
-				</c:if>
-				<c:if test="${notice.class_name ne 'All'}">
-					<span class="badge badge-important">
-						${notice.class_name}반
-					</span>
-				</c:if>
-				
-				<span><a href="noticeDetail.manager?n_num=${notice.n_num}">${notice.title}</a></span>
-				<span>${notice.day}</span>
-			</li>
-		</c:forEach>
-	</ul>
-</div>
+	    <div class="col-lg-12 grid-margin stretch-card">
+	        <div class="card">
+	            <div class="card-body">
+	                	
+                 	<!-- Progress Section -->
+                 	<div class="lecture-container-all">
+                 			<div class="left-container">
+				               		<div class="lecture-container">
+				                     	<font style="padding-left: 20px; margin-top:-20px; font-size: 28px; font-weight: bold; width: 630px; white-space: pre-line; overflow: hidden; text-overflow: ellipsis;">${lecture.lec_name}</font>
+			                     		<div class="buttons">
+				                     			<form id="teachingForm" action="endTeaching.teacher" method="post">
+					                     				<c:if test="${start != 'start'}">
+					                     						<button class="btn-hover color-1" onclick="meet()">수업시작</button>
+					                     				</c:if>
+					                     				<c:if test="${start == 'start'}">
+			                     								<input id="endTeaching" type="submit" value="수업종료" class="btn-hover color-1">
+			                     								<input type="hidden" name="lec_Num" value="${lec_Num}">
+					                     				</c:if>
+	                     						</form>
+															</div>
+				                  </div> <br>
+				                  <div class="progress-container">
+				                      <p style="padding-left: 20px;" align="left">
+				                      		<fmt:parseDate var="start" value="${lecture.lec_start}" pattern="yyyy-MM-dd" />
+							                    <fmt:parseDate var="end" value="${lecture.lec_end}" pattern="yyyy-MM-dd" />
+							                    <span class="lecture-date">
+							                    		<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" /> ~ 
+							                    		<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />
+							                    </span>
+				                      		<span class="lecture-Dday">${remainingDays}일 남았습니다</span>
+				                      </p>
+				                      <div class="progress-bar" style="width: 100%; margin-left: 20px;" align="center">
+				                          <div class="progress" style="width: ${(1 - remainingDays/totalDays) * 100}%;"></div>
+				                          <span style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); color: white; font-size: 1em;">${progressPercent}%</span>
+				                      </div>
+				                  </div>
+				              </div>
+		                  
+			                <div class="right-container">
+											    <table width=100% class="table table-hover">
+											    		<thead>
+													    		<tr>
+													    				<th width=50% colspan=2>${lecture.class_name}반</th>
+													    				<th width=50% colspan=2>
+													    						학생수 ${lecture.student} / ${lecture.stu_cnt} &nbsp;&nbsp;
+													    						<button class="btn btn-inverse-secondary btn-sm" onclick="studentDetail(${lecture.lec_num})">학생정보</button>
+													    				</th>
+													    		</tr>
+													    </thead>
+													    <tbody>
+													    		<tr>
+													    				<td width=10%><span class="badge badge-success" style="width:100%">매니저</span></td>
+													    				<th width=25%>${lecture.m_name}</th>
+													    				<td width=25% align=center><i class="fa fa-phone"></i>&nbsp;&nbsp;&nbsp;${lecture.m_phone}</td>
+													    				<td width=50%><i class="fa fa-envelope"></i>&nbsp;&nbsp;&nbsp;${lecture.m_email}</td>
+													    		</tr>
+													    		<tr>
+													    				<td><span class="badge badge-success" style="width:100%">강사</span></td>
+													    				<th>${lecture.t_name}</th>
+													    				<td align=center><i class="fa fa-phone"></i>&nbsp;&nbsp;&nbsp;${lecture.t_phone}</td>
+													    				<td><i class="fa fa-envelope"></i>&nbsp;&nbsp;&nbsp;${lecture.t_email}</td>
+													    		</tr>
+													    </tbody>
+											    </table>
+											</div>
+											
+                  </div>
+              </div>
+          </div>
+      </div>
 						
-					</div>	<!-- element2 -->
-				</div>	<!-- content-container -->
-			</div>	<!-- card-body -->
-		</div>	<!-- card -->
-	</div>	<!-- col-lg-12 grid-margin stretch-card -->
-</div>	<!-- row -->
+	    <!-- calendar 추가코드 -->
+			<div class="col-lg-5 grid-margin stretch-card">
+	        <div class="card">
+	            <div class="card-body">
+	            
+									<div class="calendar-container">
+	
+										<div class="date-wrap">
+											<div class="date-month">
+												<div class="button_wrap">
+													<span id="month-this" style="font-size: 27px;"><%=request.getParameter("month") %></span> &nbsp;&nbsp;
+													<button type="button" id="month-prev" class="month-move"data-ym="<%=prev_month %>+'-01'">∧</button>
+													<button type="button" id="month-next" class="month-move"data-ym="<%=next_month %>+'-01'">∨</button>
+												</div>
+											</div>
+											<table class="date-month" border="1">
+												<thead>
+													<tr class="calendar-header">
+														<th>Sun</th>
+														<th>Mon</th>
+														<th>Tue</th>
+														<th>Wed</th>
+														<th>Thu</th>
+														<th>Fri</th>
+														<th>Sat</th>
+													</tr>
+												</thead>
+												<tbody id="tbl-month"></tbody>
+											</table>
+												<span> 
+													<img src="resources/images/attendSymbol3.jpg" style="width: 15px; height: 15px" /> start event <br>
+													<img src="resources/images/class.jpg" style="width: 440px; height: 50px" />
+												</span>
+											</div>
+										</div>	<!-- date-wrap -->
+								</div> <!-- calendar-container -->
+
+ 							</div>
+          </div>
+      </div>
+      
+      <div class="col-lg-7 grid-margin stretch-card">
+	        <div class="card">
+	            <div class="card-body">
+	            
+                  <div class="notice-container">
+										<h4>공지사항</h4>
+										<ul class="notice-list">
+											<c:forEach var="notice" items="${noticeList}" end="9">
+												<li>
+													<c:if test="${notice.class_name eq 'All'}">
+														<span class="badge badge-general">
+															전체
+														</span>
+													</c:if>
+													<c:if test="${notice.class_name ne 'All'}">
+														<span class="badge badge-important">
+															${notice.class_name}반
+														</span>
+													</c:if>
+													
+													<span><a href="noticeDetail.manager?n_num=${notice.n_num}">${notice.title}</a></span>
+													<span>${notice.day}</span>
+												</li>
+											</c:forEach>
+										</ul>
+									</div>
+									
+			        </div>
+			    </div>
+			</div>
+	</div>
+	
+	<!-- 수업 모달 -->
+	<div class="modal fade" id="classModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="classModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" style="max-width: 25%;">
+	    <div class="modal-content">
+	      <div class="card">
+	        <div class="card-body">
+	
+						<div class="modal-header">
+	            <h1 class="modal-title fs-5" id="classModalLabel" style="color:#c8c8c8; font-weight:bold;">수업 시작</h1>
+	            <button type="button" onclick="closeModal()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	          </div> <br>
+	          
+	          <div class="modal-body">
+		          <form name="classForm" action="teaching.teacher" method="post" style="display: flex;">
+		          	<input type="hidden" name="lec_Num" value="${lec_Num}">
+					    	<input type="text" id="class-url" name="url" placeholder="수업 링크를 입력하세요" style="width: 100%; height: 50px;"  class="form-control mr-2"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<!-- 구글 미팅 창에서 링크를 복사해와서 첨부한 다음  -->
+	          	</form>
+	          </div>
+	
+	          <div class="modal-footer">
+	          	<button type="submit" onclick="return urlCheck()" class="btn btn-lg btn-gradient-primary" style="padding-top:16px; padding-bottom:16px;">시작</button>
+	            <button type="button" onclick="closeModal()" class="btn btn-lg btn-light" data-bs-dismiss="modal">닫기</button>
+	          </div>
+	          
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- 학생 상세정보 모달 -->
+	<div class="modal fade" id="studentDetailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="studentDetailModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" style="max-width: 50%;">
+	    <div class="modal-content">
+     	  <div class="card">
+  				<div class="card-body">
+			      
+			      <div class="modal-header">
+			        <h1 class="modal-title fs-5" id="studentDetailModalLabel" style="color:#c8c8c8; font-weight:bold;">
+			        	학생 정보 &nbsp;&nbsp; <span id="modalState"></span>
+			        </h1>
+			      	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			      </div>
+			      
+			      <div class="modal-body">
+			        <div id="member-list">
+						    <!-- 회원 정보 영역 -->
+						  </div>
+			      </div> <br><br>
+			      
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+			      </div>
+															      
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
 <%@ include file="teacherBottom.jsp"%>
+
+	<script type="text/javascript">
+    	
+    	function meet(){
+    			window.open("http://meet.google.com", "구글 미팅");
+    			$('#classModal').modal('show');
+    	}
+    	
+    	function urlCheck(){
+          var urlField = document.getElementsByName('url')[0];
+          if (urlField.value.trim() === '') {
+              alert('수업 링크를 입력해야합니다!!');
+              return false; // 폼 제출 방지
+          }else{
+        	  	document.classForm.submit();
+          }
+    	}
+    	
+    	function closeModal(){
+	    		$('#class-url').val('');
+	    	  $('#classModal').modal('hide');
+    	}
+    	
+    	window.addEventListener("beforeunload", function (event) {
+	        fetch("endTeaching.teacher", {
+	            method: "POST",
+	            headers: {
+	                "Content-Type": "application/x-www-form-urlencoded"
+	            },
+	            body: "lec_Num=" + encodeURIComponent("${lec_Num}")
+	        }).then(response => {
+	            if (!response.ok) {
+	                console.error('Failed to end teaching session');
+	            }
+	        }).catch(error => {
+	            console.error('Error ending teaching session:', error);
+	        });
+	
+	        event.returnValue = '';
+	    });
+	
+	    // 폼 제출 시 확인 창을 띄우고 수업 종료
+	    document.getElementById("teachingForm").addEventListener('submit', function(event) {
+	        if (!confirm("수업을 종료하시겠습니까?")) {
+	            event.preventDefault();
+	        }
+	    });
+	    
+	    function studentDetail(lec_num) {
+			   	$.ajax({
+				      type: "POST",
+				      url: "lectureDetail.admin",
+				      data: { lec_num: lec_num },
+				      success: function(response) {
+					        // 학생 정보 리스트를(response.members) #member-list 영역에 추가하는 코드
+					        $('#member-list').empty(); // 기존 데이터 제거
+					        $('#member-list').append(
+						          '<br><br>' +
+						          '<table class="table table-hover">' +
+						          '<thead><tr class="table-info">' +
+						          '<th>회원번호</th><th>이름</th><th>전화번호</th><th>이메일</th><th>상태</th>' +
+						          '</tr></thead><tbody>'
+					        );
+					        var state;
+					        if (response.members && Array.isArray(response.members) && response.members.length > 0) {
+						          $.each(response.members, function(index, member) {
+						        	  if(member.state == "진행"){
+						        		  state = "info";
+						        	  } else if(member.state == "퇴실"){
+						        		  state = "danger";
+						        	  }
+						            $('#member-list table').append(
+						              '<tr>' +
+						              '<td align=center>' + member.mem_num + '</td>' +
+						              '<th>' + member.name + '</th>' +
+						              '<td align=center>' + member.phone + '</td>' +
+						              '<td align=center>' + member.email + '</td>' +
+						              '<td align=center><label style="font-size:13px;" class="badge badge-' + state + '">' + member.state + '</label></td>' +
+						              '</tr>'
+						            );
+						          });
+					        } else {
+					          // response.members가 배열이 아닌 경우 처리
+					          $('#member-list table').append('<tr><td colspan="5">학생 정보가 없습니다.</td></tr>');
+					        }
+					        $('#member-list').append('</tbody></table>');
+				      }
+			    });
+			    $('#studentDetailModal').modal('show');
+			}
+    
+  </script>
