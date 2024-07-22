@@ -1,7 +1,7 @@
 # 📖 학원 시스템 sist
 
 - 배포 URL : http://3.36.77.227:8080/ex-1.0.0-BUILD-SNAPSHOT/login.in
-- Test ID : admin, manager1~7, teacher1~7, student1~7 
+- Test ID : admin, manager1-7, teacher1-7, student1-7 
 - Test PW : 1234
 
 <br>
