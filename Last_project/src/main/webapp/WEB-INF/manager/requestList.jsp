@@ -97,6 +97,9 @@
         background-color: F9FFFF;
     }
     .err { font-size: 12px; color: red;}
+    .btn-fixed-width {
+            width: 90px;
+        }
     </style>
     <script>
         function allDelete(obj) {
@@ -120,6 +123,7 @@
                 alert("선택하세요");
                 return;
             }
+            document.myform.action = "selectDelete.manager";
             document.myform.submit();
         }
 
@@ -176,12 +180,12 @@
 	<h3 class="page-title" style="font-weight:700;">
 		<span>받은 결재함</span> 
 		<span  class="sub-next-title" onclick="etcList('${loginInfo.mem_num}')">받은 문서함</span>
-		<span class="sub-next-title" onclick="etcSendList('${loginInfo.mem_num}')">내가 보낸 문서함</span>
-		<span class="sub-next-title" onclick="requestList2()">결재 문서함</span>
+		<span class="sub-next-title" onclick="etcSendList('${loginInfo.mem_num}')">보낸 문서함</span>
+		<span class="sub-next-title" onclick="requestList2()">결재 목록</span>
 	</h3>
 		<nav aria-label="breadcrumb">
         	<div class="input-group-append">
-            <button class="btn btn-sm btn-gradient-primary py-3" type="button" data-bs-toggle="modal" data-bs-target="#firstModal" id="openFirstModal"><i class="mdi mdi-email"></i> &nbsp;&nbsp;결재 문서 보내기</button>
+            <button class="btn btn-sm btn-gradient-primary py-3 " type="button" data-bs-toggle="modal" data-bs-target="#firstModal" id="openFirstModal"><i class="mdi mdi-email"></i> &nbsp;&nbsp;결재 문서 보내기</button>
             </div>
         </nav>
 		</div>
@@ -191,14 +195,15 @@
                 <div class="card-body">
 
 					<div class="row">
-	                    
+	                    <div class="col-lg-8"></div>
 				        <div class="col-lg-4">
 	                     	<form action="request.manager" style="display:flex;">
 	                     		<input type="hidden" name="whatColumn" value="all">
                 				<input type="hidden" name="mem_num" value="${loginInfo.mem_num}">
 		                        <input type="text" name="keyword" class="form-control" placeholder="이름 또는 제목을 입력하세요." aria-label="Recipient's username" aria-describedby="basic-addon2" style="width: 400px;">
 	                   			
-		                        <button type="submit" class="btn btn-sm btn-success py-3" type="button" style="width: 70px;">검색</button>
+		                        <button type="submit" class="btn btn-sm btn-success py-3 btn-fixed-width" type="button">검색</button>
+                				<input type="button" value="일괄삭제" onclick="selectDelete()" class="btn btn-sm btn-gradient-danger py-3">
 	                        </form>
 				        </div>
 	                </div>
@@ -209,14 +214,18 @@
                 <input type="hidden" name="ap_delete" value="M">
                 <!-- Completed Documents -->
                 
-                <input type="button" value="일괄삭제" onclick="selectDelete()" class="btn btn-sm btn-gradient-danger py-3">
                
                
-                <table class="table table-hover">
-                    <tr>
-                        <th colspan="2"><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></th>
-                        <th>상태</th>
-                    </tr>
+                <table class="table table-hover" >
+                    <thead>
+                    	<tr class="table-danger">
+                                <td><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></td>
+                                
+                                <td>제목/내용</td>
+                                <td>상태/날짜</td>
+                            </tr>
+                      </thead>
+                      <tbody>
                     <c:choose>
                         <c:when test="${pendingList == null || pendingList.isEmpty()}">
                             <tr>
@@ -231,7 +240,8 @@
                                         <td>
                                             <a href="javascript:void(0);" onclick="openDetail('${r.req_num}', '${loginInfo.mem_num}', '${r.title}', '${r.reason}', '${r.memberName}', '${r.time1}','${r.time2}', '${r.sign}', '${loginInfo.mem_num}', '${r.ap_situ}')">
                                                 ${r.memberName}
-                                            </a>
+                                            </a><br><br>
+                                                 ${r.reason}
                                         </td>
                                         <td>
                                         	<c:choose>
@@ -241,17 +251,15 @@
                                             <c:otherwise>
                                                 ${r.ap_situ}
                                             </c:otherwise>
-                                        	</c:choose>
+                                        	</c:choose><br><br>
+                                                    ${r.time1}
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td>${r.reason}</td>
-                                        <td>${r.time1}</td>
                                     </tr>
                                 </c:if>
                             </c:forEach>
                         </c:otherwise>
                     </c:choose>
+                    </tbody>
                 </table>
             </form>
             

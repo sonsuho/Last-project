@@ -212,7 +212,13 @@
 							<div class="collapse" id="menu2">
 								<ul class="nav flex-column sub-menu">
 									<li class="nav-item">
-										<a class="nav-link" href="etcList.student?mem_num=${loginInfo.mem_num }">결재함</a>
+										<a class="nav-link" href="etcList.student?mem_num=${loginInfo.mem_num }">받은 문서함</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="etcSendList.student?sender_num=${loginInfo.mem_num }">보낸 문서함</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="request2.student?mem_num=${loginInfo.mem_num }">결재 문서함</a>
 									</li>
 								</ul>
 							</div>

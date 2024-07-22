@@ -153,7 +153,16 @@
 							<div class="collapse" id="menu2">
 								<ul class="nav flex-column sub-menu">
 									<li class="nav-item">
-										<a class="nav-link" href="request.manager?mem_num=${loginInfo.mem_num }">결재함</a>
+										<a class="nav-link" href="request.manager?mem_num=${loginInfo.mem_num }">받은 결재함</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="etcList.manager?mem_num=${loginInfo.mem_num }">받은 문서함</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="etcSendList.manager?sender_num=${loginInfo.mem_num }">보낸 문서함</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="request2.manager">결재 목록</a>
 									</li>
 								</ul>
 							</div>

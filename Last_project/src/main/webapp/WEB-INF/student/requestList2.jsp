@@ -96,6 +96,10 @@
         background-color: F9FFFF;
     }
     .err { font-size: 12px; color: red;}
+    
+    .btn-fixed-width {
+            width: 90px;
+        }
 </style>
 
 
@@ -120,14 +124,15 @@
                 <div class="card-body">
 
 					<div class="row">
-	                    
+	                    <div class="col-lg-8"></div>
 				        <div class="col-lg-4">
 	                     	<form action="request2.student" style="display:flex;">
 	                     		<input type="hidden" name="whatColumn" value="all">
 	                     		<input type="hidden" name="mem_num" value="${loginInfo.mem_num}">
 		                        <input type="text" name="keyword" class="form-control" placeholder="이름 또는 제목을 입력하세요." aria-label="Recipient's username" aria-describedby="basic-addon2" style="width: 400px;">
 	                   			
-		                        <button type="submit" class="btn btn-sm btn-success py-3" type="button" style="width: 70px;">검색</button>
+		                        <button type="submit" class="btn btn-sm btn-success py-3 btn-fixed-width" type="button" >검색</button>
+                        		<input type="button" value="일괄삭제" onclick="selectDelete()" class="btn btn-sm btn-gradient-danger py-3">
 	                        </form>
 				        </div>
 	                </div>
@@ -137,29 +142,30 @@
                         <input type="hidden" name="ap_delete" value="S">
                         <input type="hidden" name="mem_num" value="${loginInfo.mem_num}">
                          
-                        <input type="button" value="일괄삭제" onclick="selectDelete()" class="btn btn-sm btn-gradient-danger py-3">
                             
                         <table class="table table-hover">
-                            <tr>
-                                <th colspan="2"><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></th>
+                            <tr class="table-danger">
+                                <td><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></td>
                                 
-                                <th>상태</th>
+                                <td>제목/내용</td>
+                                <td>상태/날짜</td>
                             </tr>
                             <c:choose>
                                 <c:when test="${rmlist == null || rmlist.isEmpty()}">
                                     <tr>
-                                        <td colspan="3" style="text-align: center;">문서가 없습니다</td>
+                                        <td colspan="4" style="text-align: center;">문서가 없습니다</td>
                                     </tr>
                                 </c:when>
                                 <c:otherwise>
                                     <c:forEach var="r" items="${rmlist}">
                                         <c:if test="${fn:contains(r.ap_delete , 'S')}">
                                             <tr>
-                                                <td rowspan="2"><input type="checkbox" value="${r.req_num}" name="rowcheck" class="form-check-input"></td>
+                                                <td><input type="checkbox" value="${r.req_num}" name="rowcheck" class="form-check-input"></td>
                                                 <td>
                                                     <a href="javascript:void(0);" onclick="openDetail('${r.req_num}', '${r.title}', '${r.reason}', '${r.memberName}', '${r.time1}','${r.time2}', '${r.sign}', '${loginInfo.mem_num}', '${r.ap_situ}')">
                                                         ${r.memberName}
-                                                    </a>
+                                                    </a><br><br>
+                                                    ${r.reason}
                                                 </td>
                                                 <td>
                                                     <c:if test="${r.ap_situ == null}">
@@ -170,13 +176,11 @@
                                                     </c:if>
                                                     <c:if test="${r.ap_situ == '반려'}">
                                                         <label class="badge badge-danger">반려</label>
-                                                    </c:if>
+                                                    </c:if><br><br>
+                                                    ${r.time1}
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>${r.reason}</td>
-                                                <td>${r.time1}</td>
-                                            </tr>
+                                            
                                         </c:if>
                                     </c:forEach>
                                 </c:otherwise>
@@ -303,6 +307,7 @@
             alert("삭제할 문서를 선택하세요");
             return;
         }
+        document.myform.action = "selectDeleteReq2.student";
         document.myform.submit();
     }
 

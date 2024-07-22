@@ -56,6 +56,9 @@
         padding: 5px;
         border-radius: 5px;
     }
+    .btn-fixed-width {
+            width: 90px;
+        }
 	
 </style>
 
@@ -66,7 +69,7 @@
 	<h3 class="page-title" style="font-weight:700;">
 		<span>받은 문서함</span> 
 		<span class="sub-next-title" onclick="etcSendList('${loginInfo.mem_num}')">보낸 문서함</span>
-		<span class="sub-next-title" onclick="requestList2('${loginInfo.mem_num}')">결재 문서함</span>
+		<span class="sub-next-title" onclick="requestList2('${loginInfo.mem_num}')">결재 목록</span>
 	</h3>
 		<nav aria-label="breadcrumb">
         	<div class="input-group-append">
@@ -81,27 +84,31 @@
                 <div class="card-body">
                     
                     <div class="row">
+                    <div class="col-lg-8"></div>
 				        <div class="col-lg-4">
 	                     	<form action="etcList.student" style="display:flex;">
 	                     		<input type="hidden" name="whatColumn" value="all">
 	                     		<input type="hidden" name="mem_num" value="${loginInfo.mem_num}">
 		                        <input type="text" name="keyword" class="form-control" placeholder="이름 또는 제목을 입력하세요." aria-label="Recipient's username" aria-describedby="basic-addon2" style="width: 400px;">
 	                   			
-		                        <button type="submit" class="btn btn-sm btn-success py-3" type="button" style="width: 70px;">검색</button>
+		                        <button type="submit" class="btn btn-sm btn-success py-3 btn-fixed-width" type="button">검색</button>
+                        		<input type="button" value="일괄삭제" onclick="selectDelete()" class="btn btn-sm btn-gradient-danger py-3">
 	                        </form>
 				        </div>
 	                </div>
 	                
                     <form method="post" name="myform" action="selectDeleteEtc.student">
                         <input type="hidden" name="mem_num" value="${loginInfo.mem_num}">
-                        <input type="button" value="일괄삭제" onclick="selectDelete()" class="btn btn-sm btn-gradient-danger py-3">
                         <table class="table table-hover">
                             <input type="hidden" name="etc_delete" value="S">
                             <input type="hidden" name="sender_num" value="${loginInfo.mem_num}">
                             <thead>
-                                <tr>
-                                    <td colspan="5"><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></td>
-                                </tr>
+                                <tr class="table-danger">
+									<td><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></td>
+									<td colspan="2">제목</td>
+                					<td>이름</td>
+                					<td colspan="2">날짜</td>
+								</tr>
                             </thead>
                             <tbody>
                                 <c:choose>
@@ -124,7 +131,6 @@
                                                         <fmt:parseDate var="fmtdate" value="${e.etc_sdate }" pattern="yyyy-MM-dd HH:mm" /> 
                                                         <fmt:formatDate value="${fmtdate }" pattern="yyyy-MM-dd HH:mm" />
                                                     </td>
-                                                    <td></td>
                                                 </tr>
                                             </c:if>
                                         </c:forEach>
@@ -324,7 +330,8 @@ function selectDelete() {
         alert("삭제할 문서를 선택하세요");
         return;
     }
-    document.myform.submit();
+    document.myform.action = "selectDeleteEtc.student";
+    document.myform.submit()
 }
 
 // 화면 분할

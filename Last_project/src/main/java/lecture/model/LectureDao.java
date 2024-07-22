@@ -145,6 +145,16 @@ public class LectureDao {
 		lb = sqlSessionTemplate.selectOne(namespace+".getLectureForTeacher", mem_num);
 		return lb; 
 	}
+	
+	 public List<LectureBean> getLectureByManager(int mem_num) {
+	      
+	      List<LectureBean> list = sqlSessionTemplate.selectList(namespace + ".getLectureByManager", mem_num);
+	      
+	      System.out.println("getLectureByTeacher list size : " + list.size());
+	      
+	      return list;
+	   }
+	 
+	 
 
 }
-
