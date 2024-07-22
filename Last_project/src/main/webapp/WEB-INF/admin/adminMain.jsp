@@ -107,8 +107,8 @@
 											    		<div class="square-container" data-lec-num="${lb.lec_num}" onclick="lectureModal(this)">
 											    				<div class="square-content">
 											    						<div class="square-title">
-							    												<font style="padding-left: 20px; font-size: 20px; font-weight: bold; width: 320px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${lb.lec_name}</font>
-							    												<button class="btn btn-inverse-secondary btn-sm">${lb.class_name}</button>
+							    												<font style="padding-left: 20px; font-size: 18px; font-weight: bold; width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${lb.lec_name}</font>
+							    												<button class="btn btn-inverse-dark btn-sm">${lb.class_name}</button>
 							    										</div>
 							    										<table class="table" style="margin-top:30px;">
 																	    		<tr>
@@ -116,8 +116,6 @@
 																	    				<td>${lb.t_name}</td>
 																	    				<td><span class="badge badge-danger" style="width:55px; opacity: 0.6;">강사</span></td>
 																	    				<td>${lb.m_name}</td>
-																	    				<td><span class="badge badge-success" style="width:55px; opacity: 0.6;">학생수</span></td>
-																    				<td>${lb.student}/${lb.stu_cnt}</td>
 																	    		</tr>
 																	    </table>
 																	    <p style="padding-top:20px; padding-left: 20px;" align="left">
