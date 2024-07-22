@@ -18,7 +18,7 @@
 
 	<style>
 		.square-container {
-			  width: 30%; /* 정사각형 크기 */
+			  width: 349px; /* 정사각형 크기 */
 			  height: 250px;
 			  display: inline-block; /* 가로로 나란히 배치 */
 			  margin-top: 30px; /* 간격 조절 */
