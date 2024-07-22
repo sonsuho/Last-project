@@ -90,7 +90,7 @@ public class MessengerDao {
 		return mb;
 	}
 	
-	// del_chk <=0 일 때 삭제 
+	// del_chk=0 일 때 삭제 
 	public void deleteMsg(int msg_num) {
 		sqlSessionTemplate.delete(namespace + ".deleteMsg", msg_num);
 	}

@@ -87,8 +87,8 @@
     				<div class="col-lg-4" style="display:flex; justify-content: flex-start; align-content: center;">
     					<c:if test="${loginInfo.category != 'student' }">
     						<%-- <a href="writeLibrary.teacher?pageNumber=${pageInfo.pageNumber}&whatColumn=${pageInfo.whatColumn}&keyword=${pageInfo.keyword}">글쓰기</a> --%>
-	    					<div>
-		    					<button type="button" onclick="writeLibrary('${pageInfo.pageNumber}', '${pageInfo.whatColumn}', '${pageInfo.keyword}' )" style="padding:12px; margin-right: 7px;" class="btn btn-gradient-primary"><i class="fa fa-send"></i> &nbsp;&nbsp;글쓰기</button>
+	    					<div style="margin-top:1px;">
+		    					<button type="button" onclick="writeLibrary('${pageInfo.pageNumber}', '${pageInfo.whatColumn}', '${pageInfo.keyword}' )" style="padding:12px; margin-right: 7px;" class="btn btn-gradient-primary">글쓰기</button>
 	    					</div>
 	    					<div>
 		    					<button type="button" class="btn btn-gradient-light btn-sm" onclick="selectDelete()"><img src="resources/images/delete.png" style="width:24px; height:24px;">삭제</button>

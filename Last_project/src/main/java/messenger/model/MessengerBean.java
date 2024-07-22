@@ -16,6 +16,8 @@ public class MessengerBean {
 	private String recv_name;	// 받는 사람 이름
 	private int del_chk;
 	
+	private String image; // 이미지 추
+	
 	// 첨부 파일 경로를 배열로 저장
 	private String[] uploadList;
  	
@@ -25,7 +27,7 @@ public class MessengerBean {
 	
 	public MessengerBean(int msg_num, int mem_num, int group_num, int recv_num, int ogmsg_num, String title,
 			String content, String msg_upload, String send_time, String read_time, int read_chk, String send_name,
-			String recv_name, int del_chk) {
+			String recv_name, int del_chk, String image) {
 		super();
 		this.msg_num = msg_num;
 		this.mem_num = mem_num;
@@ -41,6 +43,7 @@ public class MessengerBean {
 		this.send_name = send_name;
 		this.recv_name = recv_name;
 		this.del_chk = del_chk;
+		this.image = image;
 	}
 	public int getMsg_num() {
 		return msg_num;
@@ -137,6 +140,15 @@ public class MessengerBean {
 	public void setDel_chk(int del_chk) {
 		this.del_chk = del_chk;
 	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
 	
 	
 	
