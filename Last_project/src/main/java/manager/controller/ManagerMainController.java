@@ -22,6 +22,7 @@ import manager.model.NoticeDao;
 import manager.model.mCalendarBean;
 import manager.model.mCalendarDao;
 import member.model.MemberBean;
+import member.model.MemberDao;
 
 
 @Controller
@@ -38,6 +39,9 @@ public class ManagerMainController {
 	
 	@Autowired
 	NoticeDao ndao;
+	
+	@Autowired
+	MemberDao mdao;
 	
 	@RequestMapping(value = command , method = RequestMethod.GET)
 	public ModelAndView approval(
@@ -56,34 +60,56 @@ public class ManagerMainController {
 
 		String lec_num = loginInfo.getLec_num();
 		LectureBean lecture = ldao.getLectureByNum(Integer.parseInt(lec_num));
+		
+		List<LectureBean> lectureList = ldao.getLectureForManager(loginInfo.getMem_num());
 
-		// lecture에서 가져온 날짜와 시간 문자열
-		String startDateTimeString = lecture.getLec_start();
-		String endDateTimeString = lecture.getLec_end();
+		for(LectureBean lb : lectureList) {
+			// lecture에서 가져온 날짜와 시간 문자열
+		    String startDateTimeString = lb.getLec_start();
+		    String endDateTimeString = lb.getLec_end();
+		    
+		    // 날짜와 시간 포맷 설정 ('yyyy-MM-dd hh:mm:ss.s')
+		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+		    
+		    // LocalDateTime 객체로 변환
+		    LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeString, formatter);
+		    LocalDateTime endDateTime = LocalDateTime.parse(endDateTimeString, formatter);
+		    LocalDateTime currentDateTime = LocalDateTime.now();
+		    
+		    // 전체 기간 계산 (날짜 차이)
+		    long totalDays = ChronoUnit.DAYS.between(startDateTime.toLocalDate(), endDateTime.toLocalDate());
+		    lb.setTotalDays(totalDays); 
+		    
+		    // 남은 기간 계산 (날짜 차이)
+		    long remainingDays = ChronoUnit.DAYS.between(currentDateTime.toLocalDate(), endDateTime.toLocalDate());
+		    lb.setRemainingDays(remainingDays);
+		    
+		    // 경과 기간 퍼센트 계산
+		    double progressPercent = (double) (totalDays - remainingDays) / totalDays * 100; // 진행률 계산
+		    progressPercent = Math.min(Math.max(progressPercent, 0), 100); // 0% ~ 100% 범위로 제한
+		    lb.setProgressPercent((int)Math.round(progressPercent)); 
+		    System.out.println("ProgressPercent : " + lb.getProgressPercent());
+		     
+		    // 매니저/강사 정보 가져오기
+		    MemberBean manager2 = mdao.getNameByNum(lb.getManager());
+		    MemberBean teacher2 = mdao.getNameByNum(lb.getTeacher());
+		    lb.setM_name(manager2.getName());
+		    lb.setM_phone(manager2.getPhone());
+		    lb.setM_email(manager2.getEmail());
+		    lb.setT_name(teacher2.getName());
+		    lb.setT_phone(teacher2.getPhone());
+		    lb.setT_email(teacher2.getEmail());
+			
+		    // 학생수 정보 가져오기
+		    lb.setStudent(mdao.getStudent(lb.getLec_num()));
+		}
 
-		// 날짜와 시간 포맷 설정 ('yyyy-MM-dd hh:mm:ss.s')
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
-
-		// LocalDateTime 객체로 변환
-		LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeString, formatter);
-		LocalDateTime endDateTime = LocalDateTime.parse(endDateTimeString, formatter);
-		LocalDateTime currentDateTime = LocalDateTime.now();
-
-		// 전체 기간 계산 (날짜 차이)
-		long totalDays = ChronoUnit.DAYS.between(startDateTime.toLocalDate(), endDateTime.toLocalDate());
-
-		// 남은 기간 계산 (날짜 차이)
-		long remainingDays = ChronoUnit.DAYS.between(currentDateTime.toLocalDate(), endDateTime.toLocalDate());
-
-		System.out.println(totalDays);
-		System.out.println(remainingDays);
 		
 		List<NoticeBean> noticeList = ndao.getNoticeList_all();
 		// ModelAndView에 데이터 추가
 		mav.addObject("noticeList", noticeList);	//Notice 공지사항
 		mav.addObject("allSchedules", lists);	//calendar 일정
-		mav.addObject("totalDays", totalDays); // 전체 날짜 수
-		mav.addObject("remainingDays", remainingDays); // 남은 날짜 수
+		mav.addObject("lecture", lectureList); // 강좌 정보
 		mav.setViewName(getPage);
 		
 		return mav;

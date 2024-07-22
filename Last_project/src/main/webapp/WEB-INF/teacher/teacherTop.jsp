@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../common/common.jsp"%>
+<%@ include file="../all/myPage.jsp" %>
 
 	<!-- studentBarTop.jsp -->
 
@@ -97,9 +98,9 @@
 		      <ul class="nav">
 						<!-- 프로필정보 -->
 						<li class="nav-item nav-profile">
-							<a href="#" class="nav-link">
+							<a href="#" class="nav-link" onclick="myPage()">
 								<div class="nav-profile-image">
-									<img src="resources/assets/images/faces/face1.jpg" alt="profile" />
+									<img src="resources/assets/images/faces/${loginInfo.image}" alt="profile" />
 									<span class="login-status online"></span>
 								</div>
 								<div class="nav-profile-text d-flex flex-column">
@@ -169,17 +170,6 @@
 									</li>
 								</ul>
 							</div>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="teaching.teacher"> 
-								<span class="menu-title">수업하기</span> 
-							</a>
-						</li>
-						
-						<li class="nav-item">
-							<a class="nav-link" href="notice.manager"> 
-								<span class="menu-title">공지사항</span> 
-							</a>
 						</li>
 					</ul>
 				</nav>

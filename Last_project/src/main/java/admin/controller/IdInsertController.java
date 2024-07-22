@@ -40,6 +40,10 @@ public class IdInsertController {
     public String idInsert(@RequestParam("name") List<String> name,
                            @RequestParam("id") List<String> id,
                            @RequestParam("pw") List<String> pw,
+                           @RequestParam("gender") List<String> gender,
+                           @RequestParam("yyyy") List<String> yyyy,
+                           @RequestParam("mm") List<String> mm,
+                           @RequestParam("dd") List<String> dd,
                            @RequestParam("category") List<String> category,
                            @RequestParam("phone") List<String> phone,
                            @RequestParam("email") List<String> email) {
@@ -51,6 +55,9 @@ public class IdInsertController {
             mb.setName(name.get(i));
             mb.setId(id.get(i));
             mb.setPw(pw.get(i));
+            mb.setGender(gender.get(i));
+            mb.setBirth(yyyy.get(i)+"-"+mm.get(i)+dd.get(i));
+            //mb.setBirth(birth.get(i));
             mb.setCategory(category.get(i));
             mb.setPhone(phone.get(i));
             mb.setEmail(email.get(i));
@@ -94,8 +101,15 @@ public class IdInsertController {
 
 	private void printList(List<MemberBean> list) {
 		for(MemberBean mb : list) {
-			mb.setLec_num(null);
+			System.out.println("mb.getCategory() : " + mb.getCategory());
+			mb.setLec_num("0");
+			mb.setAddr("");
 			mb.setState("근무");
+			mb.setImage("user.jpg");
+			mb.setVacationNum(0);
+			mb.setMem_ip("106.241.247.83");
+			mb.setMem_latitude(37.55655207589364);
+			mb.setMem_longitude(126.91945616764994);
 			String pw = mb.getPw();
 			String encryPassword = Sha256.encrypt(pw);
 			mb.setPw(encryPassword);

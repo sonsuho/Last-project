@@ -46,20 +46,11 @@ public class LectureListController {
 		int totalCount = ldao.getTotalLecture(map);
 		Paging pageInfo = new Paging(pageNumber,"10",totalCount,url,whatColumn,keyword,"","");
 		
+		
 		List<LectureBean> lectureList = ldao.getLectureList(pageInfo, map);
 		for (LectureBean lb : lectureList) {
-		    String managerStr = lb.getManager();
-		    if (isNumeric(managerStr)) {
-		        int managerNum = Integer.parseInt(managerStr);
-		        MemberBean mb = mdao.getNameByNum(managerNum);
-		        lb.setManager(mb.getName());
-		    }
-		    String teacherStr = lb.getTeacher();
-		    if (isNumeric(teacherStr)) {
-		        int teacherNum = Integer.parseInt(teacherStr);
-		        MemberBean mb = mdao.getNameByNum(teacherNum);
-		        lb.setTeacher(mb.getName());
-		    }
+			lb.setM_name(mdao.getNameByNum(lb.getManager()).getName());
+	        lb.setT_name(mdao.getNameByNum(lb.getTeacher()).getName());
 		    int stu_cnt = mdao.getStudent(lb.getLec_num());
 		    lb.setStudent(stu_cnt);
 		    System.out.println("학생수 : " + stu_cnt);
@@ -73,13 +64,6 @@ public class LectureListController {
 		
 		return getPage;
 	}
-	
-	private static boolean isNumeric(String str) {
-	    try {
-	        Integer.parseInt(str);
-	        return true;
-	    } catch (NumberFormatException e) {
-	        return false;
-	    }
-	}
+
 }
+
