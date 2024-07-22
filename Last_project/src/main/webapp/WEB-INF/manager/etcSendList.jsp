@@ -154,12 +154,15 @@ function openDetail(etc_num) {
 		<input type="hidden" name="etc_delete" value="M"> 
 		<input type="hidden" name="mem_num" value="${loginInfo.mem_num}">
 		<table class="table table-hover">
+		<thead>
 			<tr class="table-danger">
 				<td><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></td>
 				<td colspan="2">제목</td>
                <td>이름</td>
               <td colspan="2">날짜</td>
 			</tr>
+		</thead>	
+			<tbody>
 			<c:choose>
 				<c:when test="${elist == null || elist.isEmpty()}">
 					<tr>
@@ -185,6 +188,7 @@ function openDetail(etc_num) {
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
+			</tbody>
 		</table>
 	</form>
 

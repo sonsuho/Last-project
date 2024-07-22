@@ -125,7 +125,7 @@
                 <div class="card-body">
 
 					<div class="row">
-	                    
+	                    <div class="col-lg-8"></div>
 				        <div class="col-lg-4">
 	                     	<form action="request2.admin" style="display:flex;">
 	                     		<input type="hidden" name="whatColumn" value="all">
@@ -143,9 +143,12 @@
                         <input type="hidden" name="ap_delete" value="A">
                         <table class="table table-hover">
                             <thead>
-                                <tr>
-                                    <th colspan="3"><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></th>
-                                </tr>
+                               <tr class="table-danger">
+                                <td><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></td>
+                                
+                                <td>제목/내용</td>
+                                <td>상태/날짜</td>
+                            </tr>
                             </thead>
                             <tbody>
                                 <c:choose>
@@ -163,6 +166,8 @@
                                                         <a href="javascript:void(0);" onclick="openDetail('${r.req_num}', '${loginInfo.mem_num}', '${r.title}', '${r.reason}', '${r.memberName}','${r.time1}', '${r.time2}', '${r.sign}', '${loginInfo.mem_num}','${pageInfo.pageNumber }' ,'${r.ap_situ}')">
                                                             ${r.memberName}
                                                         </a>
+                                                        <br><br>
+                                                 		${r.reason}
                                                     </td>
                                                     <td>
                                                         <c:if test="${r.ap_situ == '승인'}">
@@ -171,11 +176,9 @@
                                             			<c:if test="${r.ap_situ == '반려'}">
                                                 			<label class="badge badge-danger">반려</label>
                                             			</c:if>
+                                            			<br><br>
+                                                    		${r.time1}
                                                     </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>${r.reason}</td>
-                                                    <td>${r.time1}</td>
                                                 </tr>
                                             </c:if>
                                         </c:forEach>

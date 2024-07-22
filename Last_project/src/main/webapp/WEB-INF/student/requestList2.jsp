@@ -144,12 +144,15 @@
                          
                             
                         <table class="table table-hover">
+                        <thead>
                             <tr class="table-danger">
                                 <td><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></td>
                                 
                                 <td>제목/내용</td>
                                 <td>상태/날짜</td>
                             </tr>
+                        </thead>
+                        <tbody>
                             <c:choose>
                                 <c:when test="${rmlist == null || rmlist.isEmpty()}">
                                     <tr>
@@ -185,6 +188,7 @@
                                     </c:forEach>
                                 </c:otherwise>
                             </c:choose>
+                         </tbody>   
                         </table>
                     </form>
                     
