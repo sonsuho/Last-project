@@ -11,7 +11,7 @@ public class MessengerBean {
 	private String msg_upload;	// 파일 첨부
 	private String send_time;	// 보낸 시간
 	private String read_time;	// 읽은 시간
-	private String read_chk;	// 열람 여부
+	private int read_chk;	// 열람 여부
 	private String send_name;	// 보낸 사람 이름
 	private String recv_name;	// 받는 사람 이름
 	private int del_chk;
@@ -26,7 +26,7 @@ public class MessengerBean {
 	}
 	
 	public MessengerBean(int msg_num, int mem_num, int group_num, int recv_num, int ogmsg_num, String title,
-			String content, String msg_upload, String send_time, String read_time, String read_chk, String send_name,
+			String content, String msg_upload, String send_time, String read_time, int read_chk, String send_name,
 			String recv_name, int del_chk, String image) {
 		super();
 		this.msg_num = msg_num;
@@ -105,10 +105,10 @@ public class MessengerBean {
 	public void setRead_time(String read_time) {
 		this.read_time = read_time;
 	}
-	public String getRead_chk() {
+	public int getRead_chk() {
 		return read_chk;
 	}
-	public void setRead_chk(String read_chk) {
+	public void setRead_chk(int read_chk) {
 		this.read_chk = read_chk;
 	}
 	public String getSend_name() {
