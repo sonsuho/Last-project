@@ -224,13 +224,37 @@
 	        });
 	    }
 	});
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        function updateCountSymbol() {
+            var unreadCount = document.getElementById("unreadAlarmCount").innerText;
+            var countSymbol = document.getElementById("countSymbol");
+
+            if (parseInt(unreadCount) > 0) {
+                countSymbol.style.display = "inline";
+            } else {
+                countSymbol.style.display = "none";
+            }
+        }
+
+        // 초기화
+        updateCountSymbol();
+
+        // unreadAlarmCount의 값이 동적으로 변경될 때마다 updateCountSymbol 함수를 호출하도록 설정
+        var observer = new MutationObserver(updateCountSymbol);
+        observer.observe(document.getElementById("unreadAlarmCount"), { childList: true, characterData: true, subtree: true });
+
+        // 예: 알람 카운트가 변경되는 상황에서 updateCountSymbol 함수를 호출
+        // document.getElementById("unreadAlarmCount").innerText = "2"; 
+    });
+
 </script>
 
 <!-- 게시판 알림 -->
 <li class="nav-item dropdown">
     <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false" onclick="openAlarm()">
         <i class="mdi mdi-bell-outline"></i><div id="unreadAlarmCount"></div>
-        <span class="count-symbol bg-danger"></span>
+        <span class="count-symbol bg-danger" id="countSymbol"></span>
     </a>
     <div class="dropdown-menu dropdown-menu-end navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
         <h6 class="p-3 mb-0">알림창</h6>
