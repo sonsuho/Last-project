@@ -40,6 +40,8 @@ public class ManagerStuInsertController {
 				            @RequestParam("id") List<String> id,
 				            @RequestParam("pw") List<String> pw,
 				            @RequestParam("phone") List<String> phone,
+				            @RequestParam("gender") List<String> gender,
+                            @RequestParam("birth") List<String> birth,
 				            @RequestParam("email") List<String> email,
 				            @RequestParam("lec_num") String lec_num) {
 		
@@ -50,6 +52,8 @@ public class ManagerStuInsertController {
             mb.setId(id.get(i));
             mb.setPw(pw.get(i));
             mb.setCategory("student");
+            mb.setGender(gender.get(i));
+            mb.setBirth(birth.get(i));
             mb.setPhone(phone.get(i));
             mb.setEmail(email.get(i));
             list.add(mb);
@@ -68,38 +72,25 @@ public class ManagerStuInsertController {
 		if(excelFile==null||excelFile.isEmpty()){
 			System.out.println("엑셀파일을 선택해 주세요");
 		}
-		System.out.println("여기1");
 		String filePath = "C:\\upload\\excelUpload\\"+excelFile.getOriginalFilename();
-		System.out.println("여기2");
 		File destFile = new File(filePath);
-		System.out.println("여기3");
 		if(!destFile.exists()) {
-			System.out.println("여기4");
 			//디렉토리 생성
 			destFile.mkdirs();
-			System.out.println("여기5");
 		} 
 		try {
-			System.out.println("여기6");
 			excelFile.transferTo(destFile);
-			System.out.println("여기7");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		StuExcelReader excelReader = new StuExcelReader();
-		System.out.println("여기8");
 		
 		String extention = StringUtils.getFilenameExtension(filePath);
-		System.out.println("여기9");
 		if(extention.equals("xlsx")) {
-			System.out.println("여기10");
 			List<MemberBean> list = excelReader.xlsxToList(filePath);
-			System.out.println("여기11");
 			printList(list, lec_num);
-			System.out.println("여기12");
 		}
 		
-		System.out.println("성공!!!!!!!!");
 		return gotoPage;
 	}
 
@@ -107,8 +98,14 @@ public class ManagerStuInsertController {
 	private void printList(List<MemberBean> list, String lec_num) {
 		for(MemberBean mb : list) {
 			mb.setLec_num(lec_num); 
-			mb.setCategory("student");; 
+			mb.setCategory("student");
 			mb.setState("진행");
+			mb.setAddr("");
+			mb.setVacationNum(0);
+			mb.setImage("user.jpg");
+			mb.setMem_ip("106.241.247.83");
+			mb.setMem_latitude(37.55655207589364);
+			mb.setMem_longitude(126.91945616764994);
 			String pw = mb.getPw();
 			String encryPassword = Sha256.encrypt(pw);
 			mb.setPw(encryPassword);

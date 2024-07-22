@@ -11,89 +11,127 @@
 <%@ include file="studentTop.jsp"%>
 
 <style>
-.content-container {
-	justify-content: space-around;
-	gap: 20px;
+.btn-hover {
+    width: 140px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 30px;
+    height: 65px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+
+    border-radius: 65px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
 }
 
-.element1, .element2 {
-	width: 100%;
-	background: #fff;
-	border-radius: 8px;
-	padding: 20px;
-	margin-bottom: 20px;
-	border: 1px solid #e0e0e0;
+.btn-hover:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
 }
 
-.element2 {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-	flex-wrap: wrap;
-	gap: 50px;
+.btn-hover:focus {
+    outline: none;
 }
 
-.progress-container {
-	text-align: center;
+.btn-hover.color-1 {
+    background-image: linear-gradient(to right, #41F2B1, #2CDDDA, #2CDDDA, #41F2B1);
+    box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
+    opacity: 0.8;
 }
 
 .progress-bar {
-	width: 100%;
-	height: 20px;
-	background: #e0e0e0;
-	border-radius: 10px;
-	margin: 20px 0;
-	position: relative;
+    width: 100%;
+    height: 20px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    margin: 20px 0;
+    position: relative;
 }
 
 .progress-bar .progress {
-	height: 100%;
-	width: 80%;
-	background: #36E0C6;
-	border-radius: 10px;
+    height: 100%;
+    width: 80%;
+    background: #36E0C6;
+    border-radius: 10px;
 }
 
-.notice-container {
-	position: absolute;
-	left: 50%;
-	background: #fff;
-	border-radius: 8px;
-	padding: 20px;
-	margin: 20px auto;
-	border: 1px solid #e0e0e0;
-	width: 43%;
-	height: 51%;
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.notice-container h4 {
-	margin-bottom: 20px;
+.calendar-table th, .calendar-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
 }
 
 .notice-list {
-	list-style: none;
-	padding: 0;
-	margin: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .notice-list li {
-	display: flex;
-	justify-content: space-between;
-	padding: 10px 0;
-	border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
 }
 
 .badge {
-	padding: 5px 10px;
-	border-radius: 5px;
-	color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
 }
 
-.badge-general {
-	background: #6c757d;
+.lecture-container {
+		display: flex;
+ align-items: center;
+}
+  
+.right-container {
+    float: right;
+    padding: 30px 40px;
+    border: 2px #f0f0f0 solid;
+    border-radius: 15px;
+    flex-basis: 40%;
+    height: 80%;
+    margin-top: 30px;
 }
 
-.badge-important {
-	background: #007bff;
+.lecture-container-all{
+		display: flex;
+			justify-content: space-between;
+			align-items: center;
+}
+
+.progress-container {
+  	flex-basis: 55%;
+}
+
+.lecture-date {
+		margin-right: 20px;
+		color: #b4b4b4;
+		font-size: 14pt;
+}
+
+.lecture-Dday {
+		float: right;
+		margin-top: 6px;
+		margin-right: -10px;
+		font-size: 11pt;
+		color: #828282;
+		font-weight: bold;
 }
 
 /* calendar */
@@ -237,7 +275,7 @@ table.date-month {
 .lesson_classH {
 	background-image: linear-gradient(to top, cyan 23%, white 23%);
 }
-/* calendar */
+	/* calendar */    
 </style>
 
 <script type="text/javascript">
@@ -434,114 +472,217 @@ table.date-month {
 	<!-- calendar -->
 
 <!-- header -->
-<div class="page-header">
-	<h3 class="page-title">
-		<span class="page-title-icon bg-gradient-primary text-white me-2">
-			<i class="mdi mdi-home"></i>
-		</span> Student Home
-	</h3>
-	<nav aria-label="breadcrumb">
-		<ul class="breadcrumb">
-			<li class="breadcrumb-item active" aria-current="page"><span></span>Overview
-				<i
-				class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
-			</li>
-		</ul>
-	</nav>
-</div>
-
-<br><br>
-<div>
-	<a href="request.student">요청 페이지</a>
-	<br>
-	<a href="rlist.messenger">메신저 페이지</a>
-	<br>
-</div>
-<br><br>
-
 <div class="row">
-	<div class="col-lg-12 grid-margin stretch-card">
-		<div class="card">
-			<div class="card-body">
-				<div class="content-container">
+	    <div class="col-lg-12 grid-margin stretch-card">
+	        <div class="card">
+	            <div class="card-body">
+	                	
+                 	<!-- Progress Section -->
+                 	<div class="lecture-container-all">
+                 			<div class="left-container">
+				               		<div class="lecture-container">
+				                     	<font style="padding-left: 20px; margin-top:-20px; font-size: 28px; font-weight: bold; width: 630px; white-space: pre-line; overflow: hidden; text-overflow: ellipsis;">${lecture.lec_name}</font>
+			                     		<div class="buttons">
+																	<button class="btn-hover color-1" onclick="location.href='classNow.student'">수업시작</button>
+															</div>
+				                  </div> <br>
+				                  <div class="progress-container">
+				                      <p style="padding-left: 20px;" align="left">
+				                      		<fmt:parseDate var="start" value="${lecture.lec_start}" pattern="yyyy-MM-dd" />
+							                    <fmt:parseDate var="end" value="${lecture.lec_end}" pattern="yyyy-MM-dd" />
+							                    <span class="lecture-date">
+							                    		<fmt:formatDate value="${start}" pattern="yyyy-MM-dd" /> ~ 
+							                    		<fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />
+							                    </span>
+				                      		<span class="lecture-Dday">${remainingDays}일 남았습니다</span>
+				                      </p>
+				                      <div class="progress-bar" style="width: 100%; margin-left: 20px;" align="center">
+				                          <div class="progress" style="width: ${(1 - remainingDays/totalDays) * 100}%;"></div>
+				                          <span style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); color: white; font-size: 1em;">${progressPercent}%</span>
+				                      </div>
+				                  </div>
+				              </div>
+		                  
+			                <div class="right-container">
+											    <table width=100% class="table table-hover">
+											    		<thead>
+													    		<tr>
+													    				<th width=50% colspan=2>${lecture.class_name}반</th>
+													    				<th width=50% colspan=2>
+													    						학생수 ${lecture.student} / ${lecture.stu_cnt} &nbsp;&nbsp;
+													    						<button class="btn btn-inverse-secondary btn-sm" onclick="studentDetail(${lecture.lec_num})">학생정보</button>
+													    				</th>
+													    		</tr>
+													    </thead>
+													    <tbody>
+													    		<tr>
+													    				<td width=10%><span class="badge badge-success" style="width:100%">매니저</span></td>
+													    				<th width=25%>${lecture.m_name}</th>
+													    				<td width=25% align=center><i class="fa fa-phone"></i>&nbsp;&nbsp;&nbsp;${lecture.m_phone}</td>
+													    				<td width=50%><i class="fa fa-envelope"></i>&nbsp;&nbsp;&nbsp;${lecture.m_email}</td>
+													    		</tr>
+													    		<tr>
+													    				<td><span class="badge badge-success" style="width:100%">강사</span></td>
+													    				<th>${lecture.t_name}</th>
+													    				<td align=center><i class="fa fa-phone"></i>&nbsp;&nbsp;&nbsp;${lecture.t_phone}</td>
+													    				<td><i class="fa fa-envelope"></i>&nbsp;&nbsp;&nbsp;${lecture.t_email}</td>
+													    		</tr>
+													    </tbody>
+											    </table>
+											</div>
+											
+                  </div>
+              </div>
+          </div>
+      </div>
 
-<!-- Progress Section -->
-<div class="element1">
-	<div class="progress-container">
-		<h1 style="padding-left: 50px;" align="left">강의 진행 현황</h1>
-		<br>
-		<p style="padding-left: 80px;" align="left">
-			<font size="6">D-${remainingDays}</font>
-		</p>
-		<div class="progress-bar" style="width: 90%; margin-left: 60px;" align="center">
-			<div class="progress" style="width: ${(1 - remainingDays/totalDays) * 100}%;"></div>
-		</div>
-		<p style="padding-left: 80px;" align="left">남은 강의 시간: 최소 62h 10m</p>
-		<p style="padding-left: 80px;" align="left">앞으로 매일 평균: 최소 7h 10m</p>
-	</div>
-</div>
-
-<div class="element2">
-	<div class="calendar-container">
+			<!-- calendar 추가코드 -->
+			<div class="col-lg-5 grid-margin stretch-card">
+	        <div class="card">
+	            <div class="card-body">
+	            
+									<div class="calendar-container">
 	
-<div class="date-wrap">
-	<div class="date-month">
-		<div class="button_wrap">
-			<span id="month-this" style="font-size: 27px;"></span> &nbsp;&nbsp;
-			<button type="button" id="month-prev" class="month-move">∧</button>
-			<button type="button" id="month-next" class="month-move">∨</button>
-		</div>
-	</div>
-	<table class="date-month" border="1">
-	    <thead>
-	        <tr class="calendar-header">
-	            <th>Sun</th>
-	            <th>Mon</th>
-	            <th>Tue</th>
-	            <th>Wed</th>
-	            <th>Thu</th>
-	            <th>Fri</th>
-	            <th>Sat</th>
-	        </tr>
-	    </thead>
-    <tbody id="tbl-month"></tbody>
-</table>
-	<span> 
-		<img src="resources/images/attendSymbol3.jpg" style="width: 15px; height: 15px" /> start event<br>
-		<img src="resources/images/class.jpg" style="width: 440px; height: 50px" />
-	</span>
-</div>	<!-- date-wrap -->
-</div> <!-- calendar-container -->
-<!-- calendar 추가코드 -->
+										<div class="date-wrap">
+											<div class="date-month">
+												<div class="button_wrap">
+													<span id="month-this" style="font-size: 27px;"></span> &nbsp;&nbsp;
+													<button type="button" id="month-prev" class="month-move">∧</button>
+													<button type="button" id="month-next" class="month-move">∨</button>
+												</div>
+											</div>
+											<table class="date-month" border="1">
+											    <thead>
+											        <tr class="calendar-header">
+											            <th>Sun</th>
+											            <th>Mon</th>
+											            <th>Tue</th>
+											            <th>Wed</th>
+											            <th>Thu</th>
+											            <th>Fri</th>
+											            <th>Sat</th>
+											        </tr>
+											    </thead>
+										    <tbody id="tbl-month"></tbody>
+										</table>
+										<span> 
+											<img src="resources/images/attendSymbol3.jpg" style="width: 15px; height: 15px" /> start event<br>
+											<img src="resources/images/class.jpg" style="width: 440px; height: 50px" />
+										</span>
+									</div>	<!-- date-wrap -->
+								</div> <!-- calendar-container -->
 
-<div class="notice-container">
-	<h4>공지사항</h4>
-	<ul class="notice-list">
-		<c:forEach var="notice" items="${noticeList}" end="9">
-			<li>
-				<c:if test="${notice.class_name eq 'All'}">
-					<span class="badge badge-general">
-						전체
-					</span>
-				</c:if>
-				<c:if test="${notice.class_name ne 'All'}">
-					<span class="badge badge-important">
-						${notice.class_name}반
-					</span>
-				</c:if>
-				
-				<span><a href="noticeDetail.manager?n_num=${notice.n_num}">${notice.title}</a></span>
-				<span>${notice.day}</span>
-			</li>
-		</c:forEach>
-	</ul>
+ 							</div>
+          </div>
+      </div>
+      
+      <div class="col-lg-7 grid-margin stretch-card">
+	        <div class="card">
+	            <div class="card-body">
+	            
+                  <div class="notice-container">
+										<h4>공지사항</h4>
+										<ul class="notice-list">
+											<c:forEach var="notice" items="${noticeList}" end="9">
+												<li>
+													<c:if test="${notice.class_name eq 'All'}">
+														<span class="badge badge-general">
+															전체
+														</span>
+													</c:if>
+													<c:if test="${notice.class_name ne 'All'}">
+														<span class="badge badge-important">
+															${notice.class_name}반
+														</span>
+													</c:if>
+													
+													<span><a href="noticeDetail.manager?n_num=${notice.n_num}">${notice.title}</a></span>
+													<span>${notice.day}</span>
+												</li>
+											</c:forEach>
+										</ul>
+									</div>
+									
+			        </div>
+			    </div>
+			</div>
 </div>
-						
-					</div>	<!-- element2 -->
-				</div>	<!-- content-container -->
-			</div>	<!-- card-body -->
-		</div>	<!-- card -->
-	</div>	<!-- col-lg-12 grid-margin stretch-card -->
-</div>	<!-- row -->
+
+	<!-- 학생 상세정보 모달 -->
+	<div class="modal fade" id="studentDetailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="studentDetailModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" style="max-width: 50%;">
+	    <div class="modal-content">
+     	  <div class="card">
+  				<div class="card-body">
+			      
+			      <div class="modal-header">
+			        <h1 class="modal-title fs-5" id="studentDetailModalLabel" style="color:#c8c8c8; font-weight:bold;">
+			        	학생 정보 &nbsp;&nbsp; <span id="modalState"></span>
+			        </h1>
+			      	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			      </div>
+			      
+			      <div class="modal-body">
+			        <div id="member-list">
+						    <!-- 회원 정보 영역 -->
+						  </div>
+			      </div> <br><br>
+			      
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+			      </div>
+															      
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 <%@ include file="studentBottom.jsp"%>
+
+<script type="text/javascript">
+
+function studentDetail(lec_num) {
+   	$.ajax({
+	      type: "POST",
+	      url: "lectureDetail.admin",
+	      data: { lec_num: lec_num },
+	      success: function(response) {
+		        // 학생 정보 리스트를(response.members) #member-list 영역에 추가하는 코드
+		        $('#member-list').empty(); // 기존 데이터 제거
+		        $('#member-list').append(
+			          '<br><br>' +
+			          '<table class="table table-hover">' +
+			          '<thead><tr class="table-info">' +
+			          '<th>회원번호</th><th>이름</th><th>전화번호</th><th>이메일</th><th>상태</th>' +
+			          '</tr></thead><tbody>'
+		        );
+		        var state;
+		        if (response.members && Array.isArray(response.members) && response.members.length > 0) {
+			          $.each(response.members, function(index, member) {
+			        	  if(member.state == "진행"){
+			        		  state = "info";
+			        	  } else if(member.state == "퇴실"){
+			        		  state = "danger";
+			        	  }
+			            $('#member-list table').append(
+			              '<tr>' +
+			              '<td align=center>' + member.mem_num + '</td>' +
+			              '<th>' + member.name + '</th>' +
+			              '<td align=center>' + member.phone + '</td>' +
+			              '<td align=center>' + member.email + '</td>' +
+			              '<td align=center><label style="font-size:13px;" class="badge badge-' + state + '">' + member.state + '</label></td>' +
+			              '</tr>'
+			            );
+			          });
+		        } else {
+		          // response.members가 배열이 아닌 경우 처리
+		          $('#member-list table').append('<tr><td colspan="5">학생 정보가 없습니다.</td></tr>');
+		        }
+		        $('#member-list').append('</tbody></table>');
+	      }
+    });
+    $('#studentDetailModal').modal('show');
+}
+
+</script>

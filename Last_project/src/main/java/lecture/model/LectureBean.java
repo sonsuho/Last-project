@@ -12,10 +12,33 @@ public class LectureBean {
 	private String class_name;
 	
 	private int student; // 현재 등록된 학생수
+	private String m_name;	// 매니저 이름
+	private String t_name;	// 강사 이름
 	private String m_phone; // 매니저 전화번호
 	private String t_phone; // 강사 전화번호
 	private String m_email; // 매니저 이메일
 	private String t_email; // 강사 이메일
+	private String m_gender; // 매니저 성별
+	private String t_gender; // 강사 성별
+	private int m_age; // 매니저 나이
+	private int t_age; // 강사 나이
+	
+	private long totalDays; // 전체 날짜 수
+	private long remainingDays; // 남은 날짜 수
+	private int progressPercent; // 기간 진행 퍼센트
+	
+	public String getM_name() {
+		return m_name;
+	}
+	public void setM_name(String m_name) {
+		this.m_name = m_name;
+	}
+	public String getT_name() {
+		return t_name;
+	}
+	public void setT_name(String t_name) {
+		this.t_name = t_name;
+	}
 	
 	public String getM_phone() {
 		return m_phone;
@@ -95,4 +118,47 @@ public class LectureBean {
 	public void setClass_name(String class_name) {
 		this.class_name = class_name;
 	}
+	public String getM_gender() {
+		return m_gender;
+	}
+	public void setM_gender(String m_gender) {
+		this.m_gender = m_gender;
+	}
+	public String getT_gender() {
+		return t_gender;
+	}
+	public void setT_gender(String t_gender) {
+		this.t_gender = t_gender;
+	}
+	public int getM_age() {
+		return m_age;
+	}
+	public void setM_age(int m_age) {
+		this.m_age = m_age;
+	}
+	public int getT_age() {
+		return t_age;
+	}
+	public void setT_age(int t_age) {
+		this.t_age = t_age;
+	}
+	public long getTotalDays() {
+		return totalDays;
+	}
+	public void setTotalDays(long totalDays) {
+		this.totalDays = totalDays;
+	}
+	public long getRemainingDays() {
+		return remainingDays;
+	}
+	public void setRemainingDays(long remainingDays) {
+		this.remainingDays = remainingDays;
+	}
+	public int getProgressPercent() {
+		return progressPercent;
+	}
+	public void setProgressPercent(int progressPercent) {
+		this.progressPercent = progressPercent;
+	}
+	
 }
