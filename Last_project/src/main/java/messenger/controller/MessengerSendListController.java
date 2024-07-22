@@ -63,7 +63,7 @@ public class MessengerSendListController {
 		
 		String url = request.getContextPath() + "/" + this.command;
 		int totalCount = messengerDao.getSendTotalCount(map);
-		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword, "", "");
+		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword);
 		
 		List<MessengerBean> slist = messengerDao.getMsgSendList(map, pageInfo);
 		

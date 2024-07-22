@@ -68,7 +68,7 @@ public class MessengerReceiveListController {
 		
 		String url = request.getContextPath() + "/" + this.command;
 		int totalCount = messengerDao.getTotalCount(map);
-		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword, "", "");
+		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword);
 		
 		List<MessengerBean> rlist = messengerDao.getMsgRecvList(map, pageInfo);
 				
