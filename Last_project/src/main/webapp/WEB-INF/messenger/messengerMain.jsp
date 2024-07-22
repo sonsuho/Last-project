@@ -654,7 +654,7 @@
   				 $('#selectedItems').empty(); // 기존 리스트 초기화
   				 
                  $.each(response, function(index, item) {
-                     $('#selectedItems').append('<div><span><img src="resources/user.png" width="36px; margin-right: 7px;"></span>' + item.name + '</div>' );
+                     $('#selectedItems').append('<div><span><img src="resources/assets/images/faces/' + item.image + '" width="36px; margin-right: 12px;"></span>' + item.name + '</div>' );
                  });
   				
   			},

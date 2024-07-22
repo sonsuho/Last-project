@@ -41,6 +41,9 @@ public class IdInsertController {
                            @RequestParam("id") List<String> id,
                            @RequestParam("pw") List<String> pw,
                            @RequestParam("gender") List<String> gender,
+                           @RequestParam("yyyy") List<String> yyyy,
+                           @RequestParam("mm") List<String> mm,
+                           @RequestParam("dd") List<String> dd,
                            @RequestParam("birth") List<String> birth,
                            @RequestParam("category") List<String> category,
                            @RequestParam("phone") List<String> phone,
@@ -54,6 +57,8 @@ public class IdInsertController {
             mb.setId(id.get(i));
             mb.setPw(pw.get(i));
             mb.setGender(gender.get(i));
+            mb.setBirth(yyyy.get(i)+"-"+mm.get(i)+dd.get(i));
+            //mb.setBirth(birth.get(i));
             mb.setBirth(birth.get(i));
             mb.setCategory(category.get(i));
             mb.setPhone(phone.get(i));

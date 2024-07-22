@@ -1,6 +1,9 @@
 package messenger.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -31,12 +34,31 @@ public class MessengerTopMenuController {
 		
 		int mem_num = loginInfo.getMem_num();
 		List<MessengerBean> reclist = messengerDao.getRecentlyMsg(mem_num);
-		session.setAttribute("reclist", reclist);
-		for(MessengerBean mb :  reclist) {
-			System.out.println(mb.getMsg_num());
-			System.out.println(mb.getSend_name());
-			System.out.println(mb.getSend_time());
-		}
+			
+		int[] memNumArr = new int[reclist.size()];
+	    int index = 0;
+	    for (MessengerBean mb : reclist) {
+	        memNumArr[index++] = mb.getMem_num();
+	        System.out.println("mb.getMem_num(): " + mb.getMem_num());
+	    }
+	    
+	    // memNumArr를 사용하여 memlist 가져오기
+	    List<MemberBean> memlist = memberDao.getMemberByNum(memNumArr);
+
+	    // memlist를 맵으로 변환하여 mem_num을 키로 사용
+	    Map<Integer, MemberBean> memberMap = new HashMap<Integer, MemberBean>();
+	    for (MemberBean member : memlist) {
+	        memberMap.put(member.getMem_num(), member);
+	    }
+
+	    // reclist의 각 MessengerBean에 해당 멤버의 이미지를 설정
+	    for (MessengerBean mb : reclist) {
+	        MemberBean member = memberMap.get(mb.getMem_num());
+	        if (member != null) {
+	            mb.setImage(member.getImage());
+	            System.out.println("mb.setImage(member.getImage());: " + member.getImage() );
+	        }
+	    }
 		
 		return reclist;
 		

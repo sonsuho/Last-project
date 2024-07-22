@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="studentTop.jsp"%>
+<%@ include file="../student/studentTop.jsp"%>
     
     <style type="text/css">
         
@@ -229,4 +229,4 @@
      </div>
     </div>
 
-<%@ include file="studentBottom.jsp"%>
+<%@ include file="../student/studentBottom.jsp"%>

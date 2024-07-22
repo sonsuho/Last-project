@@ -26,6 +26,13 @@
 	<!-- End layout styles -->
 	<link rel="shortcut icon" href="resources/assets/images/favicon.png" />
 	
+	<style>
+	   /* gnb부트스트랩 컬러 색상 바꿈 */
+	   .navbar .navbar-menu-wrapper .navbar-nav .nav-item .nav-link  {
+	      color : #333 !important;
+	   }
+   </style>
+	
 	<div class="container-scroller">
 	
 	  <!-- 상단바 : partial:partials/_navbar.jsp -->

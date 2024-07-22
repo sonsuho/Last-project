@@ -33,7 +33,7 @@ $(document).ready(function() {
                         var listItem = $('<li>');
                         var anchor = $('<a>').addClass('dropdown-item preview-item').attr('href', 'rlist.messenger');
                         var previewThumbnail = $('<div>').addClass('preview-thumbnail');
-                        var profilePic = $('<img>').attr('src', message.profile_image).attr('alt', 'image').addClass('profile-pic');
+                        var profilePic = $('<img>').attr('src', 'resources/assets/images/faces/' + message.image).attr('alt', 'image').addClass('profile-pic');
                         var previewItemContent = $('<div>').addClass('preview-item-content d-flex align-items-start flex-column justify-content-center');
                         var previewSubject = $('<h6>').addClass('preview-subject ellipsis mb-1 font-weight-normal').html('<b>' + message.send_name + '</b>님이 메시지를 보냈습니다.');
                         var textGray = $('<p>').addClass('text-gray mb-0').text(message.send_time);

@@ -50,7 +50,7 @@ public class MessengerUnreadController {
 		
 		String url = request.getContextPath() + "/" + this.command;
 		int totalCount = messengerDao.getTotalCount(map);
-		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword, "", "");
+		Paging pageInfo = new Paging(pageNumber, null, totalCount, url, whatColumn, keyword, "0");
 		
 		List<MessengerBean> unreadList = messengerDao.getUnreadList(map, pageInfo);
 

@@ -231,11 +231,6 @@
 								</ul>
 							</div>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="teaching.teacher"> 
-								<span class="menu-title">수업하기</span> 
-							</a>
-						</li>
 					</ul>
 				</nav>
 				

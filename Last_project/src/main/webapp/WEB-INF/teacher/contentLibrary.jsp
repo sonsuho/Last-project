@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../common/common.jsp" %>
+
 <%@ include file = "teacherTop.jsp"%>
 	
 	<style type="text/css">
@@ -63,6 +65,16 @@
     	function back(){
     		location.href="javascript:history.back();";
     	}
+    	
+    	// 삭제하기
+    	function deleteLibrary(li_num){
+    		location.href="deleteLibrary.teacher?li_num=" + li_num;
+    	}
+    	
+    	// 수정하기
+    	function updateLibrary(li_num){
+    		location.href="updateLibrary.teacher?li_num=" + li_num;
+    	}
     
     </script>
 	
@@ -79,8 +91,46 @@
              <div class="card-body">
     
     			<div class="row">
-    				<div class="col-lag-12">
-				    	<h1 style="text-align:center;">자료실</h1>
+    				<div class="col-lg-12">
+				    	<h1>${library.title}</h1>
+				    	<div style="color: #999; margin: 20px 0; display:flex; justify-content:space-between; align-items: center; border-bottom:1px solid #000; font-size: 15px;">
+				    		<div style="display:flex; justify-content: flex-start; align-items: center;">
+					    		<p><b>${library.writer}</b></p>
+					    		<p style="padding:0 10px;">|</p>
+					    		<p>${library.day }</p>
+				    		</div>
+				    		<div style="display:flex; justify-content: flex-end; align-items: center; margin-bottom: 16px;">
+				    			<c:if test="${library.mem_num == loginInfo.mem_num }">
+									<div style="margin-right: 10px;">
+				    					<button type="button" class="btn btn-gradient-light btn-sm" onclick="updateLibrary('${library.li_num}')"><img src="resources/images/update.png" style="width:24px; height:24px;">수정</button>
+			    					</div>
+			    					<div>
+				    					<button type="button" class="btn btn-gradient-light btn-sm" onclick="deleteLibrary('${library.li_num}')"><img src="resources/images/delete.png" style="width:24px; height:24px;">삭제</button>
+			    					</div>
+		    					</c:if>
+				    		</div>
+				    		
+				    	</div>
+				    	<div style="padding: 20px 0 80px; font-size: 16px;">
+				    		${library.content }
+				    	</div>
+				    	<div>
+				    		<p style="margin-bottom: 10px;">
+				    			<b>첨부파일</b>
+				    		</p>
+				    		<div>
+				    			<c:forEach var="upload" items="${uploadList}">		
+					
+								<a href="<%=request.getContextPath() %>/resources/libraryFiles/${upload}" download="${upload}" style="margin-bottom: 10px;">
+									<img src="resources/images/download.png" width="20" height="20">
+									<span>${upload}</span>
+								</a>
+								
+								<br>
+								
+							</c:forEach>
+				    		</div>
+				    	</div>
     				</div>
     			</div>
     			
@@ -89,8 +139,12 @@
     	  </div><!-- card end -->
        </div><!-- gol-lg-12 end -->
     </div>
-	
-	<div align="center">
+
+
+
+
+<!-- 수호씨 코드  -->	
+<%-- 	<div align="center">
 		
 		<div style="border: 1px solid black; width: 800;">
 		
@@ -203,8 +257,10 @@
     	
     	<input type="button" value="삭제" onclick="selectDelete()">
 		
-	</div>
-	
+	</div> --%>
+
+
 <%@ include file = "teacherBottom.jsp"%>
+
 
 	

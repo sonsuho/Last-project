@@ -113,7 +113,6 @@ public class MessengerSendController {
 		mb.setMem_num(((MemberBean)session.getAttribute("loginInfo")).getMem_num());
 		mb.setSend_name(((MemberBean)session.getAttribute("loginInfo")).getName() );
 		mb.setDel_chk(3);
-		mb.setRead_chk(0);
 		
 		// 원글 번호 값 넣어주기 
 		if(ogmsg_num != null) {

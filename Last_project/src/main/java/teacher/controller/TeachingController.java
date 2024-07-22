@@ -27,7 +27,7 @@ public class TeachingController {
 	
 	final String command = "/teaching.teacher";
 	final String getPage = "teachingForm";
-	final String gotoPage = "teaching";	
+	final String gotoPage = "redirect:/home.teacher";	
 	
 	@Autowired
 	TeacherDao tdao;
@@ -95,6 +95,7 @@ public class TeachingController {
 		service.addAlarm(paramap);
 		//민곤 알림 추가
 		
+		mav.addObject("start","start");
 		return mav;
 	}
 }

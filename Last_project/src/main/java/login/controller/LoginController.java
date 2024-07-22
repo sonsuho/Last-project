@@ -50,7 +50,7 @@ public class LoginController {
 		
 		/* 패스워드 hash 추가 - 20240703 */
 		String encryPassword = Sha256.encrypt(lb.getPw());
-		System.out.println(encryPassword);
+		//System.out.println(encryPassword);
 		
 		if(mb == null || !( mb.getPw().equals(encryPassword) ) ) {	// 해당하는 회원 정보가 없거나 ... 비밀번호가 해당 회원 비밀번호와 다른경우
 			
