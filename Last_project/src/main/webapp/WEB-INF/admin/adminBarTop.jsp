@@ -94,7 +94,7 @@
 	        <li class="nav-item nav-profile">
 	          <a href="#" class="nav-link">
 	            <div class="nav-profile-image">
-	              <img src="resources/assets/images/faces/face1.jpg" alt="profile" />
+	              <img src="resources/assets/images/faces/user.jpg" alt="profile" />
 	              <span class="login-status online"></span>
 	              <!--change to offline or busy as needed-->
 	            </div>
@@ -156,7 +156,10 @@
 	          <div class="collapse" id="menu3">
 	            <ul class="nav flex-column sub-menu">
 	               <li class="nav-item">
-	                <a class="nav-link" href="request.admin?mem_num=${loginInfo.mem_num }">결재목록</a>
+	                <a class="nav-link" href="request.admin?mem_num=${loginInfo.mem_num }">받은 결재함</a>
+	              </li>
+	               <li class="nav-item">
+	                <a class="nav-link" href="request2.admin">결재목록</a>
 	              </li>
 	            </ul>
 	          </div>

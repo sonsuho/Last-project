@@ -90,6 +90,13 @@
             </tr>
         </thead>
         <tbody>
+        	<c:if test="${fn:length(vacationLists) == 0}">
+        		<tr>
+        			<td colspan="5">
+        				지난 휴가내역이 없습니다.
+        			</td>
+        		</tr>
+            </c:if>
             <c:forEach var="vacation" items="${vacationLists}" varStatus="status">
 
             	<c:set var="time1" value="${vacation.time1}" />

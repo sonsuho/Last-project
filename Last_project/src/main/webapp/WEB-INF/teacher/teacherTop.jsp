@@ -197,20 +197,7 @@
 								</ul>
 							</div>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" data-bs-toggle="collapse" href="#menu2" aria-expanded="false" aria-controls="menu2"> 
-								<span class="menu-title">결재관리</span> 
-								<i class="menu-arrow"></i> 
-								<i class="fa fa-window-restore menu menu-icon"></i> 
-							</a>
-							<div class="collapse" id="menu2">
-								<ul class="nav flex-column sub-menu">
-									<li class="nav-item">
-										<a class="nav-link" href="etcList.student?mem_num=${loginInfo.mem_num }">결재함</a>
-									</li>
-								</ul>
-							</div>
-						</li>
+						
 						<li class="nav-item">
 							<a class="nav-link" data-bs-toggle="collapse" href="#menu3" aria-expanded="false" aria-controls="menu3"> 
 								<span class="menu-title">수업관리</span> 

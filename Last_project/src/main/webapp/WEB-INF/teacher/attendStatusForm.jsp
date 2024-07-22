@@ -91,6 +91,13 @@
             </tr>
         </thead>
         <tbody>
+        	<c:if test="${fn:length(attendLists) == 0}">
+        		<tr>
+        			<td colspan="5">
+        				지난 출결내역이 없습니다.
+        			</td>
+        		</tr>
+            </c:if>
             <c:forEach var="attend" items="${attendLists}" varStatus="status">
                 <c:set var="dateStr" value="${attend.day}" />
                 <fmt:parseDate value="${dateStr}" var="parsedDate" pattern="yyyy-MM-dd HH:mm:ss.S" />
