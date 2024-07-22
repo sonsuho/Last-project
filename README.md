@@ -33,7 +33,7 @@
 - Back-end : java, oracle, spring
 - 버전 및 이슈관리 : Github
 - 협업 툴 : Notion
-- 서비스 배포 환경 : AWS
+- 서비스 배포 환경 : AWS, tomcat
 - 디자인 : [bootstrap](https://getbootstrap.kr/)
 
 <br>
