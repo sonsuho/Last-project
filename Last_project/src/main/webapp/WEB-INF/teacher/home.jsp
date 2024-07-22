@@ -13,90 +13,127 @@
 <%@ include file="teacherTop.jsp"%>
 
 <style>
+.btn-hover {
+    width: 140px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 30px;
+    height: 65px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
 
-.content-container {
-	justify-content: space-around;
-	gap: 20px;
-	    }
-.element1, .element2 {
-	width: 100%;
-	background: #fff;
-	border-radius: 8px;
-	padding: 20px;
-	margin-bottom: 20px;
-	border: 1px solid #e0e0e0;
-}
-	    
-.element2{
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-	flex-wrap: wrap;
-	gap: 50px;	
+    border-radius: 65px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
 }
 
-.progress-container {
-	text-align: center;
+.btn-hover:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:focus {
+    outline: none;
+}
+
+.btn-hover.color-1 {
+    background-image: linear-gradient(to right, #41F2B1, #2CDDDA, #2CDDDA, #41F2B1);
+    box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
+    opacity: 0.8;
 }
 
 .progress-bar {
-	width: 100%;
-	height: 20px;
-	background: #e0e0e0;
-	border-radius: 10px;
-	margin: 20px 0;
-	position: relative;
+    width: 100%;
+    height: 20px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    margin: 20px 0;
+    position: relative;
 }
 
 .progress-bar .progress {
-	height: 100%;
-	width: 80%;
-	background: #36E0C6;
-	border-radius: 10px;
+    height: 100%;
+    width: 80%;
+    background: #36E0C6;
+    border-radius: 10px;
 }
 
-.notice-container {
-	position: absolute;
-	left : 620px;
-	height: 585px;
-	background: #fff;
-	border-radius: 8px;
-	padding: 20px;
-	margin: 20px auto;
-	border: 1px solid #e0e0e0;
-	width: 43%;
-     
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.notice-container h4 {
-	margin-bottom: 20px;
+.calendar-table th, .calendar-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
 }
 
 .notice-list {
-	list-style: none;
-	padding: 0;
-	margin: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .notice-list li {
-	display: flex;
-	justify-content: space-between;
-	padding: 10px 0;
-	border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
 }
 
 .badge {
-	padding: 5px 10px;
-	border-radius: 5px;
-	color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
 }
 
-.badge-general {
-	background: #6c757d;
+.lecture-container {
+		display: flex;
+ align-items: center;
+}
+  
+.right-container {
+    float: right;
+    padding: 30px 40px;
+    border: 2px #f0f0f0 solid;
+    border-radius: 15px;
+    flex-basis: 40%;
+    height: 80%;
+    margin-top: 30px;
 }
 
-.badge-important {
-	background: #007bff;
+.lecture-container-all{
+		display: flex;
+			justify-content: space-between;
+			align-items: center;
+}
+
+.progress-container {
+  	flex-basis: 55%;
+}
+
+.lecture-date {
+		margin-right: 20px;
+		color: #b4b4b4;
+		font-size: 14pt;
+}
+
+.lecture-Dday {
+		float: right;
+		margin-top: 6px;
+		margin-right: -10px;
+		font-size: 11pt;
+		color: #828282;
+		font-weight: bold;
 }
 
 /* calendar */
@@ -437,7 +474,7 @@ table.date-month {
 	        <div class="card">
 	            <div class="card-body">
 	                	
-                 	<!-- Progress Section -->
+	                <!-- Progress Section -->
                  	<div class="lecture-container-all">
                  			<div class="left-container">
 				               		<div class="lecture-container">
@@ -541,9 +578,8 @@ table.date-month {
 										</div>	<!-- date-wrap -->
 								</div> <!-- calendar-container -->
 
- 							</div>
-          </div>
-      </div>
+					</div>
+       </div>
       
       <div class="col-lg-7 grid-margin stretch-card">
 	        <div class="card">
@@ -637,8 +673,6 @@ table.date-month {
 	  </div>
 	</div>
 
-<%@ include file="teacherBottom.jsp"%>
-
 	<script type="text/javascript">
     	
     	function meet(){
@@ -730,3 +764,5 @@ table.date-month {
 			}
     
   </script>
+
+<%@ include file="teacherBottom.jsp"%>
