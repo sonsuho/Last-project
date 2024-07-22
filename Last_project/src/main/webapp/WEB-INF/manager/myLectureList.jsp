@@ -94,15 +94,15 @@
 				    </thead>
 				    <tbody>
 				    	<c:forEach var="lecture" items="${lectureList}">
-				    	<tr data-bs-target="#staticBackdrop" data-lec-num="${lecture.lec_num}">
+					    <fmt:parseDate var="start" value="${lecture.lec_start}" pattern="yyyy-MM-dd" />
+					    <fmt:parseDate var="end" value="${lecture.lec_end}" pattern="yyyy-MM-dd" />
+				    	<tr data-bs-target="#staticBackdrop" data-lec-num="${lecture.lec_num}" <c:if test="${end.time < currentDate.time}">style="opacity: 0.7;"</c:if>>
 							  <td>${lecture.lec_num}</td>
 							  <td>${lecture.lec_name}</td>
 							  <td>${lecture.m_name}</td>
 							  <td>${lecture.t_name}</td>
 							  <td>${lecture.class_name}</td>
 							  <td>
-							    <fmt:parseDate var="start" value="${lecture.lec_start}" pattern="yyyy-MM-dd" />
-							    <fmt:parseDate var="end" value="${lecture.lec_end}" pattern="yyyy-MM-dd" />
 							    <fmt:formatDate value="${start}" pattern="yyyy-MM-dd" /> ~
 							    <fmt:formatDate value="${end}" pattern="yyyy-MM-dd" /> &nbsp;
 							    <c:choose>
@@ -119,7 +119,9 @@
 							  </td>
 							  <td>${lecture.student} / ${lecture.stu_cnt}</td>
 							  <td>
-							    <button type="button" data-lec-num="${lecture.lec_num}" class="btn btn-sm btn-gradient-success py-3 student-register-button">학생등록</button>
+							  	<c:if test="${end.time >= currentDate.time}">
+							    	<button type="button" data-lec-num="${lecture.lec_num}" class="btn btn-sm btn-gradient-success py-3 student-register-button" >학생등록</button>
+							    </c:if>
 							  </td>
 							</tr>
 				    	</c:forEach>

@@ -23,6 +23,10 @@ public class LectureBean {
 	private int m_age; // 매니저 나이
 	private int t_age; // 강사 나이
 	
+	private long totalDays; // 전체 날짜 수
+	private long remainingDays; // 남은 날짜 수
+	private int progressPercent; // 기간 진행 퍼센트
+	
 	public String getM_name() {
 		return m_name;
 	}
@@ -137,6 +141,24 @@ public class LectureBean {
 	}
 	public void setT_age(int t_age) {
 		this.t_age = t_age;
+	}
+	public long getTotalDays() {
+		return totalDays;
+	}
+	public void setTotalDays(long totalDays) {
+		this.totalDays = totalDays;
+	}
+	public long getRemainingDays() {
+		return remainingDays;
+	}
+	public void setRemainingDays(long remainingDays) {
+		this.remainingDays = remainingDays;
+	}
+	public int getProgressPercent() {
+		return progressPercent;
+	}
+	public void setProgressPercent(int progressPercent) {
+		this.progressPercent = progressPercent;
 	}
 	
 }

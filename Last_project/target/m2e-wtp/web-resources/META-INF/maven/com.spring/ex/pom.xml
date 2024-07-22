@@ -5,7 +5,7 @@
 	<groupId>com.spring</groupId>
 	<artifactId>ex</artifactId>
 	<name>Last_project</name>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>1.8</java-version>
@@ -281,43 +281,42 @@
 		</dependency>
 	</dependencies>
 
-	<build>
-	    <plugins>
-	        
-	        <!-- maven-eclipse-plugin 설정 -->
-	        <plugin>
-	            <artifactId>maven-eclipse-plugin</artifactId>
-	            <version>2.9</version>
-	            <configuration>
-	                <additionalProjectnatures>
-	                    <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
-	                </additionalProjectnatures>
-	                <additionalBuildcommands>
-	                    <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
-	                </additionalBuildcommands>
-	                <downloadSources>true</downloadSources>
-	                <downloadJavadocs>true</downloadJavadocs>
-	            </configuration>
-	        </plugin>
-	        
- 			<!-- maven-compiler-plugin 설정 -->
-	        <plugin>
-	            <groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-compiler-plugin</artifactId>
-	            <version>3.8.1</version>
-	            <configuration>
-	                <source>1.8</source>
-	                <target>1.8</target>
-	                <!-- 컴파일러 옵션을 compilerArgs로 수정 -->
-	                <compilerArgs>
-	                    <arg>-Xlint:all</arg>
-	                </compilerArgs>
-	                <showWarnings>true</showWarnings>
-	                <showDeprecation>true</showDeprecation>
-	            </configuration>
-	        </plugin>
-	    </plugins>
-	</build>
-
-
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <additionalProjectnatures>
+                        <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+                    </additionalProjectnatures>
+                    <additionalBuildcommands>
+                        <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+                    </additionalBuildcommands>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <compilerArgument>-Xlint:all</compilerArgument>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <mainClass>org.test.int1.Main</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

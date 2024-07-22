@@ -173,7 +173,7 @@
 	</h3>
 		<nav aria-label="breadcrumb">
         	<div class="input-group-append">
-            <button class="btn btn-sm btn-gradient-primary py-3" type="button" data-bs-toggle="modal" data-bs-target="#firstModal" id="openFirstModal"><i class="mdi mdi-email"></i> &nbsp;&nbsp; 문서 보내기</button>
+            <button class="btn btn-sm btn-gradient-primary py-3" type="button" data-bs-toggle="modal" data-bs-target="#firstModal" id="openFirstModal"><i class="mdi mdi-email"></i> &nbsp;&nbsp;결재 문서 보내기</button>
             </div>
         </nav>
 		</div>

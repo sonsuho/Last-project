@@ -107,7 +107,7 @@ public class StudentAttendController {
         } else {
             System.out.println("checkIn test IP");
             response.setContentType("text/html; charset=UTF-8");
-            out.println("<script>alert('해당 PC에서 출석할 수 없습니다.');</script>");
+            out.println("<script>alert('해당 PC에서 출석할 수 없습니다.');location.href='home.student';</script>");
             out.flush();
         }
         mav.setViewName(getPage);
@@ -217,7 +217,7 @@ public class StudentAttendController {
         } else {
             System.out.println("checkOut test IP");
             response.setContentType("text/html; charset=UTF-8");
-            out.println("<script>alert('해당 PC에서 퇴실할 수 없습니다.');</script>");
+            out.println("<script>alert('해당 PC에서 퇴실할 수 없습니다.'); location.href='home.student';</script>");
             out.flush();
         }
         mav.setViewName(getPage);

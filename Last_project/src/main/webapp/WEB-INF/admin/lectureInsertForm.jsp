@@ -31,6 +31,10 @@
 	.card-body {
 	  min-height: 70vh; /* viewport 높이의 50% */
 	}
+	input[type="date"]::placeholder {
+	  color: #b4b4b4;
+	  font-style: italic;
+	}
 	</style>
 	
 	<div class="page-header">
@@ -105,18 +109,12 @@
 					        </td>
 					        <td>
 					          <div class="input-group">
-					            <input type="text" id="startDate" name="lec_start" class="form-control datepicker" placeholder="시작일" required>
-					            <label class="input-group-text" for="startDate">
-					              <i class="fa fa-calendar-o"></i>
-					            </label>
+					            <input type="date" id="startDate" name="lec_start" class="form-control datepicker" placeholder="시작일" required>
 					          </div>
 					        </td>
 					        <td>
 					          <div class="input-group">
-					            <input type="text" id="endDate" name="lec_end" class="form-control datepicker" placeholder="종료일" required>
-					            <label class="input-group-text" for="endDate">
-					              <i class="fa fa-calendar-o"></i>
-					            </label>
+					            <input type="date" id="endDate" name="lec_end" class="form-control datepicker" placeholder="종료일" required>
 					          </div>
 					        </td>
 					        <td><input type="number" name="stu_cnt" size="1" min="10" max="30" class="form-control mr-2" required></td>
@@ -141,8 +139,54 @@
 	  </div>
 	</div>
 
-	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"/></script> -->
-	<script>
+	<script>	
+		window.onload = function() {
+	        var today = new Date(); // 오늘 날짜 객체 생성
+	        var dd = today.getDate(); // 오늘 날짜에서 '일' 부분 가져오기
+	        var mm = today.getMonth() + 1; // 오늘 날짜에서 '월' 부분 가져오기 (0부터 시작하므로 +1)
+	        var yyyy = today.getFullYear(); // 오늘 날짜에서 '년' 부분 가져오기
+	
+	        // 월과 일이 한 자리 수일 경우 앞에 0을 붙여서 두 자리로 만듭니다.
+	        if (dd < 10) {
+	            dd = '0' + dd;
+	        }
+	        if (mm < 10) {
+	            mm = '0' + mm;
+	        }
+	
+	        // 최소 날짜를 오늘 날짜로 설정
+	        var minDate = yyyy + '-' + mm + '-' + dd;
+	        document.getElementsByName('startDate')[0].setAttribute('min', minDate);
+	    };
+	    
+		$("#startDate").on("change", function(){
+	        var startDateValue = $(this).val();
+	        $("#endDate").attr("min", startDateValue);
+	        
+	      
+	        var endDateValue = $("#endDate").val();
+	        if (endDateValue && endDateValue < startDateValue) {
+	            $("#endDate").val(""); 
+	        }
+	    });
+		
+		$(document).ready(function() {
+	        var startDateValue = $("#startDate").val();
+	        var endDateValue = $("#endDate").val();
+	        if (endDateValue && endDateValue < startDateValue) {
+	            $("#endDate").val(""); 
+	        }
+	    });
+
+	    $(document).ready(function() {
+			var startDateValue = $("#startDate").val();
+			var endDateValue = $("#endDate").val();
+			if (endDateValue && endDateValue < startDateValue) {
+				$("#endDate").val(""); 
+			}
+			handleRadioChange();
+		});
+	
 		// 모든 select 요소 선택
 		var selectOptions = document.querySelectorAll('select');
 	
@@ -163,7 +207,7 @@
 		  var newLecture = document.createElement('tr');
 		  newLecture.innerHTML = `
 	      <tr>
-	        <td><input type="text" name="lec_name" size="15" class="form-control mr-2" required></td>
+			<td><input type="text" name="lec_name" size="15" class="form-control mr-2" required></td>
 	        <td>
 	          <select name="manager" class="form-select mr-2" required>
 	            <option value="" style="color:#b4b4b4;">매니저</option>
@@ -182,18 +226,12 @@
 	        </td>
 	        <td>
 	          <div class="input-group">
-	            <input type="text" id="startDate" name="lec_start" class="form-control" placeholder="시작일" required>
-	            <label class="input-group-text" for="startDate">
-	              <i class="fa fa-calendar-o"></i>
-	            </label>
+	            <input type="date" id="startDate" name="lec_start" class="form-control datepicker" placeholder="시작일" required>
 	          </div>
 	        </td>
 	        <td>
 	          <div class="input-group">
-	            <input type="text" id="endDate" name="lec_end" class="form-control" placeholder="종료일" required>
-	            <label class="input-group-text" for="endDate">
-	              <i class="fa fa-calendar-o"></i>
-	            </label>
+	            <input type="date" id="endDate" name="lec_end" class="form-control datepicker" placeholder="종료일" required>
 	          </div>
 	        </td>
 	        <td><input type="number" name="stu_cnt" size="1" min="10" max="30" class="form-control mr-2" required></td>
@@ -206,11 +244,23 @@
 	          </select>
 	        </td>
 	        <td>
-		      	<i class="fa fa-minus-square" onclick="removeLecture(this)"></i>
-		   		</td>
+	      	  <i class="fa fa-minus-square" onclick="removeLecture(this)"></i>
+	   		</td>
 	      </tr>
 		  `;		  		  
 		  container.appendChild(newLecture);
+		  
+		  // 새로 생성된 tr 요소 내의 select 요소에 이벤트 리스너 등록
+		  var newSelectOptions = newLecture.querySelectorAll('select');
+		  newSelectOptions.forEach(function(selectOption) {
+		    selectOption.addEventListener('change', function() {
+		      if (this.selectedIndex == 0) {
+		        this.style.color = '#b4b4b4';
+		      } else {
+		        this.style.color = 'black';
+		      }
+		    });
+		  });
 		}
 		
 		function removeLecture(button) {

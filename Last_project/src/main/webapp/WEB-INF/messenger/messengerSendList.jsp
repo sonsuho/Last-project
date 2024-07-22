@@ -11,9 +11,66 @@
 <style>
 	.sub-next-title { color: #9a9a9a; margin-right: 10px; cursor: pointer;}
 	.sub-next-title:hover {color: #b66dff; transition: 0.2s;}
+	
+	<!-- pop up -->
+	.pop-msg-title { font-size: 1.4rem; font-weight: bold;}
+	.pl20 {padding-left: 20px; box-sizing: border-box;}
+	.btn-reply { width: 100px; color: #198ae3 !important; font-weight: bold !important; padding: 10px 0 !important;}
+	.second_modal {
+		background:#fff; position: absolute; z-index:100; width:400px; height: 350px; display:flex; justify-content: space-between; padding: 16px 20px; box-sizing: border-box;  border-radius: 10px; box-shadow: 2px 5px 10px #ddd;
+	}
+	.second_modal .wrap {
+		width: 200px;
+	}
+	.second_modal .wrap:first-child {border-right: 1px solid #000;}
+	.second_modal .flex-wrap {
+		width: 100%; height: 100%; overflow-x: auto; 
+	}
+	ul, li { list-style: none;}
+	.msg_list {padding: 0;}
+	
+	
+	.btn-add {border: 1px solid #ddd; border-radius: 6px; position: absolute; bottom:0; right:45;}
+	
+	table th, table td {
+        padding: 8px;
+        text-align: left;
+    }
+    table .ellipsis {
+        white-space: nowrap;    
+        overflow: hidden;    
+        text-overflow: ellipsis;  
+        max-width: 120px;         
+    }
+    table .ellipsis2 {
+    	max-width: 200px !important;
+    }
+    
+    .seleted_list { display: flex; justify-content:flex-start; flex-wrap: wrap;}
+    .seleted_list div { width: 15%; background: #f6f6f6; display: flex; justify-content: center; align-content: center; border-radius: 50px; margin-right: 7px; padding: 5px; color: #666; margin-top:10px; font-size: 14px;}
+    .seleted_list div:last-child { margin-right:0;}
+    
+    #selectedItems {display:flex; flex-wrap: wrap; overflow-y:auto;}
+    #selectedItems div { padding: 15px 7px 0; box-sizing: border-box;}
 </style>
 
-<%@ include file="../student/studentTop.jsp" %>
+<c:choose>
+    <c:when test="${loginInfo.category == 'admin'}">
+        <%@ include file="../admin/adminBarTop.jsp" %>
+    </c:when>
+    
+    <c:when test="${loginInfo.category == 'manager'}">
+        <%@ include file="../manager/managerBarTop.jsp" %>
+    </c:when>
+         
+    <c:when test="${loginInfo.category == 'teacher'}">
+        <%@ include file="../teacher/teacherTop.jsp" %>
+    </c:when>
+    
+    <c:when test="${loginInfo.category == 'student'}">
+        <%@ include file="../student/studentTop.jsp" %>
+    </c:when>
+</c:choose>
           
 			<!-- header -->
 		    <div class="page-header">
@@ -35,13 +92,10 @@
                     
                     <div class="row">
 	                    <div class="col-lg-8">
-				          <div class="form-group">
-		                     <div class="form-check">
-		                       <label class="form-check-label">
-		                       <input type="checkbox" class="form-check-input"> 안 읽은 메시지만 보기 </label>
+	                    	<div style="margin-top: 5px;">
+	                           <button type="button" class="btn btn-gradient-light btn-sm" onclick="delSelectedCheck()"><img src="resources/images/delete.png" style="width:24px; height:24px; margin-right: 7px;">삭제</button>
 		                     </div>
-		                  </div>
-				        </div>
+	                    </div>
 				        <div class="col-lg-4">
 	                     	<form action="slist.messenger" style="display:flex;">
 	                     		<input type="hidden" name="whatColumn" value="all">
@@ -53,52 +107,53 @@
 	                </div>
 	    
                     
-                    <form name="msgForm" action="deleteSend.messenger" action="post">        
-	                  <table class="table table-hover">
-	                     <thead>
-	                       <tr>
-	                         <th colspan="6">
-	                         	<button type="button" class="btn btn-gradient-light" onclick="delSelectedCheck()">삭제</button>
-	                         </th>
-	                       </tr>
-	                       <tr>
-	                       	 <th width="50px;">
-	                              <label class="form-check-label">
-	                              	<input type="checkbox" class="form-check-input item" value="" onclick="delAllCheck(this)">
-	                              </label>
-	                       	 </th>
-	                         <th width="110px;">받는사람</th>
-	                         <th>제목</th>
-	                         <th>내용</th>
-	                         <th width="220px;">보낸 날짜</th>
-	                       </tr>
-	                     </thead>
-	                     <tbody>
-	                       <c:choose>
-	                     	 <c:when test="${fn:length(slist) == 0 }">
-	                     	 	<tr>
-	                     	 		<th colspan="5" style="text-align:center;">검색된 내용이 없습니다.</th>
-	                     	 	</tr>
-	                     	 </c:when>
-	                     	 <c:otherwise>
+					<form name="msgForm" action="deleteSend.messenger" method="post">        
+					  <table class="table table-hover">
+					    <thead>
+					      <tr>
+					        <th width="50px;">
+					          <label class="form-check-label">
+					            <input type="checkbox" class="form-check-input item" value="" onclick="delAllCheck(this)">
+					          </label>
+					        </th>
+					        <th width="110px;" style="text-align: left !important;">받는사람</th>
+					        <th style="text-align: left !important;">제목</th>
+					        <th style="text-align: left !important;">내용</th>
+					        <th width="220px;" style="text-align: left !important;">보낸 날짜</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <c:choose>
+					        <c:when test="${fn:length(slist) == 0}">
+					          <tr>
+					            <th colspan="5" style="text-align:center;">메시지가 없습니다.</th>
+					          </tr>
+					        </c:when>
+					        <c:otherwise>
 					          <c:forEach var="slist" items="${slist}">
+					            <c:if test="${slist.del_chk != 1}">
 					              <tr onclick="goDetailMsg('${slist.msg_num}')">
 					                <td onclick="event.stopPropagation();">
-					                      <label class="form-check-label">
-					                        <input type="checkbox" class="form-check-input item" name="delcheck" value="${slist.msg_num}">
-					                      </label>
-					                    </td>
-									<td>${slist.recv_name }</td>
-									<td>${slist.title }</td>
-									<td>${slist.content }</td>
-									<td>${slist.send_time }</td>
-								  </tr>
+					                  <label class="form-check-label">
+					                    <input type="checkbox" class="form-check-input item" name="delcheck" value="${slist.msg_num}">
+					                  </label>
+					                </td>
+					                <td>${slist.recv_name}</td>
+					                <td class="ellipsis">${slist.title}</td>
+					                <td class="ellipsis ellipsis2">${slist.content}</td>
+					                <td>
+					                	<c:set var="sendTimeStr" value="${slist.send_time}" />
+										<fmt:parseDate value="${sendTimeStr}" var="sendTime" pattern="yyyy-MM-dd HH:mm:ss.S" />
+										<fmt:formatDate value="${sendTime}" pattern="yyyy-MM-dd HH:mm:ss" />
+					                </td>
+					              </tr>
+					            </c:if>
 					          </c:forEach>
 					        </c:otherwise>
-	                       </c:choose>
-	                     </tbody>
-	                   </table>
-                   </form>
+					      </c:choose>
+					    </tbody>
+					  </table>
+					</form>
                   </div>
                 </div><!-- card end -->
               </div>
@@ -129,8 +184,10 @@
 		          <div class="mb-3" style="position:relative;">
 		            <label class="col-form-label">받는 사람</label>
 		            <div class="input-group-append">
-               			<button class="btn btn-sm btn-inverse-success" type="button" onclick="secondModal()"> 받는 사람 선택</button>
+               			<button class="btn btn-sm btn-inverse-success" type="button" onclick="return secondModal()"> 받는 사람 선택</button>
                		</div>
+               		
+               		<div class="seleted_list"></div>
                		
                		<div id="secondModal" class="second_modal" style="display:none;">
                			<!-- 받는 사람 리스트 -->
@@ -184,23 +241,22 @@
                		
 						
 						<!-- 선택된 사람 노출 -->
-						<div class="wrap flex-wrap">
-							<div style="padding-left: 10px;">
+						<div class="wrap" style="position: relative; width: 100%;">
+							<div style="padding: 5px 0 5px 10px;">
 								<b>받는 사람 목록</b>
 							</div>
 							<div id="selectedItems">
 								<!--ajax 선택된 사람 리스트 노출 -->
 								
 							</div>
-							<button onclick="return selectedPeople()">추가하기</button>
+							<div class="btn-add"><button class="btn btn-gradient-success btn-sm" onclick="return selectedPeople()">추가하기</button></div>
 						</div>
-						<p id="chk_txt" style="color: red; font-size: 12px;"></p>
 					</div>
                		
 		          </div>
 		          <div class="mb-3">
 		            <label class="col-form-label">내용</label>
-		            <textarea class="form-control" id="msg_content" name="content" cols="20" rows="10" required></textarea>
+		            <textarea class="form-control" id="msg_content" name="content" cols="20" rows="6" required></textarea>
 		          </div>
 		          <div class="mb-3">
 		            <label class="col-form-label">파일첨부</label>
@@ -238,10 +294,25 @@
 	    </div>
 
 		    
-<%@ include file="../student/studentBottom.jsp" %>
+<c:choose>
+    <c:when test="${loginInfo.category == 'admin'}">
+        <%@ include file="../admin/adminBarBottom.jsp" %>
+    </c:when>
+    
+    <c:when test="${loginInfo.category == 'manager'}">
+        <%@ include file="../manager/managerBarBottom.jsp" %>
+    </c:when>
+     
+    <c:when test="${loginInfo.category == 'teacher'}">
+        <%@ include file="../teacher/teacherBottom.jsp" %>
+    </c:when>
+    
+    <c:when test="${loginInfo.category == 'student'}">
+        <%@ include file="../student/studentBottom.jsp" %>
+    </c:when>
+</c:choose>
 
 <script src="<%=request.getContextPath()%>/resources/js/jquery.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>
 <script>
@@ -319,8 +390,6 @@
 		if($('input[name=rowcheck]:checked').length == 0){
 			alert("받는 사람을 선택하세요.");
 			return false;
-		} else {
-			return true;
 		}
 	}
 	
@@ -340,7 +409,7 @@
 		}
 	}
 	
-    // 받는 사람 
+	// 받는 사람 
 	function selectedPeople(){
 		var flag = false;
 		
@@ -358,8 +427,30 @@
 			return false;
 		}
 		
+		// 선택된 사람들 가져오기
+	    var selectedItems = [];
+	    for (var i = 0; i < rcheck.length; i++) {
+	        if (rcheck[i].checked) {
+	            var personName = rcheck[i].parentNode.textContent.trim(); // 체크박스 레이블의 이름 가져오기
+	            var personId = rcheck[i].value; // 체크박스의 값(ID) 가져오기
+	            selectedItems.push({id: personId, name: personName});
+	        }
+	    }
+
+	    // selected_list 영역에 추가하기
+	    var selectedList = document.querySelector(".seleted_list");
+	    selectedList.innerHTML = ""; // 기존 내용 초기화
+	    selectedItems.forEach(function(person) {
+	        var personElement = document.createElement("div");
+	        personElement.textContent = person.name;
+	        personElement.setAttribute("data-id", person.id); // ID를 데이터 속성으로 추가
+	        selectedList.appendChild(personElement);
+	    });
+		
+		
 		//받는사람 모달 팝업 닫기 
 		$('#secondModal').hide();
+		return false;
 	
 	}
 
@@ -378,14 +469,14 @@
      
     
     // 받는 사람 선택에서 체크박스 선택 
-     function rowCheck(){
-     	updateSelectedItems();
-     };
+    function rowCheck(){
+    	updateSelectedItems();
+    };
      
-     // ajax 
-     // 받는 사람 체크된 사람 mem_num 배열로 만들어 이름 가져오기 
-     // 오른쪽에 리스트로 보여주기 
-     function updateSelectedItems() {
+    // ajax 
+    // 받는 사람 체크된 사람 mem_num 배열로 만들어 이름 가져오기 
+    // 오른쪽에 리스트로 보여주기 
+    function updateSelectedItems() {
   		let selectedItems = [];
   		
   		$('input[name="allcheck"]:checked').each(function() {
@@ -410,8 +501,8 @@
   				
   				 $('#selectedItems').empty(); // 기존 리스트 초기화
   				 
-                 $.each(response, function(index, item) {
-                     $('#selectedItems').append('<div><span><img src="resources/user.png" width="24px;"></span>' + item.name + '</div>' );
+  				 $.each(response, function(index, item) {
+                    $('#selectedItems').append('<div><span><img src="resources/user.png" width="36px; margin-right: 7px;"></span>' + item.name + '</div>' );
                  });
   				
   			},
@@ -426,6 +517,16 @@
   		$("#detailModal").modal('hide');
   		location.reload();
   	}
+  	
+ 	// 팝업 닫기 버튼 클릭 시 데이터 초기화
+  	document.getElementById('closePopupButton').addEventListener('click', function() {
+  	    document.getElementById('msg_title').value = ''; 
+  	    document.getElementById('msg_content').value = ''; 
+  	    
+  	  	$('input[name="allcheck"], input[name="rowcheck"]').prop('checked', false);
+  	 	updateSelectedItems(true)
+  	  	
+  	});
 
 	// 파일 업로드
 	function checkFileInput(){
@@ -463,6 +564,7 @@
 		for(var i=0; i<delcheck.length; i++){
 			if(delcheck[i].checked){
 				flag = true;
+				confirm("삭제하시겠습니까?");
 			}
 		}
 		if(flag == false){
@@ -471,6 +573,20 @@
 		}
 		document.msgForm.submit();
 	}//delSelectedCheck()
+	
+	
+	// 메시지 작성 시 글자 수 제한
+	document.getElementById('msg_title').addEventListener('input', function(){
+		if(this.value.length > 33){
+			this.value = this.value.slice(0, 33);
+		}
+	});
+	
+	document.getElementById('msg_content').addEventListener('input', function(){
+		if(this.value.length > 166){
+			this.value = this.value.slice(0, 166);
+		}
+	});
 
 	
 </script>

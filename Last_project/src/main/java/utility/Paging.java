@@ -197,6 +197,70 @@ public void setSender_num(String sender_num) {
 	this.sender_num = sender_num;
 }
 
+/* Notice paging */
+public Paging(
+	    String _pageNumber, 
+	    String _pageSize,  
+	    int totalCount,
+	    String url, 
+	    String whatColumn, 
+	    String keyword) {      
+
+	    if (_pageNumber == null || _pageNumber.equals("null") || _pageNumber.equals("")) {
+	        _pageNumber = "1";
+	    }
+	    this.pageNumber = Integer.parseInt(_pageNumber);
+
+	    // 기본 pageSize를 10으로 설정
+	    if (_pageSize == null || _pageSize.equals("null") || _pageSize.equals("")) {
+	        _pageSize = "10"; // 한 페이지에 보여줄 레코드 갯수
+	    }
+	    this.pageSize = Integer.parseInt(_pageSize);
+
+	    this.limit = pageSize; // 한 페이지에 보여줄 레코드 갯수
+
+	    this.totalCount = totalCount;
+
+	    this.totalPage = (int) Math.ceil((double) this.totalCount / this.pageSize);
+	    // ex) 17.0/2 = 8.5 => 9
+
+	    this.beginRow = (this.pageNumber - 1) * this.pageSize + 1;
+	    // 현재 페이지의 시작 행
+
+	    this.endRow = this.pageNumber * this.pageSize;
+	    // 현재 페이지의 마지막 행
+
+	    if (this.pageNumber > this.totalPage) {
+	        this.pageNumber = this.totalPage;
+	    }
+	    // 마지막 페이지에 하나 남았다면 그것을 삭제했을 때, 마지막 페이지 없애기 설정
+
+	    this.offset = (pageNumber - 1) * pageSize;
+	    
+	    if (this.endRow > this.totalCount) {
+	        this.endRow = this.totalCount;
+	    }
+
+	    this.beginPage = (this.pageNumber - 1) / this.pageCount * this.pageCount + 1;
+	    this.endPage = this.beginPage + this.pageCount - 1;
+	    /* pageCount=10: 한 화면에 보일 페이지 수,
+	       pageNumber(현재 클릭한 페이지 수)가 12이면 beginPage = 11이 되고, endPage=20이 된다. */
+
+	    System.out.println("pageNumber: " + pageNumber + "/totalPage: " + totalPage);
+
+	    if (this.endPage > this.totalPage) {
+	        this.endPage = this.totalPage;
+	    }
+
+	    System.out.println("pageNumber2: " + pageNumber + "/totalPage2: " + totalPage);
+	    this.url = url; //  /ex/list.ab
+	    this.whatColumn = whatColumn;
+	    this.keyword = keyword;
+	    System.out.println("whatColumn: " + whatColumn + "/keyword: " + keyword);
+
+	    this.pagingHtml = getPagingHtml(url);
+	}
+/* Notice paging */
 
 public Paging(
          String _pageNumber, 	// 보여줄 페이지 번호
@@ -268,61 +332,96 @@ public Paging(
       
       this.pagingHtml = getPagingHtml(url) ;
    
-   
    }
    
-   private String getPagingHtml( String url ){ //페이징 문자열을 만든다.
-      System.out.println("getPagingHtml url:"+url); 
-   
-      
-      String result = "" ;
-      //added_param 변수 : 검색 관련하여 추가되는 파라미터 리스트
-      String added_param = "&whatColumn=" + whatColumn + "&keyword=" + keyword+ "&mem_num=" + mem_num+ "&sender_num=" + sender_num ; // &whatColumn=singer&keyword=아
-      
-      
-      if (this.beginPage != 1) { // 앞쪽, pageSize:한 화면에 보이는 레코드 수
-         // 처음 목록보기를 하면 pageNumber는 1이 되고 beginPage도 1이 된다. 
-         result += "&nbsp;<a href='" + url  
-               + "?pageNumber=" + ( 1 ) + "&pageSize=" + this.pageSize 
-               + added_param + "'>맨 처음</a>&nbsp;" ;
-         result += "&nbsp;<a href='" + url 
-               + "?pageNumber=" + (this.beginPage - 1 ) + "&pageSize=" + this.pageSize 
-               + added_param + "'>이전</a>&nbsp;" ;
-      }
-      
-      //가운데
-      for (int i = this.beginPage; i <= this.endPage ; i++) {
-         if ( i == this.pageNumber ) {
-            result += "&nbsp;<font color='red'>" + i + "</font>&nbsp;"   ;
-                  
-         } else {
-            result += "&nbsp;<a href='" + url   
-                  + "?pageNumber=" + i + "&pageSize=" + this.pageSize 
-                  + added_param + "'>" + i + "</a>&nbsp;" ;
-            
-         }
-      }
-      
-      System.out.println("result:"+result);
-      System.out.println();
-      // result:&nbsp;<a href='/ex/list.ab?pageNumber=1&pageSize=2&whatColumn=null&keyword=null'>1</a>&nbsp;&nbsp;<font color='red'>2</font>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=3&pageSize=2&whatColumn=null&keyword=null'>3</a>&nbsp;
-      
-      if ( this.endPage != this.totalPage) { // 뒤쪽
-         // endPage:지금 보는 페이지의 끝(지금 보는 페이지가 13이라면 endPage는 20), totalPage:전체 페이지수
-         
-         result += "&nbsp;<a href='" + url  
-               + "?pageNumber=" + (this.endPage + 1 ) + "&pageSize=" + this.pageSize 
-               + added_param + "'>다음</a>&nbsp;" ;
-         
-         result += "&nbsp;<a href='" + url  
-               + "?pageNumber=" + (this.totalPage ) + "&pageSize=" + this.pageSize 
-               + added_param + "'>맨 끝</a>&nbsp;" ;
-      }      
-      System.out.println("result2:"+result);
-      // result2 : <a href='/ex/list.ab?pageNumber=1&pageSize=2'>맨 처음</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=3&pageSize=2&whatColumn=null&keyword=null'>이전</a>&nbsp;&nbsp;<font color='red'>4</font>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=5&pageSize=2&whatColumn=null&keyword=null'>5</a>&nbsp;
-      
-      return result ;
-   }   
+private String getPagingHtml(String url) {
+    String result = "";
+    String added_param = "&whatColumn=" + whatColumn + "&keyword=" + keyword + "&mem_num=" + mem_num + "&sender_num=" + sender_num;
+
+    if (this.beginPage != 1) {
+        result += "<li class='page-item'><a class='page-link' href='" + url
+                + "?pageNumber=" + (1) + "&pageSize=" + this.pageSize
+                + added_param + "' style='color: #C6A2E9;'>&laquo;</a></li>";
+        result += "<li class='page-item'><a class='page-link' href='" + url
+                + "?pageNumber=" + (this.beginPage - 1) + "&pageSize=" + this.pageSize
+                + added_param + "' style='color: #C6A2E9;'>이전</a></li>";
+    }
+
+    for (int i = this.beginPage; i <= this.endPage; i++) {
+        if (i == this.pageNumber) {
+            result += "<li class='page-item active'><a class='page-link' href='#' style='background-color: #C6A2E9; border-color: #C6A2E9;'>" + i + "</a></li>";
+        } else {
+            result += "<li class='page-item'><a class='page-link' href='" + url
+                    + "?pageNumber=" + i + "&pageSize=" + this.pageSize
+                    + added_param + "' style='color: #C6A2E9;'>" + i + "</a></li>";
+        }
+    }
+
+    if (this.endPage != this.totalPage) {
+        result += "<li class='page-item'><a class='page-link' href='" + url
+                + "?pageNumber=" + (this.endPage + 1) + "&pageSize=" + this.pageSize
+                + added_param + "' style='color: #C6A2E9;'>다음</a></li>";
+        result += "<li class='page-item'><a class='page-link' href='" + url
+                + "?pageNumber=" + (this.totalPage) + "&pageSize=" + this.pageSize
+                + added_param + "' style='color: #C6A2E9;'>&raquo;</a></li>";
+    }
+
+    return "<nav aria-label='Page navigation'><ul class='pagination justify-content-center'>" + result + "</ul></nav>";
+}
+
+
+//   private String getPagingHtml( String url ){ //페이징 문자열을 만든다.
+//      System.out.println("getPagingHtml url:"+url); 
+//   
+//      
+//      String result = "" ;
+//      //added_param 변수 : 검색 관련하여 추가되는 파라미터 리스트
+//      String added_param = "&whatColumn=" + whatColumn + "&keyword=" + keyword+ "&mem_num=" + mem_num+ "&sender_num=" + sender_num ; // &whatColumn=singer&keyword=아
+//      
+//      
+//      if (this.beginPage != 1) { // 앞쪽, pageSize:한 화면에 보이는 레코드 수
+//         // 처음 목록보기를 하면 pageNumber는 1이 되고 beginPage도 1이 된다. 
+//         result += "&nbsp;<a href='" + url  
+//               + "?pageNumber=" + ( 1 ) + "&pageSize=" + this.pageSize 
+//               + added_param + "'>[맨 처음]</a>&nbsp;" ;
+//         result += "&nbsp;<a href='" + url 
+//               + "?pageNumber=" + (this.beginPage - 1 ) + "&pageSize=" + this.pageSize 
+//               + added_param + "'>[이전]</a>&nbsp;" ;
+//      }
+//      
+//      //가운데
+//      for (int i = this.beginPage; i <= this.endPage ; i++) {
+//         if ( i == this.pageNumber ) {
+//            result += "&nbsp;<font color='red'>" + i + "</font>&nbsp;"   ;
+//                  
+//         } else {
+//            result += "&nbsp;<a href='" + url   
+//                  + "?pageNumber=" + i + "&pageSize=" + this.pageSize 
+//                  + added_param + "'>" + i + "</a>&nbsp;" ;
+//            
+//         }
+//      }
+//      
+//      System.out.println("result:"+result);
+//      System.out.println();
+//      // result:&nbsp;<a href='/ex/list.ab?pageNumber=1&pageSize=2&whatColumn=null&keyword=null'>1</a>&nbsp;&nbsp;<font color='red'>2</font>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=3&pageSize=2&whatColumn=null&keyword=null'>3</a>&nbsp;
+//      
+//      if ( this.endPage != this.totalPage) { // 뒤쪽
+//         // endPage:지금 보는 페이지의 끝(지금 보는 페이지가 13이라면 endPage는 20), totalPage:전체 페이지수
+//         
+//         result += "&nbsp;<a href='" + url  
+//               + "?pageNumber=" + (this.endPage + 1 ) + "&pageSize=" + this.pageSize 
+//               + added_param + "'>[다음]</a>&nbsp;" ;
+//         
+//         result += "&nbsp;<a href='" + url  
+//               + "?pageNumber=" + (this.totalPage ) + "&pageSize=" + this.pageSize 
+//               + added_param + "'>[맨 끝]</a>&nbsp;" ;
+//      }      
+//      System.out.println("result2:"+result);
+//      // result2 : <a href='/ex/list.ab?pageNumber=1&pageSize=2'>맨 처음</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=3&pageSize=2&whatColumn=null&keyword=null'>이전</a>&nbsp;&nbsp;<font color='red'>4</font>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=5&pageSize=2&whatColumn=null&keyword=null'>5</a>&nbsp;
+//      
+//      return result ;
+//   }   
    
 }
 

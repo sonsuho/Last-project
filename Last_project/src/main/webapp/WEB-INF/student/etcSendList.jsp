@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="studentTop.jsp"%>
+
+<script type="text/javascript" src="resources/js/jquery.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>
 <style>
     .container {
         display: flex;
@@ -40,56 +45,7 @@
 	}
 </style>
 
-<script>
-    function etcList(mem_num) {
-        location.href = "etcList.student?mem_num=" + mem_num;
-    }
-    function etcSendList(sender_num) {
-        location.href = "etcSendList.student?sender_num=" + sender_num;
-    }
-    function requestList2(mem_num) {
-        location.href = "request2.student?mem_num=" + mem_num;
-    }
-    function allDelete(obj) {
-        var rcheck = document.getElementsByName("rowcheck");
-        var check = obj.checked;
-        for (var i = 0; i < rcheck.length; i++) {
-            rcheck[i].checked = check;
-        }
-    }
-    function selectDelete() {
-        var rcheck = document.getElementsByName("rowcheck");
-        var flag = false;
-        for (var i = 0; i < rcheck.length; i++) {
-            if (rcheck[i].checked) {
-                flag = true;
-                break;
-            }
-        }
-        if (!flag) {
-            alert("삭제할 문서를 선택하세요");
-            return;
-        }
-        document.myform.submit();
-    }
 
-    // 화면 분할
-    function openDetail(etc_num,sender_num) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'etcDetail2.student?etc_num=' + etc_num +"&sender_num="+sender_num, true);
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                document.getElementById('rightPanel').innerHTML = xhr.responseText;
-                document.getElementById('container').classList.add('expanded');
-            }
-        };
-        xhr.send();
-    }
-    /* function etcForm(){
-		location.href="etc.student";
-	} */
-
-</script>
 
 <div class="container" id="container">
     <div class="left-panel" id="leftPanel">
@@ -191,25 +147,82 @@
                     <input type="hidden" name="etc_delete" value="MS">
                 	<input type="hidden" name="sender_num" value="${loginInfo.mem_num}">
                     
-                    <label>
-                        <input type="checkbox" class="send-to" name="check_num" class="form-check-input" > 
-                    </label>
-                보낼 사람 선택<br><br>
-        		<div class="member-list">
-                <!-- 보낼 사람이 선택되었을 때 보이는 부분 -->
-                <input type="checkbox" onclick="allCheck(this)" class="form-check-input">전체선택
-                <hr>
-                <c:forEach var="m" items="${mlist}">
-                    <label>
-                        <input type="checkbox" name="selected_mem_num" value="${m.mem_num}" class="form-check-input"> ${m.name}
-                    </label><br>
-                </c:forEach><br><br>
-               </div>
+                      <div class="mb-3" style="position:relative;">
+		            <label class="col-form-label">받는 사람</label>
+		            <div class="input-group-append">
+               			<button class="btn btn-sm btn-inverse-success" type="button" onclick="toggleThirdModal()"> 받는 사람 선택</button>
+               		</div>
+               		
+               		<div class="seleted_list"></div>
+               		
+               		<div id="thirdModal" class="third_modal" style="display:none;">
+               			<!-- 받는 사람 리스트 -->
+               			<div class="wrap flex-wrap">
+							<div class="form-check">
+                              <label class="form-check-label">
+                              <input type="checkbox" class="form-check-input" name="allcheck" onclick="allCheck(this)">전체선택</label>
+                            </div>
+               				<ul class="msg_list">
+               					<li>
+									<c:set var="loginInfo" value="${loginInfo}" />
+									<c:forEach var="mb" items="${admin }">
+										<c:if test="${loginInfo.category != 'student' }">
+										<b>관리자</b>
+											<ul>
+												<li>
+													<div class="form-check">
+						                              <label class="form-check-label">
+						                              <input type="checkbox" class="form-check-input item" name="rowcheck" value="${mb.mem_num }" onchange="rowCheck()">${mb.name }</label>
+						                            </div>
+												</li>
+											</ul>
+										</c:if>
+									</c:forEach>
+								</li>
+								<li>
+									<b>매니저</b>
+									<ul>
+										<c:forEach var="mb" items="${teacherlist }">
+											<c:if test="${mb.mem_num != loginInfo.mem_num }">
+												<li>
+													<div class="form-check">
+						                              <label class="form-check-label">
+						                              <input type="checkbox" class="form-check-input item" name="rowcheck" value="${mb.mem_num }" onchange="rowCheck()">${mb.name }</label>
+						                            </div> 
+												</li>
+											</c:if>
+										</c:forEach>
+									</ul>
+								</li>
+								
+							</ul>
+               			</div>
+               		
+               		
+						
+						<!-- 선택된 사람 노출 -->
+						<div class="wrap" style="position: relative; width: 100%;">
+							<div style="padding: 5px 0 5px 10px;">
+								<b>받는 사람 목록</b>
+							</div>
+							<div id="selectedItems">
+								<!--ajax 선택된 사람 리스트 노출 -->
+								
+							</div>
+							
+							
+							<div class="btn-add"><button class="btn btn-gradient-success btn-sm" onclick="return selectedPeople()">추가하기</button></div>
+						</div>
+					</div>
+                 </div>
+                 
+                 
                       <div class="form-group">
                         <label for="exampleInputName1">제목</label>
                         <input type="text" class="form-control" id="exampleInputName1" placeholder="제목입력" name="etc_title" value="${etc.etc_title}">
                			 <form:errors path="etc_title" cssClass="err"/>
                       </div>
+                      
                       
                       
                       <div class="form-group">
@@ -249,6 +262,58 @@
 </div>
 
 <script type="text/javascript">
+function etcList(mem_num) {
+    location.href = "etcList.student?mem_num=" + mem_num;
+}
+function etcSendList(sender_num) {
+    location.href = "etcSendList.student?sender_num=" + sender_num;
+}
+function requestList2(mem_num) {
+    location.href = "request2.student?mem_num=" + mem_num;
+}
+function allDelete(obj) {
+    var rcheck = document.getElementsByName("rowcheck");
+    var check = obj.checked;
+    for (var i = 0; i < rcheck.length; i++) {
+        rcheck[i].checked = check;
+    }
+}
+function selectDelete() {
+    var rcheck = document.getElementsByName("rowcheck");
+    var flag = false;
+    for (var i = 0; i < rcheck.length; i++) {
+        if (rcheck[i].checked) {
+            flag = true;
+            break;
+        }
+    }
+    if (!flag) {
+        alert("삭제할 문서를 선택하세요");
+        return;
+    }
+    document.myform.submit();
+}
+
+// 화면 분할
+function openDetail(etc_num,sender_num) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'etcDetail2.student?etc_num=' + etc_num +"&sender_num="+sender_num, true);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            document.getElementById('rightPanel').innerHTML = xhr.responseText;
+            document.getElementById('container').classList.add('expanded');
+        }
+    };
+    xhr.send();
+}
+/* function etcForm(){
+	location.href="etc.student";
+} */
+
+
+		
+		
+		
 	    function checkFileInput() {
 	        var fileInput = document.getElementsByName('multiFile')[0];
 	        var uploadField = document.getElementsByName('etc_file')[0];
@@ -363,15 +428,121 @@
 	     })();
 	    
 	    function allCheck(obj) {
-	        var rcheck = document.getElementsByName("selected_mem_num");
+	        var rcheck = document.getElementsByName("rowcheck");
 	        var check = obj.checked;
 	        for (var i = 0; i < rcheck.length; i++) {
 	            rcheck[i].checked = check;
 	        }
 	    }
 	    
+	    function toggleThirdModal() {
+	        const thirdModal = document.getElementById('thirdModal');
+	        thirdModal.style.display = thirdModal.style.display === 'none' ? 'block' : 'none';
+	    }
+	        
+	        
+	    function selectedPeople(){
+			var flag = false;
+			
+			var rcheck = document.getElementsByName("rowcheck");
+			
+			for(var i=0; i<rcheck.length; i++){
+				if(rcheck[i].checked == true){
+					flag = true;
+					break;
+				}
+			}
+			
+			if(!flag) {
+				alert("받는 사람을 선택하세요.");
+				return false;
+			}
+	        
+	     // 선택된 사람들 가져오기
+		    var selectedItems = [];
+		    for (var i = 0; i < rcheck.length; i++) {
+		        if (rcheck[i].checked) {
+		            var personName = rcheck[i].parentNode.textContent.trim(); // 체크박스 레이블의 이름 가져오기
+		            var personId = rcheck[i].value; // 체크박스의 값(ID) 가져오기
+		            selectedItems.push({id: personId, name: personName});
+		        }
+		    }
+
+		    // selected_list 영역에 추가하기
+		    var selectedList = document.querySelector(".seleted_list");
+		    selectedList.innerHTML = ""; // 기존 내용 초기화
+		    selectedItems.forEach(function(person) {
+		        var personElement = document.createElement("div");
+		        personElement.textContent = person.name;
+		        personElement.setAttribute("data-id", person.id); // ID를 데이터 속성으로 추가
+		        selectedList.appendChild(personElement);
+		    });
+			
+			
+			//받는사람 모달 팝업 닫기 
+			$('#thirdModal').hide();
+			return false;
+	    }
+	    
+	 // 체크박스 선택 했을 시 배열에 담기
+	    function allCheck(checkbox) {
+	   	    // 전체 선택 체크박스가 체크되었는지 여부를 확인
+	   	    let isChecked = $(checkbox).prop('checked');
+	   	    
+	   	    // rowcheck 체크박스들의 값을 모두 선택 또는 해제
+	   	    $('input[name="rowcheck"]').prop('checked', isChecked);
+	   	    
+	   	    // 모든 체크된 체크박스의 값을 업데이트
+	   	    updateSelectedItems();
+	    }
+	     
+	    
+	    // 받는 사람 선택에서 체크박스 선택 
+	     function rowCheck(){
+	     	updateSelectedItems();
+	     };
+	     
+	     // ajax 
+	     // 받는 사람 체크된 사람 mem_num 배열로 만들어 이름 가져오기 
+	     // 오른쪽에 리스트로 보여주기 
+	     function updateSelectedItems() {
+	  		let selectedItems = [];
+	  		
+	  		$('input[name="allcheck"]:checked').each(function() {
+	  		    let value = $(this).val(); // 체크박스의 값 가져오기
+	  		    if (!isNaN(value)) { // 숫자인지 확인
+	  		        selectedItems.push(parseInt(value)); // 숫자로 변환하여 배열에 추가
+	  		    }
+	  		});
+	  		
+	  		
+	  		$('input[name="rowcheck"]:checked').each(function() {
+	              selectedItems.push( parseInt($(this).val()) );
+	        });
+	  		
+	  		$.ajax({
+	  			url : 'selectedList.student',
+	  			method : 'POST',
+	  			contentType : 'application/json',
+	  			data : JSON.stringify(selectedItems),
+	  			dataType: 'json',
+	  			success: function(response){
+	  				
+	  				 $('#selectedItems').empty(); // 기존 리스트 초기화
+	  				 
+	                 $.each(response, function(index, item) {
+	                     $('#selectedItems').append('<div><span><img src="resources/user.png" width="36px; margin-right: 7px;"></span>' + item.name + '</div>' );
+	                 });
+	  				
+	  			},
+	  			error : function(e) {
+	  				console.error('Error:', e);
+	  			}
+	  		});//ajax
+	  	}//updateSelectedItems()
+	    
 	</script>
-<script type="text/javascript" src="resources/js/jquery.js"></script>
+
 <script type="text/javascript">
     // jQuery를 이용하여 document.ready 이벤트 설정
     $(document).ready(function() {
