@@ -68,8 +68,8 @@
 	</select>
 	
 	<insert id="insertLecture">
-		insert into lecture values(seq_lecture.nextval,#{lec_name},#{teacher},#{manager},#{lec_start},#{lec_end},#{stu_cnt},#{class_name})
-	</insert>
+		insert into lecture values(seq_lecture.nextval,#{lec_name},#{teacher},#{manager},TO_DATE(#{lec_start}, 'YYYY-MM-DD'),TO_DATE(#{lec_end}, 'YYYY-MM-DD'),#{stu_cnt},#{class_name})
+	</insert> 
 	
 	<delete id="deleteLecture">
 		delete from lecture where lec_num = #{lec_num}
@@ -102,5 +102,19 @@
 	</delete>
 	
 	<!-- 민곤추가 -->
+	
+	
+	   <!-- 수호추가 -->
+   <select id="getLectureByTeacher" resultType="java.lang.Integer">
+       SELECT lec_num
+       FROM lecture
+       WHERE teacher = #{mem_num}
+         AND sysdate BETWEEN lec_start AND lec_end
+   </select>
+   
+      <insert id="insertGoingClass">
+      insert into going_class (lec_num, onoff) values(seq_going.nextval, 'off');
+   </insert>
+   
 	
 </mapper>

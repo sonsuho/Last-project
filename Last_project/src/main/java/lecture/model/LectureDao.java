@@ -37,11 +37,14 @@ public class LectureDao {
 	} //getTotalLecture
 	
 	public int insertLecture(LectureBean lecture) {
-		int cnt = -1;
-		cnt = sqlSessionTemplate.insert(namespace+".insertLecture", lecture);
-		System.out.println("insertLecture cnt : " + cnt);
-		return cnt;
-	} //insertLecture
+	      int cnt = -1;
+	      cnt = sqlSessionTemplate.insert(namespace+".insertLecture", lecture);
+	      
+	      sqlSessionTemplate.insert(namespace + ".insertGoingClass");
+	      
+	      System.out.println("insertLecture cnt : " + cnt);
+	      return cnt;
+	   } //insertLecture
 	
 	public LectureBean getLectureByNum(int lec_num){
 		LectureBean lecture = sqlSessionTemplate.selectOne(namespace+".getLectureByNum", lec_num);
@@ -98,6 +101,16 @@ public class LectureDao {
 	}
 	
 	//민곤
+	
+	
+	  public int getLectureByTeacher(int mem_num) {
+	      
+	      int lec_num = sqlSessionTemplate.selectOne(namespace + ".getLectureByTeacher", mem_num);
+	      
+	      System.out.println("getLectureByTeacher lec_num : " + lec_num);
+	      
+	      return lec_num;
+	   }
 	
 }
 

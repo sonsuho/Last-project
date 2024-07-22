@@ -138,4 +138,7 @@ public class MemberDao {
 		cnt = sqlSessionTemplate.update(namespace+".changeAddr",mb);
 		return cnt;
 	}
+
+
+	
 }

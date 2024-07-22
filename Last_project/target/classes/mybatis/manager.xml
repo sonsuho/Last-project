@@ -8,7 +8,7 @@
 	<!-- etc -->
 	<insert id="insertEtc" parameterType="manager.model.EtcBean">
     insert into etc (etc_num, mem_num, sender_num, etc_title, etc_content, etc_sdate, etc_fdate, etc_file, etc_delete)
-    values (etc_seq.nextval, #{mem_num}, #{sender_num},#{etc_title}, #{etc_content}, sysdate, #{etc_fdate}, #{etc_file}, #{etc_delete})
+    values (etc_seq.nextval, #{mem_num}, #{sender_num},#{etc_title}, #{etc_content}, sysdate, TO_DATE(#{etc_fdate}, 'YYYY-MM-DD'), #{etc_file}, #{etc_delete})
 	</insert>
 	
 	<select id="getEtcList" resultType="manager.model.EtcBean">
@@ -195,7 +195,7 @@
 	
 	<insert id="ReqInsert" parameterType="manager.model.RequestBean">
     INSERT INTO request (req_num, mem_num, app_num, title,category, time1, time2, reason, sign, ap_delete)
-    VALUES (seq_request.NEXTVAL, #{mem_num}, #{app_num}, #{title},#{category}, #{time1}, #{time2}, #{reason}, #{sign}, #{ap_delete})
+    VALUES (seq_request.NEXTVAL, #{mem_num}, #{app_num}, #{title},#{category}, TO_DATE(#{time1}, 'YYYY-MM-DD'), TO_DATE(#{time2}, 'YYYY-MM-DD'), #{reason}, #{sign}, #{ap_delete})
   </insert>
   
   <select id="RequestAdminPaging" resultMap="RequestWithMemberNameResultMap">
@@ -439,11 +439,11 @@
 	<!-- 일정 Calendar -->
 	<insert id="insertSchedule">
 		insert into calendar (cal_num, lec_num, mem_num, lesson_class, name, title, content, start_date, fin_date)
-		values(seq_calendar.nextval, #{lec_num}, #{mem_num}, #{lesson_class}, #{name}, #{title}, #{content}, #{start_date}, #{fin_date})
+		values(seq_calendar.nextval, #{lec_num}, #{mem_num}, #{lesson_class}, #{name}, #{title}, #{content},  TO_DATE(#{start_date}, 'YYYY-MM-DD'), TO_DATE(#{fin_date}, 'YYYY-MM-DD'))
 	</insert>
 	
 	<select id="getScheduleByStart_date" resultType="manager.model.mCalendarBean">
-		select * from calendar where start_date = #{start_date} order by cal_num desc
+		select * from calendar where start_date = TO_DATE(#{start_date}, 'YYYY-MM-DD') order by cal_num desc
 	</select>
 	
 	<select id="getCalendarListByCal_num" resultType="manager.model.mCalendarBean">
@@ -451,7 +451,7 @@
 	</select>
 	
 	<update id="updateSchedule">
-		update calendar set lesson_class = #{lesson_class}, title = #{title}, content = #{content}, fin_date = #{fin_date}
+		update calendar set lesson_class = #{lesson_class}, title = #{title}, content = #{content}, fin_date = TO_DATE(#{fin_date}, 'YYYY-MM-DD')
 		where cal_num = #{cal_num}
 	</update>
 	
