@@ -219,11 +219,10 @@ th {
 
           <div class="modal-body">
             <table class="table">
-              <c:forEach var="i" begin="1" end="29">
+              <c:forEach var="i" begin="1" end="32">
                 <c:if test="${i%6 eq 1}"><tr></c:if>
-                <c:if test="${i eq 1}"><tr><td onclick="showImageName('user.jpg')" onmouseover="hoverEffect(this)" onmouseout="removeHoverEffect(this)"><img src="resources/assets/images/faces/user.jpg" style="width: 80px; height: 80px; object-fit: contain;" alt="profile" /></td></c:if>
-                <c:if test="${i eq 2}"><td onclick="showImageName('user2.jpg')" onmouseover="hoverEffect(this)" onmouseout="removeHoverEffect(this)"><img src="resources/assets/images/faces/user2.jpg" style="width: 80px; height: 80px; object-fit: contain;" alt="profile"/></td></c:if>
-                <c:if test="${i ne 1 and i ne 2}"><td onclick="showImageName('face${i-2}.jpg')" onmouseover="hoverEffect(this)" onmouseout="removeHoverEffect(this)"><img src="resources/assets/images/faces/face${i-2}.jpg" style="width: 80px; height: 80px; object-fit: contain;" alt="profile"/></td></c:if>
+                <c:if test="${i eq 1}"><td onclick="showImageName('user.jpg')" onmouseover="hoverEffect(this)" onmouseout="removeHoverEffect(this)"><img src="resources/assets/images/faces/user.jpg" style="width: 80px; height: 80px; object-fit: contain;" alt="profile" /></td></c:if>
+                <c:if test="${i ne 1}"><td onclick="showImageName('face${i-1}.png')" onmouseover="hoverEffect(this)" onmouseout="removeHoverEffect(this)"><img src="resources/assets/images/faces/face${i-1}.png" style="width: 80px; height: 80px; object-fit: contain;" alt="profile"/></td></c:if>
                 <c:if test="${i%6 eq 0}"></tr></c:if>
               </c:forEach>
             </table>
