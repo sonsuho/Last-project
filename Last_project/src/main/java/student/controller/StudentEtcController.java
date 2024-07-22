@@ -36,7 +36,7 @@ import student.model.SEtcDao;
 public class StudentEtcController {
     private final String command = "/etc.student";
     private final String getPage = "etcForm";
-    private final String gotoPage = "studentHome";
+    private final String gotoPage = "home";
 
     @Autowired
     SEtcDao edao;
@@ -61,6 +61,7 @@ public class StudentEtcController {
     
     @RequestMapping(value = command, method = RequestMethod.POST)
     public ModelAndView Studentrequest(@ModelAttribute("etc") @Valid SEtcBean etc, BindingResult result,
+    		@RequestParam int sender_num,
     		@RequestParam String [] selected_mem_num,HttpServletResponse response, HttpSession session,HttpServletRequest request,
                                 @RequestParam("multiFile") List<MultipartFile> multiFileList,Map<String, String> paramap) throws IOException {
         ModelAndView mav = new ModelAndView();
@@ -68,12 +69,12 @@ public class StudentEtcController {
         for(String i : selected_mem_num) {
         	System.out.println("학생넘버:"+i);
         }
-        System.out.println("컨트롤러sender_num:"+etc.getSender_num());
+        System.out.println("컨트롤러sender_num:"+sender_num);
         
         
         if (result.hasErrors()) {
             System.out.println("오류");
-            mav.addObject("sender_num",etc.getSender_num());
+            mav.addObject("sender_num",sender_num);
             mav.setViewName(getPage);
             return mav;
         }

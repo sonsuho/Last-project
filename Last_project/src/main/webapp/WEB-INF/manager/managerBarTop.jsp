@@ -3,6 +3,9 @@
 <%@ include file="../common/common.jsp"%>
 <%@ include file="../all/myPage.jsp" %>
 
+<!-- 메시지 탑 메뉴 ajax -->
+<%@ include file="../all/topMenuMessage.jsp" %>
+    
 	<!-- managerBarTop.jsp -->
 
 <script>

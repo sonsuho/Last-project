@@ -53,44 +53,38 @@
   	
   </style>
 
-  	<!-- header -->
-  <div class="page-header">
-    <h3 class="page-title">
-      <span class="page-title-icon bg-gradient-primary text-white me-2">
-        <i class="mdi mdi-clipboard-text"></i>
-      </span> Evaluation Result List
-    </h3>
-    <nav aria-label="breadcrumb">
-      <ul class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page">
-          <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
-        </li>
-      </ul>
-    </nav>
-  </div>
     
       <div class="row">
 	  <div class="col-lg-12 grid-margin stretch-card">
 	    <div class="card">
 	      <div class="card-body">
 
-	    	<h2 align="left" style="margin-left: 50px">강의 평가 목록</h2> <br>
+	    	<div class="row" style=" padding: 20px 0;">
+               <div class="col-lg-8">
+                    	
+                  <h1 align="left">강의 평가 목록</h1>
+			          
+			   </div>
+			   <div class="col-lg-4" style="display:flex; justify-content: flex-end; align-items: center; padding-right: 10px;">
+
+			   </div>
+            </div><!-- row -->
 			
 		    <div align="center">		    	
 		    	
-			<table>
+			<table class="table">
 	    		
-	    	<tr style="background-color: #F6F6F6">
-	    		<th style="padding-left: 25px;">번호</th>
-	    		<th>강의 평가 제목</th>
-	    		<th>응시 인원</th>
+	    	<tr>
+	    		<th style="padding-left: 25px; background-color: #F6F6F6;">번호</th>
+	    		<th style="background-color: #F6F6F6;">강의 평가 제목</th>
+	    		<th style="background-color: #F6F6F6;">응시 인원</th>
 	    	</tr>
 	    		
 	    	<c:if test="${fn:length(elist) == 0}">
 	    			
-	    			<tr>
-	    				<td colspan="3" align="center" style="height: 250">강의 평가 내용이 없습니다!!!</td>
-	    			</tr>
+    			<tr>
+    				<td colspan="3" align="center" style="padding: 48px 0;">강의 평가 내용이 없습니다.</td>
+    			</tr>
 	    			
 	    	</c:if>
 	    		

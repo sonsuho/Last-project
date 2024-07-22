@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="teacherTop.jsp"%>
-
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 	
 	<style type="text/css">
 	    .table {
@@ -40,6 +38,45 @@
 	    .feedback {
 	        margin-top: 2rem;
 	    }
+	    .form-group {
+		  display: flex;
+		  align-items: center;
+		  margin-right: 1rem;
+		}
+		
+		.form-group .btn,
+		.form-group .form-control,
+		.form-group .form-select {
+		  margin-right: 0.3rem;
+		}
+		
+		.form-select{
+		  width: 100px;
+		}
+		
+		.datepicker .disabled, .datepicker .disabled:hover {
+		    color: #ccc !important;
+		    cursor: not-allowed;
+		}
+		
+		.fa-minus-square {
+		  color: #36E0C6;
+		  font-size: 20px;
+		}
+		
+		.fa-plus-square{
+		  color: #36E0C6;
+		  font-size: 30px;
+		}
+		
+		.fa-minus-square:hover, .fa-plus-square:hover {
+		  color: #F15F5F; /* 마우스 오버 시 색상 변경 */
+		}
+		
+		.card-body {
+		  min-height: 70vh; /* viewport 높이의 50% */
+		}
+	    
 	</style>
 	
 	<!-- header -->
@@ -71,8 +108,18 @@
 	    <div class="col-lg-12 grid-margin stretch-card">
 	        <div class="card">
 	            <div class="card-body">
+	                <h1 style="display: flex; padding-left: 400px;">
+	                	${eval_name}
+	                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<button onclick="location.href='evalResultList.teacher'" class="btn btn-gradient-info py-3" style="width: 120px;height: 35px; display: flex; justify-content: center; align-items: center;">
+							prev
+						</button>
+					</h1> <br>
+	                    
 	                <div class="text-center">
-	                    <h1>${eval_name}</h1> <br>
 	
 	                    <table class="table table-bordered">
 	                        <thead>
@@ -135,4 +182,3 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	

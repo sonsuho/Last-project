@@ -197,12 +197,39 @@
             }
         });
     }
+    
+    $(document).ready(function() {
+	    // 페이지 로드시 안 읽은 소식 개수 초기화
+	    updateUnreadAlarmCount();
+
+	    // 일정 시간마다 안 읽은 소식 개수 업데이트 (예: 5초마다)
+	    setInterval(function() {
+	        updateUnreadAlarmCount();
+	    }, 5000); // 5초마다 업데이트
+
+	    // 안 읽은 소식 개수를 서버에서 가져오는 함수
+	    function updateUnreadAlarmCount() {
+	        $.ajax({
+	            url: "getUnreadAlarmCnt.alarm",
+	            method: "GET",
+	            dataType: "json",
+	            success: function(response) {
+	                var count = response.n;
+	                // 안 읽은 소식 개수를 화면에 업데이트
+	                $("#unreadAlarmCount").html("<b>"+ count +"</b>");
+	            },
+	            error: function(error) {
+	                console.log("Error fetching unread alarm count:", error);
+	            }
+	        });
+	    }
+	});
 </script>
 
 <!-- 게시판 알림 -->
 <li class="nav-item dropdown">
     <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false" onclick="openAlarm()">
-        <i class="mdi mdi-bell-outline"></i>
+        <i class="mdi mdi-bell-outline"></i><div id="unreadAlarmCount"></div>
         <span class="count-symbol bg-danger"></span>
     </a>
     <div class="dropdown-menu dropdown-menu-end navbar-dropdown preview-list" aria-labelledby="notificationDropdown">

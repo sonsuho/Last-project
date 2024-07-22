@@ -46,6 +46,7 @@ public class LoginController {
 		}
 		
 		MemberBean mb = ldao.getInfoById(lb.getId());				// 누락이 없다면 id를 가져와 해당하는 회원 정보가 있는지 체크
+		//System.out.println(mb.getPw());
 		
 		/* 패스워드 hash 추가 - 20240703 */
 		String encryPassword = Sha256.encrypt(lb.getPw());

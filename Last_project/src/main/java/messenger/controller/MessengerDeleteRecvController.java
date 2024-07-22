@@ -33,17 +33,19 @@ public class MessengerDeleteRecvController {
 				System.out.println("del 업데이트1");
 				mb.setRecv_num(((MemberBean)session.getAttribute("loginInfo")).getMem_num());
 				mb.setDel_chk( mb.getDel_chk() -1 );
+				System.out.println("mb.getRecv_num() : " + mb.getRecv_num() );
 				System.out.println("mb.getDel_chk()2 : " + mb.getDel_chk());
 			}
 			
 			
-			// del_chk가 0이거나 0보다 작을 때 
+			// del_chk가 0일 때 삭제 
 			if(mb.getDel_chk() == 0) {
 				System.out.println("del_chk 0일 때 delete ");
-				System.out.println("mb.getDel_chk()3 : " + mb.getDel_chk());
+				System.out.println("mb.getDel_chk()3 delete : " + mb.getDel_chk());
 				messengerDao.deleteMsg(msg_num);
 			} else {
 				System.out.println("del_chk 0이 아닐 때 update");
+				System.out.println("mb.getDel_chk()4 update : " + mb.getDel_chk());
 				messengerDao.updateForDelMsg(mb);
 			}
 			

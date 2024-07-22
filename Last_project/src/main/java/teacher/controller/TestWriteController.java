@@ -2,6 +2,8 @@ package teacher.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import alarm.model.AlarmService;
 import member.model.MemberBean;
+import student.model.StudentDao;
 import test.model.TestBean;
 import test.model.TestDao;
 
@@ -29,6 +33,12 @@ public class TestWriteController {
 	
 	@Autowired
 	TestDao testDao;
+	
+	@Autowired
+	AlarmService service;
+	
+	@Autowired
+	StudentDao sdao;
 	
 	@RequestMapping(value = command,  method = RequestMethod.GET)
 	public String writeForm() {
@@ -111,7 +121,9 @@ public class TestWriteController {
         } else {
             mav.setViewName(gotoPage1);
         }
-
+        
+        
+		//민곤 알림 추가
         return mav;
     }
 	
@@ -129,7 +141,7 @@ public class TestWriteController {
 					              @RequestParam(value = "images", required = false) String images,
 					              @RequestParam(value = "choice", required = false) String choice,
 					              @RequestParam(value = "test_name", required = false) String test_name,
-					              HttpSession session, HttpServletRequest request) {
+					              HttpSession session, HttpServletRequest request, Map<String, String> paramap) {
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -176,6 +188,25 @@ public class TestWriteController {
 		tb.setQuestions_point("20/20/20/20/20");
 		
 		testDao.insertTest(tb);
+		
+		//민곤 알림 추가
+				
+				List<MemberBean> slist = sdao.getStudentByLec_Num(lec_Num);	
+		        StringBuilder stdList = new StringBuilder();
+				for (MemberBean mb : slist) {
+				    if (stdList.length() > 0) {
+				        stdList.append(",");
+				    }
+				    stdList.append(mb.getMem_num());
+				}
+				System.out.println("stdList.toString():"+stdList.toString());
+				paramap.put("fk_recipientno", stdList.toString()); // 받는사람 (여러명일때는 ,,으로 구분된 str)
+				paramap.put("url", "/testList" );
+				paramap.put("url2", ".student");
+				paramap.put("alarm_content", teacher.getName() + "님이 시험을 시작했습니다." );
+				paramap.put("alarm_type", "8" );
+				
+				service.addAlarm(paramap);
 		
 		mav.setViewName(gotoPage2);
 		

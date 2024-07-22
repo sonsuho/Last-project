@@ -27,7 +27,7 @@ import messenger.model.MessengerBean;
 import messenger.model.MessengerDao;
 
 @Controller
-@ComponentScan({"member,messenger,student"})
+@ComponentScan({"member,messenger,manager,student,lecture"})
 public class StudentMainController {
     private final String command = "/home.student";
     private final String getPage = "home";
@@ -86,7 +86,7 @@ public class StudentMainController {
         
         List<NoticeBean> noticeList = ndao.getNoticeList_all();
         
-     // lecture에서 가져온 날짜와 시간 문자열
+        // lecture에서 가져온 날짜와 시간 문자열
 	    String startDateTimeString = lecture.getLec_start();
 	    String endDateTimeString = lecture.getLec_end();
 	    
