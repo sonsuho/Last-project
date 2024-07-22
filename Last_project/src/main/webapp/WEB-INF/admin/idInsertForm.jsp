@@ -81,7 +81,7 @@
 					    		<th width=10%>아이디</th>
 					    		<th width=10%>비밀번호</th>
 					    		<th width=8%>성별</th>
-					    		<th width=10%>생년월일</th>
+					    		<th width=15%>생년월일</th>
 					    		<th width=8%>카테고리</th>
 					    		<th width=15%>전화번호</th>
 					    		<th width=20%>이메일</th>
@@ -94,17 +94,21 @@
 					        <td><input type="text" name="id" placeholder="아이디" size="10" class="form-control mr-2" required></td>
 					        <td><input type="password" name="pw" placeholder="비밀번호" size="5" class="form-control mr-2" required></td>
 					        <td>
-					        	<select name="gender" class="form-select mr-2" style="color: black;" required>
+					        	<select name="gender" class="form-select mr-2" required>
 					            <option value="">성별
 					            <option value="남">남자
 				              <option value="여">여자
 					          </select>
 					        </td>
 					        <td>
-					        	<input type="date" class="form-control me-3" id="birth" name="birth" required>
+					        	<div class="d-flex">
+						        	<input type="text" maxlength="4" id="birth" class="form-control me-2" name="yyyy" placeholder="yyyy" required>
+						        	<input type="text" maxlength="2" id="birth" class="form-control me-2" name="mm" placeholder="mm" required>
+						        	<input type="text" maxlength="2" id="birth" class="form-control" name="dd" placeholder="dd" required>
+					        	</div>
 					        </td>
 					        <td>
-					          <select name="category" class="form-select mr-2" style="color: black;" required>
+					          <select name="category" class="form-select mr-2" required>
 					            <option value="">카테고리
 					            <option value="manager">매니저
 				              <option value="teacher">강사
@@ -131,48 +135,80 @@
 	</div>
 
 	<script>	
+		// 모든 select 요소 선택
+		var selectOptions = document.querySelectorAll('select');
+	
+		// 각 select 요소에 change 이벤트 리스너 등록
+		selectOptions.forEach(function(selectOption) {
+		  selectOption.addEventListener('change', function() {
+		    // 선택된 옵션의 색상 변경
+		    if (this.selectedIndex == 0) {
+		      this.style.color = '#b4b4b4';
+		    } else {
+		      this.style.color = 'black';
+		    }
+		  });
+		});
+			
 		function addId() {
 		  var container = document.querySelector('tbody');
 		  var newId = document.createElement('tr');
 		  newId.innerHTML = `
-	        <td><input type="text" name="name" placeholder="이름" size="4" class="form-control mr-2" required></td>
-	        <td><input type="text" name="id" placeholder="아이디" size="10" class="form-control mr-2" required></td>
-	        <td><input type="password" name="pw" placeholder="비밀번호" size="5" class="form-control mr-2" required></td>
+			  <td><input type="text" name="name" placeholder="이름" size="4" class="form-control mr-2" required></td>
+		        <td><input type="text" name="id" placeholder="아이디" size="10" class="form-control mr-2" required></td>
+		        <td><input type="password" name="pw" placeholder="비밀번호" size="5" class="form-control mr-2" required></td>
+		        <td>
+		        	<select name="gender" class="form-select mr-2" required>
+		            <option value="">성별
+		            <option value="남">남자
+	              <option value="여">여자
+		          </select>
+		        </td>
+		        <td>
+		        	<div class="d-flex">
+			        	<input type="text" maxlength="4" id="birth" class="form-control me-2" name="yyyy" placeholder="yyyy" required>
+			        	<input type="text" maxlength="2" id="birth" class="form-control me-2" name="mm" placeholder="mm" required>
+			        	<input type="text" maxlength="2" id="birth" class="form-control" name="dd" placeholder="dd" required>
+		        	</div>
+		        </td>
+		        <td>
+		          <select name="category" class="form-select mr-2" required>
+		            <option value="">카테고리
+		            <option value="manager">매니저
+	              <option value="teacher">강사
+		          </select>
+		        </td>
+		        <td><input type="text" name="phone" id="phone-number" placeholder="전화번호를 입력하세요" size="15" class="form-control mr-2" required></td>
+		        <td>
+		          <span class="input-group">
+						    <input type="text" name="email" id="email" class="form-control" placeholder="email" aria-label="email" aria-describedby="basic-addon2" required>
+						    <label class="input-group-text" id="basic-addon2">@ gmail.com</label>
+						  </span>
+		        </td>
 	        <td>
-	        	<select name="gender" class="form-select mr-2" style="color: black;" required>
-	            <option value="">성별
-	            <option value="남">남자
-	          <option value="여">여자
-	          </select>
-	        </td>
-	        <td>
-	        	<input type="date" class="form-control me-3" id="birth" name="birth" required>
-	        </td>
-	        <td>
-	          <select name="category" class="form-select mr-2" style="color: black;" required>
-	            <option value="">카테고리
-	            <option value="manager">매니저
-              <option value="teacher">강사
-	          </select>
-	        </td>
-	        <td><input type="text" name="phone" id="phone-number" placeholder="전화번호를 입력하세요" size="15" class="form-control mr-2" required></td>
-	        <td>
-	          <span class="input-group">
-					    <input type="text" name="email" id="email" class="form-control" placeholder="email" aria-label="email" aria-describedby="basic-addon2" required>
-					    <label class="input-group-text" id="basic-addon2">@ gmail.com</label>
-					  </span>
-	        </td>
-	        <td>
-		      	<i class="fa fa-minus-square" onclick="removeId(this)"></i>
-		   		</td>
+	      		<i class="fa fa-minus-square" onclick="removeId(this)"></i>
+	   		</td>
 		  `;		  
 		  
 		  // 새로 추가된 전화번호 입력 필드에 이벤트 리스너 등록
 		  var newPhoneInput = newId.querySelector('#phone-number');
 		  newPhoneInput.addEventListener('input', formatPhoneNumber);
-  
+		  
 		  container.appendChild(newId);
+		  
+		  // 새로 생성된 tr 요소 내의 select 요소에 이벤트 리스너 등록
+		  var newSelectOptions = newId.querySelectorAll('select');
+		  newSelectOptions.forEach(function(selectOption) {
+		    selectOption.addEventListener('change', function() {
+		      if (this.selectedIndex == 0) {
+		        this.style.color = '#b4b4b4';
+		      } else {
+		        this.style.color = 'black';
+		      }
+		    });
+		  });
 		}
+		
 		function removeId(button) {
 		  var row = button.closest('tr');
 		  row.remove();

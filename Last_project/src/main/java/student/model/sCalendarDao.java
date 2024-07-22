@@ -25,4 +25,10 @@ public class sCalendarDao {
 		return lists;
 	}
 
+	public List<sCalendarBean> getSchedulesByLecNum(String lec_num) {
+		List<sCalendarBean> lists = new ArrayList<sCalendarBean>();
+		lists = sqlSessionTemplate.selectList(namespace + ".getSchedulesByLecNum");
+		return lists;
+	}
+
 }

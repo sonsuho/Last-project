@@ -87,8 +87,8 @@
     				<div class="col-lg-4" style="display:flex; justify-content: flex-start; align-content: center;">
     					<c:if test="${loginInfo.category != 'student' }">
     						<%-- <a href="writeLibrary.teacher?pageNumber=${pageInfo.pageNumber}&whatColumn=${pageInfo.whatColumn}&keyword=${pageInfo.keyword}">글쓰기</a> --%>
-	    					<div>
-		    					<button type="button" onclick="writeLibrary('${pageInfo.pageNumber}', '${pageInfo.whatColumn}', '${pageInfo.keyword}' )" style="padding:12px; margin-right: 7px;" class="btn btn-gradient-primary"><i class="fa fa-send"></i> &nbsp;&nbsp;글쓰기</button>
+	    					<div style="margin-top:1px;">
+		    					<button type="button" onclick="writeLibrary('${pageInfo.pageNumber}', '${pageInfo.whatColumn}', '${pageInfo.keyword}' )" style="padding:12px; margin-right: 7px;" class="btn btn-gradient-primary">글쓰기</button>
 	    					</div>
 	    					<div>
 		    					<button type="button" class="btn btn-gradient-light btn-sm" onclick="selectDelete()"><img src="resources/images/delete.png" style="width:24px; height:24px;">삭제</button>
@@ -122,7 +122,7 @@
 			    		
 			    		<thead>
 				    		<tr>
-				    			<th style="background:#f6f6f6; width:100px !important;">
+				    			<th style="background:#f6f6f6; width:100px !important;" onclick="event.stopPropagation();">
 				    				<label class="form-check-label">
 				    					<input type="checkbox" class="form-check-input item" name="allcheck" onclick="allCheck(this)">
 				    				</label>
@@ -148,7 +148,7 @@
 				    			<c:forEach var="library" items="${list}">
 				    				
 				    				<tr onclick="contentLib('${library.li_num}')">
-										<td align="center">
+										<td align="center" onclick="event.stopPropagation();">
 											<label class="form-check-label">
 												<input type="checkbox" class="form-check-input item" name="rowcheck" value="${library.li_num }">
 											</label>

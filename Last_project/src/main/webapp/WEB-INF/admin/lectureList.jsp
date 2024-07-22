@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="adminBarTop.jsp" %>
 	
-	<style>
+	<style>		
 	.form-group {
 	  display: flex;
 	  align-items: center;
@@ -103,15 +103,15 @@
 	            </thead>
 	            <tbody>
 	              <c:forEach var="lecture" items="${lectureList}">
-	                <tr data-bs-target="#staticBackdrop" data-lec-num="${lecture.lec_num}">
+	              	<fmt:parseDate var="start" value="${lecture.lec_start}" pattern="yyyy-MM-dd" />
+	                <fmt:parseDate var="end" value="${lecture.lec_end}" pattern="yyyy-MM-dd" />
+	                <tr data-bs-target="#staticBackdrop" data-lec-num="${lecture.lec_num}" <c:if test="${end.time < currentDate.time}">style="opacity: 0.7;"</c:if>>
 	                  <td><input type="checkbox" name="rowcheck" value="${lecture.lec_num}" class="form-check-input"></td>
 	                  <td>${lecture.lec_num}</td>
 	                  <td>${lecture.lec_name}</td>
 	                  <td>${lecture.m_name}</td>
 	                  <td>${lecture.t_name}</td>
 	                  <td>
-	                    <fmt:parseDate var="start" value="${lecture.lec_start}" pattern="yyyy-MM-dd" />
-	                    <fmt:parseDate var="end" value="${lecture.lec_end}" pattern="yyyy-MM-dd" />
 	                    <fmt:formatDate value="${start}" pattern="yyyy-MM-dd" /> ~
 	                    <fmt:formatDate value="${end}" pattern="yyyy-MM-dd" />
 	                  </td>
@@ -119,19 +119,21 @@
 	                  <td>${lecture.class_name}</td>
 	                  <td>
 	                    <c:choose>
-										    <c:when test="${start.time > currentDate.time}">
-										      <label class="badge badge-success">예정</label>
-										    </c:when>
-										    <c:when test="${start.time <= currentDate.time and end.time >= currentDate.time}">
-										      <label class="badge badge-info">진행</label>
-										    </c:when>
-										    <c:otherwise>
-										      <label class="badge badge-danger">종료</label>
-										    </c:otherwise>
-										  </c:choose>
+						    <c:when test="${start.time > currentDate.time}">
+						      <label class="badge badge-warning">예정</label>
+						    </c:when>
+						    <c:when test="${start.time <= currentDate.time and end.time >= currentDate.time}">
+						      <label class="badge badge-info">진행</label>
+						    </c:when>
+						    <c:otherwise>
+						      <label class="badge badge-danger">종료</label>
+						    </c:otherwise>
+						  </c:choose>
 	                  </td>
 	                  <td>
-	                  	<input type="button" value="수정" onclick="openEditModal(this)" class="form-updateBtn btn btn-sm btn-gradient-light">
+	                  	<c:if test="${end.time >= currentDate.time}">
+	                  		<input type="button" value="수정" onclick="openEditModal(this)" class="form-updateBtn btn btn-sm btn-gradient-light">
+	                  	</c:if>
 	                  </td>
 	                </tr>
 	              </c:forEach>
@@ -139,7 +141,7 @@
 	          </table>
 	        </form>
 	        
-         	<center>${pageInfo.pagingHtml}</center>
+	        <center>${pageInfo.pagingHtml}</center>
          	
          	<!-- 강좌 상세정보 모달 -->
 					<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -305,7 +307,7 @@
 	        var lectureState;
 	        
 	        if(today < lecStartDate){
-	        	lecState = "success";
+	        	lecState = "warning";
 	        	lectureState = "예정";
 	        } else if(today >= lecStartDate && today <= lecEndDate){
 	        	lecState = "info";
@@ -344,10 +346,10 @@
   	          '<th rowspan=3>강사</th><td>' + response.lecture.t_name + ' (' + response.lecture.t_age + "/" + response.lecture.t_gender + ')</td>' +
   	          '</tr>' +
   	          '<tr>' +
-  	          '<td>' + response.lecture.m_phone + '</td><td>' + response.lecture.t_phone + '</td>' +
+  	          '<td><i class="fa fa-phone"></i>&nbsp;&nbsp;&nbsp;' + response.lecture.m_phone + '</td><td><i class="fa fa-phone"></i>&nbsp;&nbsp;&nbsp;' + response.lecture.t_phone + '</td>' +
   	          '</tr>' +
   	          '<tr>' +
-  	          '<td>' + response.lecture.m_email + '</td><td>' + response.lecture.t_email + '</td>' +
+  	          '<td><i class="fa fa-envelope"></i>&nbsp;&nbsp;&nbsp;' + response.lecture.m_email + '</td><td><i class="fa fa-envelope"></i>&nbsp;&nbsp;&nbsp;' + response.lecture.t_email + '</td>' +
   	          '</tr>' +
   	          '</table>'
 	        );

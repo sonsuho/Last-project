@@ -56,9 +56,9 @@
 	
 	<select id="getRecentlyMsg" resultType="messenger.model.MessengerBean">
 		<![CDATA[
-	    select msg_num, send_name, send_time, read_chk, del_chk
+	    select mem_num, msg_num, send_name, send_time, read_chk, del_chk
 	    from (
-	        select msg_num, send_name, send_time, read_chk, del_chk
+	        select mem_num, msg_num, send_name, send_time, read_chk, del_chk
 	        from messenger 
 	        where recv_num = #{mem_num} 
 	        order by send_time desc

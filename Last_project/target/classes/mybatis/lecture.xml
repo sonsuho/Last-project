@@ -77,7 +77,7 @@
 	</delete>
 	
 	<select id="getLectureByMemNum" resultType="lecture.model.LectureBean">
-		select * from lecture where manager = #{mem_num}
+		select * from lecture where manager = #{mem_num} order by lec_num desc
 	</select>
 	
 	<select id="getLectureByLec" resultType="lecture.model.On_going_lectureBean">
@@ -103,6 +103,7 @@
 	
 	<!-- 민곤추가 -->
 	
+
 	
 	   <!-- 수호추가 -->
    <select id="getLectureByTeacher" resultType="java.lang.Integer">
@@ -116,5 +117,49 @@
       insert into going_class (lec_num, onoff) values(seq_going.nextval, 'off');
    </insert>
    
+
+	<select id="getLectureForManager" resultType="lecture.model.LectureBean">
+		select * from lecture 
+		where manager = #{mem_num} and lec_end >= SYSDATE 
+		order by lec_start, lec_end
+	</select>
+	
+	<select id="getLectureByClass1" resultType="lecture.model.LectureBean">
+		SELECT *
+	    FROM (
+	        SELECT *
+	        FROM lecture
+	        WHERE class_name = #{class_name} AND SYSDATE >= lec_start and lec_end >= SYSDATE
+	        ORDER BY lec_end
+	    )
+	    WHERE ROWNUM = 1
+	</select>
+	<select id="getLectureByClass2" resultType="lecture.model.LectureBean">
+		SELECT *
+	    FROM (
+	        SELECT *
+	        FROM lecture
+	        WHERE class_name = #{class_name} AND lec_start > SYSDATE
+	        ORDER BY lec_start
+	    )
+	    WHERE ROWNUM = 1
+	</select>
+	<select id="getLectureByClass3" resultType="lecture.model.LectureBean">
+		SELECT *
+	    FROM (
+	        SELECT *
+	        FROM lecture
+	        WHERE class_name = #{class_name} AND SYSDATE > lec_end
+	        ORDER BY lec_start
+	    )
+	    WHERE ROWNUM = 1
+	</select>
+	
+	<select id="getLectureForTeacher" resultType="lecture.model.LectureBean">
+		SELECT * from
+		(select * from lecture where teacher = #{mem_num} and SYSDATE >= lec_start order by lec_start)
+		where rownum = 1
+	</select>
+
 	
 </mapper>

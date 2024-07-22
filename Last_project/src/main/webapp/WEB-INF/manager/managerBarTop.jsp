@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../common/common.jsp" %>
+<%@ include file="../common/common.jsp"%>
 <%@ include file="../all/myPage.jsp" %>
 
 <!-- 메시지 탑 메뉴 ajax -->
@@ -138,9 +138,7 @@
 									<li class="nav-item">
 										<a class="nav-link" href="attStatus.manager?mem_num=${loginInfo.mem_num}">내 근태 현황</a>
 									</li>
-									<li class="nav-item">
-										<a class="nav-link" href="requestForm.manager">휴가 신청</a>
-									</li>
+									
 									<li class="nav-item">
 										<a class="nav-link" href="vacationDetail.manager?mem_num=${loginInfo.mem_num}">휴가 내역</a>
 									</li>

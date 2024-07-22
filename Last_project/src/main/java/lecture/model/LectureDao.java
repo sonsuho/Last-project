@@ -112,5 +112,39 @@ public class LectureDao {
 	      return lec_num;
 	   }
 	
+
+	public List<LectureBean> getLectureForManager(int mem_num) {
+		List<LectureBean> lectures = new ArrayList<LectureBean>();
+		lectures = sqlSessionTemplate.selectList(namespace+".getLectureForManager", mem_num);
+		System.out.println(mem_num + "번 회원의 lectures.size() : " + lectures.size());
+		return lectures;
+	}
+	
+	public LectureBean getLectureByClass(String class_name) {
+		LectureBean lb = new LectureBean();
+		int cnt = 0;
+		lb = sqlSessionTemplate.selectOne(namespace+".getLectureByClass1", class_name);
+		if(lb==null) {
+			cnt++;
+			lb = sqlSessionTemplate.selectOne(namespace+".getLectureByClass2", class_name);
+			if(lb==null) {
+				cnt++;
+				lb = sqlSessionTemplate.selectOne(namespace+".getLectureByClass3", class_name);
+			} else {
+				System.out.println(class_name + "반 : 예정");
+			}
+		} else {
+			System.out.println(class_name + "반 : 진행");
+		}
+		System.out.println("getLectureByClass cnt : " + cnt);
+		return lb;
+	}
+	
+	public LectureBean getLectureForTeacher(int mem_num) {
+		LectureBean lb = new LectureBean();
+		lb = sqlSessionTemplate.selectOne(namespace+".getLectureForTeacher", mem_num);
+		return lb; 
+	}
+
 }
 

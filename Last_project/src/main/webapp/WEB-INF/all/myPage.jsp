@@ -22,7 +22,7 @@ th {
 		      
 		      <div class="modal-header">
 		        <h1 class="modal-title fs-5" id="myPageModalLabel" style="color:#c8c8c8; font-weight:bold;">
-		        	마이페이지 &nbsp;&nbsp; <span id="modalState"></span>
+		        	마이페이지 &nbsp;&nbsp;
 		        </h1>
 		      	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div> <br>

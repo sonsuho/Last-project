@@ -53,55 +53,38 @@
 	  	
 	</style>
 	  
-	<!-- header -->
-	  <div class="page-header">
-	    <h3 class="page-title">
-	      <span class="page-title-icon bg-gradient-primary text-white me-2">
-	        <i class="mdi mdi-clipboard-text"></i>
-	      </span> TestList
-	    </h3>
-	    <nav aria-label="breadcrumb">
-	      <ul class="breadcrumb">
-	        <li class="breadcrumb-item active" aria-current="page">
-	          <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
-	        </li>
-	      </ul>
-	    </nav>
-	  </div>
-	    
 	     <div class="row">
 		  <div class="col-lg-12 grid-margin stretch-card">
 		    <div class="card">
 		      <div class="card-body">
-	
-		    	<h2 align="left" style="margin-left: 50px">시험 목록
-		    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    	<button type="button" class="btn btn-gradient-success py-3" onclick="location.href='testWrite.teacher'">CREATE</button>&nbsp;&nbsp;&nbsp;</h2>
+		
+				 <div class="row" style=" padding: 20px 0;">
+                    <div class="col-lg-8">
+                    	
+                    	<h1 align="left">시험 목록</h1>
+			          
+			        </div>
+			        <div class="col-lg-4" style="display:flex; justify-content: flex-end; align-items: center; padding-right: 10px;">
+                     	
+						<button type="button" class="btn btn-gradient-success py-3" onclick="location.href='testWrite.teacher'">시험 만들기</button>&nbsp;&nbsp;&nbsp;</h2>
+
+			        </div>
+                </div><!-- row -->
 				
-				<br>
-				
-			    <div align="center">		    	
+			    <div align="center" style="margin-top:30px;">	    	
 			    	
-				    <table>
+				    <table class="table">
 				    	
-				    	<tr style="background-color: #F6F6F6">
-				    		<th style="padding-left: 25px;">번호</th>
-				    		<th style="padding-left: 25px;" align="right">시험 제목</th>
-				    		<th><span style="al">응시 인원</span></th>
+				    	<tr>
+				    		<th style="padding-left: 25px; background-color: #F6F6F6;">번호</th>
+				    		<th style="padding-left: 25px; background-color: #F6F6F6;" align="right">시험 제목</th>
+				    		<th style="background-color: #F6F6F6;"><span style="al">응시 인원</span></th>
 				    	</tr>
 				    		
 				    	<c:if test="${fn:length(tlist) == 0}">
 				    			
 				    			<tr>
-				    				<td colspan="3" align="center" style="height: 80%">준비된 시험이 없습니다!!!</td>
+				    				<td colspan="3" align="center" style="padding: 48px 0;">준비된 시험이 없습니다.</td>
 				    			</tr>
 				    			
 				    	</c:if>
