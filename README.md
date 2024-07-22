@@ -38,74 +38,344 @@
 
 <br>
 
-## 2. 프로젝트 구조
+## 2. 중요 프로젝트 구조
 
 ```
 ├── README.md
-├── .eslintrc.js
-├── .gitignore
-├── .prettierrc.json
-├── package-lock.json
-├── package.json
-│
-├── public
-│    └── index.html
-└── src
-     ├── App.jsx
-     ├── index.jsx
-     ├── api
-     │     └── mandarinAPI.js
-     ├── asset
-     │     ├── fonts
-     │     ├── css_sprites.png
-     │     ├── logo-404.svg
-     │     └── logo-home.svg
-     │          .
-     │          .
-     │          .
-     ├── atoms
-     │     ├── LoginData.js
-     │     └── LoginState.js
-     ├── common
-     │     ├── alert
-     │     │     ├── Alert.jsx
-     │     │     └── Alert.Style.jsx
-     │     ├── button
-     │     ├── comment
-     │     ├── inputBox
-     │     ├── post
-     │     ├── postModal
-     │     ├── product
-     │     ├── tabMenu
-     │     ├── topBanner
-     │     └── userBanner
-     ├── pages
-     │     ├── addProduct
-     │     │     ├── AddProduct.jsx
-     │     │     └── AddProduct.Style.jsx
-     │     ├── chatList
-     │     ├── chatRoom
-     │     ├── emailLogin
-     │     ├── followerList
-     │     ├── followingList
-     │     ├── home
-     │     ├── join
-     │     ├── page404
-     │     ├── postDetail
-     │     ├── postEdit
-     │     ├── postUpload
-     │     ├── productEdit
-     │     ├── profile
-     │     ├── profileEdit
-     │     ├── profileSetting
-     │     ├── search
-     │     ├── snsLogin
-     │     └── splash
-     ├── routes
-     │     ├── privateRoutes.jsx
-     │     └── privateRoutesRev.jsx  
-     └── styles
-           └── Globalstyled.jsx
+└── Last-project
+     ├── pom.xml
+     ├── .springBeans
+     ├── .project
+     ├── .classpath
+     ├── .settings
+     ├── src
+          ├── main
+               ├── java
+                    ├── admin/controller
+                         ├── AdminMainController.java
+                         ├── AdminRequestDeleteController.java
+                         ├── AdminRequestDetailController.java
+                         ├── AdminRequestListController.java
+                         ├── AdminSituController.java
+                         ├── ChangeAddrController.java
+                         ├── ChangeImageController.java
+                         ├── ChangePhoneController.java
+                         ├── ChangePwController.java
+                         ├── EmplListController.java
+                         ├── ExcelDownloadController.java
+                         ├── IdDeleteController.java
+                         ├── IdInsertController.java
+                         ├── IdUpdateController.java
+                         ├── LectureDeleteController.java
+                         ├── LectureDetailController.java
+                         ├── LectureInsertController.java
+                         ├── LectureListController.java
+                         └── LectureUpdateController.java
+                    ├── alarm
+                         ├── controller
+                              └── AlarmController.java
+                         └── model
+                              ├── AlarmBean.java
+                              ├── AlarmDao.java
+                              ├── AlarmService.java
+                              ├── InterAlarmDAO.java
+                              └── InterAlarmService.java
+                    ├── com/spring
+                         ├── config
+                              ├── EchoHandler.java
+                              └── WebSocketConfig.java
+                         ├── ex
+                              ├── DeleteChatController.java
+                              ├── EnterController.java
+                              ├── HomeController.java
+                              ├── MainController.java
+                              └── MakeChatController.java
+                         └── model
+                              ├── ChatBean.java
+                              └── ChatDao.java
+                    ├── evaluation/model
+                         ├── EvaluationBean.java
+                         ├── EvaluationDao.java
+                         ├── EvaluationResultBean.java
+                         └── EvaluationResultDao.java
+                    ├── excel
+                         ├── IdExcelReader.java
+                         ├── LectureExcelReader.java
+                         └── StuExcelReader.java
+                    ├── lecture/model
+                         ├── DetailBean.java
+                         ├── LectureBean.java
+                         ├── LectureDao.java
+                         ├── On_going_lectureBean.java
+                         └── On_going_lectureDao.java
+                    ├── library/model
+                         ├── LibraryBean.java
+                         └── LibraryDao.java
+                    ├── login
+                         ├── controller
+                              ├── FindPwController.java
+                              ├── LoginController.java
+                              └── LogoutController.java
+                         └── model
+                              ├── LoginBean.java
+                              └── LoginDao.java
+                    ├── manager
+                         ├── controller
+                              ├── LectureEvaluationController.java
+                              ├── ManagerAttendController.java
+                              ├── ManagerAttendStatusController.java
+                              ├── ManagerCalendarController.java
+                              ├── ManagerEtcController.java
+                              ├── ManagerEtcListController.java
+                              ├── ManagerLectureListController.java
+                              ├── ManagerMainController.java
+                              ├── ManagerNoticeController.java
+                              ├── ManagerSelectDeleteController.java
+                              ├── ManagerSituController.java
+                              ├── ManagerStuDeleteController.java
+                              ├── ManagerStuInsertController.java
+                              ├── ManagerVacationController.java
+                              ├── MangerEtcDetailController.java
+                              ├── MangerRequestDetailController.java
+                              ├── MangerRequestListController.java
+                              └── RequestController.java
+                         └── model
+                              ├── EtcBean.java
+                              ├── EtcDao.java
+                              ├── EtcJoinMemberBean.java
+                              ├── ManagerAttendDao.java
+                              ├── ManagerDao.java
+                              ├── NoticeBean.java
+                              ├── NoticeDao.java
+                              ├── RequestBean.java
+                              ├── RequestDao.java
+                              ├── RequestJoinMemberBean.java
+                              ├── mCalendarBean.java
+                              ├── mCalendarDao.java
+                              ├── member/model
+                              ├── AttendBean.java
+                              ├── MemberBean.java
+                              └── MemberDao.java
+                    ├── messenger
+                         ├── controller
+                              ├── MessengerDeleteRecvController.java
+                              ├── MessengerDeleteSendController.java
+                              ├── MessengerDetailController.java
+                              ├── MessengerReceiveListController.java
+                              ├── MessengerReplyFormController.java
+                              ├── MessengerSelectedListController.java
+                              ├── MessengerSendController.java
+                              ├── MessengerSendListController.java
+                              ├── MessengerTopMenuController.java
+                              └── MessengerUnreadController.java
+                         └── model
+                              ├── MessengerBean.java
+                              └── MessengerDao.java
+                    ├── mybatis
+                         ├── SqlMapConfig.xml
+                         ├── admin.xml
+                         ├── alarm.xml
+                         ├── chat.xml
+                         ├── evaluation.xml
+                         ├── lecture.xml
+                         ├── library.xml
+                         ├── login.xml
+                         ├── manager.xml
+                         ├── member.xml
+                         ├── messenger.xml
+                         ├── student.xml
+                         ├── teacher.xml
+                         ├── test.xml
+                         └── testResult.xml
+                    ├── student
+                         ├── controller
+                              ├── ClassNowController.java
+                              ├── EvaluationContentController.java
+                              ├── EvaluationListController.java
+                              ├── SRequestController.java
+                              ├── SRequestSignController.java
+                              ├── StudentAttendController.java
+                              ├── StudentAttendStatusController.java
+                              ├── StudentCalendarController.java
+                              ├── StudentEtcController.java
+                              ├── StudentEtcDetailController.java
+                              ├── StudentEtcListController.java
+                              ├── StudentEtcReplyController.java
+                              ├── StudentMainController.java
+                              ├── StudentRequestDetailController.java
+                              ├── StudentRequestListController.java
+                              ├── StudentSelectDeleteController.java
+                              ├── StudentVacationDetailController.java
+                              ├── TestContentController.java
+                              └── TestListController.java
+                         └── model
+                              ├── AttendBean.java
+                              ├── AttendDao.java
+                              ├── SEtcBean.java
+                              ├── SEtcDao.java
+                              ├── SRequestBean.java
+                              ├── SRequestDao.java
+                              ├── StudentAttendDao.java
+                              ├── StudentDao.java
+                              ├── sCalendarBean.java
+                              └── sCalendarDao.java
+                    ├── teacher
+                         ├── controller
+                              ├── ContentLibraryController.java
+                              ├── DeleteAllLibraryController.java
+                              ├── DeleteLibraryController.java
+                              ├── EndTeachingController.java
+                              ├── EvalResultContentController.java
+                              ├── EvalResultListController.java
+                              ├── TeacherAttendController.java
+                              ├── TeacherAttendStatusController.java
+                              ├── TeacherHomeController.java
+                              ├── TeacherLibraryController.java
+                              ├── TeachingController.java
+                              ├── TestResultContentController.java
+                              ├── TestResultController.java
+                              ├── TestWriteController.java
+                              ├── UpdateLibraryController.java
+                              └── WriteLibraryController.java
+                         └── model
+                              ├── TeacherAttendDao.java
+                              └── TeacherDao.java
+                    ├── test/model
+                         ├── NormalDistribution.java
+                         ├── TestBean.java
+                         ├── TestDao.java
+                         ├── TestResultBean.java
+                         └── TestResultDao.java
+                    └── utility
+                         ├── Paging.java
+                         └── Sha256.java
+               ├── resources
+               └── webapp
+                    ├── META-INF
+                    ├── WEB-INF
+                         ├── admin
+                              ├── adminBarBottom.jsp
+                              ├── adminBarTop.jsp
+                              ├── adminMain.jsp
+                              ├── emplList.jsp
+                              ├── idInsertForm.jsp
+                              ├── lectureInsertForm.jsp
+                              ├── lectureList.jsp
+                              ├── requestDetail.jsp
+                              ├── requestList.jsp
+                              └── requestList2.jsp
+                         ├── all
+                              ├── alarmModal.jsp
+                              ├── board.jsp
+                              ├── message.jsp
+                              ├── myPage.jsp
+                              └── topMenuMessage.jsp
+                         ├── common
+                              └── common.jsp
+                         ├── login
+                              ├── loginForm.jsp
+                              └── result.jsp
+                         ├── manager
+                              ├── attendStatusForm.jsp
+                              ├── calendarForm.jsp
+                              ├── etcDetail.jsp
+                              ├── etcForm.jsp
+                              ├── etcList.jsp
+                              ├── etcSendList.jsp
+                              ├── home.jsp
+                              ├── lectureEvalWriteForm.jsp
+                              ├── lectureEvalWriteSuccess.jsp
+                              ├── managerAttendanceCheck.jsp
+                              ├── managerBarBottom.jsp
+                              ├── managerBarTop.jsp
+                              ├── myLectureList.jsp
+                              ├── noticeDetailForm.jsp
+                              ├── noticeForm.jsp
+                              ├── noticeInsertForm.jsp
+                              ├── noticeUpdateForm.jsp
+                              ├── requestDetail.jsp
+                              ├── requestForm.jsp
+                              ├── requestList.jsp
+                              ├── requestList2.jsp
+                              ├── scheduleDetail.jsp
+                              ├── scheduleInsert.jsp
+                              ├── scheduleUpdate.jsp
+                              ├── scheduleView.jsp
+                              ├── stuInsertForm.jsp
+                              └── vacationDetail.jsp
+                         ├── messenger
+                              ├── messengerMain.jsp
+                              └── messengerSendList.jsp
+                         ├── spring
+                              ├── appServlet
+                                   ├── admin-context.xml
+                                   ├── alarm-context.xml
+                                   ├── lecture-context.xml
+                                   ├── login-context.xml
+                                   ├── manager-context.xml
+                                   ├── member-context.xml
+                                   ├── messenger-context.xml
+                                   ├── servlet-context.xml
+                                   ├── student-context.xml
+                                   └── teacher-context.xml
+                              └── root-context.xml
+                         ├── student
+                              ├── attendStatusForm.jsp
+                              ├── classNow.jsp
+                              ├── classNowSuccess.jsp
+                              ├── etcDetail.jsp
+                              ├── etcDetail2.jsp
+                              ├── etcForm.jsp
+                              ├── etcList.jsp
+                              ├── etcSendList.jsp
+                              ├── eval.jsp
+                              ├── evalContent.jsp
+                              ├── evalList.jsp
+                              ├── evalSuccess.jsp
+                              ├── home.jsp
+                              ├── replyEtcForm.jsp
+                              ├── requestDetail.jsp
+                              ├── requestForm.jsp
+                              ├── requestList2.jsp
+                              ├── save.jsp
+                              ├── studentAttendanceCheck.jsp
+                              ├── studentBottom.jsp
+                              ├── studentTop.jsp
+                              ├── test.jsp
+                              ├── testContent.jsp
+                              ├── testList.jsp
+                              ├── testSuccess.jsp
+                              └── vacationDetail.jsp
+                         ├── teacher
+                              ├── WriteForm.jsp
+                              ├── attendStatusForm.jsp
+                              ├── contentLibrary.jsp
+                              ├── evalResultContent.jsp
+                              ├── evalResultList.jsp
+                              ├── home.jsp
+                              ├── library.jsp
+                              ├── teacherAttendanceCheck.jsp
+                              ├── teacherBottom.jsp
+                              ├── teacherTop.jsp
+                              ├── teaching.jsp
+                              ├── teachingForm.jsp
+                              ├── testList.jsp
+                              ├── testResultContent.jsp
+                              ├── testWriteForm.jsp
+                              ├── testWriteSuccess.jsp
+                              ├── updateLibraryForm.jsp
+                              └── writeLibraryForm.jsp
+                         ├── views
+                              ├── home.jsp
+                              ├── main.jsp
+                              ├── makeForm.jsp
+                              ├── studentBottom.jsp
+                              └── studentTop.jsp
+                         └── web.xml
+                    ├── pages
+                    ├── resources
+                    └── Main.jsp
+          └── test/resources
 ```
 
 <br>
