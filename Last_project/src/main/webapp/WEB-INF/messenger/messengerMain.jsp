@@ -53,7 +53,7 @@
     .seleted_list div { width: 15%; background: #f6f6f6; display: flex; justify-content: center; align-content: center; border-radius: 50px; margin-right: 7px; padding: 5px; color: #666; margin-top:10px; font-size: 14px;}
     .seleted_list div:last-child { margin-right:0;}
     
-    #selectedItems {display:flex; flex-wrap: wrap; overflow-y:auto;}
+    #selectedItems {display:flex !important; flex-wrap: wrap !important; overflow-y:auto !important; height: 80%;}
     #selectedItems div { padding: 15px 7px 0; box-sizing: border-box;}
 </style>
 
