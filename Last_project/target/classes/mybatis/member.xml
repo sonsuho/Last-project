@@ -73,6 +73,10 @@
 	<select id="getMemberByNum" resultType="member.model.MemberBean">
 		select * from member where mem_num = #{mem_num}
 	</select>
+	<select id="getImageByMemNum" resultType="member.model.MemberBean">
+		select * from member where mem_num = #{mem_num}
+	</select>
+	
 	
 	<select id="getStudentByLecNum" resultType="member.model.MemberBean">
 		select * from member where lec_num = #{lec_num} and category = 'student'
