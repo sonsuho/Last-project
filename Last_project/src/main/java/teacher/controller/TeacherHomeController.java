@@ -48,8 +48,8 @@ public class TeacherHomeController {
 	public ModelAndView home(HttpSession session,
 			@RequestParam(value = "month", required = false) String month,
 			@RequestParam(value="start", required=false) String start,
-			 @RequestParam(value="lec_Num", required=false) String lec_Num,
-			Model model) {
+			 @RequestParam(value="lec_Num", required=false) String lec_Num, Model model
+			) {
 	    ModelAndView mav = new ModelAndView();
 	    
 	    List<student.model.sCalendarBean> lists = sCalendarDao.getAllSchedules();
@@ -113,4 +113,5 @@ public class TeacherHomeController {
 	    return mav;
 	}
 	
+
 }

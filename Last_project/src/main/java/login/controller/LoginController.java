@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import login.model.LoginBean;
 import login.model.LoginDao;
 import member.model.MemberBean;
+import member.model.MemberDao;
 import utility.Sha256;
 
 @Controller
@@ -27,6 +28,9 @@ public class LoginController {
 	
 	@Autowired
 	LoginDao ldao;
+	
+	@Autowired
+	MemberDao memberDao;
 	
 	@RequestMapping(value=command, method=RequestMethod.GET)		// login.in get 요청 받아서 login폴더의 loginForm.jsp로 넘어간다
 	public String loginForm() {
@@ -64,6 +68,19 @@ public class LoginController {
 		}
 		
 		session.setAttribute("loginInfo", mb);						// 모든 문제가 없는 경우 세션으로 회원 정보를 지정한다음 result.jsp로 넘어간다!!!
+		
+		
+		
+		List<MemberBean> admin = memberDao.getMemberByCate("admin");
+		List<MemberBean> managerlist = memberDao.getMemberByCate("manager");
+		List<MemberBean> teacherlist = memberDao.getMemberByCate("teacher");
+		List<MemberBean> studentlist = memberDao.getMemberByCate("student");
+		session.setAttribute("admin", admin);
+		session.setAttribute("managerlist", managerlist);
+		session.setAttribute("teacherlist", teacherlist);
+		session.setAttribute("studentlist", studentlist);
+		
+		
 		
 		List<MemberBean> mlist = new ArrayList<MemberBean>();
 		List<MemberBean> alist = new ArrayList<MemberBean>();

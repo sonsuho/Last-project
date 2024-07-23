@@ -38,6 +38,9 @@
 		span{
 			margin-right: 5;
 		}
+		.btn-fixed-width {
+            width: 90px;
+        }
     </style>
     <script>
         function allDelete(obj) {
@@ -61,6 +64,7 @@
                 alert("삭제할 문서를 선택하세요");
                 return;
             }
+            document.myform.action = "selectDeleteReq2.admin";
             document.myform.submit();
         }
 
@@ -109,7 +113,7 @@
        <div class="page-header">
 	<h3 class="page-title" style="font-weight:700;">
 		<span class="sub-next-title" onclick="requestList()">받은 결재함</span> 
-		<span>결재 문서함</span>
+		<span>결재 목록</span>
 	</h3>
 		<nav aria-label="breadcrumb">
         	<div class="input-group-append">
@@ -121,14 +125,15 @@
                 <div class="card-body">
 
 					<div class="row">
-	                    
+	                    <div class="col-lg-8"></div>
 				        <div class="col-lg-4">
 	                     	<form action="request2.admin" style="display:flex;">
 	                     		<input type="hidden" name="whatColumn" value="all">
                         		<input type="hidden" name="mem_num" value="${loginInfo.mem_num}">
 		                        <input type="text" name="keyword" class="form-control" placeholder="이름 또는 제목을 입력하세요." aria-label="Recipient's username" aria-describedby="basic-addon2" style="width: 400px;">
 	                   			
-		                        <button type="submit" class="btn btn-sm btn-success py-3" type="button" style="width: 70px;">검색</button>
+		                        <button type="submit" class="btn btn-sm btn-success py-3 btn-fixed-width" type="button">검색</button>
+                        		<input type="button" value="일괄삭제" onclick="selectDelete()" class="btn btn-sm btn-gradient-danger py-3">
 	                        </form>
 				        </div>
 	                </div>
@@ -136,12 +141,14 @@
                     <!-- Pending Documents -->
                     <form name="myform" action="selectDeleteReq2.admin" method="post">
                         <input type="hidden" name="ap_delete" value="A">
-                        <input type="button" value="일괄삭제" onclick="selectDelete()" class="btn btn-sm btn-gradient-danger py-3">
                         <table class="table table-hover">
                             <thead>
-                                <tr>
-                                    <th colspan="3"><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></th>
-                                </tr>
+                               <tr class="table-danger">
+                                <td><input type="checkbox" onclick="allDelete(this)" class="form-check-input"></td>
+                                
+                                <td>제목/내용</td>
+                                <td>상태/날짜</td>
+                            </tr>
                             </thead>
                             <tbody>
                                 <c:choose>
@@ -159,6 +166,8 @@
                                                         <a href="javascript:void(0);" onclick="openDetail('${r.req_num}', '${loginInfo.mem_num}', '${r.title}', '${r.reason}', '${r.memberName}','${r.time1}', '${r.time2}', '${r.sign}', '${loginInfo.mem_num}','${pageInfo.pageNumber }' ,'${r.ap_situ}')">
                                                             ${r.memberName}
                                                         </a>
+                                                        <br><br>
+                                                 		${r.reason}
                                                     </td>
                                                     <td>
                                                         <c:if test="${r.ap_situ == '승인'}">
@@ -167,11 +176,9 @@
                                             			<c:if test="${r.ap_situ == '반려'}">
                                                 			<label class="badge badge-danger">반려</label>
                                             			</c:if>
+                                            			<br><br>
+                                                    		${r.time1}
                                                     </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>${r.reason}</td>
-                                                    <td>${r.time1}</td>
                                                 </tr>
                                             </c:if>
                                         </c:forEach>
