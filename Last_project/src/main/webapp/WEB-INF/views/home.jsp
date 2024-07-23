@@ -6,7 +6,8 @@
     request.setCharacterEncoding("UTF-8");
 %>
 
-<%@ include file="studentTop.jsp"%>
+   <%@include file = "../student/studentTop.jsp"%>
+
     
     <!-- header -->
     <div class="page-header">
@@ -172,4 +173,4 @@
         
     </script>
     
-<%@ include file="studentBottom.jsp"%>
+   <%@include file = "../student/studentBottom.jsp"%>

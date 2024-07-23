@@ -93,13 +93,13 @@
 		      <!-- gnb -->
 		      <ul class="navbar-nav mr-lg-2 gnb">
 	            <li class="nav-item  d-none d-lg-flex">
-	              <a class="nav-link" href="library.teacher">
-	                자료실
+	              <a class="nav-link" href="notice.manager">
+	                공지사항
 	              </a>
 	            </li>
 	            <li class="nav-item  d-none d-lg-flex">
-	              <a class="nav-link" href="notice.manager">
-	                공지사항
+	              <a class="nav-link" href="library.teacher">
+	                자료실
 	              </a>
 	            </li>
 	            <li class="nav-item  d-none d-lg-flex">
@@ -179,7 +179,7 @@
 						<!-- 사이드바 메인 메뉴 -->
 						<li class="nav-item">
 							<a class="nav-link" href="home.student">
-								<span class="menu-title">StudentMain</span> 
+								<span class="menu-title">홈</span> 
 								<i class="mdi mdi-home menu-icon"></i>
 							</a>
 						</li>
@@ -256,7 +256,7 @@
 									</li>
 									
 									<li class="nav-item">
-										<a class="nav-link" href="">자료실</a>
+										<a class="nav-link" href="library.teacher">자료실</a>
 									</li>
 								</ul>
 							</div>

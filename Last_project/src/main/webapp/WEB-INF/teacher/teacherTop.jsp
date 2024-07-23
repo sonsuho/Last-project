@@ -89,18 +89,13 @@
 		      <!-- gnb -->
 			  <ul class="navbar-nav mr-lg-2 gnb">
 		          <li class="nav-item  d-none d-lg-flex">
-		            <a class="nav-link" href="library.teacher">
-		                자료실
-		            </a>
-		          </li>
-		          <li class="nav-item  d-none d-lg-flex">
 		            <a class="nav-link" href="notice.manager">
 		                공지사항
 		            </a>
 		          </li>
 		          <li class="nav-item  d-none d-lg-flex">
-		            <a class="nav-link active" href="main.chat">
-		               스터디 그룹챗
+		            <a class="nav-link" href="library.teacher">
+		                자료실
 		            </a>
 		          </li>
 	          </ul>
@@ -177,7 +172,7 @@
 						<!-- 사이드바 메인 메뉴 -->
 						<li class="nav-item">
 							<a class="nav-link" href="home.teacher">
-								<span class="menu-title">TeacherMain</span> 
+								<span class="menu-title">홈</span> 
 								<i class="mdi mdi-home menu-icon"></i>
 							</a>
 						</li>
@@ -212,6 +207,21 @@
 									<li class="nav-item">
 										<a class="nav-link" href="evalResultList.teacher">강의평가</a>
 									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#menu4" aria-expanded="false" aria-controls="menu4"> 
+								<span class="menu-title">게시판</span> 
+								<i class="menu-arrow"></i> 
+								<i class="fa fa-bullhorn menu-icon"></i>
+							</a>
+							<div class="collapse" id="menu4">
+								<ul class="nav flex-column sub-menu">
+									<li class="nav-item">
+										<a class="nav-link" href="notice.manager">공지사항</a>
+									</li>
+									
 									<li class="nav-item">
 										<a class="nav-link" href="library.teacher">자료실</a>
 									</li>
