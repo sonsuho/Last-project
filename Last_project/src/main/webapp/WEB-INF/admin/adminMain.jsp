@@ -1,20 +1,7 @@
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="adminBarTop.jsp" %>
-	
-<%
-    // 현재 날짜 정보 가져오기
-    java.time.LocalDate currentDate = java.time.LocalDate.now();
-    
-    // 현재 월의 첫 날과 마지막 날 계산
-    java.time.LocalDate firstDayOfMonth = currentDate.withDayOfMonth(1);
-    java.time.LocalDate lastDayOfMonth = currentDate.withDayOfMonth(currentDate.lengthOfMonth());
-    
-    // 첫 날의 요일 가져오기 (1: 월요일, 7: 일요일)
-    int firstDayOfWeekValue = firstDayOfMonth.getDayOfWeek().getValue();
-    // 첫 날의 요일 (한국 형식, 1: 월요일, 7: 일요일)
-    int firstDayOfWeekKorea = firstDayOfWeekValue % 7 + 1; // 일요일로 다시 시작하는 형식
-%>
 
 	<style>
 		.square-container {
@@ -27,6 +14,10 @@
 			  padding: 15px; /* 간격 조절 */
 			  border: 2px solid #f0f0f0;
 			  border-radius: 20px;
+		}
+		
+		th{
+			text-align: center !important;
 		}
 		
 		.square-content {
@@ -52,30 +43,6 @@
 			  margin-top: 12px;
     }
 		
-		.calendar-table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .calendar-table th, .calendar-table td {
-        padding: 10px;
-        text-align: center;
-        border: 1px solid #e0e0e0;
-    }
-
-    .notice-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .notice-list li {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px 0;
-        border-bottom: 1px solid #e0e0e0;
-    }
-    
     .lecture-date {
 				margin-right: 20px;
 				color: #6e6e6e;
@@ -89,8 +56,7 @@
 		}
 	</style>
 
- 	<div class="row">
-	    <div class="col-lg-12 grid-margin stretch-card">
+	   <!--  <div class="col-lg-12 grid-margin stretch-card"> -->
 	        <div class="card">
 	            <div class="card-body">
 	                	
@@ -101,10 +67,12 @@
 				              		<font size="5pt" style="padding-left: 20px; padding-right: 30px;">클래스별 강좌 현황</font>
 				              		<button class="btn btn-gradient-success btn-rounded" onclick="location.href='lectureList.admin'">강좌목록</button>
 				              </div>
-		                  
+		                  <% Date currentDate = new Date(); %>
 			                <div class="inner-container">
 											    <c:forEach var="lb" items="${lecture}">
-											    		<div class="square-container" data-lec-num="${lb.lec_num}" onclick="lectureModal(this)">
+											    		<fmt:parseDate var="end" value="${lb.lec_end}" pattern="yyyy-MM-dd" />
+											    		<c:set var="nowTime" value="<%=currentDate.getTime()%>" />
+											    		<div class="square-container" data-lec-num="${lb.lec_num}" onclick="lectureModal(this)" <c:if test="${end.time < nowTime}">style="opacity: 0.5;"</c:if>>
 											    				<div class="square-content">
 											    						<div class="square-title">
 							    												<font style="padding-left: 20px; font-size: 18px; font-weight: bold; width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${lb.lec_name}</font>
@@ -113,9 +81,9 @@
 							    										<table class="table" style="margin-top:30px;">
 																	    		<tr>
 																	    				<td><span class="badge badge-info" style="width:55px; opacity: 0.6;">매니저</span></td>
-																	    				<td>${lb.t_name}</td>
-																	    				<td><span class="badge badge-danger" style="width:55px; opacity: 0.6;">강사</span></td>
 																	    				<td>${lb.m_name}</td>
+																	    				<td><span class="badge badge-danger" style="width:55px; opacity: 0.6;">강사</span></td>
+																	    				<td>${lb.t_name}</td>
 																	    		</tr>
 																	    </table>
 																	    <p style="padding-top:20px; padding-left: 20px;" align="left">
@@ -138,101 +106,7 @@
                   </div>
               </div>
           </div>
-      </div>
-						
-	    <div class="col-lg-6 grid-margin stretch-card">
-	        <div class="card">
-	            <div class="card-body">
-	                
-                 <!-- Calendar and Notice Section -->
-                  <h4><%= currentDate.getYear() %>년 <%= currentDate.getMonthValue() %>월 캘린더</h4>
-                  <table class="calendar-table">
-                      <thead>
-                          <tr>
-                              <th>Su</th>
-                              <th>Mo</th>
-                              <th>Tu</th>
-                              <th>We</th>
-                              <th>Th</th>
-                              <th>Fr</th>
-                              <th>Sa</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr>
-                              <% 
-                                  // 첫 주의 공백 채우기
-                                  for (int i = 1; i < firstDayOfWeekKorea; i++) {
-                              %>
-                              <td></td>
-                              <% } %>
-                              
-                              <% 
-             // 날짜 출력
-             int dayOfMonth = 1;
-             while (dayOfMonth <= lastDayOfMonth.getDayOfMonth()) {
-                 
-                 // 오늘 날짜와 같으면 셀에 초록색 배경 추가
-                 boolean isToday = (dayOfMonth == java.time.LocalDate.now().getDayOfMonth());
-                 
-                 if (isToday) { %>
-                     <td style="background-color: #36E0C6;"><%= dayOfMonth %></td>
-                 <% } else { %>
-                     <td><%= dayOfMonth %></td>
-                 <% }
-                 
-                 // 일주일이 끝나면 다음 줄로
-                 if ((firstDayOfWeekKorea + dayOfMonth - 1) % 7 == 0) { %>
-         </tr><tr>
-             <% }
-             dayOfMonth++;
-             } 
-         %>
-                          </tr>
-                      </tbody>
-                  </table>
-                      
-              </div>
-          </div>
-      </div>
-	              
-	    <div class="col-lg-6 grid-margin stretch-card">
-	        <div class="card">
-	            <div class="card-body">
-	                         
-                  <h4>공지사항</h4>
-                  <ul class="notice-list">
-                      <li>
-                          <span class="badge badge-secondary" style="width:8%">전체</span>
-                          <span>쌍용강북센터 휴가 안내</span>
-                          <span>2024-06-28</span>
-                      </li>
-                      <li>
-                          <span class="badge badge-info" style="width:8%">우리반</span>
-                          <span>MySQL 과제 리스트 안내</span>
-                          <span>2024-06-24</span>
-                      </li>
-                      <li>
-                          <span class="badge badge-info" style="width:8%">우리반</span>
-                          <span>Spring 설치 방법</span>
-                          <span>2024-06-24</span>
-                      </li>
-                      <li>
-                          <span class="badge badge-secondary" style="width:8%">전체</span>
-                          <span>국민취업지원제도 관련 안내</span>
-                          <span>2024-06-19</span>
-                      </li>
-                      <li>
-                          <span class="badge badge-secondary" style="width:8%">전체</span>
-                          <span>시스템 사용 안내</span>
-                          <span>2024-06-14</span>
-                      </li>
-                  </ul>
-	                     
-	            </div>
-	        </div>
-	    </div>
-	</div>
+      <!-- </div> -->
 
 	<!-- 강좌 상세정보 모달 -->
 	<div class="modal fade" id="lectureModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="lectureModalLabel" aria-hidden="true">
@@ -266,6 +140,8 @@
 	    </div>
 	  </div>
 	</div>
+	
+<%@ include file="adminBarBottom.jsp" %>
 
 <script type="text/javascript">
 
@@ -289,8 +165,8 @@ function studentDetail(lec_num) {
 			          $.each(response.members, function(index, member) {
 			        	  if(member.state == "진행"){
 			        		  state = "info";
-			        	  } else if(member.state == "퇴실"){
-			        		  state = "danger";
+			        	  } else if(member.state == "수료"){
+			        		  state = "dark";
 			        	  }
 			            $('#member-list table').append(
 			              '<tr>' +
@@ -360,7 +236,7 @@ function lectureModal(element) {
 	       $('#lecture-info').html(
 	    		'<table class="table table-bordered">' + 
 	         '<tr>' +
-	         '<th class="table-warning" colspan=4>' + response.lecture.lec_name + '  [' + response.lecture.lec_num + ']' + '</th>' +
+	         '<th class="table-warning" colspan=4 >' + response.lecture.lec_name + '  [' + response.lecture.lec_num + ']' + '</th>' +
 	         '</tr>' +
 	         '<tr>' +
 	         '<th rowspan=2>기간</th><td colspan=3 align=center>' + lecStartDateStr + " ~ " + lecEndDateStr + '</td>' +
@@ -406,8 +282,8 @@ function lectureModal(element) {
 	         $.each(response.members, function(index, member) {
 	       	  if(member.state == "진행"){
 	       		  state = "info";
-	       	  } else if(member.state == "퇴실"){
-	       		  state = "danger";
+	       	  } else if(member.state == "수료"){
+	       		  state = "dark";
 	       	  }
 	           $('#member-list table').append(
 	             '<tr>' +
@@ -430,4 +306,3 @@ function lectureModal(element) {
 }
 </script>
     
-<%@ include file="adminBarBottom.jsp" %>

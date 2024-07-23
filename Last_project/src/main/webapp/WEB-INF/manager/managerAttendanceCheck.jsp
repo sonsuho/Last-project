@@ -125,8 +125,8 @@
 
 <div align="center">
 	<body onload="getTime()">
-	<h6 id="Now_Date" style="color: #949494; position: relative; right: 40px; font-family: Times New Roman, serif;"></h6>
-	<h1 id="Now_Time" style="font-family: Times New Roman, serif;"></h1>
+	<span id="Now_Date" style="color: #949494; position: relative; right: 20px; font-family: NotoSans;"></span>
+	<h1 id="Now_Time" style="font-family: NotoSans; font-size: 40px"></h1><br>	
 
 	<span style="position: absolute; left: 63px; ">출근시간</span>
 	<span style="position: absolute; left: 128px; ">:</span>
@@ -150,7 +150,6 @@
 
     if(check_flag.equals("")) {    //아직 출석 안함
 %>
-
 		<!-- 출근하기 Button -->
 		<form name="checkInForm" id="checkInForm" action="start.manager?mem_num=${loginInfo.mem_num}&mem_ip=${loginInfo.mem_ip}&mem_latitude=${loginInfo.mem_latitude}&mem_longitude=${loginInfo.mem_longitude}" method="post">
 		
@@ -179,5 +178,5 @@
     }
 %>
 	</body>
-	<hr style="width : 70%;">
+	<hr style="margin-top:30px; width : 70%;">
 </div>
