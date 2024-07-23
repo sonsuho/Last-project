@@ -27,7 +27,7 @@ public class RequestController {
 
 	private final String command = "requestForm.manager";
 	private final String getPage = "requestForm";
-	private final String gotoPage = "home";
+	private final String gotoPage = "redirect:/request.manager";
 	
 	@Autowired
 	RequestDao rdao;
@@ -76,6 +76,8 @@ public class RequestController {
         
         
         service.addAlarm(paramap);
+        
+        mav.addObject("mem_num",mb.getMem_num());
 		
 		return mav;
 	}

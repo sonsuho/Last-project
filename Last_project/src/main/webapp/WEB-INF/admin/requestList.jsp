@@ -160,7 +160,7 @@
                                         <c:forEach var="r" items="${pendingList}">
                                             <c:if test="${fn:contains(r.ap_delete , 'A')}">
                                                 <tr>
-                                                    <td rowspan="2"><input type="checkbox" value="${r.req_num}" name="rowcheck" class="form-check-input"></td>
+                                                    <td><input type="checkbox" value="${r.req_num}" name="rowcheck" class="form-check-input"></td>
                                                     <td>
                                                         <a href="javascript:void(0);" onclick="openDetail('${r.req_num}', '${loginInfo.mem_num}', '${r.title}', '${r.reason}', '${r.memberName}','${r.time1}', '${r.time2}', '${r.sign}', '${loginInfo.mem_num}','${pageInfo.pageNumber }' ,'${r.ap_situ}')">
                                                             ${r.memberName}

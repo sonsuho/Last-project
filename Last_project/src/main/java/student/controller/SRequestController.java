@@ -25,7 +25,7 @@ public class SRequestController {
 
 	private final String command = "request.student";
 	private final String getPage = "requestForm";
-	private final String gotoPage = "home";
+	private final String gotoPage = "redirect:/request.student";
 	
 	@Autowired
 	SRequestDao requestDao;
@@ -73,6 +73,7 @@ public class SRequestController {
         paramap.put("alarm_content", mb.getName() + "님이 결재 문서를 보냈습니다. 확인해 주세요." );
         paramap.put("alarm_type", "1" );
         
+        mav.addObject("mem_num",mb.getMem_num());
         
         service.addAlarm(paramap);
 		

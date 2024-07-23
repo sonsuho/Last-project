@@ -35,7 +35,7 @@ import member.model.MemberBean;
 public class ManagerEtcController {
     private final String command = "/etc.manager";
     private final String getPage = "etcForm";
-    private final String gotoPage = "home";
+    private final String gotoPage = "redirect:/etcList.manager";
 
     @Autowired
     EtcDao edao;
@@ -55,6 +55,8 @@ public class ManagerEtcController {
         int sender_num = mb.getMem_num();
         mav.addObject("sender_num", sender_num);
         mav.addObject("mlist", mlist);
+        
+        
         mav.setViewName(getPage);
         return mav;
     }
@@ -176,6 +178,7 @@ public class ManagerEtcController {
         
         System.out.println("stdList:"+stdList);
         
+        mav.addObject("mem_num",mb.getMem_num());
         service.addAlarm(paramap);
 
         return mav;

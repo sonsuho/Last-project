@@ -87,6 +87,7 @@ public class MangerRequestListController {
 	public ModelAndView requestList2(@RequestParam(value = "whatColumn", required = false) String whatColumn,
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "pageNumber", required = false) String pageNumber,
+			@RequestParam(value = "mem_num", required = false) String mem_num,
 			HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 
@@ -94,6 +95,7 @@ public class MangerRequestListController {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("keyword", "%"+keyword+"%");
 		map.put("whatColumn", whatColumn);
+		map.put("app_num", mem_num);
 
 		int totalCount = rdao.getTotalCountByApproval(map);
 		System.out.println("현재개수:"+totalCount);

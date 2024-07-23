@@ -226,12 +226,7 @@
     <if test="WhatColumn == 'all'">
         AND (etc_title LIKE #{keyword} OR etc_content LIKE #{keyword})
     </if>
-    <if test="WhatColumn == 'etc_title'">
-        AND etc_title LIKE #{keyword}
-    </if>
-    <if test="WhatColumn == 'etc_content'">
-        AND etc_content LIKE #{keyword}
-    </if>
+   
     ORDER BY etc_num DESC
 </select>
    <!-- etc -->
@@ -252,16 +247,7 @@
        <if test="WhatColumn == 'all'">
          where title like #{keyword} or reason like #{keyword} or ap_situ like #{keyword}
       </if>
-      <if test="WhatColumn == 'title'">
-         where title like #{keyword}
-      </if>
-      <if test="WhatColumn == 'reason'">
-      
-         where reason like #{keyword}
-      </if>
-      <if test="WhatColumn == 'ap_situ'">
-         where ap_situ like #{keyword}
-      </if>
+     
       order by r.req_num desc
    </select>
   <select id="RequestAdminPaging2" resultMap="RequestWithMemberNameResultMap">
@@ -272,16 +258,7 @@
        <if test="WhatColumn == 'all'">
          where title like #{keyword} or reason like #{keyword} or ap_situ like #{keyword}
       </if>
-      <if test="WhatColumn == 'title'">
-         where title like #{keyword}
-      </if>
-      <if test="WhatColumn == 'reason'">
-      
-         where reason like #{keyword}
-      </if>
-      <if test="WhatColumn == 'ap_situ'">
-         where ap_situ like #{keyword}
-      </if>
+     
       order by r.req_num desc
    </select>
    
@@ -316,16 +293,7 @@
        <if test="WhatColumn == 'all'">
          where title like #{keyword} or reason like #{keyword} or ap_situ like #{keyword}
       </if>
-      <if test="WhatColumn == 'title'">
-         where title like #{keyword}
-      </if>
-      <if test="WhatColumn == 'reason'">
       
-         where reason like #{keyword}
-      </if>
-      <if test="WhatColumn == 'ap_situ'">
-         where ap_situ like #{keyword}
-      </if>
       order by r.req_num desc
    </select>
    
@@ -333,20 +301,11 @@
     SELECT r.req_num, r.mem_num, r.category, r.time1, r.time2, r.reason, r.sign, r.ap_situ, r.title, r.ap_delete ,m.name
     FROM request r
     JOIN member m ON r.mem_num = m.mem_num
-    where r.ap_situ is not null
+    where r.ap_situ is not null 
        <if test="WhatColumn == 'all'">
          where title like #{keyword} or reason like #{keyword} or ap_situ like #{keyword}
       </if>
-      <if test="WhatColumn == 'title'">
-         where title like #{keyword}
-      </if>
-      <if test="WhatColumn == 'reason'">
-      
-         where reason like #{keyword}
-      </if>
-      <if test="WhatColumn == 'ap_situ'">
-         where ap_situ like #{keyword}
-      </if>
+     
       order by r.req_num desc
    </select>
    
@@ -373,16 +332,7 @@
        <if test="WhatColumn == 'all'">
          where title like #{keyword} or reason like #{keyword} or ap_situ like #{keyword}
       </if>
-      <if test="WhatColumn == 'title'">
-         where title like #{keyword}
-      </if>
-      <if test="WhatColumn == 'reason'">
-      
-         where reason like #{keyword}
-      </if>
-      <if test="WhatColumn == 'ap_situ'">
-         where ap_situ like #{keyword}
-      </if>
+     
       order by r.req_num desc
    </select>
    
@@ -463,15 +413,6 @@
         <if test="WhatColumn == 'all'">
             WHERE r.title LIKE #{keyword} OR r.reason LIKE #{keyword} OR r.ap_situ LIKE #{keyword}
         </if>
-        <if test="WhatColumn == 'title'">
-            WHERE r.title LIKE #{keyword}
-        </if>
-        <if test="WhatColumn == 'reason'">
-            WHERE r.reason LIKE #{keyword}
-        </if>
-        <if test="WhatColumn == 'ap_situ'">
-            WHERE r.ap_situ LIKE #{keyword}
-        </if>
         
      </select>
      
@@ -483,15 +424,7 @@
         <if test="WhatColumn == 'all'">
             WHERE r.title LIKE #{keyword} OR r.reason LIKE #{keyword} OR r.ap_situ LIKE #{keyword}
         </if>
-        <if test="WhatColumn == 'title'">
-            WHERE r.title LIKE #{keyword}
-        </if>
-        <if test="WhatColumn == 'reason'">
-            WHERE r.reason LIKE #{keyword}
-        </if>
-        <if test="WhatColumn == 'ap_situ'">
-            WHERE r.ap_situ LIKE #{keyword}
-        </if>
+        
      </select>
      
      
@@ -503,15 +436,7 @@
         <if test="WhatColumn == 'all'">
             WHERE r.title LIKE #{keyword} OR r.reason LIKE #{keyword} OR r.ap_situ LIKE #{keyword}
         </if>
-        <if test="WhatColumn == 'title'">
-            WHERE r.title LIKE #{keyword}
-        </if>
-        <if test="WhatColumn == 'reason'">
-            WHERE r.reason LIKE #{keyword}
-        </if>
-        <if test="WhatColumn == 'ap_situ'">
-            WHERE r.ap_situ LIKE #{keyword}
-        </if>
+        
         
      </select>
      
@@ -519,19 +444,11 @@
         SELECT COUNT(*)
         FROM request r
         JOIN member m ON r.mem_num = m.mem_num 
-        where r.ap_situ is not null and r.app_num = #{mem_num}
+        where r.ap_situ is not null
         <if test="WhatColumn == 'all'">
             WHERE r.title LIKE #{keyword} OR r.reason LIKE #{keyword} OR r.ap_situ LIKE #{keyword}
         </if>
-        <if test="WhatColumn == 'title'">
-            WHERE r.title LIKE #{keyword}
-        </if>
-        <if test="WhatColumn == 'reason'">
-            WHERE r.reason LIKE #{keyword}
-        </if>
-        <if test="WhatColumn == 'ap_situ'">
-            WHERE r.ap_situ LIKE #{keyword}
-        </if>
+        
      </select>
      
      
@@ -539,19 +456,11 @@
         SELECT COUNT(*)
         FROM request r
         JOIN member m ON r.mem_num = m.mem_num 
-        where r.ap_situ is not null
+        where r.ap_situ is not null 
         <if test="WhatColumn == 'all'">
             WHERE r.title LIKE #{keyword} OR r.reason LIKE #{keyword} OR r.ap_situ LIKE #{keyword}
         </if>
-        <if test="WhatColumn == 'title'">
-            WHERE r.title LIKE #{keyword}
-        </if>
-        <if test="WhatColumn == 'reason'">
-            WHERE r.reason LIKE #{keyword}
-        </if>
-        <if test="WhatColumn == 'ap_situ'">
-            WHERE r.ap_situ LIKE #{keyword}
-        </if>
+        
      </select>
      
      <select id="getTotalCountByApprovalByMem_Num" resultType="int">
@@ -562,15 +471,7 @@
         <if test="WhatColumn == 'all'">
             WHERE r.title LIKE #{keyword} OR r.reason LIKE #{keyword} OR r.ap_situ LIKE #{keyword}
         </if>
-        <if test="WhatColumn == 'title'">
-            WHERE r.title LIKE #{keyword}
-        </if>
-        <if test="WhatColumn == 'reason'">
-            WHERE r.reason LIKE #{keyword}
-        </if>
-        <if test="WhatColumn == 'ap_situ'">
-            WHERE r.ap_situ LIKE #{keyword}
-        </if>
+        
      </select>
      
      
@@ -579,16 +480,7 @@
         <if test="WhatColumn == 'all'">
          where title like #{keyword} or reason like #{keyword} or ap_situ like #{keyword}
       </if>
-      <if test="WhatColumn == 'title'">
-         where title like #{keyword}
-      </if>
-      <if test="WhatColumn == 'reason'">
       
-         where reason like #{keyword}
-      </if>
-      <if test="WhatColumn == 'ap_situ'">
-         where ap_situ like #{keyword}
-      </if>
      </select>
    <!-- request -->
 
