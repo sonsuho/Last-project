@@ -13,6 +13,7 @@ import messenger.model.MessengerDao;
 import javax.servlet.http.HttpSession;
 
 import member.model.MemberBean;
+import member.model.MemberDao;
 
 
 @Controller
@@ -21,6 +22,8 @@ public class MessengerDetailController {
 	@Autowired
 	MessengerDao messengerDao;
 	
+	@Autowired
+	MemberDao memberDao;
 	
 	
 	@RequestMapping(value="/detail.messenger", produces = "application/json")
@@ -31,6 +34,9 @@ public class MessengerDetailController {
 		MemberBean loginInfo = (MemberBean)session.getAttribute("loginInfo");
 		
 		MessengerBean mb = messengerDao.getMsgDetailByNum(msg_num, loginInfo);
+		MemberBean member = memberDao.getImageByMemNum(mb.getMem_num());
+		mb.setImage(member.getImage());
+		
 		
 		String msgUpload = mb.getMsg_upload();
         if (msgUpload != null) {

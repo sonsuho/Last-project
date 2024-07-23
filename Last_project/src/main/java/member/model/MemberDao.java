@@ -100,6 +100,14 @@ public class MemberDao {
 		
 		return list;
 	}
+	
+	public MemberBean getImageByMemNum(int mem_num) {
+		System.out.println("이미지 가져오기: num : " + mem_num);
+		MemberBean member = sqlSessionTemplate.selectOne(namespace + ".getImageByMemNum", mem_num);
+		System.out.println("여기 ");
+		System.out.println(member.getImage());
+		return member;
+	}
 
 	public List<MemberBean> getStudentByLecNum(int lec_num){
 		List<MemberBean> members = new ArrayList<MemberBean>();

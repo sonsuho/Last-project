@@ -350,6 +350,7 @@ public Paging(
    }
    
 
+
    private String getPagingHtml( String url ){ //페이징 문자열을 만든다.
       System.out.println("getPagingHtml url:"+url); 
    
@@ -402,6 +403,7 @@ public Paging(
       
       return result ;
    }
+
    
    /* 메신저 안읽은 메시지 페이징처리 */
    /* ------- 수진 -------- */
@@ -472,6 +474,7 @@ public Paging(
    
 
 
+
 //   private String getPagingHtml( String url ){ //페이징 문자열을 만든다.
 //      System.out.println("getPagingHtml url:"+url); 
 //   
@@ -524,6 +527,7 @@ public Paging(
 //      
 //      return result ;
 //   }   
+
 
    
 }
