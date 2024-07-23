@@ -36,7 +36,7 @@ import student.model.SEtcDao;
 public class StudentEtcController {
     private final String command = "/etc.student";
     private final String getPage = "etcForm";
-    private final String gotoPage = "home";
+    private final String gotoPage = "redirect:/home.student";
 
     @Autowired
     SEtcDao edao;
@@ -154,11 +154,12 @@ public class StudentEtcController {
             mav.setViewName(getPage);
         }
         
+        MemberBean mb = (MemberBean)session.getAttribute("loginInfo");
+        
         mav.setViewName(gotoPage);
 
         String stdList = String.join(",", rowcheck );
         
-        MemberBean mb = (MemberBean)session.getAttribute("loginInfo");
 
         paramap.put("fk_recipientno", stdList); // 받는사람 (여러명일때는 ,,으로 구분된 str)
         paramap.put("url", "/etcList.manager?mem_num=" );
@@ -167,6 +168,7 @@ public class StudentEtcController {
         paramap.put("alarm_type", "3" );
         
         System.out.println("stdList:"+stdList);
+        
         
         service.addAlarm(paramap);
         
