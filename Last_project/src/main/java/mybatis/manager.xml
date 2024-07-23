@@ -17,12 +17,7 @@
         <if test="WhatColumn == 'all'">
          and (etc_title LIKE #{keyword} OR etc_content LIKE #{keyword})
       </if>
-      <if test="WhatColumn == 'etc_title'">
-         and etc_title like #{keyword}
-      </if>
-      <if test="WhatColumn == 'etc_content'">
-         and etc_content like #{keyword}
-      </if>
+     
       order by etc_num desc
    </select>
    
@@ -32,12 +27,7 @@
         <if test="WhatColumn == 'all'">
          and (etc_title LIKE #{keyword} OR etc_content LIKE #{keyword})
       </if>
-      <if test="WhatColumn == 'etc_title'">
-         and etc_title like #{keyword}
-      </if>
-      <if test="WhatColumn == 'etc_content'">
-         and etc_content like #{keyword}
-      </if>
+     
       order by etc_num desc
    </select>
    
@@ -70,12 +60,8 @@
         <if test="WhatColumn == 'all'">
          and (etc_title LIKE #{keyword} OR etc_content LIKE #{keyword})
       </if>
-      <if test="WhatColumn == 'etc_title'">
-         and etc_title like #{keyword}
-      </if>
-      <if test="WhatColumn == 'etc_content'">
-         and etc_content like #{keyword}
-      </if>
+      
+      
      </select>
      
      
@@ -85,12 +71,7 @@
         <if test="WhatColumn == 'all'">
          where etc_title LIKE #{keyword} OR etc_content LIKE #{keyword}
       </if>
-      <if test="WhatColumn == 'etc_title'">
-         where etc_title like #{keyword}
-      </if>
-      <if test="WhatColumn == 'etc_content'">
-         where etc_content like #{keyword}
-      </if>
+     
      </select>
      
      <select id="totalCountEtcByMmem_Num" resultType="int">
@@ -99,12 +80,7 @@
         <if test="WhatColumn == 'all'">
          where etc_title LIKE #{keyword} OR etc_content LIKE #{keyword}
       </if>
-      <if test="WhatColumn == 'etc_title'">
-         where etc_title like #{keyword}
-      </if>
-      <if test="WhatColumn == 'etc_content'">
-         where etc_content like #{keyword}
-      </if>
+     
      </select>
      
      <select id="totalCountEtcBySender_Num" resultType="int">
@@ -114,12 +90,7 @@
     <if test="WhatColumn == 'all'">
         and (etc_title LIKE #{keyword} OR etc_content LIKE #{keyword})
     </if>
-    <if test="WhatColumn == 'etc_title'">
-        and etc_title like #{keyword}
-    </if>
-    <if test="WhatColumn == 'etc_content'">
-        and etc_content like #{keyword}
-    </if>
+    
    </select>
    
      <select id="totalCountEtcByMSender_Num" resultType="int">
@@ -144,12 +115,7 @@
         <if test="WhatColumn == 'all'">
          and (etc_title LIKE #{keyword} OR etc_content LIKE #{keyword})
       </if>
-      <if test="WhatColumn == 'etc_title'">
-         and etc_title like #{keyword}
-      </if>
-      <if test="WhatColumn == 'etc_content'">
-         and etc_content like #{keyword}
-      </if>
+      ORDER BY etc_num DESC
      </select>
   
   <!--매니저 etc_delete M 포함 안된 개수 가져오기  -->
@@ -201,6 +167,7 @@
         FROM etc e
         JOIN member m ON e.mem_num = m.mem_num
         WHERE e.mem_num = #{mem_num}
+        ORDER BY e.etc_num DESC
     </select>
 
     <select id="getEtcSenderListWithMemberInfo" parameterType="map" resultMap="EtcWithMemberNameResultMap">
@@ -209,6 +176,7 @@
         FROM etc e
         JOIN member m ON e.sender_num = m.mem_num
         WHERE e.sender_num = #{sender_num}
+        ORDER BY e.etc_num DESC
     </select>
     
     <select id="getEtcStuSenderListWithMemberInfo" parameterType="map" resultMap="EtcWithMemberNameResultMap">
@@ -217,6 +185,7 @@
         FROM etc e
         JOIN member m ON e.sender_num = m.mem_num
         WHERE e.sender_num = #{sender_num}
+        ORDER BY e.etc_num DESC
     </select>
      
      <select id="totalCountEtcByNum" resultType="int" parameterType="map">
@@ -271,16 +240,7 @@
        <if test="WhatColumn == 'all'">
          where title like #{keyword} or reason like #{keyword} or ap_situ like #{keyword}
       </if>
-      <if test="WhatColumn == 'title'">
-         where title like #{keyword}
-      </if>
-      <if test="WhatColumn == 'reason'">
       
-         where reason like #{keyword}
-      </if>
-      <if test="WhatColumn == 'ap_situ'">
-         where ap_situ like #{keyword}
-      </if>
       order by r.req_num desc
    </select>
   
