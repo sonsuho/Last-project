@@ -338,7 +338,7 @@
   		        '</td>' + 
   	          '</tr>' +
   	          '<tr>' +
-  	          '<th>학생수</th><td>' + response.members.length + "/" + response.lecture.stu_cnt + '</td>' +
+  	          '<th>학생수</th><td>' + response.members.length + " / " + response.lecture.stu_cnt + '</td>' +
   	          '<th>반</th><td>' + response.lecture.class_name + '</td>' +
   	          '</tr>' +
   	          '<tr>' +

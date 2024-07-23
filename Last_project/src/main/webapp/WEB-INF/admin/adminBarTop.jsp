@@ -105,6 +105,9 @@
 	            <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
 	          </a>
 	        </li>
+	        
+	        <%@ include file="adminTime.jsp" %>
+	        
 	        <!-- 사이드바 메인 메뉴 -->
 	        <li class="nav-item">
 	          <a class="nav-link" href="home.admin">

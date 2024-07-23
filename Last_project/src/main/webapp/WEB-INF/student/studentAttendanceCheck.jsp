@@ -126,8 +126,8 @@
 
 <div align="center">
 	<body onload="getTime()">
-	<h6 id="Now_Date" style="color: #949494; position: relative; right: 40px; font-family: Times New Roman, serif;"></h6>
-	<h1 id="Now_Time" style="font-family: Times New Roman, serif;"></h1>
+	<span id="Now_Date" style="color: #949494; position: relative; right: 20px; font-family: NotoSans;"></span>
+	<h1 id="Now_Time" style="font-family: NotoSans; font-size: 40px"></h1><br>	
 
 	<span style="position: absolute; left: 63px;">출석시간</span>
 	<span style="position: absolute; left: 128px; ">:</span>
@@ -176,5 +176,5 @@
     }
 %>
 	</body>
-	<hr style="width : 70%;">
+	<hr style="margin-top:30px; width : 70%;">
 </div>
