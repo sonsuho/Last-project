@@ -64,58 +64,7 @@
 	
 </style>
 <script>
-        function allDelete(obj) {
-            var rcheck = document.getElementsByName("rowcheck");
-            var check = obj.checked;
-            for (var i = 0; i < rcheck.length; i++) {
-                rcheck[i].checked = check;
-            }
-        }
-
-        function selectDelete() {
-            var rcheck = document.getElementsByName("rowcheck");
-            var flag = false;
-            for (var i = 0; i < rcheck.length; i++) {
-                if (rcheck[i].checked) {
-                    flag = true;
-                    break;
-                }
-            }
-            if (!flag) {
-                alert("삭제할 문서를 선택하세요");
-                return;
-            }
-            document.myform.action = "selectDeleteEtc.manager";
-            document.myform.submit();
-        }
-
-
-function requestList(mem_num){
-	location.href="request.manager?mem_num="+mem_num;
-}
-function etcList(mem_num) {
-    location.href = "etcList.manager?mem_num="+mem_num;
-}
-function etcSendList(sender_num){
-	location.href="etcSendList.manager?sender_num="+sender_num;
-}
-function requestList2() {
-    location.href = "request2.manager";
-}
-
-//화면 분할
-function openDetail(etc_num) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'etcDetail.manager?etc_num=' + etc_num, true);
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            document.getElementById('rightPanel').innerHTML = xhr.responseText;
-            document.getElementById('container').classList.add('expanded');
-        }
-    };
-    xhr.send();
-}
-
+ 
 </script>
 <body>
 <div class="container" id="container">
@@ -139,13 +88,12 @@ function openDetail(etc_num) {
                 <div class="card-body">
                 
                 <div class="row">
-                <div class="col-lg-8"></div>
 				        <div class="col-lg-4">
 	                     	<form action="etcList.manager" style="display:flex;">
 	                     		<input type="hidden" name="whatColumn" value="all">
 								<input type="hidden" name="mem_num" value="${loginInfo.mem_num}">		                        
 								<input type="text" name="keyword" class="form-control" placeholder="이름 또는 제목을 입력하세요." aria-label="Recipient's username" aria-describedby="basic-addon2" style="width: 400px;">
-		                        <button type="submit" class="btn btn-sm btn-success py-3 btn-fixed-width" type="button">검색</button>
+		                        <button type="submit" class="btn btn-sm btn-success py-3 btn-fixed-width" type="button">검색</button>&nbsp;
 								<input type="button" value="일괄삭제" onclick="selectDelete()" class="btn btn-sm btn-gradient-danger py-3"> 
 	                        </form>
 				        </div>
@@ -175,7 +123,7 @@ function openDetail(etc_num) {
 					<c:forEach var="e" items="${elist }">
 						<c:if test="${fn:contains(e.etc_delete , 'M')}">
 							<tr>
-								<td><input type="checkbox" value="${e.etc_num }" name="rowcheck" class="form-check-input"></td>
+								<td><input type="checkbox" value="${e.etc_num }" name="drowcheck" class="form-check-input"></td>
 								<td>
 								<a href="javascript:void(0);" onclick="openDetail(${e.etc_num})">${e.etc_title}</a><br>
 								</td>
@@ -335,6 +283,61 @@ function openDetail(etc_num) {
 </div>
 
 <script type="text/javascript">
+
+
+function allDelete(obj) {
+    var rcheck = document.getElementsByName("drowcheck");
+    var check = obj.checked;
+    for (var i = 0; i < rcheck.length; i++) {
+        rcheck[i].checked = check;
+    }
+}
+
+function selectDelete() {
+    var rcheck = document.getElementsByName("rowcheck");
+    var flag = false;
+    for (var i = 0; i < rcheck.length; i++) {
+        if (rcheck[i].checked) {
+            flag = true;
+            break;
+        }
+    }
+    if (!flag) {
+        alert("삭제할 문서를 선택하세요");
+        return;
+    }
+    document.myform.action = "selectDeleteEtc.manager";
+    document.myform.submit();
+}
+
+
+function requestList(mem_num){
+location.href="request.manager?mem_num="+mem_num;
+}
+function etcList(mem_num) {
+location.href = "etcList.manager?mem_num="+mem_num;
+}
+function etcSendList(sender_num){
+location.href="etcSendList.manager?sender_num="+sender_num;
+}
+function requestList2() {
+location.href = "request2.manager";
+}
+
+//화면 분할
+function openDetail(etc_num) {
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'etcDetail.manager?etc_num=' + etc_num, true);
+xhr.onload = function() {
+if (xhr.status === 200) {
+    document.getElementById('rightPanel').innerHTML = xhr.responseText;
+    document.getElementById('container').classList.add('expanded');
+}
+};
+xhr.send();
+}
+
+
 	    function checkFileInput() {
 	        var fileInput = document.getElementsByName('multiFile')[0];
 	        var uploadField = document.getElementsByName('etc_file')[0];
@@ -582,7 +585,7 @@ function openDetail(etc_num) {
 
         // 폼 제출 전에 보낼 사람이 선택되었는지 확인
         $('#form').submit(function(e) {
-            var selectedCount = $('input[name="selected_mem_num"]:checked').length;
+            var selectedCount = $('input[name="rowcheck"]:checked').length;
             if (selectedCount === 0) {
                 alert('보낼 사람을 한 명 이상 선택해주세요.');
                 e.preventDefault(); // 폼 제출 중단

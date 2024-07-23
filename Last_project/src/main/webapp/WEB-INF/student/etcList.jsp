@@ -84,14 +84,13 @@
                 <div class="card-body">
                     
                     <div class="row">
-                    <div class="col-lg-8"></div>
 				        <div class="col-lg-4">
 	                     	<form action="etcList.student" style="display:flex;">
 	                     		<input type="hidden" name="whatColumn" value="all">
 	                     		<input type="hidden" name="mem_num" value="${loginInfo.mem_num}">
 		                        <input type="text" name="keyword" class="form-control" placeholder="이름 또는 제목을 입력하세요." aria-label="Recipient's username" aria-describedby="basic-addon2" style="width: 400px;">
 	                   			
-		                        <button type="submit" class="btn btn-sm btn-success py-3 btn-fixed-width" type="button">검색</button>
+		                        <button type="submit" class="btn btn-sm btn-success py-3 btn-fixed-width" type="button">검색</button>&nbsp;
                         		<input type="button" value="일괄삭제" onclick="selectDelete()" class="btn btn-sm btn-gradient-danger py-3">
 	                        </form>
 				        </div>

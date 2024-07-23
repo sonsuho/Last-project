@@ -64,13 +64,13 @@ public class ManagerEtcController {
     @ResponseBody
     @RequestMapping(value = command, method = RequestMethod.POST)
     public ModelAndView etc(@ModelAttribute("etc") @Valid EtcBean etc, BindingResult result,
-    							@RequestParam String [] selected_mem_num,
+    							@RequestParam String [] rowcheck,
     							@RequestParam int sender_num,
                                 HttpServletResponse response, HttpSession session,HttpServletRequest request,
                                 @RequestParam("multiFile") List<MultipartFile> multiFileList, Map<String, String> paramap) throws IOException {
         ModelAndView mav = new ModelAndView();
 
-        for(String i : selected_mem_num) {
+        for(String i : rowcheck) {
         	System.out.println("학생넘버:"+i);
         }
         System.out.println("컨트롤러sender_num:"+sender_num);
@@ -149,7 +149,7 @@ public class ManagerEtcController {
 
 
         System.out.println("기타 넘버:" + etc.getMem_num());
-        int cnt = edao.insert(etc,selected_mem_num);
+        int cnt = edao.insert(etc,rowcheck);
         if (cnt > 0) {
             PrintWriter pw = response.getWriter();
             response.setContentType("text/html;charset=UTF-8");
@@ -163,7 +163,7 @@ public class ManagerEtcController {
         
         mav.setViewName(gotoPage);
         
-        String stdList = String.join(",", selected_mem_num );
+        String stdList = String.join(",", rowcheck );
         
         MemberBean mb = (MemberBean)session.getAttribute("loginInfo");
 

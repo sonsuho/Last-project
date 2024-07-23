@@ -138,13 +138,12 @@ function openDetail(etc_num) {
                 <div class="card-body">
                 
                 <div class="row">
-                <div class="col-lg-8"></div>
 				        <div class="col-lg-4">
 	                     	<form action="etcSendList.manager" style="display:flex;">
 	                     		<input type="hidden" name="whatColumn" value="all">
 								<input type="hidden" name="sender_num" value="${loginInfo.mem_num}">
 								<input type="text" name="keyword" class="form-control" placeholder="이름 또는 제목을 입력하세요." aria-label="Recipient's username" aria-describedby="basic-addon2" style="width: 400px;">
-		                        <button type="submit" class="btn btn-sm btn-success py-3 btn-fixed-width" type="button">검색</button>
+		                        <button type="submit" class="btn btn-sm btn-success py-3 btn-fixed-width" type="button">검색</button>&nbsp;
 								<input type="button" onclick="selectDelete()"  value="일괄삭제" class="btn btn-sm btn-gradient-danger py-3">
 	                        </form>
 				        </div>
@@ -578,7 +577,7 @@ function openDetail(etc_num) {
 
         // 폼 제출 전에 보낼 사람이 선택되었는지 확인
         $('#form').submit(function(e) {
-            var selectedCount = $('input[name="selected_mem_num"]:checked').length;
+            var selectedCount = $('input[name="rowcheck"]:checked').length;
             if (selectedCount === 0) {
                 alert('보낼 사람을 한 명 이상 선택해주세요.');
                 e.preventDefault(); // 폼 제출 중단
