@@ -42,7 +42,8 @@ public class FindPwController {
 		
 		MemberBean mb = new MemberBean();
 		mb.setId(id);
-		mb.setPhone(phone);
+		String formattedPhone = formatPhoneNumber(phone);
+		mb.setPhone(formattedPhone);
 		
 		int mem_num = mdao.findPw(mb);
 		if(mem_num == -1) {
@@ -69,6 +70,16 @@ public class FindPwController {
 		return code;
 	}
 	
+	private static String formatPhoneNumber(String phoneNumber) {
+	    if (phoneNumber.length() == 10) {
+	        return phoneNumber.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1-$2-$3");
+	    } else if (phoneNumber.length() == 11) {
+	        return phoneNumber.replaceFirst("(\\d{3})(\\d{4})(\\d+)", "$1-$2-$3");
+	    } else {
+	        return phoneNumber;
+	    }
+	}
+	
 	public String sendSms(MemberBean mb) throws Exception {
 
 		System.out.println("SMS 본인인증 시작");
@@ -82,14 +93,14 @@ public class FindPwController {
 		}
 		
 		
-		String api_key = "NCSF9UNVAWPDZPCR";
-	    String api_secret = "FT1K1DIIZKUDYBKAXKUTUMSHW2ZUWVUP";
+		String api_key = "";
+	    String api_secret = "";
 	    Message coolsms = new Message(api_key, api_secret);
 
-	  
+	    /*
 	    HashMap<String, String> set = new HashMap<String, String>();
-	    set.put("to", "01084249684"); // 수신번호
-	    set.put("from", "01084249684"); // 발신번호
+	    set.put("to", ""); // 수신번호
+	    set.put("from", ""); // 발신번호
 	    set.put("text", "sist 인증번호 ["+numStr+"]"); // 문자내용
 	    set.put("type", "sms"); // 문자 타입
 
@@ -103,7 +114,7 @@ public class FindPwController {
             System.out.println(e.getMessage());
             System.out.println(e.getCode());
         }
-        
+        */
 
 	    System.out.println("돌아가기");
 	    
