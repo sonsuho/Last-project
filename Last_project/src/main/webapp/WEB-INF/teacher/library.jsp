@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file = "teacherTop.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:if test="${loginInfo.category == 'student'}">
+   <%@include file = "../student/studentTop.jsp"%>
+</c:if>
+
+<c:if test="${loginInfo.category == 'teacher'}">
+   <%@include file = "../teacher/teacherTop.jsp"%>
+</c:if>
 
     <style type="text/css">
     	
@@ -179,5 +186,11 @@
        </div>
     </div>
     
-<%@ include file = "teacherBottom.jsp"%>
+<c:if test="${loginInfo.category == 'student'}">
+   <%@include file = "../student/studentBottom.jsp"%>
+</c:if>
+
+<c:if test="${loginInfo.category == 'teacher'}">
+   <%@include file = "../teacher/teacherBottom.jsp"%>
+</c:if>
 	

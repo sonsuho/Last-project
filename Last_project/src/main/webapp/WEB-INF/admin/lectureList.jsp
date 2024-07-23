@@ -370,8 +370,8 @@
 	          $.each(response.members, function(index, member) {
 	        	  if(member.state == "진행"){
 	        		  state = "info";
-	        	  } else if(member.state == "퇴실"){
-	        		  state = "danger";
+	        	  } else if(member.state == "수료"){
+	        		  state = "dark";
 	        	  }
 	            $('#member-list table').append(
 	              '<tr>' +

@@ -587,12 +587,12 @@ table.date-month {
 											<c:forEach var="notice" items="${noticeList}" end="9">
 												<li>
 													<c:if test="${notice.class_name eq 'All'}">
-														<span class="badge badge-general">
+														<span class="badge badge-secondary">
 															전체
 														</span>
 													</c:if>
 													<c:if test="${notice.class_name ne 'All'}">
-														<span class="badge badge-important">
+														<span class="badge badge-info">
 															${notice.class_name}반
 														</span>
 													</c:if>

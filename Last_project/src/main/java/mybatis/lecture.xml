@@ -123,7 +123,7 @@
    </select>
    
       <insert id="insertGoingClass">
-      insert into going_class (lec_num, onoff) values(seq_going.nextval, 'off');
+      insert into going_class (lec_num, onoff) values(seq_going.nextval, 'off')
    </insert>
    
 

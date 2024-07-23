@@ -7,7 +7,41 @@
 <%@ include file="../all/topMenuMessage.jsp" %>
     
 	<!-- managerBarTop.jsp -->
+<style>
+	/* gnb부트스트랩 컬러 색상 바꿈 */
+	.navbar .navbar-menu-wrapper .navbar-nav .nav-item .nav-link  {
+		color : #333 !important;
+	}
 
+	.gnb li a{
+	    font-size: 14px;
+	    position: relative;   /*부모는 상대위치*/
+	    font-weight: bold;
+	}
+	.gnb li a:hover{
+		color: #000 !important;
+	}
+	
+	.gnb li a:before{
+	    content : '';
+	    position: absolute;  /*before를 절대위치*/
+	    background-color: dodgerblue;
+	    height: 2px;
+	    width : 0;
+	    bottom: 0px;      	 /*bottom을 주어, 글자 밑에 위치시킴*/       
+	    transition: 0.5s;    /*가상클래스에 이벤트 발생시 시간 지정*/
+	    
+	    
+	    left : 50%;         /*만약 왼쪽에서부터 커지게하려면-> left를 0으로 두면 됨*/
+	    transform: translateX(-50%);
+	}
+	
+	.gnb li a:hover:before{ /*hover시 width:0 -> 100%가 됨*/
+	    width : 100%;
+	    font-weight: bold !important;
+	      
+	}
+</style>
 <script>
 	function checkAttend(situ){
 		if(situ == '수업중'){
@@ -49,6 +83,14 @@
 		    </div>
 				<!-- 상단바 -->
 		    <div class="navbar-menu-wrapper d-flex align-items-stretch">
+		    <!-- gnb -->
+		      <ul class="navbar-nav mr-lg-2 gnb">
+	            <li class="nav-item  d-none d-lg-flex">
+	              <a class="nav-link" href="notice.manager">
+	                공지사항
+	              </a>
+	            </li>
+          	  </ul>
 		      <ul class="navbar-nav navbar-nav-right">
 		        <!-- 전체화면 -->
 		        <li class="nav-item d-none d-lg-block full-screen-link">
@@ -122,7 +164,7 @@
 						<!-- 사이드바 메인 메뉴 -->
 						<li class="nav-item">
 							<a class="nav-link" href="home.manager">
-								<span class="menu-title">ManagerMain</span> 
+								<span class="menu-title">홈</span> 
 								<i class="mdi mdi-home menu-icon"></i>
 							</a>
 						</li>
@@ -194,10 +236,6 @@
 								<ul class="nav flex-column sub-menu">
 									<li class="nav-item">
 										<a class="nav-link" href="notice.manager">공지사항</a>
-									</li>
-									
-									<li class="nav-item">
-										<a class="nav-link" href="library.teacher">자료실</a>
 									</li>
 								</ul>
 							</div>

@@ -111,7 +111,7 @@
 	        <!-- 사이드바 메인 메뉴 -->
 	        <li class="nav-item">
 	          <a class="nav-link" href="home.admin">
-	            <span class="menu-title">AdminMain</span>
+	            <span class="menu-title">홈</span>
 	            <i class="mdi mdi-home menu-icon"></i>
 	          </a>
 	        </li>
@@ -163,23 +163,6 @@
 	              </li>
 	               <li class="nav-item">
 	                <a class="nav-link" href="request2.admin">결재목록</a>
-	              </li>
-	            </ul>
-	          </div>
-	        </li>
-	        <li class="nav-item">
-	          <a class="nav-link" data-bs-toggle="collapse" href="#menu4" aria-expanded="false" aria-controls="menu4">
-	            <span class="menu-title">커뮤니티 관리</span>
-	            <i class="menu-arrow"></i>
-	            <i class="fa fa-list-alt menu-icon"></i> <!-- 큰메뉴3 우측 아이콘 -->
-	          </a>
-	          <div class="collapse" id="menu4">
-	            <ul class="nav flex-column sub-menu">
-	              <li class="nav-item">
-	                <a class="nav-link" href="">신고글 목록</a>
-	              </li>
-	              <li class="nav-item">
-	                <a class="nav-link" href="">삭제글 목록</a>
 	              </li>
 	            </ul>
 	          </div>
