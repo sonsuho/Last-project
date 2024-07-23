@@ -101,6 +101,15 @@
 		delete from lecture where lec_num= #{lec_num} and teacher = #{teacher}
 	</delete>
 	
+	<select id="getLectureByLecClass" parameterType="map" resultType="lecture.model.LectureBean">
+    SELECT * FROM lecture
+    <where>
+        <if test="class_name != null and class_name != 'All'">
+            class_name = #{class_name}
+        </if>
+    </where>
+</select>
+	
 	<!-- 민곤추가 -->
 	
 

@@ -1,5 +1,6 @@
 package student.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -18,13 +19,22 @@ public class StudentDao {
 		System.out.println("StudentDao 생성자 생성");
 	}
 
-	public List<MemberBean> getStudentByLec_Num(String lec_Num) {			// 
-		
-		List<MemberBean> slist = sqlSessionTemplate.selectList("student.model.Student.getStudentByLec_Num", lec_Num);
-		
-		System.out.println("slist 사이즈 : " + slist.size());
-		
-		return slist;
+	public List<MemberBean> getStudentByLec_Num(String lec_Num) {
+	    // 쉼표로 구분된 lec_Num을 분리하여 배열로 변환
+	    String[] lecNums = lec_Num.split(",");
+	    
+	    // 결과를 담을 리스트
+	    List<MemberBean> slist = new ArrayList<MemberBean>();
+
+	    // 각 lec_num에 대해 DB 쿼리 수행
+	    for (String num : lecNums) {
+	        List<MemberBean> result = sqlSessionTemplate.selectList("student.model.Student.getStudentByLec_Num", num.trim());
+	        slist.addAll(result);
+	    }
+
+	    System.out.println("slist 사이즈 : " + slist.size());
+	    
+	    return slist;
 	}
 
 	

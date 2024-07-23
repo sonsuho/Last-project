@@ -713,6 +713,7 @@
       <if test="whatColumn == 'all'">
          where title like #{keyword} or content like #{keyword}
       </if>
+      
       order by n_num desc
    </select>
    
@@ -755,6 +756,14 @@
    <delete id="deleteNoticeByN_num">
       delete from notice where n_num = #{n_num}
    </delete>
+   
+   <select id="getNoticeByClassName" resultType="manager.model.NoticeBean">
+   	select * from notice where class_name = #{class_name}
+   </select>
+   
+   <select id="getNoticeByLec_Num" resultType="manager.model.NoticeBean">
+   	select * from notice where lec_num = #{lec_num}
+   </select>
    <!-- 공지사항 -->
 
 </mapper>

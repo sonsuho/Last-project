@@ -103,4 +103,16 @@ public class NoticeDao {
 		
 		return cnt;
 	}
+
+	public NoticeBean getNoticeByClassName(String class_name) {
+		
+		NoticeBean nb = sqlSessionTemplate.selectOne(namespace+".getNoticeByClassName",class_name);
+		
+		return nb;
+	}
+
+	public NoticeBean getNoticeByLec_Num(String lec_num) {
+		NoticeBean nb = sqlSessionTemplate.selectOne(namespace+".getNoticeByLec_Num",lec_num);
+		return nb;
+	}
 }

@@ -349,7 +349,7 @@ public Paging(
    
    }
    
-<<<<<<< HEAD
+
    private String getPagingHtml( String url ){ //페이징 문자열을 만든다.
       System.out.println("getPagingHtml url:"+url); 
    
@@ -470,41 +470,6 @@ public Paging(
 		    this.pagingHtml = getPagingHtml(url);
 		}
    
-=======
-private String getPagingHtml(String url) {
-    String result = "";
-    String added_param = "&whatColumn=" + whatColumn + "&keyword=" + keyword + "&mem_num=" + mem_num + "&sender_num=" + sender_num;
-
-    if (this.beginPage != 1) {
-        result += "<li class='page-item'><a class='page-link' href='" + url
-                + "?pageNumber=" + (1) + "&pageSize=" + this.pageSize
-                + added_param + "' style='color: #C6A2E9;'>&laquo;</a></li>";
-        result += "<li class='page-item'><a class='page-link' href='" + url
-                + "?pageNumber=" + (this.beginPage - 1) + "&pageSize=" + this.pageSize
-                + added_param + "' style='color: #C6A2E9;'>이전</a></li>";
-    }
-
-    for (int i = this.beginPage; i <= this.endPage; i++) {
-        if (i == this.pageNumber) {
-            result += "<li class='page-item active'><a class='page-link' href='#' style='background-color: #C6A2E9; border-color: #C6A2E9;'>" + i + "</a></li>";
-        } else {
-            result += "<li class='page-item'><a class='page-link' href='" + url
-                    + "?pageNumber=" + i + "&pageSize=" + this.pageSize
-                    + added_param + "' style='color: #C6A2E9;'>" + i + "</a></li>";
-        }
-    }
-
-    if (this.endPage != this.totalPage) {
-        result += "<li class='page-item'><a class='page-link' href='" + url
-                + "?pageNumber=" + (this.endPage + 1) + "&pageSize=" + this.pageSize
-                + added_param + "' style='color: #C6A2E9;'>다음</a></li>";
-        result += "<li class='page-item'><a class='page-link' href='" + url
-                + "?pageNumber=" + (this.totalPage) + "&pageSize=" + this.pageSize
-                + added_param + "' style='color: #C6A2E9;'>&raquo;</a></li>";
-    }
-
-    return "<nav aria-label='Page navigation'><ul class='pagination justify-content-center'>" + result + "</ul></nav>";
-}
 
 
 //   private String getPagingHtml( String url ){ //페이징 문자열을 만든다.
@@ -559,7 +524,7 @@ private String getPagingHtml(String url) {
 //      
 //      return result ;
 //   }   
->>>>>>> branch 'suho' of https://github.com/sonsuho/Last-project.git
+
    
 }
 

@@ -6,10 +6,11 @@
 <mapper namespace="student.model.Student">
 
 
-	<select id="getStudentByLec_Num" resultType="member.model.MemberBean">
-		
-		select * from member where lec_num = #{lec_num} and category = 'student'
-		
+	<select id="getStudentByLec_Num" parameterType="string" resultType="member.model.MemberBean">
+    SELECT *
+    FROM member
+    WHERE category = 'student'
+      AND REGEXP_LIKE(lec_num, '(^|/)' || #{lec_num} || '(/|$)')
 	</select>
 	
 	<select id="getStudentByMem_Num" resultType="member.model.MemberBean">

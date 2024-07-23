@@ -100,6 +100,13 @@ public class LectureDao {
 		sqlSessionTemplate.delete(namespace+".deleteTeacherFromLecture",lb);
 	}
 	
+	public List<LectureBean> getLectureByLecClass(Map<String, String> paramap) {
+		List<LectureBean> list = new ArrayList<LectureBean>();
+		
+		list = sqlSessionTemplate.selectList(namespace+".getLectureByLecClass",paramap);
+		return list;
+	}
+	
 	//민곤
 	
 	
@@ -140,6 +147,8 @@ public class LectureDao {
 		return lb;
 	}
 	
+	
+	
 	public LectureBean getLectureForTeacher(int mem_num) {
 		LectureBean lb = new LectureBean();
 		lb = sqlSessionTemplate.selectOne(namespace+".getLectureForTeacher", mem_num);
@@ -154,6 +163,8 @@ public class LectureDao {
 	      
 	      return list;
 	   }
+	 
+	 
 	 
 	 
 
