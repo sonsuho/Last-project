@@ -44,9 +44,12 @@ public class MangerEtcDetailController {
 		
 		mav.addObject("uploadList", uploadList);
 		
-		String fileNames  = edao.fileCount(etc_num);
-		String[] files = fileNames.split("/");
-		int fileCount = files.length;
+		String fileNames = edao.fileCount(etc_num);
+        int fileCount = 0;
+        if (fileNames != null && !fileNames.isEmpty()) {
+            String[] files = fileNames.split("/");
+            fileCount = files.length;
+        }
         
         System.out.println("받은사람 번호:"+eb.getMem_num());
         

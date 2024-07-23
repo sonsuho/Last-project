@@ -63,61 +63,8 @@
             width: 90px;
         }
 </style>
-<script>
-        function allDelete(obj) {
-            var rcheck = document.getElementsByName("rowcheck");
-            var check = obj.checked;
-            for (var i = 0; i < rcheck.length; i++) {
-                rcheck[i].checked = check;
-            }
-        }
-
-        function selectDelete() {
-            var rcheck = document.getElementsByName("rowcheck");
-            var flag = false;
-            for (var i = 0; i < rcheck.length; i++) {
-                if (rcheck[i].checked) {
-                    flag = true;
-                    break;
-                }
-            }
-            if (!flag) {
-                alert("삭제할 문서를 선택하세요");
-                return;
-            }
-            document.myform.action = "selectDeleteEtc2.manager";
-            document.myform.submit();
-        }
 
 
-function requestList(mem_num){
-	location.href="request.manager?mem_num="+mem_num;
-}
-function etcList(mem_num) {
-    location.href = "etcList.manager?mem_num="+mem_num;
-}
-function etcSendList(sender_num){
-	location.href="etcSendList.manager?sender_num="+sender_num;
-}
-function requestList2() {
-    location.href = "request2.manager";
-}
-
-//화면 분할
-function openDetail(etc_num) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'etcDetail.manager?etc_num=' + etc_num, true);
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            document.getElementById('rightPanel').innerHTML = xhr.responseText;
-            document.getElementById('container').classList.add('expanded');
-        }
-    };
-    xhr.send();
-}
-
-</script>
-<body>
 <div class="container" id="container">
     <div class="left-panel" id="leftPanel">
         <div class="page-header">
@@ -151,7 +98,7 @@ function openDetail(etc_num) {
 		
 	<form method="post" name="myform" action="selectDeleteEtc2.manager">
 		<input type="hidden" name="etc_delete" value="M"> 
-		<input type="hidden" name="mem_num" value="${loginInfo.mem_num}">
+		<input type="hidden" name="sender_num" value="${loginInfo.mem_num}">
 		<table class="table table-hover">
 		<thead>
 			<tr class="table-danger">
@@ -227,7 +174,7 @@ function openDetail(etc_num) {
                		
                		<div id="thirdModal" class="third_modal" style="display:none;">
                			<!-- 받는 사람 리스트 -->
-               			<div class="wrap flex-wrap">
+               			<div class="wrap flex-wrap" style="height:200px; overflow-y:auto;">
 							<div class="form-check">
                               <label class="form-check-label">
                               <input type="checkbox" class="form-check-input" name="allcheck" onclick="allCheck(this)">전체선택</label>
@@ -238,31 +185,23 @@ function openDetail(etc_num) {
 									<c:forEach var="mb" items="${admin }">
 										<c:if test="${loginInfo.category != 'student' }">
 										<b>관리자</b>
-											<ul>
-												<li>
 													<div class="form-check">
 						                              <label class="form-check-label">
 						                              <input type="checkbox" class="form-check-input item" name="rowcheck" value="${mb.mem_num }" onchange="rowCheck()">${mb.name }</label>
 						                            </div>
-												</li>
-											</ul>
 										</c:if>
 									</c:forEach>
 								</li>
 								<li>
 									<b>학생</b>
-									<ul>
 										<c:forEach var="mb" items="${studentlist }">
 											<c:if test="${mb.mem_num != loginInfo.mem_num }">
-												<li>
 													<div class="form-check">
 						                              <label class="form-check-label">
 						                              <input type="checkbox" class="form-check-input item" name="rowcheck" value="${mb.mem_num }" onchange="rowCheck()">${mb.name }</label>
 						                            </div> 
-												</li>
 											</c:if>
 										</c:forEach>
-									</ul>
 								</li>
 								
 							</ul>
@@ -330,6 +269,59 @@ function openDetail(etc_num) {
 </div>
 
 <script type="text/javascript">
+
+function allDelete(obj) {
+    var rcheck = document.getElementsByName("rowcheck");
+    var check = obj.checked;
+    for (var i = 0; i < rcheck.length; i++) {
+        rcheck[i].checked = check;
+    }
+}
+
+function selectDelete() {
+    var rcheck = document.getElementsByName("rowcheck");
+    var flag = false;
+    for (var i = 0; i < rcheck.length; i++) {
+        if (rcheck[i].checked) {
+            flag = true;
+            break;
+        }
+    }
+    if (!flag) {
+        alert("삭제할 문서를 선택하세요");
+        return;
+    }
+    document.myform.action = "selectDeleteEtc2.manager";
+    document.myform.submit();
+}
+
+
+function requestList(mem_num){
+location.href="request.manager?mem_num="+mem_num;
+}
+function etcList(mem_num) {
+location.href = "etcList.manager?mem_num="+mem_num;
+}
+function etcSendList(sender_num){
+location.href="etcSendList.manager?sender_num="+sender_num;
+}
+function requestList2() {
+location.href = "request2.manager";
+}
+
+//화면 분할
+function openDetail(etc_num) {
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'etcDetail.manager?etc_num=' + etc_num, true);
+xhr.onload = function() {
+if (xhr.status === 200) {
+    document.getElementById('rightPanel').innerHTML = xhr.responseText;
+    document.getElementById('container').classList.add('expanded');
+}
+};
+xhr.send();
+}
+
 	    function checkFileInput() {
 	        var fileInput = document.getElementsByName('multiFile')[0];
 	        var uploadField = document.getElementsByName('etc_file')[0];

@@ -63,10 +63,7 @@
         }
 	
 </style>
-<script>
- 
-</script>
-<body>
+
 <div class="container" id="container">
     <div class="left-panel" id="leftPanel">
         <div class="page-header">
@@ -180,7 +177,7 @@
                		
                		<div id="thirdModal" class="third_modal" style="display:none;">
                			<!-- 받는 사람 리스트 -->
-               			<div class="wrap flex-wrap">
+               			<div class="wrap flex-wrap" style="height:200px; overflow-y:auto;">
 							<div class="form-check">
                               <label class="form-check-label">
                               <input type="checkbox" class="form-check-input" name="allcheck" onclick="allCheck(this)">전체선택</label>
@@ -191,31 +188,23 @@
 									<c:forEach var="mb" items="${admin }">
 										<c:if test="${loginInfo.category != 'student' }">
 										<b>관리자</b>
-											<ul>
-												<li>
 													<div class="form-check">
 						                              <label class="form-check-label">
 						                              <input type="checkbox" class="form-check-input item" name="rowcheck" value="${mb.mem_num }" onchange="rowCheck()">${mb.name }</label>
 						                            </div>
-												</li>
-											</ul>
 										</c:if>
 									</c:forEach>
 								</li>
 								<li>
 									<b>학생</b>
-									<ul>
 										<c:forEach var="mb" items="${studentlist }">
 											<c:if test="${mb.mem_num != loginInfo.mem_num }">
-												<li>
 													<div class="form-check">
 						                              <label class="form-check-label">
 						                              <input type="checkbox" class="form-check-input item" name="rowcheck" value="${mb.mem_num }" onchange="rowCheck()">${mb.name }</label>
 						                            </div> 
-												</li>
 											</c:if>
 										</c:forEach>
-									</ul>
 								</li>
 								
 							</ul>
@@ -223,7 +212,7 @@
                		
 						
 						<!-- 선택된 사람 노출 -->
-						<div class="wrap" style="position: relative; width: 100%;">
+						<div class="wrap" style="position: relative; width: 100%;"> 
 							<div style="padding: 5px 0 5px 10px;">
 								<b>받는 사람 목록</b>
 							</div>
