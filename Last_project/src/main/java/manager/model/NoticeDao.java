@@ -111,8 +111,9 @@ public class NoticeDao {
 		return nb;
 	}
 
-	public NoticeBean getNoticeByLec_Num(String lec_num) {
-		NoticeBean nb = sqlSessionTemplate.selectOne(namespace+".getNoticeByLec_Num",lec_num);
-		return nb;
-	}
+	/*
+	 * public NoticeBean getNoticeByLec_Num(String lec_num) { NoticeBean nb =
+	 * sqlSessionTemplate.selectOne(namespace+".getNoticeByLec_Num",lec_num); return
+	 * nb; }
+	 */
 }

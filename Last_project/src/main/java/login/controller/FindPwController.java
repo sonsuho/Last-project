@@ -1,9 +1,11 @@
 package login.controller;
 
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -14,7 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import member.model.MemberBean;
 import member.model.MemberDao;
-
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import utility.Sha256;
 
 @Controller
@@ -78,15 +81,15 @@ public class FindPwController {
 			numStr += ran;
 		}
 		
-		/*
-		String api_key = "보안상의 이유로 테스트할때만 변경해서 사용";
-	    String api_secret = "보안상의 이유로 테스트할때만 변경해서 사용";
+		
+		String api_key = "NCSF9UNVAWPDZPCR";
+	    String api_secret = "FT1K1DIIZKUDYBKAXKUTUMSHW2ZUWVUP";
 	    Message coolsms = new Message(api_key, api_secret);
 
 	  
 	    HashMap<String, String> set = new HashMap<String, String>();
-	    set.put("to", "받는사람번호010xxxxxxxx"); // 수신번호
-	    set.put("from", "보내는사람번호010xxxxxxxx"); // 발신번호
+	    set.put("to", "01084249684"); // 수신번호
+	    set.put("from", "01084249684"); // 발신번호
 	    set.put("text", "sist 인증번호 ["+numStr+"]"); // 문자내용
 	    set.put("type", "sms"); // 문자 타입
 
@@ -100,7 +103,7 @@ public class FindPwController {
             System.out.println(e.getMessage());
             System.out.println(e.getCode());
         }
-        */
+        
 
 	    System.out.println("돌아가기");
 	    

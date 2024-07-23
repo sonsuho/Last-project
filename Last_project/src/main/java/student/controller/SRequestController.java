@@ -25,7 +25,7 @@ public class SRequestController {
 
 	private final String command = "request.student";
 	private final String getPage = "requestForm";
-	private final String gotoPage = "redirect:/request.student";
+	private final String gotoPage = "redirect:/request2.student";
 	
 	@Autowired
 	SRequestDao requestDao;
