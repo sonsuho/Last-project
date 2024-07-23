@@ -194,7 +194,7 @@
 									</c:forEach>
 								<li>
 									<b>매니저</b>
-										<c:forEach var="mb" items="${teacherlist }">
+										<c:forEach var="mb" items="${managerlist }">
 											<c:if test="${mb.mem_num != loginInfo.mem_num }">
 													<div class="form-check">
 						                              <label class="form-check-label">

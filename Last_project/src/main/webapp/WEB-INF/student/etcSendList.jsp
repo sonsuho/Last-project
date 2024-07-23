@@ -181,7 +181,7 @@
 									</c:forEach>
 								<li>
 									<b>매니저</b>
-										<c:forEach var="mb" items="${teacherlist }">
+										<c:forEach var="mb" items="${managerlist }">
 											<c:if test="${mb.mem_num != loginInfo.mem_num }">
 													<div class="form-check">
 						                              <label class="form-check-label">
@@ -558,7 +558,7 @@ function openDetail(etc_num,sender_num) {
 
         // 폼 제출 전에 보낼 사람이 선택되었는지 확인
         $('#form').submit(function(e) {
-            var selectedCount = $('input[name="selected_mem_num"]:checked').length;
+            var selectedCount = $('input[name="rowcheck"]:checked').length;
             if (selectedCount === 0) {
                 alert('보낼 사람을 한 명 이상 선택해주세요.');
                 e.preventDefault(); // 폼 제출 중단
