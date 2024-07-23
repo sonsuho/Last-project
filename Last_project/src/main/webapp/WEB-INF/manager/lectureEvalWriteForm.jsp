@@ -170,8 +170,6 @@
 	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                            <input type="submit" value="평가" onclick="return evalCheck()">
 	                        </div>
 	                    </form>
