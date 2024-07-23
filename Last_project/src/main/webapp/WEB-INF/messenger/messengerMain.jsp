@@ -53,8 +53,8 @@
     .seleted_list div { width: 15%; background: #f6f6f6; display: flex; justify-content: center; align-content: center; border-radius: 50px; margin-right: 7px; padding: 5px; color: #666; margin-top:10px; font-size: 14px;}
     .seleted_list div:last-child { margin-right:0;}
     
-    #selectedItems {display:flex !important; flex-wrap: wrap !important; overflow-y:auto !important; height: 80%;}
-    #selectedItems div { padding: 15px 7px 0; box-sizing: border-box;}
+    #selectedItems {display:flex !important; justify-content: flex-start; flex-direction: row; flex-wrap: wrap !important; overflow-y:auto !important; max-height: 80%;}
+    #selectedItems div { padding: 15px 7px 0; box-sizing: border-box; width:100%;}
 </style>
 
 <c:choose>
@@ -490,7 +490,7 @@
 						            '<p style="font-size: 15px; margin:0 0 0 20px;">' + data.send_time + '</p>' +
 						            '</div>' +
 						            '<p style="margin:16px 0 0 !important;">보낸사람</p>' +
-						            '<p><img src="resources/user.png" style="width:24px; margin-right:10px;">' + data.send_name + '</p>' +
+						            '<p><img src="resources/assets/images/faces/' + data.image + '" style="width:24px; margin-right:10px;">' + data.send_name + '</p>' +
 						            '<p style="height: 150px;">' + data.content + '</p>' +
 						            '<p><b>첨부파일</b></p>';
 	
@@ -654,7 +654,7 @@
   				 $('#selectedItems').empty(); // 기존 리스트 초기화
   				 
                  $.each(response, function(index, item) {
-                     $('#selectedItems').append('<div><span><img src="resources/assets/images/faces/' + item.image + '" width="36px; margin-right: 12px;"></span>' + item.name + '</div>' );
+                     $('#selectedItems').append('<div><span style="margin-right: 6px !important;"><img src="resources/assets/images/faces/' + item.image + '" width="36px;"></span>' + item.name + '</div>' );
                  });
   				
   			},
@@ -741,7 +741,7 @@
   				
   				// 받는사람 
   				$("#replyModal .modal-body .recv_name").html(
-  						'<div><span><img src="resources/user.png" width="24px;"></span>' + data.send_name + '</div>'
+  						'<div><span><img src="resources/assets/images/faces/' + data.image + '" width="24px; margin-right: 12px;"></span>' + data.send_name + '</div>'
   				);
   				
   				$("#replyModal").modal('show');
