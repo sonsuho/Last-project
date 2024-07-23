@@ -183,18 +183,8 @@
                               <input type="checkbox" class="form-check-input" name="allcheck" onclick="allCheck(this)">전체선택</label>
                             </div>
                				<ul class="msg_list">
-               					<li>
 									<c:set var="loginInfo" value="${loginInfo}" />
-									<c:forEach var="mb" items="${admin }">
-										<c:if test="${loginInfo.category != 'student' }">
-										<b>관리자</b>
-													<div class="form-check">
-						                              <label class="form-check-label">
-						                              <input type="checkbox" class="form-check-input item" name="rowcheck" value="${mb.mem_num }" onchange="rowCheck()">${mb.name }</label>
-						                            </div>
-										</c:if>
-									</c:forEach>
-								</li>
+									
 								<li>
 									<b>학생</b>
 										<c:forEach var="mb" items="${studentlist }">
