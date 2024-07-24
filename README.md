@@ -36,7 +36,7 @@
 - 서비스 배포 환경 : AWS, tomcat
 - 디자인 : [bootstrap](https://getbootstrap.kr/), figma
 
-  화면설계서 링크 : https://www.figma.com/design/Kmh6rmDV0KwjXQ5dAgwUsa/3%EC%B0%A8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8?node-id=66-390&t=YlM9dhHRBGOD9sMQ-1
+  화면설계서 링크 : [바로가기](https://www.figma.com/design/Kmh6rmDV0KwjXQ5dAgwUsa/3%EC%B0%A8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8?node-id=66-390&t=YlM9dhHRBGOD9sMQ-1),
 
 <br>
 
