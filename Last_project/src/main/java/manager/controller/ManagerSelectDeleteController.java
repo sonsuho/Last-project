@@ -46,7 +46,7 @@ public class ManagerSelectDeleteController {
 			rdao.selectDelete(rowcheck);
 		}
 		
-		
+		//mav.addObject(ap_delete, mav);
 		mav.setViewName(getPage);
 		
 		return mav;

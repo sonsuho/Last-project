@@ -123,7 +123,7 @@
                 alert("선택하세요");
                 return;
             }
-            document.myform.action = "selectDelete.manager";
+            document.myform.action = "selectDeleteReq.manager";
             document.myform.submit();
         }
 

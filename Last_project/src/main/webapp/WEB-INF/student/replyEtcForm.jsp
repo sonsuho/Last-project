@@ -177,7 +177,7 @@ $(document).ready(function() {
         });
 
 
-    $(function() {
+    /* $(function() {
         $('#btnSave2').click(function() {
             var title = $('input[name="etc_title"]').val().trim();
             var content = $('textarea[name="etc_content"]').val().trim();
@@ -201,16 +201,17 @@ $(document).ready(function() {
             }
                 
             // 유효성 검사 통과 시 폼 제출
+            
             return true;
         });
-    });
+    }); */
 
     
 </script>
     
    <!--답장 모달 -->
 				<div id="formContainer">
-      			<form:form id="form" commandName="etc" action="replyEtc.student" method="post" enctype="multipart/form-data" acceptCharset="UTF-8" class="forms-sample">
+      			<form:form name = "myform" id="form" commandName="etc" action="replyEtc.student" method="post" enctype="multipart/form-data" acceptCharset="UTF-8" class="forms-sample">
 
                     <input type="hidden" name="etc_delete" value="MS">
                 	<input type="hidden" name="sender_num" value="${sender_num}">
@@ -255,7 +256,7 @@ $(document).ready(function() {
                 		<form:errors path="etc_fdate" cssClass="err"/>
                       	</div>
                       </div>
-                      <button type="submit" id="btnSave2" class="btn btn-gradient-primary me-2 save" data-action="save">전송</button>
+                      <input type="submit"  value="전송" id="btnSave2" class="btn btn-gradient-primary me-2 save" data-action="save">
       				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">닫기</button>
       			</form:form>
             </div>

@@ -124,7 +124,7 @@
                 alert("선택하세요");
                 return;
             }
-            document.myform.action = "selectDelete2.manager";
+            document.myform.action = "selectDeleteReq2.manager";
             document.myform.submit();
         }
 
