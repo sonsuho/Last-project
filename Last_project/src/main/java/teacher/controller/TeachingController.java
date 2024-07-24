@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import alarm.model.AlarmDao;
 import alarm.model.AlarmService;
+import lecture.model.LectureDao;
 import lecture.model.On_going_lectureBean;
 import lecture.model.On_going_lectureDao;
 import member.model.MemberBean;
@@ -39,6 +40,9 @@ public class TeachingController {
 	AlarmDao adao;
 	
 	@Autowired
+	LectureDao ldao;
+	
+	@Autowired
 	On_going_lectureDao odao;
 	
 	@Autowired
@@ -52,11 +56,12 @@ public class TeachingController {
 	@RequestMapping(value = command, method = RequestMethod.POST)
 	public ModelAndView teaching(@RequestParam(value = "url") String url, HttpSession session , Map<String, String> paramap) {
 		
-		MemberBean teacher = (MemberBean)session.getAttribute("loginInfo");					// session으로 설정된 loginInfo에서 강좌 번호를 가져온 다음
+	      
+	    MemberBean teacher = (MemberBean)session.getAttribute("loginInfo");
+	      
+	    int lec_Num = ldao.getLectureByTeacher(teacher.getMem_num());
 		
-		String lec_Num = teacher.getLec_num();												// 해당 강좌 번호에 해당하는 모든 학생 리스트를 구하고
-		
-		List<MemberBean> slist = sdao.getStudentByLec_Num(lec_Num);							// 반복을 통해 해당 강좌를 수강하는 모든 학생들에게 수업 링크가 담긴 메시지를 보낸다
+		List<MemberBean> slist = sdao.getStudentByLec_Num(String.valueOf(lec_Num));			// 반복을 통해 해당 강좌를 수강하는 모든 학생들에게 수업 링크가 담긴 메시지를 보낸다
 		
 		On_going_lectureBean ob = new On_going_lectureBean();
 		

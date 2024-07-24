@@ -29,7 +29,6 @@
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
 }
->>>>>>> refs/heads/huiwon
 
 .btn-hover:hover {
     background-position: 100% 0;

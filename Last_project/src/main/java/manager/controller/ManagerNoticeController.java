@@ -72,7 +72,7 @@ public class ManagerNoticeController {
 
 		String lec_num = ((MemberBean)session.getAttribute("loginInfo")).getLec_num();
 		
-		 NoticeBean nb = ndao.getNoticeByLec_Num(lec_num);
+//		 NoticeBean nb = ndao.getNoticeByLec_Num(lec_num);
 		
 		
 		ModelAndView mav = new ModelAndView();
@@ -94,7 +94,7 @@ public class ManagerNoticeController {
 		mav.addObject("totalCount", totalCount);
 		mav.addObject("noticeList", noticeList);
 		mav.addObject("pageInfo", pageInfo);
-		mav.addObject("nb", nb);
+//		mav.addObject("nb", nb);
 		
 		mav.setViewName(getPage);
 		

@@ -613,9 +613,9 @@
    	select * from notice where class_name = #{class_name}
    </select>
    
-   <select id="getNoticeByLec_Num" resultType="manager.model.NoticeBean">
+   <!-- <select id="getNoticeByLec_Num" resultType="manager.model.NoticeBean">
    	select * from notice where lec_num = #{lec_num}
-   </select>
+   </select> -->
    <!-- 공지사항 -->
 
 </mapper>

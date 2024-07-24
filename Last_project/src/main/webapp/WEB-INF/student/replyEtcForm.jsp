@@ -256,7 +256,10 @@ $(document).ready(function() {
                 		<form:errors path="etc_fdate" cssClass="err"/>
                       	</div>
                       </div>
+
                       <input type="submit"  value="전송" id="btnSave2" class="btn btn-gradient-primary me-2 save" data-action="save">
+
+
       				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">닫기</button>
       			</form:form>
             </div>

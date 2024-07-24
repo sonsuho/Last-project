@@ -1,9 +1,11 @@
 package login.controller;
 
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -14,7 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import member.model.MemberBean;
 import member.model.MemberDao;
-
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import utility.Sha256;
 
 @Controller
@@ -39,7 +42,8 @@ public class FindPwController {
 		
 		MemberBean mb = new MemberBean();
 		mb.setId(id);
-		mb.setPhone(phone);
+		String formattedPhone = formatPhoneNumber(phone);
+		mb.setPhone(formattedPhone);
 		
 		int mem_num = mdao.findPw(mb);
 		if(mem_num == -1) {
@@ -66,6 +70,16 @@ public class FindPwController {
 		return code;
 	}
 	
+	private static String formatPhoneNumber(String phoneNumber) {
+	    if (phoneNumber.length() == 10) {
+	        return phoneNumber.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1-$2-$3");
+	    } else if (phoneNumber.length() == 11) {
+	        return phoneNumber.replaceFirst("(\\d{3})(\\d{4})(\\d+)", "$1-$2-$3");
+	    } else {
+	        return phoneNumber;
+	    }
+	}
+	
 	public String sendSms(MemberBean mb) throws Exception {
 
 		System.out.println("SMS 본인인증 시작");
@@ -78,15 +92,15 @@ public class FindPwController {
 			numStr += ran;
 		}
 		
-		/*
-		String api_key = "보안상의 이유로 테스트할때만 변경해서 사용";
-	    String api_secret = "보안상의 이유로 테스트할때만 변경해서 사용";
+		
+		String api_key = "";
+	    String api_secret = "";
 	    Message coolsms = new Message(api_key, api_secret);
 
-	  
+	    /*
 	    HashMap<String, String> set = new HashMap<String, String>();
-	    set.put("to", "받는사람번호010xxxxxxxx"); // 수신번호
-	    set.put("from", "보내는사람번호010xxxxxxxx"); // 발신번호
+	    set.put("to", ""); // 수신번호
+	    set.put("from", ""); // 발신번호
 	    set.put("text", "sist 인증번호 ["+numStr+"]"); // 문자내용
 	    set.put("type", "sms"); // 문자 타입
 

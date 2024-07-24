@@ -199,7 +199,7 @@
 	                    </div>
 	                    
 	                    <div class="question-options">
-	                        <img src="resources/testFiles/${images[i]}" width="150" height="150" style="margin-bottom: 10px; padding-left: 20px; padding-top: 10px;"> <br>
+	                        <img src="resources/testFiles/${images[i]}" width="300" style="margin-bottom: 10px; padding-left: 20px; padding-top: 10px;"> <br>
 	                        
 	                        <input type="radio" id="option${i + 1}_1" name="problem${i + 1}" value="1">
 	                        <label for="option${i + 1}_1" class="option-label">${opts[i].split("-")[0]}</label><br>

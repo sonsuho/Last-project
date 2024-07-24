@@ -181,6 +181,11 @@ INSERT INTO member VALUES (mem_seq.nextval, '김태희', 'student58', '03ac67421
 --틀린 경도(teacher)
 --INSERT INTO member  VALUES (mem_seq.nextval, 'tea_test', 'tea_test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'teacher', '1', '서울시 강서구', '010-0123-4567', 'jihoon@google.com', '근무', 3,'106.241.247.83', 37.55655207589364, 124.91945616764994, 'user.jpg', '여', '1975-01-16');
 
+update member set name='홍길동' where name='정우성';
+update member set name ='정우성' where id='student1';
+update member set id='X' where id='student';
+delete from member where id='X';
+
 commit;
 
 col mem_num for 99
@@ -677,34 +682,34 @@ CREATE TABLE messenger (
 );
 
 insert into messenger(msg_num, mem_num, recv_num, title, content, send_name, recv_name, send_time, read_chk, del_chk)
-values(msg_seq.nextval, 76, 14, '강사님 과제 파일 보내드립니다.', '첨부했습니다. 감사합니다.', '정우성', '박지현', '2024-05-10', 0, 3);
+values(msg_seq.nextval, 71, 14, '강사님 과제 파일 보내드립니다.', '첨부했습니다. 감사합니다.', '정우성', '박지현', '2024-05-10', 0, 3);
 
 insert into messenger(msg_num, mem_num, recv_num, title, content, send_name, recv_name, send_time, read_chk, del_chk)
-values(msg_seq.nextval, 8, 76, '서류 관련', '서류 제출하세요.', '최민호', '정우성', '2024-06-01', 0, 3);
+values(msg_seq.nextval, 8, 71, '서류 관련', '서류 제출하세요.', '최민호', '정우성', '2024-06-01', 0, 3);
 
 insert into messenger(msg_num, mem_num, recv_num, title, content, send_name, recv_name, send_time, read_chk, del_chk)
-values(msg_seq.nextval, 76, 8, '질문입니다.', '언제까지 파일 제출 하라고 하셨죠..??', '정우성', '최민호', '2024-06-01', 0, 3);
+values(msg_seq.nextval, 71, 8, '질문입니다.', '언제까지 파일 제출 하라고 하셨죠..??', '정우성', '최민호', '2024-06-01', 0, 3);
 
 insert into messenger(msg_num, mem_num, recv_num, title, content, send_name, recv_name, send_time, read_chk, del_chk)
-values(msg_seq.nextval, 76, 8, '파일 보내드립니다.', '매니저님 아까 말씀하신 파일 보내드려요.', '정우성', '최민호', '2024-06-10', 0, 3);
+values(msg_seq.nextval, 71, 8, '파일 보내드립니다.', '매니저님 아까 말씀하신 파일 보내드려요.', '정우성', '최민호', '2024-06-10', 0, 3);
 
 insert into messenger(msg_num, mem_num, recv_num, title, content, send_name, recv_name, send_time, read_chk, del_chk)
-values(msg_seq.nextval, 76, 77, '답 뭐야?', '혜수야 아까 그거 답 뭐였지?', '정우성', '김혜수', '2024-06-11', 0, 3);
+values(msg_seq.nextval, 71, 72, '답 뭐야?', '혜수야 아까 그거 답 뭐였지?', '정우성', '김혜수', '2024-06-11', 0, 3);
 
 insert into messenger(msg_num, mem_num, recv_num, title, content, send_name, recv_name, send_time, read_chk, del_chk)
-values(msg_seq.nextval, 76, 78, '동욱아 파일 좀 보내줘', '동욱아 아까 쌤이 보내주신 파일 좀 보내주라', '정우성', '이동욱', '2024-06-24', 0, 3);
+values(msg_seq.nextval, 71, 73, '동욱아 파일 좀 보내줘', '동욱아 아까 쌤이 보내주신 파일 좀 보내주라', '정우성', '이동욱', '2024-06-24', 0, 3);
 
 insert into messenger(msg_num, mem_num, recv_num, title, content, send_name, recv_name, send_time, read_chk, del_chk)
-values(msg_seq.nextval, 76, 78, '아니 그거말고', '아니 방금 보내준 파일 말고 그 전파일 좀 보내줘', '정우성', '이동욱', '2024-06-24', 0, 3);
+values(msg_seq.nextval, 71, 73, '아니 그거말고', '아니 방금 보내준 파일 말고 그 전파일 좀 보내줘', '정우성', '이동욱', '2024-06-24', 0, 3);
 
 insert into messenger(msg_num, mem_num, recv_num, title, content, send_name, recv_name, send_time, read_chk, del_chk)
-values(msg_seq.nextval, 77, 76, '파일', '확인 해줘', '김혜수', '정우성', '2024-06-26', 0, 3);
+values(msg_seq.nextval, 72, 71, '파일', '확인 해줘', '김혜수', '정우성', '2024-06-26', 0, 3);
 
 insert into messenger(msg_num, mem_num, recv_num, title, content, send_name, recv_name, send_time, read_chk, del_chk)
-values(msg_seq.nextval, 78, 76, '파일', '확인 해줘', '이동욱', '정우성', '2024-06-26', 0, 3);
+values(msg_seq.nextval, 73, 71, '파일', '확인 해줘', '이동욱', '정우성', '2024-06-26', 0, 3);
 
 insert into messenger(msg_num, mem_num, recv_num, title, content, send_name, recv_name, send_time, read_chk, del_chk)
-values(msg_seq.nextval, 8, 76, '서류 제출 요망', '서류 빨리 보내세요', '최민호', '정우성', '2024-06-26', 0, 3);
+values(msg_seq.nextval, 8, 71, '서류 제출 요망', '서류 빨리 보내세요', '최민호', '정우성', '2024-06-26', 0, 3);
 
 
 ===================================
